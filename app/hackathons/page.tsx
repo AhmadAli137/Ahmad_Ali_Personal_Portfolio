@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Award, ExternalLink } from "lucide-react";
 import { Reveal } from "@/components/reveal";
+import { Ph } from "@/components/image-placeholder";
 import { Btn, Card, Chip, Chips } from "@/components/ui";
 
 export const metadata: Metadata = {
@@ -17,6 +18,8 @@ interface Hack {
   chips: string[];
   href: string;
   internal?: boolean;
+  img?: string;
+  imgAlt?: string;
 }
 
 const hacks: Hack[] = [
@@ -28,6 +31,8 @@ const hacks: Hack[] = [
     chips: ["ESP32", "Camera Vision", "Next.js"],
     href: "/projects/sketchbot",
     internal: true,
+    img: "/img/sketchbot-a.jpg",
+    imgAlt: "SketchBot drawing robot with marker attachment",
   },
   {
     award: "Hack the 6ix 2026 — Solo Build",
@@ -45,6 +50,8 @@ const hacks: Hack[] = [
     desc: "Real-time presentation coaching: live speech analysis flags pacing over 160 wpm and nudges you through a vibrating IoT wearable. React, FastAPI, AssemblyAI, ESP32.",
     chips: ["AssemblyAI", "FastAPI", "ESP32"],
     href: "https://devpost.com/software/presentpro-w0a5zb",
+    img: "/img/presentpro-a.jpg",
+    imgAlt: "PresentPro IoT wrist wearable with ESP32 and haptic feedback",
   },
   {
     award: "WinHacks 2024 — 2nd Place Overall",
@@ -53,6 +60,8 @@ const hacks: Hack[] = [
     desc: "Give your EV battery a second life in a microgrid — a platform to collect, test, and repurpose end-of-life EV batteries for energy storage. Born from my battery research.",
     chips: ["Next.js", "Prisma", "Energy"],
     href: "https://devpost.com/software/winhacks-2024-egl-title-tbd",
+    img: "/img/secondlife-a.png",
+    imgAlt: "Second Life landing page — give your EV battery a second life in a microgrid",
   },
   {
     award: "Winner",
@@ -61,6 +70,8 @@ const hacks: Hack[] = [
     desc: "Mobile app helping people explore the trails, parks, and heritage parks of Windsor.",
     chips: ["Mobile", "Maps"],
     href: "https://devpost.com/software/winparks",
+    img: "/img/winparks-a.jpg",
+    imgAlt: "WinParks mobile app showing Windsor park listings",
   },
   {
     award: "Energy × Software",
@@ -69,6 +80,8 @@ const hacks: Hack[] = [
     desc: "Keeping all the electric vehicles on the grid — managing EV charging load at scale.",
     chips: ["EV", "Grid"],
     href: "https://devpost.com/software/wingrid",
+    img: "/img/wingrid-a.jpg",
+    imgAlt: "WinGRID mobile app for planning EV charger installations",
   },
   {
     award: "Desktop App",
@@ -77,6 +90,8 @@ const hacks: Hack[] = [
     desc: "Desktop application providing trustworthy Covid-19 statistics from countries around the world.",
     chips: ["Desktop", "Data"],
     href: "https://devpost.com/software/covid-19-global",
+    img: "/img/covid-a.png",
+    imgAlt: "Covid-19 Global desktop app showing worldwide statistics",
   },
   {
     award: "And more…",
@@ -115,6 +130,7 @@ export default function HackathonsPage() {
           {hacks.map((h, i) => {
             const inner = (
               <Card className="flex h-full flex-col gap-3.5">
+                {h.img && <Ph caption={h.title} src={h.img} alt={h.imgAlt ?? h.title} minH="min-h-[200px]" />}
                 <span
                   className={`flex items-center gap-1.5 font-mono text-xs ${
                     h.awardTone === "amber" ? "text-amber" : "text-cyan"

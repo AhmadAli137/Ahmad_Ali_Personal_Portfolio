@@ -180,7 +180,7 @@ export default function Home() {
               <Reveal key={p.slug} delay={(i % 3) * 0.08}>
                 <Link href={`/projects/${p.slug}`} className="group block h-full">
                   <Card className="flex h-full flex-col gap-4">
-                    <Ph caption={p.cardCaption} minH="min-h-[190px]" />
+                    <Ph caption={p.cardCaption} src={p.cardSrc} alt={p.cardCaption} minH="min-h-[190px]" />
                     <span className="flex items-center gap-1.5 font-mono text-xs text-amber">
                       <Award size={13} /> {p.badge.replace("★ ", "")}
                     </span>

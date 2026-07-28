@@ -52,7 +52,13 @@ export default async function ProjectPage({
         <p className="mb-6 max-w-2xl text-lg text-muted">{project.tagline}</p>
         <div className="mb-6"><Chips items={project.chips} /></div>
         <Hud>
-          <Ph caption={project.heroCaption} minH="min-h-[440px]" className="shadow-[0_0_60px_rgba(0,229,255,0.08)]" />
+          <Ph
+            caption={project.heroCaption}
+            src={project.heroSrc}
+            alt={project.heroCaption}
+            minH="min-h-[440px]"
+            className="shadow-[0_0_60px_rgba(0,229,255,0.08)]"
+          />
         </Hud>
 
         <Reveal className="grid gap-10 py-14 lg:grid-cols-2">
@@ -110,12 +116,12 @@ export default async function ProjectPage({
           </Reveal>
         )}
 
-        {project.galleryCaptions.length > 0 && (
+        {project.gallery.length > 0 && (
           <Reveal className="py-10">
             <H2>Gallery</H2>
             <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
-              {project.galleryCaptions.map((c) => (
-                <Ph key={c} caption={c} minH="min-h-[170px]" />
+              {project.gallery.map((g) => (
+                <Ph key={g.caption} caption={g.caption} src={g.src} alt={g.caption} minH="min-h-[220px]" />
               ))}
             </div>
           </Reveal>

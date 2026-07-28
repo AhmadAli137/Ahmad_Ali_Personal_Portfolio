@@ -3,6 +3,11 @@ export interface ProjectLink {
   href: string;
 }
 
+export interface GalleryItem {
+  caption: string;
+  src?: string;
+}
+
 export interface Project {
   slug: string;
   title: string;
@@ -11,8 +16,10 @@ export interface Project {
   tagline: string;
   cardBlurb: string;
   cardCaption: string;
+  cardSrc?: string;
   chips: string[];
   heroCaption: string;
+  heroSrc?: string;
   problem: string;
   solution: string;
   demoCaption?: string;
@@ -22,7 +29,7 @@ export interface Project {
   challenges: string[];
   lessons: string[];
   next?: string;
-  galleryCaptions: string[];
+  gallery: GalleryItem[];
   links: ProjectLink[];
 }
 
@@ -30,7 +37,7 @@ export const projects: Project[] = [
   {
     slug: "drone",
     title: "Indoor Autonomous Drone",
-    badge: "★ IEEE BEST DEMO AWARD",
+    badge: "IEEE BEST DEMO AWARD",
     badgeTone: "amber",
     tagline:
       "A drone that navigates autonomously where GPS can't reach — using optical flow, camera vision, and custom embedded firmware.",
@@ -58,26 +65,28 @@ export const projects: Project[] = [
       "Tuning control loops for stable indoor flight",
     ],
     lessons: ["TODO: your real war stories from flight testing"],
-    next: "Recognition: ★ IEEE Best Demo Award — presented at IEEE PIMRC. (TODO: year + exact citation)",
-    galleryCaptions: [
-      "PHOTO: flight test",
-      "PHOTO: electronics close-up",
-      "PHOTO: IEEE demo booth / award",
+    next: "Recognition: IEEE Best Demo Award — presented at IEEE PIMRC. (TODO: year + exact citation)",
+    gallery: [
+      { caption: "PHOTO: flight test" },
+      { caption: "PHOTO: electronics close-up" },
+      { caption: "PHOTO: IEEE demo booth / award" },
     ],
     links: [],
   },
   {
     slug: "sketchbot",
     title: "SketchBot",
-    badge: "★ WINHACKS 2026 — WINNER (FINALIST)",
+    badge: "WINHACKS 2026 — WINNER (FINALIST)",
     badgeTone: "amber",
     tagline:
       "Design in pixels, then a robot draws it on paper for real. A camera-vision robot that renders your sketches — and AI-generated art — with a marker on a blank canvas.",
     cardBlurb:
       "Design in pixels, then a robot draws it on paper for real — camera-vision positioning, AI-generated art, ESP32 motor control.",
-    cardCaption: "PHOTO: SketchBot drawing on paper",
+    cardCaption: "SketchBot drawing robot",
+    cardSrc: "/img/sketchbot-b.jpg",
     chips: ["ESP32", "Arduino", "Camera Vision", "Next.js", "WebSockets", "Gemini", "Python"],
-    heroCaption: "HERO PHOTO: SketchBot drawing on paper",
+    heroCaption: "SketchBot — ESP32 drawing robot with marker attachment",
+    heroSrc: "/img/sketchbot-a.jpg",
     problem:
       "Robotics should be fun and accessible. We loved flying drones, but wanted something more approachable — a compact robot that creates designs for entertainment and education, especially to help children learn by watching their ideas become real.",
     solution:
@@ -103,10 +112,11 @@ export const projects: Project[] = [
       "AI-driven canvas graphics need tight prompt constraints",
     ],
     next: "Scaling to multiple robots drawing simultaneously, and multi-color drawing. Built with Hassan Ahmad and Ibrahim Amezyane at WinHacks 2026.",
-    galleryCaptions: [
-      "PHOTO: robot hardware build",
-      "SCREENSHOT: pixel design web app",
-      "PHOTO: finished drawing on paper",
+    gallery: [
+      { caption: "Top-down view: ESP32, motor driver, servo pen lift, 9V power", src: "/img/sketchbot-c.jpg" },
+      { caption: "Web app: pixel design canvas with AI design assistant", src: "/img/sketchbot-e.png" },
+      { caption: "Web app: live POV camera view from the robot", src: "/img/sketchbot-f.png" },
+      { caption: "Web app: saving and submitting a sketch to the robot", src: "/img/sketchbot-d.png" },
     ],
     links: [
       { label: "GitHub", href: "https://github.com/hassanuahmad/sketch-bot" },
@@ -147,10 +157,10 @@ export const projects: Project[] = [
       "Responsiveness beats physics accuracy for playability",
     ],
     next: "Real camera tracking with AprilTag detection, and housing the electronics fully inside the paddle handle.",
-    galleryCaptions: [
-      "PHOTO: paddle electronics",
-      "PHOTO: projected arena",
-      "SCREENSHOT: 3D game view",
+    gallery: [
+      { caption: "PHOTO: paddle electronics" },
+      { caption: "PHOTO: projected arena" },
+      { caption: "SCREENSHOT: 3D game view" },
     ],
     links: [
       { label: "GitHub", href: "https://github.com/AhmadAli137/PongMasterHT6" },
@@ -186,10 +196,10 @@ export const projects: Project[] = [
       "Designing for young users: durability, simplicity, delight",
     ],
     lessons: ["The best product insights came from the classroom, not the workbench"],
-    galleryCaptions: [
-      "PHOTO: prototype",
-      "PHOTO: classroom testing",
-      "SCREENSHOT: software interface",
+    gallery: [
+      { caption: "PHOTO: prototype" },
+      { caption: "PHOTO: classroom testing" },
+      { caption: "SCREENSHOT: software interface" },
     ],
     links: [{ label: "The Venture: Aibotics", href: "/venture" }],
   },
@@ -221,10 +231,10 @@ export const projects: Project[] = [
       "Fitting inference and sensing into a comfortable wearable",
     ],
     lessons: ["TODO: what you learned building it"],
-    galleryCaptions: [
-      "PHOTO: glove build / wiring",
-      "PHOTO: sensor close-up",
-      "SCREENSHOT: classification output",
+    gallery: [
+      { caption: "PHOTO: glove build / wiring" },
+      { caption: "PHOTO: sensor close-up" },
+      { caption: "SCREENSHOT: classification output" },
     ],
     links: [],
   },
@@ -248,7 +258,7 @@ export const projects: Project[] = [
     stack: ["C / C++", "Embedded Linux", "Profiling Tools"],
     challenges: ["TODO"],
     lessons: ["TODO"],
-    galleryCaptions: [],
+    gallery: [],
     links: [],
   },
 ];
