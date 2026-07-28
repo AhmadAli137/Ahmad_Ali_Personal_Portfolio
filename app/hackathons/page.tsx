@@ -60,8 +60,8 @@ const hacks: Hack[] = [
     desc: "Give your EV battery a second life in a microgrid — a platform to collect, test, and repurpose end-of-life EV batteries for energy storage. Born from my battery research.",
     chips: ["Next.js", "Prisma", "Energy"],
     href: "https://devpost.com/software/winhacks-2024-egl-title-tbd",
-    img: "/img/secondlife-a.png",
-    imgAlt: "Second Life landing page — give your EV battery a second life in a microgrid",
+    img: "/img/secondlife-award.jpg",
+    imgAlt: "Second Life team receiving 2nd place overall at WinHacks 2024",
   },
   {
     award: "Winner",
@@ -100,6 +100,8 @@ const hacks: Hack[] = [
     desc: "Route optimization, word games, engineering competitions, NASA Space Apps — see the repos on GitHub.",
     chips: ["TypeScript", "JavaScript"],
     href: "https://github.com/AhmadAli137",
+    img: "/img/wec-1st-place.jpg",
+    imgAlt: "1st place in programming at the Windsor Engineering Competition",
   },
 ];
 

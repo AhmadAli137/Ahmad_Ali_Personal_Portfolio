@@ -380,6 +380,8 @@ export default function Home() {
               { caption: "Presenting at IEEE EPEC 2025", src: "/img/ieee-epec-poster.jpg" },
               { caption: "Formula Electric battery team, UWindsor", src: "/img/formula-electric-team.jpg" },
               { caption: "Magna project team at the CHARGE Lab", src: "/img/charge-lab-magna-team.jpg" },
+              { caption: "1st place, programming — Windsor Engineering Competition", src: "/img/wec-1st-place.jpg" },
+              { caption: "Windsor delegation, Ontario Engineering Competition 2024", src: "/img/oec-2024-delegation.jpg" },
               { caption: "Iron Ring ceremony with classmates", src: "/img/iron-ring-classmates.jpg" },
               { caption: "Iron Ring ceremony", src: "/img/iron-ring-ceremony.jpg" },
               { caption: "Graduation, University of Windsor", src: "/img/undergrad-graduation.jpg" },

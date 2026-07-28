@@ -43,9 +43,11 @@ export const projects: Project[] = [
       "A drone that navigates autonomously where GPS can't reach — using optical flow, camera vision, and custom embedded firmware.",
     cardBlurb:
       "GPS-denied navigation using optical flow, camera vision, and custom embedded firmware.",
-    cardCaption: "PHOTO: Indoor autonomous drone in flight",
+    cardCaption: "Drone team at IEEE PIMRC, Toronto",
+    cardSrc: "/img/pimrc-best-demo-award.jpg",
     chips: ["Optical Flow", "Computer Vision", "Embedded Firmware", "Sensor Fusion", "Control Systems"],
-    heroCaption: "HERO PHOTO: drone in flight / on bench (best quality shot)",
+    heroCaption: "Capstone presentation day — the drone with our project poster",
+    heroSrc: "/img/capstone-drone-team.jpg",
     problem:
       "GPS doesn't work indoors. Warehouses, hospitals, disaster zones — the environments where autonomous drones could help most are exactly where satellite positioning fails. Indoor autonomy demands the drone perceive and localize itself using only onboard sensing.",
     solution:
@@ -65,11 +67,11 @@ export const projects: Project[] = [
       "Tuning control loops for stable indoor flight",
     ],
     lessons: ["TODO: your real war stories from flight testing"],
-    next: "Recognition: IEEE Best Demo Award — presented at IEEE PIMRC. (TODO: year + exact citation)",
+    next: "Recognition: Best Demo Award at IEEE PIMRC in Toronto. Built as our University of Windsor capstone project: flight controller design, positioning, and obstacle avoidance.",
     gallery: [
-      { caption: "PHOTO: flight test" },
-      { caption: "PHOTO: electronics close-up" },
-      { caption: "PHOTO: IEEE demo booth / award" },
+      { caption: "Best Demo Award — IEEE PIMRC, Toronto", src: "/img/pimrc-best-demo-award.jpg" },
+      { caption: "Capstone presentation day, University of Windsor", src: "/img/capstone-drone-team.jpg" },
+      { caption: "PHOTO: flight test / electronics close-up" },
     ],
     links: [],
   },
