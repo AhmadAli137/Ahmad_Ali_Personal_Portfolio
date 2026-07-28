@@ -127,7 +127,7 @@ export default function CompetitionsPage() {
               <div
                 key={o.name}
                 title={o.name}
-                className="group grid min-h-[110px] place-items-center rounded-xl border border-line bg-[linear-gradient(160deg,var(--color-panel2),var(--color-panel))] p-4 transition-all hover:-translate-y-1 hover:border-line-strong"
+                className="group grid min-h-[110px] place-items-center rounded-xl border border-line bg-[linear-gradient(160deg,var(--color-panel2),var(--color-panel))] p-4 transition-all hover:-translate-y-1 hover:border-cyan/60 hover:shadow-[0_0_24px_rgba(0,229,255,0.15)]"
               >
                 {o.logo ? (
                   <Image
@@ -135,7 +135,7 @@ export default function CompetitionsPage() {
                     alt={o.name}
                     width={120}
                     height={60}
-                    className="max-h-[64px] w-auto rounded-md object-contain opacity-75 grayscale transition-all group-hover:opacity-100 group-hover:grayscale-0"
+                    className="max-h-[64px] w-auto rounded-md object-contain transition-transform duration-200 group-hover:scale-110"
                   />
                 ) : (
                   <div className="text-center">
