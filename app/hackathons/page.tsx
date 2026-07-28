@@ -44,7 +44,7 @@ const hacks: Hack[] = [
     internal: true,
   },
   {
-    award: "WinHacks 2025 — Best in Category",
+    award: "WinHacks 2025 — 2nd Place",
     awardTone: "amber",
     title: "PresentPro",
     desc: "Real-time presentation coaching: live speech analysis flags pacing over 160 wpm and nudges you through a vibrating IoT wearable. React, FastAPI, AssemblyAI, ESP32.",
@@ -62,6 +62,27 @@ const hacks: Hack[] = [
     href: "https://devpost.com/software/winhacks-2024-egl-title-tbd",
     img: "/img/secondlife-award.jpg",
     imgAlt: "Second Life team receiving 2nd place overall at WinHacks 2024",
+  },
+  {
+    award: "NASA Space Apps — 1st Place, Windsor",
+    awardTone: "amber",
+    title: "Meteor Madness",
+    desc: "NASA Space Apps Challenge winner: visualizing near-Earth asteroid data to make planetary defense tangible. Galactic Problem Solver certificate earned.",
+    chips: ["NASA Data", "JavaScript", "Visualization"],
+    href: "https://github.com/AhmadAli137/meteor-madness-nasa",
+    img: "/img/nasa-space-apps-1.jpg",
+    imgAlt: "Team holding 1st Place Windsor certificates at the NASA Space Apps Challenge",
+  },
+  {
+    award: "ClubHacks 2026 — Finalist",
+    awardTone: "amber",
+    title: "SketchBot V2",
+    desc: "The drawing robot, rebuilt: AprilTag fiducial tracking for precise camera-vision positioning, 18650 power, and a cleaner chassis.",
+    chips: ["AprilTags", "ESP32", "Camera Vision"],
+    href: "/projects/sketchbot",
+    internal: true,
+    img: "/img/clubhacks-sketchbot-v2-1.jpg",
+    imgAlt: "SketchBot V2 with AprilTag marker and 18650 battery power",
   },
   {
     award: "Winner",
@@ -96,8 +117,8 @@ const hacks: Hack[] = [
   {
     award: "And more…",
     awardTone: "cyan",
-    title: "EcoRoute · wordConquer · WEC 2023 · NASA Meteor Madness",
-    desc: "Route optimization, word games, engineering competitions, NASA Space Apps — see the repos on GitHub.",
+    title: "EcoRoute · wordConquer · WEC · OEC",
+    desc: "Route optimization, word games, and engineering competitions — including 1st place in programming at the Windsor Engineering Competition. Repos on GitHub.",
     chips: ["TypeScript", "JavaScript"],
     href: "https://github.com/AhmadAli137",
     img: "/img/wec-1st-place.jpg",
@@ -110,7 +131,7 @@ export default function HackathonsPage() {
     <main className="px-6 pb-10 pt-36">
       <div className="mx-auto max-w-6xl">
         <p className="mb-4 font-mono text-[13px] text-muted">home / work / hackathons</p>
-        <div className="mb-4"><Chip>13 HACKATHONS — 4 PODIUM FINISHES</Chip></div>
+        <div className="mb-4"><Chip>13 HACKATHONS — 6 PODIUM FINISHES</Chip></div>
         <h1 className="mb-3.5 text-4xl font-extrabold tracking-tight sm:text-5xl">
           Hackathons: Ship It in a Weekend
         </h1>

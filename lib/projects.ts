@@ -113,11 +113,13 @@ export const projects: Project[] = [
       "WebSockets make hardware feel alive from a browser",
       "AI-driven canvas graphics need tight prompt constraints",
     ],
-    next: "Scaling to multiple robots drawing simultaneously, and multi-color drawing. Built with Hassan Ahmad and Ibrahim Amezyane at WinHacks 2026.",
+    next: "SketchBot V2 — rebuilt with AprilTag fiducial tracking for precise camera-vision positioning and 18650 power — reached the finals at ClubHacks 2026. Next: multiple robots drawing simultaneously and multi-color drawing. V1 built with Hassan Ahmad and Ibrahim Amezyane at WinHacks 2026.",
     gallery: [
       { caption: "Top-down view: ESP32, motor driver, servo pen lift, 9V power", src: "/img/sketchbot-c.jpg" },
+      { caption: "SketchBot V2: AprilTag tracking and 18650 power — ClubHacks 2026 finalist", src: "/img/clubhacks-sketchbot-v2-1.jpg" },
       { caption: "Web app: pixel design canvas with AI design assistant", src: "/img/sketchbot-e.png" },
       { caption: "Web app: live POV camera view from the robot", src: "/img/sketchbot-f.png" },
+      { caption: "Building at WinHacks 2026", src: "/img/winhacks26-sketchbot-award-2.jpg" },
       { caption: "Web app: saving and submitting a sketch to the robot", src: "/img/sketchbot-d.png" },
     ],
     links: [
@@ -243,25 +245,29 @@ export const projects: Project[] = [
   {
     slug: "memory-optimizer",
     title: "Automotive AI Memory Optimizer",
-    badge: "SYSTEMS ENGINEERING",
+    badge: "UWINDSOR × JAGUAR LAND ROVER — AUTOMOTIVE AI COMPETITION",
     badgeTone: "cyan",
     tagline:
-      "High-level systems engineering: optimizing memory usage for AI workloads running on resource-constrained automotive platforms.",
+      "Built for the University of Windsor × Jaguar Land Rover Automotive AI Competition: optimizing memory usage for AI workloads on resource-constrained automotive platforms.",
     cardBlurb:
-      "High-level systems engineering: optimizing memory for AI workloads in automotive platforms.",
-    cardCaption: "SCREENSHOT: Memory optimizer dashboard / architecture",
-    chips: ["Systems Engineering", "AI Workloads", "Memory Optimization", "Automotive"],
-    heroCaption: "IMAGE: architecture diagram or dashboard screenshot",
+      "UWindsor × Jaguar Land Rover competition: optimizing memory for AI workloads in automotive platforms.",
+    cardCaption: "Team at the UWindsor × JLR Automotive AI Competition",
+    cardSrc: "/img/jlr-team-1.jpg",
+    chips: ["Systems Engineering", "AI Workloads", "Memory Optimization", "Automotive", "JLR"],
+    heroCaption: "Our team at the UWindsor × Jaguar Land Rover Automotive AI Competition",
+    heroSrc: "/img/jlr-team-1.jpg",
     problem:
-      "Modern vehicles run increasingly heavy AI workloads on tightly constrained embedded compute. Memory is a hard limit — and inefficient usage means dropped features, higher hardware cost, or failed real-time deadlines.",
+      "Modern vehicles run increasingly heavy AI workloads on tightly constrained embedded compute. Memory is a hard limit — and inefficient usage means dropped features, higher hardware cost, or failed real-time deadlines. Jaguar Land Rover posed this challenge to UWindsor engineering teams.",
     solution:
       "A systems-level approach to profiling and optimizing memory consumption of AI components on automotive platforms.",
     features: ["TODO: memory profiling across AI modules", "TODO: optimization strategy + measured savings"],
     stack: ["C / C++", "Embedded Linux", "Profiling Tools"],
     challenges: ["TODO"],
     lessons: ["TODO"],
-    gallery: [],
-    links: [],
+    gallery: [
+      { caption: "Competition day at the UWindsor × JLR Automotive AI Competition", src: "/img/jlr-team-2.jpg" },
+    ],
+    links: [{ label: "GitHub", href: "https://github.com/AhmadAli137/JLR_Challenge2" }],
   },
 ];
 

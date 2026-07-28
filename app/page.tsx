@@ -208,7 +208,7 @@ export default function Home() {
                 <Card className="flex h-full flex-col gap-4">
                   <Ph caption="PHOTO: Hackathon team / demo booth" minH="min-h-[190px]" />
                   <span className="flex items-center gap-1.5 font-mono text-xs text-amber">
-                    <Award size={13} /> 13 Hackathons — 4 Podium Finishes
+                    <Award size={13} /> 13 Hackathons — 6 Podium Finishes
                   </span>
                   <h3 className="text-lg font-bold">
                     Hackathon Projects{" "}
@@ -225,6 +225,44 @@ export default function Home() {
                 </Card>
               </Link>
             </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ AWARDS ============ */}
+      <section id="awards" className="scroll-mt-20 px-6 py-20">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <SectionHeading
+              tag="awards"
+              title="The Trophy Shelf"
+              lede="From international conferences to weekend hackathons — proof that shipping fast and shipping well aren't opposites."
+            />
+          </Reveal>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { img: "/img/pimrc-best-demo-award.jpg", award: "Best Demo Award", event: "IEEE PIMRC — Toronto", note: "Indoor autonomous drone navigation" },
+              { img: "/img/nasa-space-apps-1.jpg", award: "1st Place — Windsor", event: "NASA Space Apps Challenge", note: "Galactic Problem Solver" },
+              { img: "/img/epicentre-award-trophy.jpg", award: "Innovation Mastery Award", event: "EPICentre, UWindsor", note: "Entrepreneurship & innovation" },
+              { img: "/img/wec-1st-place.jpg", award: "1st Place — Programming", event: "Windsor Engineering Competition", note: "Competitive programming" },
+              { img: "/img/winhacks26-sketchbot-award-2.jpg", award: "Winner (Finalist)", event: "WinHacks 2026", note: "SketchBot — drawing robot" },
+              { img: "/img/presentpro-award-1.jpg", award: "2nd Place", event: "WinHacks 2025", note: "PresentPro — AI presentation coach" },
+              { img: "/img/secondlife-award.jpg", award: "2nd Place Overall", event: "WinHacks 2024", note: "Second Life — EV battery reuse" },
+              { img: "/img/clubhacks-sketchbot-v2-1.jpg", award: "Finalist", event: "ClubHacks 2026", note: "SketchBot V2 — AprilTag tracking" },
+            ].map((a, i) => (
+              <Reveal key={a.event + a.award} delay={(i % 4) * 0.06}>
+                <Card className="flex h-full flex-col gap-3 !p-5">
+                  <Ph caption={a.award} src={a.img} alt={`${a.award} — ${a.event}`} minH="min-h-[150px]" />
+                  <div>
+                    <div className="flex items-center gap-1.5 font-mono text-xs text-amber">
+                      <Award size={13} /> {a.award}
+                    </div>
+                    <div className="mt-1 text-sm font-bold">{a.event}</div>
+                    <div className="text-xs text-muted">{a.note}</div>
+                  </div>
+                </Card>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
@@ -301,13 +339,71 @@ export default function Home() {
                   Helped hundreds of elementary students discover engineering through hands-on
                   robotics and programming — teaching Arduino, C++, and engineering problem solving.
                   Watching young learners struggle with syntax-heavy programming directly inspired my
-                  current venture.
+                  current venture. Also active as a judge and mentor across the community: Genius Cup
+                  robotics, CS Games (Montreal), and the Windsor Regional Science, Technology &amp;
+                  Engineering Fair.
                 </p>
                 <Chips items={["Arduino", "C++", "STEM Education"]} tone="mint" />
               </div>
             </div>
           </div>
         </Reveal>
+      </section>
+
+      {/* ============ COMMUNITY & MENTORSHIP ============ */}
+      <section id="community" className="scroll-mt-20 px-6 py-20">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <SectionHeading
+              tag="community"
+              title="Giving the Spark Away"
+              lede="Engineering only matters if it reaches people. Mentoring, judging, and teaching are how I pay forward what robotics gave me."
+            />
+          </Reveal>
+          <div className="grid gap-6 sm:grid-cols-2">
+            {[
+              {
+                img: "/img/genius-cup-main.jpg",
+                alt: "Ahmad mentoring young students with robots at the Genius Cup competition",
+                title: "Genius Cup — Robotics Mentor & Judge",
+                org: "RobotFest × Geniotech Robotics, Windsor",
+                desc: "Mentoring and judging young builders at Windsor's Genius Cup robotics competition — watching kids light up when their robot moves for the first time never gets old.",
+              },
+              {
+                img: "/img/wrstef-judge-2026.jpg",
+                alt: "Ahmad with fellow judges at the Windsor Regional Science, Technology & Engineering Fair",
+                title: "Science Fair Judge & Mentor",
+                org: "Windsor Regional Science, Technology & Engineering Fair",
+                desc: "Judging and mentoring at the regional fair that feeds into the Canada-Wide Science Fair — the same competition circuit where my own journey started.",
+              },
+              {
+                img: "/img/cs-games-1.jpg",
+                alt: "CS Games 2026 logo",
+                title: "CS Games — Team Mentor",
+                org: "Montreal, 2026",
+                desc: "Mentoring the University of Windsor delegation at CS Games, an inter-university computer science competition spanning algorithms, AI, and systems challenges.",
+              },
+              {
+                img: "/img/genius-cup-3.jpg",
+                alt: "Students working on robotics activities at a community event",
+                title: "Elementary Robotics Mentor",
+                org: "Windsor-area schools",
+                desc: "Years of hands-on robotics workshops with hundreds of elementary students — teaching Arduino, C++, and problem solving. These classrooms inspired SaySpark and Aibotics.",
+              },
+            ].map((c, i) => (
+              <Reveal key={c.title} delay={(i % 2) * 0.08}>
+                <Card className="flex h-full flex-col gap-4">
+                  <Ph caption={c.title} src={c.img} alt={c.alt} minH="min-h-[230px]" />
+                  <div>
+                    <h3 className="text-lg font-bold">{c.title}</h3>
+                    <div className="mb-2 font-mono text-xs text-mint">{c.org}</div>
+                    <p className="text-sm text-muted">{c.desc}</p>
+                  </div>
+                </Card>
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ============ TIMELINE ============ */}
@@ -385,7 +481,8 @@ export default function Home() {
               { caption: "Iron Ring ceremony with classmates", src: "/img/iron-ring-classmates.jpg" },
               { caption: "Iron Ring ceremony", src: "/img/iron-ring-ceremony.jpg" },
               { caption: "Graduation, University of Windsor", src: "/img/undergrad-graduation.jpg" },
-              { caption: "PHOTO: teaching robotics class" },
+              { caption: "NASA Space Apps — 1st place, Windsor", src: "/img/nasa-space-apps-1.jpg" },
+              { caption: "Mentoring at the Genius Cup", src: "/img/genius-cup-main.jpg" },
             ].map((g) => (
               <Ph key={g.caption} caption={g.caption} src={g.src} alt={g.caption} minH="min-h-[200px]" />
             ))}
