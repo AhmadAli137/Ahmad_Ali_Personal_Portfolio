@@ -88,7 +88,7 @@ const hacks: Hack[] = [
     imgAlt: "SketchBot V2 with AprilTag marker and 18650 battery power",
   },
   {
-    award: "BorderHacks 2021 — 2nd Overall + 1st Sponsor Challenge",
+    award: "BorderHacks 2021 — People's Choice + Open Data Winner",
     awardTone: "amber",
     title: "WinParks",
     desc: "Mobile app helping people explore the trails, parks, and heritage parks of Windsor.",
@@ -109,7 +109,7 @@ const hacks: Hack[] = [
     imgAlt: "RV interface challenge entry",
   },
   {
-    award: "BorderHacks 2022",
+    award: "WinHacks 2022",
     awardTone: "cyan",
     title: "WinGrid",
     desc: "Keeping all the electric vehicles on the grid — managing EV charging load at scale.",
