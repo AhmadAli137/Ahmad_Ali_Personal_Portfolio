@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Indoor Autonomous Drone — Ahmad Ali</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a class="logo" href="../index.html"><span class="chip">AA</span> ahmad.ali</a>
+      <div class="nav-links">
+        <a href="../index.html#work" class="active">work</a>
+        <a href="../venture.html">venture</a>
+        <a href="../index.html#about">about</a>
+        <a href="../index.html#contact">contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="../index.html">home</a> / <a href="../index.html#work">work</a> / indoor-autonomous-drone</div>
+      <span class="chip-tag amber" style="display:inline-block; margin-bottom:16px;">★ IEEE BEST DEMO AWARD</span>
+      <h1>Indoor Autonomous Drone</h1>
+      <p class="lede">A drone that navigates autonomously where GPS can't reach — using optical flow, camera vision, and custom embedded firmware.</p>
+      <div class="chips" style="margin-bottom:24px;">
+        <span class="chip-tag">Optical Flow</span><span class="chip-tag">Computer Vision</span><span class="chip-tag">Embedded Firmware</span><span class="chip-tag">Sensor Fusion</span><span class="chip-tag">Control Systems</span>
+      </div>
+      <div class="hud">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <div class="img-ph hero-ph" data-caption="HERO PHOTO: drone in flight / on bench (best quality shot)"></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="detail-section">
+    <div class="container reveal">
+      <div class="two-col">
+        <div>
+          <h2>Problem</h2>
+          <p>GPS doesn't work indoors. Warehouses, hospitals, disaster zones — the environments where autonomous drones could help most are exactly where satellite positioning fails. Indoor autonomy demands the drone perceive and localize itself using only onboard sensing.</p>
+        </div>
+        <div>
+          <h2>Solution</h2>
+          <p>A drone that fuses optical flow, camera vision, and inertial data to estimate position and navigate autonomously in GPS-denied environments — with the perception and control loops running on embedded hardware onboard.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="detail-section">
+    <div class="container reveal">
+      <h2>Demo</h2>
+      <!-- TODO: embed demo video (YouTube iframe or <video> tag) -->
+      <div class="img-ph tall" data-caption="VIDEO: autonomous flight demo (embed here)"></div>
+    </div>
+  </section>
+
+  <section class="detail-section">
+    <div class="container reveal">
+      <div class="two-col">
+        <div>
+          <h2>Features</h2>
+          <ul>
+            <li>GPS-denied position estimation via optical flow</li>
+            <li>Camera-based perception for navigation</li>
+            <li>Sensor fusion of vision + inertial measurements</li>
+            <li>Custom embedded firmware for real-time control</li>
+            <li>Autonomous flight without external tracking systems</li>
+          </ul>
+        </div>
+        <div>
+          <h2>Tech Stack</h2>
+          <div class="chips">
+            <span class="chip-tag">C / C++</span><span class="chip-tag">Python</span><span class="chip-tag">OpenCV</span><span class="chip-tag">Optical Flow Sensors</span><span class="chip-tag">IMU</span><span class="chip-tag">Flight Controller</span>
+            <!-- TODO: confirm exact stack (PX4? custom FC? which MCU?) -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="detail-section">
+    <div class="container reveal">
+      <div class="two-col">
+        <div>
+          <h2>Challenges</h2>
+          <ul>
+            <li>Drift accumulation in optical-flow position estimates <!-- TODO: your real war stories --></li>
+            <li>Real-time constraints on embedded compute</li>
+            <li>Tuning control loops for stable indoor flight</li>
+          </ul>
+        </div>
+        <div>
+          <h2>Lessons Learned</h2>
+          <ul>
+            <li><!-- TODO: e.g. "Test in the real environment early — the lab floor's texture broke our flow estimates" --></li>
+            <li><!-- TODO --></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="detail-section">
+    <div class="container reveal">
+      <h2>Recognition</h2>
+      <p><strong style="color:var(--amber);">★ IEEE Best Demo Award</strong> — presented at IEEE PIMRC. <!-- TODO: year + exact citation --></p>
+    </div>
+  </section>
+
+  <section class="detail-section">
+    <div class="container reveal">
+      <h2>Gallery</h2>
+      <div class="gallery-grid" style="margin-top:20px;">
+        <div class="img-ph" data-caption="PHOTO: flight test"></div>
+        <div class="img-ph" data-caption="PHOTO: electronics close-up"></div>
+        <div class="img-ph" data-caption="PHOTO: IEEE demo booth / award"></div>
+      </div>
+      <div class="btn-row" style="margin-top:30px;">
+        <a class="btn btn-ghost" href="#" title="TODO: add GitHub link">GitHub →</a>
+        <a class="btn btn-ghost" href="#" title="TODO: add docs link">Documentation →</a>
+        <a class="btn btn-primary" href="../index.html#work">← All Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">ahmad.ali // designed &amp; built from scratch — hardware to cloud</div>
+  </footer>
+
+  <script src="../assets/script.js"></script>
+</body>
+</html>

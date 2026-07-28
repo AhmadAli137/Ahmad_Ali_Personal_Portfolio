@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edge Pong — Ahmad Ali</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a class="logo" href="../index.html"><span class="chip">AA</span> ahmad.ali</a>
+      <div class="nav-links">
+        <a href="../index.html#work" class="active">work</a>
+        <a href="../venture.html">venture</a>
+        <a href="../index.html#about">about</a>
+        <a href="../index.html#contact">contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="../index.html">home</a> / <a href="../index.html#work">work</a> / edge-pong</div>
+      <span class="chip-tag" style="display:inline-block; margin-bottom:16px;">HACK THE 6IX 2026 — SOLO BUILD</span>
+      <h1>Edge Pong</h1>
+      <p class="lede">A projected arcade ping-pong game: swing a real paddle at virtual balls, and when you connect, a smart paddle buzzes right where the ball struck — all processed locally with edge AI.</p>
+      <div class="chips" style="margin-bottom:24px;">
+        <span class="chip-tag">ESP32-C5</span><span class="chip-tag">Spatial Haptics</span><span class="chip-tag">Edge AI</span><span class="chip-tag">Three.js</span><span class="chip-tag">Python</span><span class="chip-tag">TypeScript</span>
+      </div>
+      <div class="hud">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <div class="img-ph hero-ph" data-caption="HERO PHOTO: smart paddle + projected game arena"></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="detail-section">
+    <div class="container reveal">
+      <div class="two-col">
+        <div>
+          <h2>Problem</h2>
+          <p>Gaming keeps retreating behind screens and headsets. I wanted a <em>tangible</em> gaming experience — swinging a real paddle at virtual balls and actually feeling the impact in your hand, no VR headset required.</p>
+        </div>
+        <div>
+          <h2>Solution</h2>
+          <p>A projected ping-pong arena driven by a custom smart paddle. The paddle streams motion data from an ESP32-C5; when you hit a virtual ball, four vibration-motor quadrants encode <em>where on the paddle</em> the ball struck, using bilinear interpolation across motors.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="detail-section">
+    <div class="container reveal">
+      <h2>Demo</h2>
+      <!-- TODO: embed demo video -->
+      <div class="img-ph tall" data-caption="VIDEO: Edge Pong gameplay demo (embed here)"></div>
+    </div>
+  </section>
+
+  <section class="detail-section">
+    <div class="container reveal">
+      <div class="two-col">
+        <div>
+          <h2>How It's Built</h2>
+          <ul>
+            <li><strong style="color:var(--text);">Backend (Python)</strong> — physics engine with collision detection, rally system, AI opponent, and quaternion-based pose fusion</li>
+            <li><strong style="color:var(--text);">Frontend (Three.js + TypeScript)</strong> — 3D arena synced over WebSockets at 60 Hz</li>
+            <li><strong style="color:var(--text);">Smart paddle (ESP32-C5)</strong> — custom firmware streaming motion data, driving four vibration-motor quadrants for spatial haptics</li>
+          </ul>
+        </div>
+        <div>
+          <h2>Tech Stack</h2>
+          <div class="chips">
+            <span class="chip-tag">ESP32-C5</span><span class="chip-tag">Custom Firmware</span><span class="chip-tag">Python</span><span class="chip-tag">Three.js</span><span class="chip-tag">TypeScript</span><span class="chip-tag">WebSockets</span><span class="chip-tag">Quaternion Pose Fusion</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="detail-section">
+    <div class="container reveal">
+      <div class="two-col">
+        <div>
+          <h2>Challenges</h2>
+          <ul>
+            <li>Hardware was the hard part: MOSFET wiring errors, power management, forcing 2.4 GHz networking</li>
+            <li>Calibrating vibration-motor sensitivity thresholds so haptics feel right</li>
+          </ul>
+        </div>
+        <div>
+          <h2>Lessons Learned</h2>
+          <ul>
+            <li>Four vibration zones are enough to convey strike location on a paddle</li>
+            <li>Quaternion orientation avoids gimbal lock in fast swings</li>
+            <li>Responsiveness beats physics accuracy for playability</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="detail-section">
+    <div class="container reveal">
+      <h2>What's Next</h2>
+      <p>Real camera tracking with AprilTag detection, and housing the electronics fully inside the paddle handle.</p>
+      <div class="btn-row" style="margin-top:30px;">
+        <a class="btn btn-ghost" href="https://github.com/AhmadAli137/PongMasterHT6" target="_blank" rel="noopener">GitHub →</a>
+        <a class="btn btn-ghost" href="https://devpost.com/software/edge-pong" target="_blank" rel="noopener">Devpost →</a>
+        <a class="btn btn-primary" href="../index.html#work">← All Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">ahmad.ali // designed &amp; built from scratch — hardware to cloud</div>
+  </footer>
+
+  <script src="../assets/script.js"></script>
+</body>
+</html>

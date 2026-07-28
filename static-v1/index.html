@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ahmad Ali — Robotics, AI &amp; Product Engineering</title>
+  <meta name="description" content="Ahmad Ali builds intelligent robots, AI-powered products, and educational technology that solve real-world problems." />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a class="logo" href="index.html"><span class="chip">AA</span> ahmad.ali</a>
+      <div class="nav-links">
+        <a href="#work">work</a>
+        <a href="venture.html">venture</a>
+        <a href="#about">about</a>
+        <a href="#experience">experience</a>
+        <a href="#timeline">timeline</a>
+        <a href="#skills">skills</a>
+        <a href="#services">services</a>
+        <a href="#contact">contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <div class="kicker">from concept to reality</div>
+          <h1>Hi, I'm Ahmad Ali.<br />
+            I build <span class="glow">intelligent robots</span>, AI-powered products, and educational technology that solve real-world problems.</h1>
+          <p class="sub">I take ideas from a blank page all the way to working products — combining hardware, software, and artificial intelligence into experiences people genuinely enjoy using.</p>
+          <p class="role-line"><span id="typed-roles"></span><span class="cursor"></span></p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="#work">View My Work</a>
+            <a class="btn btn-ghost" href="#contact">Let's Build Something</a>
+          </div>
+        </div>
+        <div class="hud">
+          <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+          <!-- TODO: swap for a real photo — you working on a robot or prototype (not a suit headshot) -->
+          <div class="img-ph hero-ph" data-caption="PHOTO: Ahmad working on a robot / drone prototype"></div>
+        </div>
+      </div>
+
+      <!-- Stats bar -->
+      <div class="stats reveal">
+        <div class="stat"><div class="num" data-count="20" data-suffix="+">0</div><div class="label">Engineering Projects</div></div>
+        <div class="stat"><div class="num" data-count="10" data-suffix="+">0</div><div class="label">Awards &amp; Competitions</div></div>
+        <div class="stat"><div class="num">IEEE</div><div class="label">Best Demo Winner</div></div>
+        <div class="stat"><div class="num">500+</div><div class="label">Students Mentored</div></div>
+        <div class="stat"><div class="num">Founder</div><div class="label">Educational Robotics Venture</div></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about">
+    <div class="container reveal">
+      <div class="section-head">
+        <span class="tag">about</span>
+        <h2>Why I Build</h2>
+      </div>
+      <div class="two-col">
+        <div>
+          <p style="margin-bottom:16px;">I've always believed technology should feel <strong>empowering rather than intimidating</strong>.</p>
+          <p style="color:var(--muted); margin-bottom:16px;">From autonomous drones and battery systems to AI-powered educational robots, I create products that combine hardware, software, and artificial intelligence into experiences that people genuinely enjoy using. My work spans robotics, embedded systems, computer vision, and product design — which means I can take an idea from concept to a fully functional prototype, and then toward a real product.</p>
+          <p style="font-family:var(--mono); color:var(--green); font-size:0.95rem;">My goal is simple: build technology that inspires curiosity while solving meaningful problems.</p>
+        </div>
+        <div>
+          <h3 style="font-family:var(--mono); font-size:14px; color:var(--cyan); margin-bottom:16px;">[ current focus ]</h3>
+          <div class="chips">
+            <span class="chip-tag">Robotics</span>
+            <span class="chip-tag">Edge AI</span>
+            <span class="chip-tag">Computer Vision</span>
+            <span class="chip-tag">Embedded Systems</span>
+            <span class="chip-tag">AI Applications</span>
+            <span class="chip-tag">Product Design</span>
+            <span class="chip-tag">Entrepreneurship</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED VENTURE ============ -->
+  <section id="venture" style="padding-top:0;">
+    <div class="container reveal">
+      <div class="section-head">
+        <span class="tag">featured venture</span>
+        <h2>Currently Building</h2>
+      </div>
+      <div class="venture-banner">
+        <div>
+          <span class="chip-tag green" style="margin-bottom:14px; display:inline-block;">FOUNDER</span>
+          <h3>Aibotics — AI-Powered Educational Robotics</h3>
+          <p>Years of mentoring elementary students in robotics revealed how intimidating syntax-heavy programming is for young learners. I'm building a platform where children learn robotics through <strong style="color:var(--text);">natural language</strong> — talk to your robot, and it comes to life.</p>
+          <a class="btn btn-ghost" href="venture.html">Explore the Venture →</a>
+        </div>
+        <div class="img-ph tall" data-caption="PHOTO: Aibotics / SaySpark prototype robot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED PROJECTS ============ -->
+  <section id="work">
+    <div class="container reveal">
+      <div class="section-head">
+        <span class="tag">featured projects</span>
+        <h2>From Blank Page to Working Product</h2>
+        <p class="lede">Every project here started as an observation of a real-world problem and became a working prototype through CAD, electronics, firmware, software, and relentless iteration.</p>
+      </div>
+      <div class="grid-3">
+        <a class="card project-card" href="projects/drone.html">
+          <div class="img-ph" data-caption="PHOTO: Indoor autonomous drone in flight"></div>
+          <span class="award">IEEE Best Demo Award</span>
+          <h3>Indoor Autonomous Drone <span class="arrow">→</span></h3>
+          <p>GPS-denied navigation using optical flow, camera vision, and custom embedded firmware.</p>
+          <div class="chips"><span class="chip-tag">Optical Flow</span><span class="chip-tag">Embedded C</span><span class="chip-tag">CV</span></div>
+        </a>
+        <a class="card project-card" href="projects/sketchbot.html">
+          <div class="img-ph" data-caption="PHOTO: SketchBot drawing on paper"></div>
+          <span class="award">WinHacks 2026 Winner</span>
+          <h3>SketchBot <span class="arrow">→</span></h3>
+          <p>Design in pixels, then a robot draws it on paper for real — camera-vision positioning, AI-generated art, ESP32 motor control.</p>
+          <div class="chips"><span class="chip-tag">Camera Vision</span><span class="chip-tag">ESP32</span><span class="chip-tag">Next.js</span></div>
+        </a>
+        <a class="card project-card" href="projects/sayspark.html">
+          <div class="img-ph" data-caption="PHOTO: SaySpark educational robot with students"></div>
+          <span class="award">EdTech Venture</span>
+          <h3>SaySpark <span class="arrow">→</span></h3>
+          <p>Natural-language robotics education — kids program robots by talking, not typing syntax.</p>
+          <div class="chips"><span class="chip-tag">LLMs</span><span class="chip-tag">EdTech</span><span class="chip-tag">Robotics</span></div>
+        </a>
+        <a class="card project-card" href="projects/asl-glove.html">
+          <div class="img-ph" data-caption="PHOTO: ASL translation glove on hand"></div>
+          <span class="award">Accessibility Tech</span>
+          <h3>ASL Translation Glove <span class="arrow">→</span></h3>
+          <p>A sensor-instrumented glove that translates American Sign Language gestures in real time.</p>
+          <div class="chips"><span class="chip-tag">Sensors</span><span class="chip-tag">ML</span><span class="chip-tag">Wearables</span></div>
+        </a>
+        <a class="card project-card" href="projects/memory-optimizer.html">
+          <div class="img-ph" data-caption="SCREENSHOT: Memory optimizer dashboard / architecture"></div>
+          <span class="award">Systems Engineering</span>
+          <h3>Automotive AI Memory Optimizer <span class="arrow">→</span></h3>
+          <p>High-level systems engineering: optimizing memory for AI workloads in automotive platforms.</p>
+          <div class="chips"><span class="chip-tag">Systems</span><span class="chip-tag">AI</span><span class="chip-tag">Automotive</span></div>
+        </a>
+        <a class="card project-card" href="projects/edge-pong.html">
+          <div class="img-ph" data-caption="PHOTO: Edge Pong smart paddle + projected arena"></div>
+          <span class="award">Hack the 6ix 2026 — Solo Build</span>
+          <h3>Edge Pong <span class="arrow">→</span></h3>
+          <p>Projected ping-pong with an edge-AI smart paddle — feel each hit through four-quadrant spatial haptics, all on-device.</p>
+          <div class="chips"><span class="chip-tag">ESP32-C5</span><span class="chip-tag">Haptics</span><span class="chip-tag">Edge AI</span></div>
+        </a>
+        <a class="card project-card" href="projects/hackathons.html">
+          <div class="img-ph" data-caption="PHOTO: Hackathon team / demo booth"></div>
+          <span class="award">13 Hackathons — 4 Podium Finishes</span>
+          <h3>Hackathon Projects <span class="arrow">→</span></h3>
+          <p>PresentPro, Second Life, WinParks, and more — full product cycles compressed into 36-hour sprints, wins and losses alike.</p>
+          <div class="chips"><span class="chip-tag">Rapid Prototyping</span><span class="chip-tag">Teamwork</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EXPERIENCE ============ -->
+  <section id="experience">
+    <div class="container reveal">
+      <div class="section-head">
+        <span class="tag">experience</span>
+        <h2>Where I've Worked</h2>
+      </div>
+
+      <div class="xp-item">
+        <div class="xp-meta"><span class="org">Software Engineering</span><!-- TODO: company + dates --></div>
+        <div class="xp-body">
+          <h3>Software Engineer — Intelligent Drone Systems</h3>
+          <p>Built software for intelligent drone systems: scalable architectures, user interfaces, cloud integration, and applications that interact seamlessly with physical hardware. Rapid iteration from prototype to polished product.</p>
+          <div class="chips"><span class="chip-tag">Python</span><span class="chip-tag">C++</span><span class="chip-tag">Cloud</span><span class="chip-tag">Embedded</span></div>
+        </div>
+      </div>
+
+      <div class="xp-item">
+        <div class="xp-meta"><span class="org">Graduate Research</span><!-- TODO: university + dates --></div>
+        <div class="xp-body">
+          <h3>Battery Systems Researcher — EV Battery &amp; Power Electronics</h3>
+          <p>Contributed to experimental battery testing, electrochemical impedance spectroscopy (EIS), battery characterization, and hybrid energy storage concepts in a research laboratory environment.</p>
+          <ul>
+            <li>Hands-on with battery cyclers, EIS equipment, and advanced lab instrumentation</li>
+            <li>Battery management systems and power electronics for electric vehicles</li>
+            <li>Scientific experimentation and engineering research methodology</li>
+          </ul>
+          <div class="img-ph" style="min-height:160px; max-width:520px;" data-caption="PHOTOS: battery cyclers, EIS setup, lab, test graphs"></div>
+        </div>
+      </div>
+
+      <div class="xp-item">
+        <div class="xp-meta"><span class="org">Teaching &amp; Mentorship</span><span>Windsor, Ontario</span></div>
+        <div class="xp-body">
+          <h3>Robotics Mentor — Elementary Schools</h3>
+          <p>Helped hundreds of elementary students discover engineering through hands-on robotics and programming — teaching Arduino, C++, and engineering problem solving. Watching young learners struggle with syntax-heavy programming directly inspired my current venture.</p>
+          <div class="chips"><span class="chip-tag green">Arduino</span><span class="chip-tag green">C++</span><span class="chip-tag green">STEM Education</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TIMELINE ============ -->
+  <section id="timeline">
+    <div class="container reveal">
+      <div class="section-head">
+        <span class="tag">journey</span>
+        <h2>The Path So Far</h2>
+      </div>
+      <div class="timeline">
+        <div class="tl-item"><span class="year">2018</span><h3>Started Robotics</h3><p>First builds, first competitions — hooked immediately.</p></div>
+        <div class="tl-item"><span class="year"><!-- year --></span><h3>Science Fairs</h3><p>Turning curiosity into projects worth presenting.</p></div>
+        <div class="tl-item"><span class="year"><!-- year --></span><h3>National Awards</h3><p>Recognition at national-level competitions and innovation awards.</p></div>
+        <div class="tl-item"><span class="year"><!-- year --></span><h3>University — Electrical Engineering</h3><p>Deepening fundamentals across circuits, control, and software.</p></div>
+        <div class="tl-item"><span class="year"><!-- year --></span><h3>Research</h3><p>EV battery systems, EIS, and power electronics in the lab.</p></div>
+        <div class="tl-item"><span class="year"><!-- year --></span><h3>RIIS</h3><p>Building intelligent drone software in industry.</p></div>
+        <div class="tl-item"><span class="year"><!-- year --></span><h3>Graduate Research &amp; Teaching</h3><p>Advancing battery research while mentoring the next generation of engineers.</p></div>
+        <div class="tl-item"><span class="year">Now</span><h3>Entrepreneurship — Aibotics</h3><p>Founding a venture to make robotics education accessible through natural language.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section id="skills">
+    <div class="container reveal">
+      <div class="section-head">
+        <span class="tag">skills</span>
+        <h2>The Full Stack — Silicon to Cloud</h2>
+      </div>
+      <div class="grid-3">
+        <div class="card skill-group">
+          <h3>AI</h3>
+          <div class="chips"><span class="chip-tag">OpenAI APIs</span><span class="chip-tag">Local LLMs</span><span class="chip-tag">Prompt Engineering</span><span class="chip-tag">AI Agents</span><span class="chip-tag">Computer Vision</span></div>
+        </div>
+        <div class="card skill-group">
+          <h3>Software</h3>
+          <div class="chips"><span class="chip-tag">Python</span><span class="chip-tag">C++</span><span class="chip-tag">Kotlin</span><span class="chip-tag">React</span><span class="chip-tag">Next.js</span><span class="chip-tag">Node.js</span></div>
+        </div>
+        <div class="card skill-group">
+          <h3>Embedded</h3>
+          <div class="chips"><span class="chip-tag">STM32</span><span class="chip-tag">Arduino</span><span class="chip-tag">ESP32</span><span class="chip-tag">PCB Design</span><span class="chip-tag">FreeRTOS</span><span class="chip-tag">Embedded Linux</span></div>
+        </div>
+        <div class="card skill-group">
+          <h3>Robotics</h3>
+          <div class="chips"><span class="chip-tag">ROS</span><span class="chip-tag">Motion Control</span><span class="chip-tag">Motor Drivers</span><span class="chip-tag">Sensors</span><span class="chip-tag">SLAM</span></div>
+        </div>
+        <div class="card skill-group">
+          <h3>Manufacturing</h3>
+          <div class="chips"><span class="chip-tag">CAD</span><span class="chip-tag">Fusion 360</span><span class="chip-tag">3D Printing</span><span class="chip-tag">Rapid Prototyping</span><span class="chip-tag">Injection Molding</span></div>
+        </div>
+        <div class="card skill-group">
+          <h3>Hardware</h3>
+          <div class="chips"><span class="chip-tag">Battery Systems</span><span class="chip-tag">Circuit Design</span><span class="chip-tag">Power Electronics</span><span class="chip-tag">Electronics Testing</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section id="services">
+    <div class="container reveal">
+      <div class="section-head">
+        <span class="tag">services</span>
+        <h2>Work With Me</h2>
+      </div>
+      <div class="grid-3">
+        <div class="card service-card"><h3>Robotics Consulting</h3><p>Helping teams prototype robots and embedded systems from concept to demo.</p></div>
+        <div class="card service-card"><h3>AI Product Development</h3><p>Designing AI-powered software and hardware experiences from concept to prototype.</p></div>
+        <div class="card service-card"><h3>Embedded Systems</h3><p>Firmware, sensors, microcontrollers, and hardware integration.</p></div>
+        <div class="card service-card"><h3>Computer Vision</h3><p>Camera-based automation, perception, and edge AI solutions.</p></div>
+        <div class="card service-card"><h3>Speaking &amp; Workshops</h3><p>Robotics, AI, entrepreneurship, engineering design, and STEM education.</p></div>
+        <div class="card service-card"><h3>Mentorship</h3><p>Guidance for engineering students, hackathon teams, and early-stage founders.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GALLERY ============ -->
+  <section id="gallery" style="padding-top:0;">
+    <div class="container reveal">
+      <div class="section-head">
+        <span class="tag">gallery</span>
+        <h2>In the Lab, On the Bench, At the Booth</h2>
+      </div>
+      <div class="gallery-grid">
+        <div class="img-ph" data-caption="PHOTO: soldering at the bench"></div>
+        <div class="img-ph" data-caption="PHOTO: drone flight test"></div>
+        <div class="img-ph" data-caption="PHOTO: battery lab"></div>
+        <div class="img-ph" data-caption="PHOTO: teaching robotics class"></div>
+        <div class="img-ph" data-caption="PHOTO: competition / demo booth"></div>
+        <div class="img-ph" data-caption="PHOTO: CAD / whiteboard session"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact">
+    <div class="container reveal">
+      <div class="contact-box hud">
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <h2>Let's Build Something.</h2>
+        <p>Whether you're hiring, investing, collaborating, or just curious about robots — I'd love to hear from you.</p>
+        <div class="contact-links">
+          <a class="btn btn-primary" href="mailto:ahmad100307@gmail.com">Email Me</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/ahmad-a-658008170/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn-ghost" href="https://github.com/AhmadAli137" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn btn-ghost" href="https://devpost.com/AhmadAli137" target="_blank" rel="noopener">Devpost</a>
+          <a class="btn btn-ghost" href="#" title="TODO: add resume PDF">Resume</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">ahmad.ali // designed &amp; built from scratch — hardware to cloud</div>
+  </footer>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>
