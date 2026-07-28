@@ -67,7 +67,7 @@ export const projects: Project[] = [
       "Tuning control loops for stable indoor flight",
     ],
     lessons: ["TODO: your real war stories from flight testing"],
-    next: "Recognition: Best Demo Award at IEEE PIMRC in Toronto. Built as our University of Windsor capstone project: flight controller design, positioning, and obstacle avoidance.",
+    next: "Recognition: Best Demo Award at IEEE PIMRC 2023 in Toronto. Built as our University of Windsor capstone project: flight controller design, positioning, and obstacle avoidance.",
     gallery: [
       { caption: "Best Demo Award — IEEE PIMRC, Toronto", src: "/img/pimrc-best-demo-award.jpg" },
       { caption: "Capstone presentation day, University of Windsor", src: "/img/capstone-drone-team.jpg" },
@@ -78,7 +78,7 @@ export const projects: Project[] = [
   {
     slug: "sketchbot",
     title: "SketchBot",
-    badge: "WINHACKS 2026 — WINNER (FINALIST)",
+    badge: "WINHACKS 2026 — FINALIST",
     badgeTone: "amber",
     tagline:
       "Design in pixels, then a robot draws it on paper for real. A camera-vision robot that renders your sketches — and AI-generated art — with a marker on a blank canvas.",
@@ -245,7 +245,7 @@ export const projects: Project[] = [
   {
     slug: "memory-optimizer",
     title: "Automotive AI Memory Optimizer",
-    badge: "UWINDSOR × JAGUAR LAND ROVER — AUTOMOTIVE AI COMPETITION",
+    badge: "UWINDSOR × JLR 2025 — $600 + INTERNSHIP PRIZE",
     badgeTone: "cyan",
     tagline:
       "Built for the University of Windsor × Jaguar Land Rover Automotive AI Competition: optimizing memory usage for AI workloads on resource-constrained automotive platforms.",
@@ -264,6 +264,7 @@ export const projects: Project[] = [
     stack: ["C / C++", "Embedded Linux", "Profiling Tools"],
     challenges: ["TODO"],
     lessons: ["TODO"],
+    next: "Awarded $600 and a one-week internship with Jaguar Land Rover at the 2025 competition.",
     gallery: [
       { caption: "Competition day at the UWindsor × JLR Automotive AI Competition", src: "/img/jlr-team-2.jpg" },
     ],

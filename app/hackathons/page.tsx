@@ -24,7 +24,7 @@ interface Hack {
 
 const hacks: Hack[] = [
   {
-    award: "WinHacks 2026 — Winner (Finalist)",
+    award: "WinHacks 2026 — Finalist",
     awardTone: "amber",
     title: "SketchBot",
     desc: "Design in pixels, then a robot draws it on paper for real. Camera-vision positioning, ESP32 motor control, Next.js + WebSockets, Gemini-generated designs.",
@@ -44,7 +44,7 @@ const hacks: Hack[] = [
     internal: true,
   },
   {
-    award: "WinHacks 2025 — 2nd Place",
+    award: "WinHacks 2025 — 2nd Overall · 1st in Category",
     awardTone: "amber",
     title: "PresentPro",
     desc: "Real-time presentation coaching: live speech analysis flags pacing over 160 wpm and nudges you through a vibrating IoT wearable. React, FastAPI, AssemblyAI, ESP32.",
@@ -64,10 +64,10 @@ const hacks: Hack[] = [
     imgAlt: "Second Life team receiving 2nd place overall at WinHacks 2024",
   },
   {
-    award: "NASA Space Apps — 1st Place, Windsor",
+    award: "NASA Space Apps 2025 — 1st Place + Global Nomination",
     awardTone: "amber",
     title: "Meteor Madness",
-    desc: "NASA Space Apps Challenge winner: visualizing near-Earth asteroid data to make planetary defense tangible. Galactic Problem Solver certificate earned.",
+    desc: "NASA Space Apps Challenge: visualizing near-Earth asteroid data to make planetary defense tangible. Won Windsor and earned a global nomination.",
     chips: ["NASA Data", "JavaScript", "Visualization"],
     href: "https://github.com/AhmadAli137/meteor-madness-nasa",
     img: "/img/nasa-space-apps-1.jpg",
@@ -85,7 +85,7 @@ const hacks: Hack[] = [
     imgAlt: "SketchBot V2 with AprilTag marker and 18650 battery power",
   },
   {
-    award: "Winner",
+    award: "BorderHacks 2021 — 2nd Overall + 1st Sponsor Challenge",
     awardTone: "amber",
     title: "WinParks",
     desc: "Mobile app helping people explore the trails, parks, and heritage parks of Windsor.",
@@ -95,7 +95,16 @@ const hacks: Hack[] = [
     imgAlt: "WinParks mobile app showing Windsor park listings",
   },
   {
-    award: "Energy × Software",
+    award: "UWindsor Automotive UI/UX Challenge 2026 — 1st Place",
+    awardTone: "amber",
+    title: "RV Interface Challenge",
+    desc: "Winning entry in the automotive UI/UX challenge — designing and building a recreational-vehicle interface in C#.",
+    chips: ["C#", "UI/UX", "Automotive"],
+    href: "https://github.com/AhmadAli137/UWindsor_RV_UI_UIX_Challenge",
+    imgAlt: "RV interface challenge entry",
+  },
+  {
+    award: "BorderHacks 2022",
     awardTone: "cyan",
     title: "WinGrid",
     desc: "Keeping all the electric vehicles on the grid — managing EV charging load at scale.",
@@ -105,7 +114,7 @@ const hacks: Hack[] = [
     imgAlt: "WinGRID mobile app for planning EV charger installations",
   },
   {
-    award: "Desktop App",
+    award: "Hack the Northeast 2020",
     awardTone: "cyan",
     title: "Covid-19 Global",
     desc: "Desktop application providing trustworthy Covid-19 statistics from countries around the world.",
@@ -115,10 +124,18 @@ const hacks: Hack[] = [
     imgAlt: "Covid-19 Global desktop app showing worldwide statistics",
   },
   {
+    award: "The Early Years — 2017–2020",
+    awardTone: "cyan",
+    title: "WeatherPy · Connect 4 · Zombie FPS",
+    desc: "1st place at Bordercity 2017 with WeatherPy, a virtual Connect 4 at Bordercity 2018, a hand-motion-controlled zombie FPS at MasseyHacks, and BorderHacks 2020's Exponent Base e Calculator.",
+    chips: ["Python", "Game Dev", "Motion Control"],
+    href: "https://devpost.com/AhmadAli137",
+  },
+  {
     award: "And more…",
     awardTone: "cyan",
     title: "EcoRoute · wordConquer · WEC · OEC",
-    desc: "Route optimization, word games, and engineering competitions — including 1st place in programming at the Windsor Engineering Competition. Repos on GitHub.",
+    desc: "Route optimization, word games, and engineering competitions — including four straight 1st places in WEC programming (2020–2023). Repos on GitHub.",
     chips: ["TypeScript", "JavaScript"],
     href: "https://github.com/AhmadAli137",
     img: "/img/wec-1st-place.jpg",
@@ -131,13 +148,14 @@ export default function HackathonsPage() {
     <main className="px-6 pb-10 pt-36">
       <div className="mx-auto max-w-6xl">
         <p className="mb-4 font-mono text-[13px] text-muted">home / work / hackathons</p>
-        <div className="mb-4"><Chip>13 HACKATHONS — 6 PODIUM FINISHES</Chip></div>
+        <div className="mb-4"><Chip>14 HACKATHONS — 2017 → NOW</Chip></div>
         <h1 className="mb-3.5 text-4xl font-extrabold tracking-tight sm:text-5xl">
           Hackathons: Ship It in a Weekend
         </h1>
         <p className="mb-12 max-w-2xl text-lg text-muted">
-          Thirteen hackathons and counting. Some wins, some losses — every one of them a full product
-          cycle compressed into 36 hours: idea, hardware, software, pitch. Full history on{" "}
+          A decade of hackathons — from a first win at Bordercity 2017 to NASA Space Apps and Toronto.
+          Some wins, some losses — every one a full product cycle compressed into 36 hours: idea,
+          hardware, software, pitch. Recent history on{" "}
           <a
             href="https://devpost.com/AhmadAli137"
             target="_blank"

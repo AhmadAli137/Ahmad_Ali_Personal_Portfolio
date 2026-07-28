@@ -37,14 +37,15 @@ const services: { title: string; desc: string }[] = [
 ];
 
 const timeline: { year: string; title: string; desc: string }[] = [
-  { year: "2018", title: "Started Robotics", desc: "First builds, first competitions — hooked immediately." },
-  { year: "", title: "Science Fairs", desc: "Turning curiosity into projects worth presenting." },
-  { year: "", title: "National Awards", desc: "Recognition at national-level competitions and innovation awards." },
-  { year: "", title: "University of Windsor — Electrical Engineering", desc: "Deepening fundamentals across circuits, control, and software — including the Formula Electric battery team." },
-  { year: "", title: "Research — CHARGE Lab", desc: "EV battery systems, EIS, and power electronics at UWindsor's Centre for Hybrid Automotive Research and Green Energy." },
+  { year: "2014", title: "First Science Fair", desc: "The start of six gold-medal years at the Windsor Regional Science Fair." },
+  { year: "2015", title: "The National Stage", desc: "Canada-Wide Science Fair: four finals appearances, two bronze, a silver, and a $10k UOttawa scholarship." },
+  { year: "2017", title: "First Hackathon, First Win", desc: "WeatherPy takes 1st place at Bordercity Hackathon — the start of a decade of building under pressure." },
+  { year: "", title: "University of Windsor — Electrical Engineering", desc: "Circuits, control, and software — plus the Formula SAE accumulator team and four straight WEC programming titles." },
+  { year: "2023", title: "IEEE PIMRC Best Demo — Toronto", desc: "The capstone indoor autonomous drone wins Best Demo; EPICentre awards the Innovation Mastery Award." },
   { year: "", title: "RIIS", desc: "Building intelligent drone software in industry." },
-  { year: "", title: "Graduate Research & Teaching", desc: "Advancing EV battery research — presented at IEEE EPEC 2025 — while mentoring the next generation of engineers." },
-  { year: "Now", title: "Entrepreneurship — Aibotics", desc: "Founding a venture to make robotics education accessible through natural language." },
+  { year: "", title: "Graduate Research — CHARGE Lab", desc: "EV battery systems with Magna — presented at IEEE EPEC 2025 in Waterloo." },
+  { year: "2025", title: "NASA Space Apps — 1st + Global Nomination", desc: "Meteor Madness wins Windsor and earns a global nomination; JLR competition earns an internship." },
+  { year: "Now", title: "Entrepreneurship — Aibotics", desc: "Founding a venture to make robotics education accessible through natural language — and mentoring the next generation along the way." },
 ];
 
 export default function Home() {
@@ -97,9 +98,9 @@ export default function Home() {
           <Reveal className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-5">
             {[
               { num: <CountUp target={20} suffix="+" />, label: "Engineering Projects" },
-              { num: <CountUp target={10} suffix="+" />, label: "Awards & Competitions" },
+              { num: <CountUp target={44} />, label: "Competitions & Conferences" },
               { num: "IEEE", label: "Best Demo Winner" },
-              { num: <CountUp target={13} />, label: "Hackathons" },
+              { num: <CountUp target={14} />, label: "Hackathons" },
               { num: "Founder", label: "Educational Robotics Venture" },
             ].map((s, i) => (
               <div
@@ -208,7 +209,7 @@ export default function Home() {
                 <Card className="flex h-full flex-col gap-4">
                   <Ph caption="PHOTO: Hackathon team / demo booth" minH="min-h-[190px]" />
                   <span className="flex items-center gap-1.5 font-mono text-xs text-amber">
-                    <Award size={13} /> 13 Hackathons — 6 Podium Finishes
+                    <Award size={13} /> 14 Hackathons Since 2017
                   </span>
                   <h3 className="text-lg font-bold">
                     Hackathon Projects{" "}
@@ -240,19 +241,23 @@ export default function Home() {
             />
           </Reveal>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { img: "/img/pimrc-best-demo-award.jpg", award: "Best Demo Award", event: "IEEE PIMRC — Toronto", note: "Indoor autonomous drone navigation" },
-              { img: "/img/nasa-space-apps-1.jpg", award: "1st Place — Windsor", event: "NASA Space Apps Challenge", note: "Galactic Problem Solver" },
-              { img: "/img/epicentre-award-trophy.jpg", award: "Innovation Mastery Award", event: "EPICentre, UWindsor", note: "Entrepreneurship & innovation" },
-              { img: "/img/wec-1st-place.jpg", award: "1st Place — Programming", event: "Windsor Engineering Competition", note: "Competitive programming" },
-              { img: "/img/winhacks26-sketchbot-award-2.jpg", award: "Winner (Finalist)", event: "WinHacks 2026", note: "SketchBot — drawing robot" },
-              { img: "/img/presentpro-award-1.jpg", award: "2nd Place", event: "WinHacks 2025", note: "PresentPro — AI presentation coach" },
+            {([
+              { img: "/img/pimrc-best-demo-award.jpg", award: "Best Demo Award", event: "IEEE PIMRC 2023 — Toronto", note: "Indoor autonomous drone navigation" },
+              { img: "/img/nasa-space-apps-1.jpg", award: "1st Place + Global Nomination", event: "NASA Space Apps 2025", note: "Meteor Madness" },
+              { caption: "PHOTO: CWSF medals", award: "2× Bronze · Silver · $10k Scholarship", event: "Canada-Wide Science Fair", note: "Four national finals, 2015–2019" },
+              { img: "/img/epicentre-award-trophy.jpg", award: "Innovation Mastery Award + $1,000", event: "EPICentre Excellence Awards 2023", note: "Entrepreneurship & innovation" },
+              { img: "/img/wec-1st-place.jpg", award: "4× 1st Place — Programming", event: "Windsor Engineering Competition", note: "Four straight years, 2020–2023" },
+              { caption: "PHOTO: science fair medals", award: "6× Gold + Sponsor Awards", event: "Windsor Regional Science Fair", note: "2014–2019 — where it all started" },
+              { img: "/img/presentpro-award-1.jpg", award: "2nd Overall · 1st in Category", event: "WinHacks 2025", note: "PresentPro — AI presentation coach" },
               { img: "/img/secondlife-award.jpg", award: "2nd Place Overall", event: "WinHacks 2024", note: "Second Life — EV battery reuse" },
-              { img: "/img/clubhacks-sketchbot-v2-1.jpg", award: "Finalist", event: "ClubHacks 2026", note: "SketchBot V2 — AprilTag tracking" },
-            ].map((a, i) => (
+              { img: "/img/winhacks26-sketchbot-award-2.jpg", award: "Finalist", event: "WinHacks 2026", note: "SketchBot — drawing robot" },
+              { img: "/img/jlr-team-1.jpg", award: "$600 + JLR Internship", event: "UWindsor × JLR AI Competition 2025", note: "Automotive AI memory optimization" },
+              { caption: "PHOTO: RV challenge", award: "1st Place", event: "Automotive UI/UX Challenge 2026", note: "RV interface challenge" },
+              { caption: "PHOTO: pitch competition", award: "4th Place — $2,500", event: "Take Your Shot 2026 — Leamington", note: "Startup pitch competition" },
+            ] as { img?: string; caption?: string; award: string; event: string; note: string }[]).map((a, i) => (
               <Reveal key={a.event + a.award} delay={(i % 4) * 0.06}>
                 <Card className="flex h-full flex-col gap-3 !p-5">
-                  <Ph caption={a.award} src={a.img} alt={`${a.award} — ${a.event}`} minH="min-h-[150px]" />
+                  <Ph caption={a.caption ?? a.award} src={a.img} alt={`${a.award} — ${a.event}`} minH="min-h-[150px]" />
                   <div>
                     <div className="flex items-center gap-1.5 font-mono text-xs text-amber">
                       <Award size={13} /> {a.award}
@@ -264,6 +269,9 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
+          <Reveal className="mt-8">
+            <Btn href="/competitions">Full Competition History — 44 Events →</Btn>
+          </Reveal>
         </div>
       </section>
 

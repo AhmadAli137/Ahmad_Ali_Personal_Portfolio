@@ -112,6 +112,10 @@ export default function VenturePage() {
             toy-like to teach real engineering or too complex for young learners. Aibotics sits in the
             gap: real robotics, zero syntax barrier. {/* TODO: add your market numbers */}
           </p>
+          <p className="mt-3.5 max-w-3xl text-muted">
+            Early recognition: <strong className="text-ink">4th place and $2,500</strong> at the Take
+            Your Shot pitch competition (Leamington, 2026).
+          </p>
         </Reveal>
 
         <Reveal className="py-10">
