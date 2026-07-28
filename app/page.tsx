@@ -40,10 +40,10 @@ const timeline: { year: string; title: string; desc: string }[] = [
   { year: "2018", title: "Started Robotics", desc: "First builds, first competitions — hooked immediately." },
   { year: "", title: "Science Fairs", desc: "Turning curiosity into projects worth presenting." },
   { year: "", title: "National Awards", desc: "Recognition at national-level competitions and innovation awards." },
-  { year: "", title: "University — Electrical Engineering", desc: "Deepening fundamentals across circuits, control, and software." },
-  { year: "", title: "Research", desc: "EV battery systems, EIS, and power electronics in the lab." },
+  { year: "", title: "University of Windsor — Electrical Engineering", desc: "Deepening fundamentals across circuits, control, and software — including the Formula Electric battery team." },
+  { year: "", title: "Research — CHARGE Lab", desc: "EV battery systems, EIS, and power electronics at UWindsor's Centre for Hybrid Automotive Research and Green Energy." },
   { year: "", title: "RIIS", desc: "Building intelligent drone software in industry." },
-  { year: "", title: "Graduate Research & Teaching", desc: "Advancing battery research while mentoring the next generation of engineers." },
+  { year: "", title: "Graduate Research & Teaching", desc: "Advancing EV battery research — presented at IEEE EPEC 2025 — while mentoring the next generation of engineers." },
   { year: "Now", title: "Entrepreneurship — Aibotics", desc: "Founding a venture to make robotics education accessible through natural language." },
 ];
 
@@ -82,8 +82,14 @@ export default function Home() {
               </div>
             </div>
             <Hud>
-              {/* TODO: swap for a real photo — you working on a robot/prototype */}
-              <Ph caption="PHOTO: Ahmad working on a robot / drone prototype" minH="min-h-[460px]" className="shadow-[0_0_60px_rgba(0,229,255,0.08)]" />
+              {/* Swap for a robot/drone build photo when available */}
+              <Ph
+                caption="Ahmad working on an EV powertrain test rig"
+                src="/img/charge-lab-ev-rnd.jpg"
+                alt="Ahmad working hands-on with an EV motor on a dynamometer test rig at the CHARGE Lab"
+                minH="min-h-[460px]"
+                className="shadow-[0_0_60px_rgba(0,229,255,0.08)]"
+              />
             </Hud>
           </div>
 
@@ -247,23 +253,40 @@ export default function Home() {
             <div className="grid gap-4 py-7 md:grid-cols-[200px_1fr] md:gap-7">
               <div className="font-mono text-xs text-muted">
                 <span className="block text-[13px] text-mint">Graduate Research</span>
-                {/* TODO: university + dates */}
+                University of Windsor — CHARGE Lab
+                {/* TODO: dates */}
               </div>
               <div>
                 <h3 className="mb-2 text-lg font-bold">
                   Battery Systems Researcher — EV Battery &amp; Power Electronics
                 </h3>
                 <p className="mb-3 text-sm text-muted">
-                  Contributed to experimental battery testing, electrochemical impedance spectroscopy
-                  (EIS), battery characterization, and hybrid energy storage concepts in a research
-                  laboratory environment.
+                  EV battery research at the CHARGE Lab (Centre for Hybrid Automotive Research and
+                  Green Energy): experimental battery testing, electrochemical impedance spectroscopy
+                  (EIS), battery characterization, and hybrid energy storage concepts.
                 </p>
                 <ul className="mb-4 list-disc space-y-1 pl-5 text-sm text-muted">
-                  <li>Hands-on with battery cyclers, EIS equipment, and advanced lab instrumentation</li>
-                  <li>Battery management systems and power electronics for electric vehicles</li>
-                  <li>Scientific experimentation and engineering research methodology</li>
+                  <li>
+                    Presented &quot;Dual-Chemistry Load Distribution for EV Battery Systems Using
+                    Cascaded H-Bridge Inverters&quot; at IEEE EPEC 2025
+                  </li>
+                  <li>Industry-partnered research with Magna on EV powertrain systems</li>
+                  <li>Hands-on with battery cyclers, EIS equipment, and dynamometer test rigs</li>
                 </ul>
-                <Ph caption="PHOTOS: battery cyclers, EIS setup, lab, test graphs" minH="min-h-[160px]" className="max-w-lg" />
+                <div className="grid max-w-2xl grid-cols-2 gap-4">
+                  <Ph
+                    caption="CHARGE Lab"
+                    src="/img/charge-lab-battery.jpg"
+                    alt="The CHARGE Lab at the University of Windsor with researchers at test benches"
+                    minH="min-h-[180px]"
+                  />
+                  <Ph
+                    caption="IEEE EPEC 2025"
+                    src="/img/ieee-epec-poster.jpg"
+                    alt="Ahmad presenting his EV battery systems research poster at IEEE EPEC 2025"
+                    minH="min-h-[180px]"
+                  />
+                </div>
               </div>
             </div>
 
@@ -352,14 +375,17 @@ export default function Home() {
           <SectionHeading tag="gallery" title="In the Lab, On the Bench, At the Booth" />
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
             {[
-              "PHOTO: soldering at the bench",
-              "PHOTO: drone flight test",
-              "PHOTO: battery lab",
-              "PHOTO: teaching robotics class",
-              "PHOTO: competition / demo booth",
-              "PHOTO: CAD / whiteboard session",
-            ].map((c) => (
-              <Ph key={c} caption={c} minH="min-h-[180px]" />
+              { caption: "Receiving the EPICentre Innovation Mastery Award", src: "/img/epicentre-award-stage.jpg" },
+              { caption: "EPICentre Innovation Mastery Award", src: "/img/epicentre-award-trophy.jpg" },
+              { caption: "Presenting at IEEE EPEC 2025", src: "/img/ieee-epec-poster.jpg" },
+              { caption: "Formula Electric battery team, UWindsor", src: "/img/formula-electric-team.jpg" },
+              { caption: "Magna project team at the CHARGE Lab", src: "/img/charge-lab-magna-team.jpg" },
+              { caption: "Iron Ring ceremony with classmates", src: "/img/iron-ring-classmates.jpg" },
+              { caption: "Iron Ring ceremony", src: "/img/iron-ring-ceremony.jpg" },
+              { caption: "Graduation, University of Windsor", src: "/img/undergrad-graduation.jpg" },
+              { caption: "PHOTO: teaching robotics class" },
+            ].map((g) => (
+              <Ph key={g.caption} caption={g.caption} src={g.src} alt={g.caption} minH="min-h-[200px]" />
             ))}
           </div>
         </Reveal>
