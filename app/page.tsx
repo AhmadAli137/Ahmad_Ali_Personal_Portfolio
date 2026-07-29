@@ -7,6 +7,7 @@ import { Ph } from "@/components/image-placeholder";
 import { Hud } from "@/components/hud";
 import { Btn, Card, Chip, Chips, SectionHeading } from "@/components/ui";
 import { projects, featuredSlugs } from "@/lib/projects";
+import { comps } from "@/lib/competitions";
 
 const focusAreas = [
   "Robotics",
@@ -269,8 +270,31 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
-          <Reveal className="mt-8">
-            <Btn href="/competitions">Full Competition History — 44 Events →</Btn>
+          {/* Full record — expanded by default */}
+          <Reveal className="mt-14">
+            <h3 className="mb-6 font-mono text-lg text-mint">
+              <span className="text-muted">## </span>The Full Record — 44 Events, 2014 → Now
+            </h3>
+            <div className="grid gap-x-12 gap-y-4 md:grid-cols-2">
+              {comps.map((c, i) => (
+                <div key={c.title + c.years + i} className="border-l-2 border-line pl-4 transition-colors hover:border-cyan/60">
+                  <div className="flex flex-wrap items-baseline gap-x-2.5">
+                    <span className="font-mono text-xs text-cyan">{c.years}</span>
+                    <span className="text-sm font-bold">{c.title}</span>
+                    {c.location && <span className="font-mono text-[10px] text-muted">// {c.location}</span>}
+                  </div>
+                  {c.result && (
+                    <div className="flex items-center gap-1.5 font-mono text-xs text-amber">
+                      <Award size={11} /> {c.result}
+                    </div>
+                  )}
+                  {c.detail && <p className="text-xs text-muted">{c.detail}</p>}
+                </div>
+              ))}
+            </div>
+          </Reveal>
+          <Reveal className="mt-10">
+            <Btn href="/competitions">The Wall — Logos &amp; Locations →</Btn>
           </Reveal>
         </div>
       </section>
