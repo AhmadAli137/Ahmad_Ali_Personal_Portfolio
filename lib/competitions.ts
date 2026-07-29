@@ -43,3 +43,35 @@ export const locations = [
   "Windsor", "Toronto", "Ottawa", "New Brunswick", "Kingston", "London",
   "Leamington", "Quebec", "Michigan", "Waterloo",
 ];
+
+export interface WallOrg {
+  name: string;
+  short: string;
+  logo?: string;
+}
+
+/* Drop a logo at public/img/logos/ and set `logo` to swap a monogram tile for the real mark */
+export const wall: WallOrg[] = [
+  { name: "NASA Space Apps Challenge", short: "NASA", logo: "/img/logos/nasa-space-apps.png" },
+  { name: "IEEE PIMRC", short: "IEEE" },
+  { name: "IEEE EPEC", short: "EPEC" },
+  { name: "Canada-Wide Science Fair", short: "CWSF", logo: "/img/logos/cwsf.jpg" },
+  { name: "Formula SAE", short: "FSAE" },
+  { name: "Jaguar Land Rover", short: "JLR" },
+  { name: "WinHacks", short: "WH", logo: "/img/logos/winhacks.jpg" },
+  { name: "BorderHacks", short: "BH", logo: "/img/logos/borderhacks.png" },
+  { name: "Hack the 6ix", short: "HT6", logo: "/img/logos/hack-the-6ix.jpg" },
+  { name: "MasseyHacks", short: "MH", logo: "/img/logos/masseyhacks.jpg" },
+  { name: "ClubHacks", short: "CH", logo: "/img/logos/clubhacks.png" },
+  { name: "Hack the Northeast", short: "HTNE", logo: "/img/logos/hack-the-northeast.png" },
+  { name: "CS Games", short: "CSG", logo: "/img/logos/cs-games.jpg" },
+  { name: "Windsor Engineering Competition", short: "WEC", logo: "/img/logos/wec.jpg" },
+  { name: "Ontario Engineering Competition", short: "OEC", logo: "/img/logos/oec-2024.jpg" },
+  { name: "Windsor Regional Science Fair", short: "WRSF", logo: "/img/logos/wrstef.png" },
+  { name: "Let's Talk Science", short: "LTS", logo: "/img/logos/lets-talk-science.png" },
+  { name: "EPICentre", short: "EPIC" },
+  { name: "UWillDiscover", short: "UWD" },
+  { name: "Take Your Shot", short: "TYS" },
+  { name: "Bordercity Hackathon", short: "BC", logo: "/img/logos/bordercity.png" },
+  { name: "University of Windsor", short: "UW" },
+];

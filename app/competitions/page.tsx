@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Award, MapPin } from "lucide-react";
 import { Reveal } from "@/components/reveal";
+import { LogoWall } from "@/components/logo-wall";
 import { Btn, Chip } from "@/components/ui";
 import { comps, locations } from "@/lib/competitions";
 
@@ -11,41 +11,7 @@ export const metadata: Metadata = {
     "44 competitions across a decade — science fairs, hackathons, engineering challenges, conferences, and pitch competitions.",
 };
 
-/* ---- Logo wall ----
-   Drop a logo file at public/img/logos/<logo>.{png,svg,jpg} and set `logo`
-   on the entry to show it; tiles without a logo render a styled monogram. */
-interface WallOrg {
-  name: string;
-  short: string;
-  logo?: string;
-}
-
-const wall: WallOrg[] = [
-  { name: "NASA Space Apps Challenge", short: "NASA", logo: "/img/logos/nasa-space-apps.png" },
-  { name: "IEEE PIMRC", short: "IEEE" },
-  { name: "IEEE EPEC", short: "EPEC" },
-  { name: "Canada-Wide Science Fair", short: "CWSF", logo: "/img/logos/cwsf.jpg" },
-  { name: "Formula SAE", short: "FSAE" },
-  { name: "Jaguar Land Rover", short: "JLR" },
-  { name: "WinHacks", short: "WH", logo: "/img/logos/winhacks.jpg" },
-  { name: "BorderHacks", short: "BH", logo: "/img/logos/borderhacks.png" },
-  { name: "Hack the 6ix", short: "HT6", logo: "/img/logos/hack-the-6ix.jpg" },
-  { name: "MasseyHacks", short: "MH", logo: "/img/logos/masseyhacks.jpg" },
-  { name: "ClubHacks", short: "CH", logo: "/img/logos/clubhacks.png" },
-  { name: "Hack the Northeast", short: "HTNE", logo: "/img/logos/hack-the-northeast.png" },
-  { name: "CS Games", short: "CSG", logo: "/img/logos/cs-games.jpg" },
-  { name: "Windsor Engineering Competition", short: "WEC", logo: "/img/logos/wec.jpg" },
-  { name: "Ontario Engineering Competition", short: "OEC", logo: "/img/logos/oec-2024.jpg" },
-  { name: "Windsor Regional Science Fair", short: "WRSF", logo: "/img/logos/wrstef.png" },
-  { name: "Let's Talk Science", short: "LTS", logo: "/img/logos/lets-talk-science.png" },
-  { name: "EPICentre", short: "EPIC" },
-  { name: "UWillDiscover", short: "UWD" },
-  { name: "Take Your Shot", short: "TYS" },
-  { name: "Bordercity Hackathon", short: "BC", logo: "/img/logos/bordercity.png" },
-  { name: "University of Windsor", short: "UW" },
-];
-
-/* Full chronological record + locations shared with the homepage */
+/* Wall, record, and locations all live in lib/competitions.ts (shared with the homepage) */
 
 export default function CompetitionsPage() {
   return (
@@ -78,32 +44,7 @@ export default function CompetitionsPage() {
         {/* Competition wall */}
         <Reveal className="mb-16">
           <h2 className="mb-5 font-mono text-lg text-mint"><span className="text-muted">## </span>The Wall</h2>
-          <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-6">
-            {wall.map((o) => (
-              <div
-                key={o.name}
-                title={o.name}
-                className="group grid min-h-[110px] place-items-center rounded-xl border border-line bg-[linear-gradient(160deg,var(--color-panel2),var(--color-panel))] p-4 transition-all hover:-translate-y-1 hover:border-cyan/60 hover:shadow-[0_0_24px_rgba(0,229,255,0.15)]"
-              >
-                {o.logo ? (
-                  <Image
-                    src={o.logo}
-                    alt={o.name}
-                    width={120}
-                    height={60}
-                    className="max-h-[64px] w-auto rounded-md object-contain transition-transform duration-200 group-hover:scale-110"
-                  />
-                ) : (
-                  <div className="text-center">
-                    <div className="font-mono text-xl font-bold text-muted transition-colors group-hover:text-cyan">
-                      {o.short}
-                    </div>
-                    <div className="mt-1 text-[10px] leading-tight text-muted/70">{o.name}</div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+          <LogoWall />
         </Reveal>
 
         {/* Full record */}

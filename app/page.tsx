@@ -8,6 +8,7 @@ import { Hud } from "@/components/hud";
 import { Btn, Card, Chip, Chips, SectionHeading } from "@/components/ui";
 import { projects, featuredSlugs } from "@/lib/projects";
 import { comps } from "@/lib/competitions";
+import { LogoWall } from "@/components/logo-wall";
 
 const focusAreas = [
   "Robotics",
@@ -270,6 +271,14 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
+          {/* The Wall — every competition attended */}
+          <Reveal className="mt-14">
+            <h3 className="mb-6 font-mono text-lg text-mint">
+              <span className="text-muted">## </span>The Wall
+            </h3>
+            <LogoWall />
+          </Reveal>
+
           {/* Full record — expanded by default */}
           <Reveal className="mt-14">
             <h3 className="mb-6 font-mono text-lg text-mint">
