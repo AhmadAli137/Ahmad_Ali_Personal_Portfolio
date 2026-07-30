@@ -53,8 +53,7 @@ export interface WallOrg {
 /* Drop a logo at public/img/logos/ and set `logo` to swap a monogram tile for the real mark */
 export const wall: WallOrg[] = [
   { name: "NASA Space Apps Challenge", short: "NASA", logo: "/img/logos/nasa-space-apps.png" },
-  { name: "IEEE PIMRC", short: "IEEE", logo: "/img/logos/ieee.jpg" },
-  { name: "IEEE EPEC", short: "EPEC", logo: "/img/logos/ieee.jpg" },
+  { name: "IEEE — PIMRC & EPEC", short: "IEEE", logo: "/img/logos/ieee.jpg" },
   { name: "Canada-Wide Science Fair", short: "CWSF", logo: "/img/logos/cwsf.jpg" },
   { name: "Formula SAE", short: "FSAE", logo: "/img/logos/fsae.jpg" },
   { name: "Jaguar Land Rover", short: "JLR", logo: "/img/logos/jlr.jpg" },
