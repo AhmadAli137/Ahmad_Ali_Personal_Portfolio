@@ -352,7 +352,7 @@ export default function Home() {
                   <li>Industry-partnered research with Magna on EV powertrain systems</li>
                   <li>Hands-on with battery cyclers, EIS equipment, and dynamometer test rigs</li>
                 </ul>
-                <div className="grid max-w-2xl grid-cols-2 gap-4">
+                <div className="grid max-w-3xl grid-cols-2 gap-4 sm:grid-cols-3">
                   <Ph
                     caption="CHARGE Lab"
                     src="/img/charge-lab-battery.jpg"
@@ -363,6 +363,12 @@ export default function Home() {
                     caption="IEEE EPEC 2025"
                     src="/img/ieee-epec-poster.jpg"
                     alt="Ahmad presenting his EV battery systems research poster at IEEE EPEC 2025"
+                    minH="min-h-[180px]"
+                  />
+                  <Ph
+                    caption="Magna project team"
+                    src="/img/charge-lab-magna-team.jpg"
+                    alt="The Magna project team at the CHARGE Lab"
                     minH="min-h-[180px]"
                   />
                 </div>
@@ -504,31 +510,6 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
-
-      {/* ============ GALLERY ============ */}
-      <section id="gallery" className="px-6 py-10">
-        <Reveal className="mx-auto max-w-6xl">
-          <SectionHeading tag="gallery" title="In the Lab, On the Bench, At the Booth" />
-          <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
-            {[
-              { caption: "Receiving the EPICentre Innovation Mastery Award", src: "/img/epicentre-award-stage.jpg" },
-              { caption: "EPICentre Innovation Mastery Award", src: "/img/epicentre-award-trophy.jpg" },
-              { caption: "Presenting at IEEE EPEC 2025", src: "/img/ieee-epec-poster.jpg" },
-              { caption: "Formula Electric battery team, UWindsor", src: "/img/formula-electric-team.jpg" },
-              { caption: "Magna project team at the CHARGE Lab", src: "/img/charge-lab-magna-team.jpg" },
-              { caption: "1st place, programming — Windsor Engineering Competition", src: "/img/wec-1st-place.jpg" },
-              { caption: "Windsor delegation, Ontario Engineering Competition 2024", src: "/img/oec-2024-delegation.jpg" },
-              { caption: "Iron Ring ceremony with classmates", src: "/img/iron-ring-classmates.jpg" },
-              { caption: "Iron Ring ceremony", src: "/img/iron-ring-ceremony.jpg" },
-              { caption: "Graduation, University of Windsor", src: "/img/undergrad-graduation.jpg" },
-              { caption: "NASA Space Apps — 1st place, Windsor", src: "/img/nasa-space-apps-1.jpg" },
-              { caption: "Mentoring at the Genius Cup", src: "/img/genius-cup-main.jpg" },
-            ].map((g) => (
-              <Ph key={g.caption} caption={g.caption} src={g.src} alt={g.caption} minH="min-h-[200px]" />
-            ))}
-          </div>
-        </Reveal>
       </section>
 
       {/* ============ CONTACT ============ */}
