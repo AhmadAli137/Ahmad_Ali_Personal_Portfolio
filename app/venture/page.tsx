@@ -5,23 +5,23 @@ import { Hud } from "@/components/hud";
 import { Btn, Chip } from "@/components/ui";
 
 export const metadata: Metadata = {
-  title: "Aibotics",
+  title: "SaySpark",
   description:
-    "Aibotics: AI-powered educational robotics. Kids learn robotics through natural language instead of syntax-heavy programming.",
+    "SaySpark: voice-first robotics for kids. A robot that teaches kids to think like engineers — talk to it, and it comes to life.",
 };
 
 const roadmap = [
-  { phase: "Phase 1", title: "Prototype & Validation", desc: "Working prototype hardware + natural-language control loop. Classroom pilot feedback." },
-  { phase: "Phase 2", title: "Product Design & Manufacturing", desc: "Design for manufacturing, injection molding considerations, safety certification." },
-  { phase: "Phase 3", title: "Pilot Programs", desc: "School partnerships and structured curriculum." },
-  { phase: "Phase 4", title: "Launch", desc: "Bring Aibotics to classrooms and homes." },
+  { phase: "Shipped", title: "3D Simulator + AI Tutor — Free Early Access", desc: "The browser-based playground and Spark, the AI tutor with age-grouped curriculum lessons, are live now at sayspark.ca." },
+  { phase: "Next", title: "Spark Mini Hardware", desc: "The physical robot — microphone, camera, distance sensors, maze-solving — available at official launch." },
+  { phase: "Then", title: "Classrooms", desc: "Teacher tools are built (rosters, leaderboards, assessments) — school pilots scale them up." },
+  { phase: "Launch", title: "SaySpark Everywhere", desc: "Spark Mini in classrooms and homes." },
 ];
 
 const architecture = [
-  { name: "Natural-language layer", desc: "LLM-powered interpretation of a child's spoken or typed intent into safe robot behaviors" },
-  { name: "Robot firmware", desc: "embedded control for motors, sensors, and safety limits" },
-  { name: "Companion software", desc: "guided learning experiences that grow from natural language toward real code" },
-  { name: "Hardware platform", desc: "designed for small hands, classroom durability, and low cost" },
+  { name: "Spark Mini", desc: "the robot — hears through its own microphone, answers out loud while it drives, measures distances, looks through its camera, and solves mazes" },
+  { name: "Spark, the AI tutor", desc: "a real AI tutor that thinks through each command, explains the plan, and teaches engineering reasoning along the way" },
+  { name: "3D simulator", desc: "a free browser-based playground — the full SaySpark experience before the hardware arrives" },
+  { name: "Classroom tools", desc: "rosters, leaderboards, and assessments so teachers can run SaySpark with a whole class" },
 ];
 
 export default function VenturePage() {
@@ -29,15 +29,19 @@ export default function VenturePage() {
     <main className="px-6 pb-10 pt-36">
       <div className="mx-auto max-w-6xl">
         <p className="mb-4 font-mono text-[13px] text-muted">home / venture</p>
-        <div className="mb-4"><Chip tone="mint">FOUNDER — CURRENT VENTURE</Chip></div>
-        <h1 className="mb-3.5 text-4xl font-extrabold tracking-tight sm:text-5xl">Aibotics</h1>
+        <div className="mb-4"><Chip tone="mint">FOUNDER — LIVE IN EARLY ACCESS</Chip></div>
+        <h1 className="mb-3.5 text-4xl font-extrabold tracking-tight sm:text-5xl">SaySpark</h1>
         <p className="mb-6 max-w-2xl text-lg text-muted">
-          AI-powered educational robotics. Children learn to build and program robots through{" "}
-          <strong className="text-ink">natural language</strong> — no syntax, no barriers, just
-          curiosity turned into motion.
+          Voice-first robotics for kids. Talk to <strong className="text-ink">Spark Mini</strong> in
+          plain words and it answers out loud while it drives, measures, sees, and solves mazes —
+          no syntax, no barriers, just curiosity turned into motion.
         </p>
+        <div className="mb-8 flex flex-wrap gap-3.5">
+          <Btn href="https://sayspark.ca" variant="primary" external>Visit sayspark.ca ↗</Btn>
+          <Btn href="https://sayspark.ca" external>Try the Free Simulator</Btn>
+        </div>
         <Hud>
-          <Ph caption="HERO PHOTO: Aibotics robot prototype (large, high quality)" minH="min-h-[460px]" className="shadow-[0_0_60px_rgba(0,229,255,0.08)]" />
+          <Ph caption="HERO PHOTO: Spark Mini robot (large, high quality)" minH="min-h-[460px]" className="shadow-[0_0_60px_rgba(0,229,255,0.08)]" />
         </Hud>
 
         <Reveal className="grid gap-10 py-14 lg:grid-cols-2">
@@ -45,14 +49,14 @@ export default function VenturePage() {
             <h2 className="mb-3.5 font-mono text-lg text-mint"><span className="text-muted">## </span>Mission</h2>
             <p className="text-muted">
               Make robotics education accessible to every child by removing the biggest barrier:
-              syntax-heavy programming. Technology should feel empowering, not intimidating.
+              syntax-heavy programming. A robot that teaches kids to think like engineers.
             </p>
           </div>
           <div>
             <h2 className="mb-3.5 font-mono text-lg text-mint"><span className="text-muted">## </span>Vision</h2>
             <p className="text-muted">
-              A world where any curious kid can say &quot;make the robot follow the light&quot; — and
-              watch it happen. Natural language as the on-ramp to real engineering.
+              A world where any curious kid can say &quot;solve the maze&quot; — and watch their
+              robot think out loud as it does. Natural language as the on-ramp to real engineering.
             </p>
           </div>
         </Reveal>
@@ -72,8 +76,12 @@ export default function VenturePage() {
               them.&quot;
             </p>
             <p>
-              That insight became SaySpark — a platform for learning robotics through natural
-              language — and has grown into Aibotics, the venture bringing it to market.
+              That insight became SaySpark — and it ships. The simulator and AI tutor are live in
+              free early access at{" "}
+              <a href="https://sayspark.ca" target="_blank" rel="noopener noreferrer" className="text-mint hover:underline">
+                sayspark.ca
+              </a>
+              , with the Spark Mini robot arriving at launch.
             </p>
           </div>
         </Reveal>
@@ -82,18 +90,18 @@ export default function VenturePage() {
           <h2 className="mb-6 font-mono text-lg text-mint"><span className="text-muted">## </span>Roadmap</h2>
           <div className="relative pl-9 before:absolute before:bottom-1.5 before:left-2 before:top-1.5 before:w-0.5 before:bg-gradient-to-b before:from-cyan before:to-mint before:opacity-35">
             {roadmap.map((r) => (
-              <div key={r.phase} className="relative pb-8 last:pb-0">
+              <div key={r.phase + r.title} className="relative pb-8 last:pb-0">
                 <span className="absolute -left-[29px] top-1.5 h-3 w-3 rounded-full border-2 border-cyan bg-bg shadow-[0_0_12px_rgba(0,229,255,0.6)]" />
                 <span className="font-mono text-[13px] text-cyan">{r.phase}</span>
                 <h3 className="mt-1 text-base font-bold">{r.title}</h3>
-                <p className="max-w-xl text-sm text-muted">{r.desc} {/* TODO: current status */}</p>
+                <p className="max-w-xl text-sm text-muted">{r.desc}</p>
               </div>
             ))}
           </div>
         </Reveal>
 
         <Reveal className="py-10">
-          <h2 className="mb-5 font-mono text-lg text-mint"><span className="text-muted">## </span>Technical Architecture</h2>
+          <h2 className="mb-5 font-mono text-lg text-mint"><span className="text-muted">## </span>What&apos;s Inside</h2>
           <ul className="max-w-3xl space-y-2.5 text-muted">
             {architecture.map((a) => (
               <li key={a.name}>
@@ -101,16 +109,16 @@ export default function VenturePage() {
               </li>
             ))}
           </ul>
-          {/* TODO: replace with real architecture diagram */}
-          <Ph caption="DIAGRAM: Aibotics technical architecture" minH="min-h-[260px]" className="mt-6" />
+          {/* TODO: replace with real architecture diagram / product shots */}
+          <Ph caption="DIAGRAM: SaySpark architecture / Spark Mini product shots" minH="min-h-[260px]" className="mt-6" />
         </Reveal>
 
         <Reveal className="py-6">
           <h2 className="mb-3.5 font-mono text-lg text-mint"><span className="text-muted">## </span>Market</h2>
           <p className="max-w-3xl text-muted">
             STEM education technology is a growing global market, and robotics kits remain either too
-            toy-like to teach real engineering or too complex for young learners. Aibotics sits in the
-            gap: real robotics, zero syntax barrier. {/* TODO: add your market numbers */}
+            toy-like to teach real engineering or too complex for young learners. SaySpark sits in
+            the gap: real robotics, zero syntax barrier. {/* TODO: add your market numbers */}
           </p>
           <p className="mt-3.5 max-w-3xl text-muted">
             Early recognition: <strong className="text-ink">4th place and $2,500</strong> at the Take
@@ -119,15 +127,15 @@ export default function VenturePage() {
         </Reveal>
 
         <Reveal className="py-10">
-          <h2 className="mb-5 font-mono text-lg text-mint"><span className="text-muted">## </span>Prototype Gallery</h2>
+          <h2 className="mb-5 font-mono text-lg text-mint"><span className="text-muted">## </span>Gallery</h2>
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
             {[
-              "PHOTO: prototype v1",
+              "PHOTO: Spark Mini prototype",
               "PHOTO: internals / electronics",
               "PHOTO: kids testing the robot",
+              "SCREENSHOT: 3D simulator",
+              "SCREENSHOT: Spark AI tutor",
               "VIDEO: demo clip (embed here)",
-              "PHOTO: CAD renders",
-              "PHOTO: iteration wall / whiteboard",
             ].map((c) => (
               <Ph key={c} caption={c} minH="min-h-[170px]" />
             ))}
@@ -136,15 +144,15 @@ export default function VenturePage() {
 
         <Reveal className="py-10">
           <Hud>
-            <div className="rounded-2xl border border-line-strong bg-[radial-gradient(ellipse_70%_120%_at_50%_0%,rgba(0,229,255,0.07),transparent),linear-gradient(160deg,var(--color-panel2),var(--color-panel))] px-8 py-14 text-center">
-              <h2 className="mb-3.5 text-2xl font-extrabold sm:text-3xl">Follow the Journey</h2>
+            <div className="rounded-2xl border border-line-strong bg-[radial-gradient(ellipse_70%_120%_at_50%_0%,rgba(52,245,162,0.08),transparent),linear-gradient(160deg,var(--color-panel2),var(--color-panel))] px-8 py-14 text-center">
+              <h2 className="mb-3.5 text-2xl font-extrabold sm:text-3xl">Everything Here Actually Ships.</h2>
               <p className="mx-auto mb-7 max-w-lg text-muted">
-                Aibotics is being built in the open. Investors, educators, and collaborators —
-                let&apos;s talk.
+                The simulator and AI tutor are free during early access. Educators, investors, and
+                collaborators — let&apos;s talk.
               </p>
               <div className="flex flex-wrap justify-center gap-3.5">
-                <Btn href="mailto:ahmad100307@gmail.com" variant="primary" external>Get in Touch</Btn>
-                <Btn href="/#work">Back to Projects</Btn>
+                <Btn href="https://sayspark.ca" variant="primary" external>Visit sayspark.ca ↗</Btn>
+                <Btn href="mailto:ahmad100307@gmail.com" external>Get in Touch</Btn>
               </div>
             </div>
           </Hud>

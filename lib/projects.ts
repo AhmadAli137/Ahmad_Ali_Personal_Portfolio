@@ -188,7 +188,7 @@ export const projects: Project[] = [
     problem:
       "After years of mentoring hundreds of elementary students in robotics across Windsor, Ontario, one pattern was undeniable: kids love robots, but syntax-heavy programming stops many of them before the fun starts. A missing semicolon shouldn't end a child's engineering journey.",
     solution:
-      "SaySpark lets children program robots through natural language — spoken or typed. An LLM-powered layer translates a child's intent into safe robot behaviors, so the first experience of robotics is creation, not frustration. It's the foundation of my current venture, Aibotics.",
+      "SaySpark lets children program robots through natural language — spoken or typed. An AI tutor translates a child's intent into robot behavior and explains its thinking out loud, so the first experience of robotics is creation, not frustration. Now my company — live in free early access at sayspark.ca.",
     demoCaption: "VIDEO: child commanding the robot in plain English (embed here)",
     features: [
       "Natural-language robot programming (speech and text)",
@@ -207,7 +207,10 @@ export const projects: Project[] = [
       { caption: "PHOTO: classroom testing" },
       { caption: "SCREENSHOT: software interface" },
     ],
-    links: [{ label: "The Venture: Aibotics", href: "/venture" }],
+    links: [
+      { label: "sayspark.ca", href: "https://sayspark.ca" },
+      { label: "The Venture", href: "/venture" },
+    ],
   },
   {
     slug: "asl-glove",

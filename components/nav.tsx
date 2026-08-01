@@ -60,6 +60,14 @@ export function Nav() {
               {l.label}
             </Link>
           ))}
+          <a
+            href="https://sayspark.ca"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="animate-pulse-glow rounded-full border border-mint/50 bg-mint/10 px-4 py-1.5 font-mono text-xs font-bold text-mint transition-all hover:-translate-y-0.5 hover:bg-mint/20"
+          >
+            sayspark.ca ↗
+          </a>
         </div>
 
         <button
@@ -93,6 +101,14 @@ export function Nav() {
                   {l.label}
                 </Link>
               ))}
+              <a
+                href="https://sayspark.ca"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 rounded-full border border-mint/50 bg-mint/10 px-4 py-2 text-center font-mono text-sm font-bold text-mint"
+              >
+                sayspark.ca ↗
+              </a>
             </div>
           </motion.div>
         )}

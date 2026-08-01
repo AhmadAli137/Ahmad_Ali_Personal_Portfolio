@@ -81,3 +81,16 @@ body::after {
 .cursor-blink {
   animation: blink 1s steps(1) infinite;
 }
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(52, 245, 162, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 24px rgba(52, 245, 162, 0.55);
+  }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2.4s ease-in-out infinite;
+}

@@ -47,7 +47,7 @@ const timeline: { year: string; title: string; desc: string }[] = [
   { year: "", title: "RIIS", desc: "Building intelligent drone software in industry." },
   { year: "", title: "Graduate Research — CHARGE Lab", desc: "EV battery systems with Magna — presented at IEEE EPEC 2025 in Waterloo." },
   { year: "2025", title: "NASA Space Apps — 1st + Global Nomination", desc: "Meteor Madness wins Windsor and earns a global nomination; JLR competition earns an internship." },
-  { year: "Now", title: "Entrepreneurship — Aibotics", desc: "Founding a venture to make robotics education accessible through natural language — and mentoring the next generation along the way." },
+  { year: "Now", title: "Entrepreneurship — SaySpark", desc: "Founding SaySpark (sayspark.ca): voice-first robotics education, live in early access — and mentoring the next generation along the way." },
 ];
 
 export default function Home() {
@@ -171,20 +171,22 @@ export default function Home() {
           <SectionHeading tag="featured venture" title="Currently Building" />
           <div className="grid items-center gap-9 rounded-2xl border border-line-strong bg-[radial-gradient(ellipse_60%_100%_at_100%_0%,rgba(52,245,162,0.08),transparent),linear-gradient(160deg,var(--color-panel2),var(--color-panel))] p-10 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
-              <div className="mb-4"><Chip tone="mint">FOUNDER</Chip></div>
+              <div className="mb-4"><Chip tone="mint">FOUNDER — LIVE IN EARLY ACCESS</Chip></div>
               <h3 className="mb-3.5 text-2xl font-bold sm:text-3xl">
-                Aibotics — AI-Powered Educational Robotics
+                SaySpark — Voice-First Robotics for Kids
               </h3>
               <p className="mb-5 text-muted">
-                Years of mentoring elementary students in robotics revealed how intimidating
-                syntax-heavy programming is for young learners. I&apos;m building a platform where
-                children learn robotics through{" "}
-                <strong className="text-ink">natural language</strong> — talk to your robot, and it
-                comes to life.
+                A robot that teaches kids to think like engineers. Talk to{" "}
+                <strong className="text-ink">Spark Mini</strong> and it answers out loud while it
+                drives, measures, sees, and solves mazes — powered by a real AI tutor. The free 3D
+                simulator and tutor are live now.
               </p>
-              <Btn href="/venture">Explore the Venture →</Btn>
+              <div className="flex flex-wrap gap-3.5">
+                <Btn href="https://sayspark.ca" variant="primary" external>Visit sayspark.ca ↗</Btn>
+                <Btn href="/venture">The Story →</Btn>
+              </div>
             </div>
-            <Ph caption="PHOTO: Aibotics / SaySpark prototype robot" minH="min-h-[420px]" />
+            <Ph caption="PHOTO: Spark Mini — SaySpark's voice-first robot" minH="min-h-[420px]" />
           </div>
         </Reveal>
       </section>
@@ -450,7 +452,7 @@ export default function Home() {
                 alt: "Students working on robotics activities at a community event",
                 title: "Elementary Robotics Mentor",
                 org: "Windsor-area schools",
-                desc: "Years of hands-on robotics workshops with hundreds of elementary students — teaching Arduino, C++, and problem solving. These classrooms inspired SaySpark and Aibotics.",
+                desc: "Years of hands-on robotics workshops with hundreds of elementary students — teaching Arduino, C++, and problem solving. These classrooms inspired SaySpark.",
               },
             ].map((c, i) => (
               <Reveal key={c.title} delay={(i % 2) * 0.08}>
