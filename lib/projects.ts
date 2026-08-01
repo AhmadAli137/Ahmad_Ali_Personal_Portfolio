@@ -412,9 +412,11 @@ export const projects: Project[] = [
       "A comedic campus stealth game: collect the 8 scattered exam pages before Professor Sarker catches you. Playable right here in your browser.",
     cardBlurb:
       "Campus stealth game — collect the exam pages, evade Professor Sarker. Playable in-browser.",
-    cardCaption: "SCREENSHOT: Grand Theft Calculus gameplay",
+    cardCaption: "Grand Theft Calculus title screen",
+    cardSrc: "/img/gtc-title.png",
     chips: ["Pygame", "Pygbag", "Game Dev", "Procedural Art"],
-    heroCaption: "SCREENSHOT: Grand Theft Calculus (add when available)",
+    heroCaption: "Grand Theft Calculus — title screen with character customization",
+    heroSrc: "/img/gtc-title.png",
     problem:
       "An undergrad desperate to pass integral calculus discovers the exam pages scattered across the University of Windsor campus. One problem: Professor Sarker is patrolling.",
     solution:
@@ -438,7 +440,11 @@ export const projects: Project[] = [
       "Old course projects are worth reviving — six years of skill turns a demo into a product",
     ],
     next: "Originally a 2020 course project; rebuilt from scratch in 2026 with procedural art, synthesized audio, and a web build.",
-    gallery: [],
+    gallery: [
+      { caption: "On the run — 0/8 pages, stamina bar ticking", src: "/img/gtc-play.png" },
+      { caption: "CAUGHT! — \"You call THAT a u-substitution?\" — Prof. Sarker", src: "/img/gtc-caught.png" },
+      { caption: "Title screen — pick your hair, chase the best time", src: "/img/gtc-title.png" },
+    ],
     links: [
       { label: "Play Live", href: "https://grand-theft-calculus.vercel.app" },
       { label: "GitHub", href: "https://github.com/AhmadAli137/grand-theft-calculus" },
