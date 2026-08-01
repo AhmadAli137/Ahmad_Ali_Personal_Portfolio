@@ -48,29 +48,117 @@ export interface WallOrg {
   name: string;
   short: string;
   logo?: string;
+  /** Where + when, shown in the hover card */
+  meta: string;
+  /** What was done/accomplished there, shown in the hover card */
+  highlights: string[];
 }
 
 /* Drop a logo at public/img/logos/ and set `logo` to swap a monogram tile for the real mark */
 export const wall: WallOrg[] = [
-  { name: "NASA Space Apps Challenge", short: "NASA", logo: "/img/logos/nasa-space-apps.png" },
-  { name: "IEEE — PIMRC & EPEC", short: "IEEE", logo: "/img/logos/ieee.jpg" },
-  { name: "Canada-Wide Science Fair", short: "CWSF", logo: "/img/logos/cwsf.jpg" },
-  { name: "Formula SAE", short: "FSAE", logo: "/img/logos/fsae.jpg" },
-  { name: "Jaguar Land Rover", short: "JLR", logo: "/img/logos/jlr.jpg" },
-  { name: "WinHacks", short: "WH", logo: "/img/logos/winhacks.jpg" },
-  { name: "BorderHacks", short: "BH", logo: "/img/logos/borderhacks.png" },
-  { name: "Hack the 6ix", short: "HT6", logo: "/img/logos/hack-the-6ix.jpg" },
-  { name: "MasseyHacks", short: "MH", logo: "/img/logos/masseyhacks.png" },
-  { name: "ClubHacks", short: "CH", logo: "/img/logos/clubhacks.png" },
-  { name: "Hack the Northeast", short: "HTNE", logo: "/img/logos/hack-the-northeast.png" },
-  { name: "CS Games", short: "CSG", logo: "/img/logos/cs-games.jpg" },
-  { name: "Windsor Engineering Competition", short: "WEC", logo: "/img/logos/wec.jpg" },
-  { name: "Ontario Engineering Competition", short: "OEC", logo: "/img/logos/oec-2024.jpg" },
-  { name: "Windsor Regional Science Fair", short: "WRSF", logo: "/img/logos/wrstef.png" },
-  { name: "Let's Talk Science", short: "LTS", logo: "/img/logos/lets-talk-science.png" },
-  { name: "EPICentre", short: "EPIC", logo: "/img/logos/epicentre.jpg" },
-  { name: "UWillDiscover", short: "UWD", logo: "/img/logos/uwilldiscover.jpg" },
-  { name: "Take Your Shot", short: "TYS", logo: "/img/logos/take-your-shot.png" },
-  { name: "Bordercity Hackathon", short: "BC", logo: "/img/logos/bordercity.png" },
-  { name: "University of Windsor", short: "UW" },
+  {
+    name: "NASA Space Apps Challenge", short: "NASA", logo: "/img/logos/nasa-space-apps.png",
+    meta: "Windsor · 2023, 2025",
+    highlights: ["1st Place + Global Nomination — Meteor Madness (2025)", "3rd Place — Comfire (2023)"],
+  },
+  {
+    name: "IEEE — PIMRC & EPEC", short: "IEEE", logo: "/img/logos/ieee.jpg",
+    meta: "Toronto 2023 · Waterloo 2025",
+    highlights: ["Best Demo Award — autonomous drone, PIMRC 2023", "Poster presenter — EV battery research, EPEC 2025"],
+  },
+  {
+    name: "Canada-Wide Science Fair", short: "CWSF", logo: "/img/logos/cwsf.jpg",
+    meta: "National finals · 2015–2019",
+    highlights: ["2× Bronze · 1× Silver medals", "$10k UOttawa scholarship", "Four national finals appearances"],
+  },
+  {
+    name: "Formula SAE", short: "FSAE", logo: "/img/logos/fsae.jpg",
+    meta: "Michigan · 2024",
+    highlights: ["Accumulator (battery pack) team — UWindsor Formula Electric"],
+  },
+  {
+    name: "Jaguar Land Rover", short: "JLR", logo: "/img/logos/jlr.jpg",
+    meta: "Windsor · 2025",
+    highlights: ["$600 + 1-week JLR internship — Automotive AI Competition", "AI memory optimization challenge"],
+  },
+  {
+    name: "WinHacks", short: "WH", logo: "/img/logos/winhacks.jpg",
+    meta: "Windsor · 2022–2026",
+    highlights: ["2nd Overall + 1st in Category — PresentPro (2025)", "2nd Place Overall — Second Life (2024)", "Finalist — SketchBot (2026)", "WinGrid (2022)"],
+  },
+  {
+    name: "BorderHacks", short: "BH", logo: "/img/logos/borderhacks.png",
+    meta: "Virtual · 2020–2021",
+    highlights: ["People's Choice + Open Data Winner — WinParks (2021)", "Exponent Base e Calculator, solo (2020)"],
+  },
+  {
+    name: "Hack the 6ix", short: "HT6", logo: "/img/logos/hack-the-6ix.jpg",
+    meta: "Toronto · 2026",
+    highlights: ["Edge Pong — solo build: spatial-haptics smart paddle"],
+  },
+  {
+    name: "MasseyHacks", short: "MH", logo: "/img/logos/masseyhacks.png",
+    meta: "Windsor · 2018",
+    highlights: ["Hand-motion-controlled FPS zombie game"],
+  },
+  {
+    name: "ClubHacks", short: "CH", logo: "/img/logos/clubhacks.png",
+    meta: "Windsor · 2026",
+    highlights: ["Finalist — SketchBot V2 with AprilTag tracking"],
+  },
+  {
+    name: "Hack the Northeast", short: "HTNE", logo: "/img/logos/hack-the-northeast.png",
+    meta: "Virtual · 2020",
+    highlights: ["Covid-19 Global — trustworthy worldwide statistics app"],
+  },
+  {
+    name: "CS Games", short: "CSG", logo: "/img/logos/cs-games.jpg",
+    meta: "Montreal · 2026",
+    highlights: ["Team mentor — UWindsor delegation"],
+  },
+  {
+    name: "Windsor Engineering Competition", short: "WEC", logo: "/img/logos/wec.jpg",
+    meta: "Windsor · 2019–2023",
+    highlights: ["4× 1st Place — programming challenge (2020–2023)", "Junior challenge — wind turbine build (2019)"],
+  },
+  {
+    name: "Ontario Engineering Competition", short: "OEC", logo: "/img/logos/oec-2024.jpg",
+    meta: "Ontario · 2020–2024",
+    highlights: ["Four appearances representing Windsor"],
+  },
+  {
+    name: "Windsor Regional Science Fair", short: "WRSF", logo: "/img/logos/wrstef.png",
+    meta: "Windsor · 2014–2019, 2026",
+    highlights: ["6× Gold + sponsor awards (2014–2019)", "Returned as judge & mentor (2026)"],
+  },
+  {
+    name: "Let's Talk Science", short: "LTS", logo: "/img/logos/lets-talk-science.png",
+    meta: "Windsor · 2015",
+    highlights: ["1st Place"],
+  },
+  {
+    name: "EPICentre", short: "EPIC", logo: "/img/logos/epicentre.jpg",
+    meta: "Windsor · 2023",
+    highlights: ["Innovation Mastery Award + $1,000 — Entrepreneurship Excellence Awards"],
+  },
+  {
+    name: "UWillDiscover", short: "UWD", logo: "/img/logos/uwilldiscover.jpg",
+    meta: "Windsor · 2024",
+    highlights: ["3rd Place — oral research presentation"],
+  },
+  {
+    name: "Take Your Shot", short: "TYS", logo: "/img/logos/take-your-shot.png",
+    meta: "Leamington · 2026",
+    highlights: ["4th Place + $2,500 — startup pitch competition"],
+  },
+  {
+    name: "Bordercity Hackathon", short: "BC", logo: "/img/logos/bordercity.png",
+    meta: "Windsor · 2017–2018",
+    highlights: ["1st Place — WeatherPy, first-ever hackathon (2017)", "Virtual Connect 4 app (2018)"],
+  },
+  {
+    name: "University of Windsor", short: "UW",
+    meta: "Windsor · 2019 → now",
+    highlights: ["1st Place — Automotive UI/UX Challenge (2026)", "IEEE Best Demo capstone drone", "STEM Entrepreneurship Bootcamp — People's Choice (2018)"],
+  },
 ];

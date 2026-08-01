@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Reveal } from "@/components/reveal";
 import { Ph } from "@/components/image-placeholder";
 import { Hud } from "@/components/hud";
@@ -41,7 +42,15 @@ export default function VenturePage() {
           <Btn href="https://sayspark.ca" external>Try the Free Simulator</Btn>
         </div>
         <Hud>
-          <Ph caption="HERO PHOTO: Spark Mini robot (large, high quality)" minH="min-h-[460px]" className="shadow-[0_0_60px_rgba(0,229,255,0.08)]" />
+          <div className="relative grid min-h-[460px] place-items-center rounded-xl border border-line-strong bg-[radial-gradient(ellipse_60%_60%_at_50%_45%,rgba(52,245,162,0.1),transparent),linear-gradient(160deg,var(--color-panel2),var(--color-panel))] shadow-[0_0_60px_rgba(0,229,255,0.08)]">
+            <Image
+              src="/img/sayspark-robot.png"
+              alt="Spark and the Spark Mini rover — SaySpark's voice-first robots"
+              width={520}
+              height={520}
+              className="h-auto w-full max-w-[460px] object-contain p-6 drop-shadow-[0_0_30px_rgba(0,229,255,0.15)]"
+            />
+          </div>
         </Hud>
 
         <Reveal className="grid gap-10 py-14 lg:grid-cols-2">
@@ -130,14 +139,14 @@ export default function VenturePage() {
           <h2 className="mb-5 font-mono text-lg text-mint"><span className="text-muted">## </span>Gallery</h2>
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
             {[
-              "PHOTO: Spark Mini prototype",
-              "PHOTO: internals / electronics",
-              "PHOTO: kids testing the robot",
-              "SCREENSHOT: 3D simulator",
-              "SCREENSHOT: Spark AI tutor",
-              "VIDEO: demo clip (embed here)",
-            ].map((c) => (
-              <Ph key={c} caption={c} minH="min-h-[170px]" />
+              { caption: "The free browser-based 3D simulator", src: "/img/sayspark-simulator.png" },
+              { caption: "Student dashboard with Spark, the AI tutor", src: "/img/sayspark-dashboard.png" },
+              { caption: "Robot vision — Spark Mini sees the world", src: "/img/sayspark-vision.jpg" },
+              { caption: "PHOTO: Spark Mini prototype" },
+              { caption: "PHOTO: kids testing the robot" },
+              { caption: "VIDEO: demo clip (embed here)" },
+            ].map((g) => (
+              <Ph key={g.caption} caption={g.caption} src={g.src} alt={g.caption} minH="min-h-[170px]" />
             ))}
           </div>
         </Reveal>

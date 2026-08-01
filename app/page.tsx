@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Award } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { TypingRoles } from "@/components/typing";
@@ -186,7 +187,16 @@ export default function Home() {
                 <Btn href="/venture">The Story →</Btn>
               </div>
             </div>
-            <Ph caption="PHOTO: Spark Mini — SaySpark's voice-first robot" minH="min-h-[420px]" />
+            <div className="relative grid min-h-[420px] place-items-center">
+              <div className="absolute inset-0 rounded-full bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,rgba(52,245,162,0.12),transparent)]" />
+              <Image
+                src="/img/sayspark-robot.png"
+                alt="Spark and the Spark Mini rover — SaySpark's voice-first robots"
+                width={480}
+                height={480}
+                className="relative h-auto w-full max-w-[420px] object-contain drop-shadow-[0_0_30px_rgba(0,229,255,0.15)]"
+              />
+            </div>
           </div>
         </Reveal>
       </section>
