@@ -11,14 +11,12 @@ interface Trace {
 }
 
 const traces: Trace[] = [
-  { d: "M -60 120 H 300 V 340 H 620 V 480", tone: "cyan", duration: 9, delay: 0 },
-  { d: "M 1500 80 H 1100 V 260 H 900 V 420", tone: "mint", duration: 11, delay: 2.5 },
-  { d: "M 200 960 V 700 H 480 V 560 H 760", tone: "cyan", duration: 10, delay: 1.2 },
-  { d: "M 1500 820 H 1180 V 640 H 1000 V 520", tone: "cyan", duration: 12, delay: 4 },
-  { d: "M 720 -60 V 150 H 1040 V 300 H 1200", tone: "mint", duration: 13, delay: 3 },
-  { d: "M -60 520 H 180 V 700 H 420 V 840", tone: "mint", duration: 11, delay: 5.5 },
-  { d: "M 900 960 V 760 H 1240 V 600 H 1500", tone: "cyan", duration: 10, delay: 6.8 },
-  { d: "M 460 -60 V 90 H 120 V 280", tone: "cyan", duration: 12, delay: 8 },
+  { d: "M -60 120 H 300 V 340 H 620 V 480", tone: "cyan", duration: 22, delay: 0 },
+  { d: "M 1500 80 H 1100 V 260 H 900 V 420", tone: "mint", duration: 26, delay: 7 },
+  { d: "M 200 960 V 700 H 480 V 560 H 760", tone: "cyan", duration: 24, delay: 13 },
+  { d: "M 1500 820 H 1180 V 640 H 1000 V 520", tone: "cyan", duration: 28, delay: 4 },
+  { d: "M 720 -60 V 150 H 1040 V 300 H 1200", tone: "mint", duration: 30, delay: 18 },
+  { d: "M 900 960 V 760 H 1240 V 600 H 1500", tone: "cyan", duration: 25, delay: 10 },
 ];
 
 const nodes: { cx: number; cy: number; delay: number }[] = [
