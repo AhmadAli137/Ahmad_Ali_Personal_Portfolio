@@ -412,11 +412,11 @@ export const projects: Project[] = [
       "A comedic campus stealth game: collect the 8 scattered exam pages before Professor Sarker catches you. Playable right here in your browser.",
     cardBlurb:
       "Campus stealth game — collect the exam pages, evade Professor Sarker. Playable in-browser.",
-    cardCaption: "Grand Theft Calculus title screen",
-    cardSrc: "/img/gtc-title.png",
+    cardCaption: "Grand Theft Calculus gameplay",
+    cardSrc: "/img/gtc-play.png",
     chips: ["Pygame", "Pygbag", "Game Dev", "Procedural Art"],
-    heroCaption: "Grand Theft Calculus — title screen with character customization",
-    heroSrc: "/img/gtc-title.png",
+    heroCaption: "Grand Theft Calculus — on the run across campus",
+    heroSrc: "/img/gtc-play.png",
     problem:
       "An undergrad desperate to pass integral calculus discovers the exam pages scattered across the University of Windsor campus. One problem: Professor Sarker is patrolling.",
     solution:
