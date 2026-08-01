@@ -216,7 +216,16 @@ export default function Home() {
               <Reveal key={p.slug} delay={(i % 3) * 0.08}>
                 <Link href={`/projects/${p.slug}`} className="group block h-full">
                   <Card className="flex h-full flex-col gap-4">
-                    <Ph caption={p.cardCaption} src={p.cardSrc} alt={p.cardCaption} minH="min-h-[190px]" />
+                    <div className="relative">
+                      <Ph caption={p.cardCaption} src={p.cardSrc} alt={p.cardCaption} minH="min-h-[190px]" />
+                      {p.demoUrl && (
+                        <span className="absolute inset-0 grid place-items-center rounded-xl bg-bg/20 transition-colors group-hover:bg-bg/5">
+                          <span className="rounded-full bg-cyan px-5 py-2.5 font-mono text-xs font-bold text-[#04252b] shadow-[0_0_24px_rgba(0,229,255,0.5)] transition-all group-hover:scale-110 group-hover:shadow-[0_0_36px_rgba(0,229,255,0.7)]">
+                            ▶ TRY IT NOW
+                          </span>
+                        </span>
+                      )}
+                    </div>
                     <span className="flex items-center gap-1.5 font-mono text-xs text-amber">
                       <Award size={13} /> {p.badge.replace("★ ", "")}
                     </span>
