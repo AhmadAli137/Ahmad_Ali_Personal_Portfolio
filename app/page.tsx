@@ -101,9 +101,9 @@ export default function Home() {
                     minH="min-h-[224px]"
                   />
                   <Ph
-                    caption="Mentoring at the Genius Cup"
-                    src="/img/genius-cup-main.jpg"
-                    alt="Ahmad mentoring young students with robots at the Genius Cup competition"
+                    caption="Running a robot battle at the Genius Cup"
+                    src="/img/genius-cup-robot-battle.jpg"
+                    alt="Ahmad refereeing a robot battle at the Genius Cup as students watch"
                     minH="min-h-[224px]"
                   />
                 </div>
