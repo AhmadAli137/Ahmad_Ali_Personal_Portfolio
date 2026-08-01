@@ -1,9 +1,8 @@
 /**
- * Site-wide ambient background styled as a PCB layout:
- * - vertical bus routing down both side margins (full-height coverage)
- * - two IC footprints with pin stubs and 45° escape fan-outs
- * - corner buses, edge-to-edge signal traces carrying flowing light
- * - pads at every termination, vias at jogs
+ * Site-wide ambient background styled as a real control board:
+ * board-edge outline, corner mounting holes, QFP + SOIC footprints with
+ * escape routing, passives, pin headers, buses with 45° jogs, vias,
+ * silkscreen designators, and light flowing along a few long nets.
  * Plus large diffuse pools of drifting light. Styles in globals.css.
  */
 
@@ -12,63 +11,158 @@ interface Pt {
   y: number;
 }
 
-/* ---- Side columns: parallel vertical buses with a 45° jog ---- */
-const leftColumn = [0, 1, 2].map((i) => ({
-  d: `M ${60 + 16 * i} -60 V ${330 - 16 * i} l 40 40 V ${850 - 16 * i}`,
-  pad: { x: 100 + 16 * i, y: 850 - 16 * i } as Pt,
-  via: { x: 60 + 16 * i, y: 330 - 16 * i } as Pt,
-}));
+/* ---------- Component footprints ---------- */
 
-const rightColumn = [0, 1, 2].map((i) => ({
-  d: `M ${1540 - 16 * i} 960 V ${560 + 16 * i} l -40 -40 V ${120 + 16 * i}`,
-  pad: { x: 1500 - 16 * i, y: 120 + 16 * i } as Pt,
-  via: { x: 1540 - 16 * i, y: 560 + 16 * i } as Pt,
-}));
-
-/* ---- Top-left corner escape bus ---- */
-const cornerBus = [0, 1, 2, 3].map((i) => ({
-  d: `M -60 ${90 + 16 * i} H ${300 - 16 * i} l 90 90 H ${480 - 26 * i}`,
-  pad: { x: 480 - 26 * i, y: 180 + 16 * i } as Pt,
-}));
-
-/* ---- Bottom-right mini bus ---- */
-const brBus = [0, 1].map((i) => ({
-  d: `M 1600 ${830 + 16 * i} H ${1360 - 16 * i} l -50 -50`,
-  pad: { x: 1310 - 16 * i, y: 780 + 16 * i - 0 } as Pt,
-}));
-
-/* ---- IC footprints ---- */
-interface IC {
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-  pins: number;
+function MountHole({ x, y }: Pt) {
+  return (
+    <g>
+      <circle cx={x} cy={y} r="10" className="circuit-hole" strokeWidth="2.5" />
+      <circle cx={x} cy={y} r="4.5" className="circuit-hole" strokeWidth="1" />
+    </g>
+  );
 }
-const ic1: IC = { x: 1150, y: 140, w: 130, h: 92, pins: 5 };
-const ic2: IC = { x: 260, y: 660, w: 130, h: 92, pins: 5 };
 
-const pinY = (ic: IC, i: number) => ic.y + 14 + 16 * i;
+/** Quad flat package: body, die, pin-1 dot, pins on all four sides */
+function QFP({ x, y, s, n }: { x: number; y: number; s: number; n: number }) {
+  const pitch = s / (n + 1);
+  const idx = Array.from({ length: n }, (_, k) => k + 1);
+  return (
+    <g>
+      <rect x={x} y={y} width={s} height={s} rx="4" className="circuit-ic" strokeWidth="1.5" />
+      <rect x={x + s * 0.28} y={y + s * 0.28} width={s * 0.44} height={s * 0.44} className="circuit-ic" strokeWidth="1" />
+      <circle cx={x + 14} cy={y + 14} r="2.5" className="circuit-via" />
+      {idx.map((k) => (
+        <g key={k} className="circuit-pin">
+          <path d={`M ${x + pitch * k} ${y} v -12`} />
+          <path d={`M ${x + pitch * k} ${y + s} v 12`} />
+          <path d={`M ${x} ${y + pitch * k} h -12`} />
+          <path d={`M ${x + s} ${y + pitch * k} h 12`} />
+        </g>
+      ))}
+    </g>
+  );
+}
 
-/* IC1: right pins run to the right edge; left pins fan out 45° to test pads */
-const ic1Right = [0, 1, 2, 3, 4].map((i) => ({
-  d: `M ${ic1.x + ic1.w + 10} ${pinY(ic1, i)} H 1600`,
+/** Small outline IC: body + pins left/right */
+function SOIC({ x, y, w, h, n }: { x: number; y: number; w: number; h: number; n: number }) {
+  const pitch = h / (n + 1);
+  const idx = Array.from({ length: n }, (_, k) => k + 1);
+  return (
+    <g>
+      <rect x={x} y={y} width={w} height={h} rx="4" className="circuit-ic" strokeWidth="1.5" />
+      <circle cx={x + 12} cy={y + 12} r="2.2" className="circuit-via" />
+      {idx.map((k) => (
+        <g key={k} className="circuit-pin">
+          <path d={`M ${x} ${y + pitch * k} h -12`} />
+          <path d={`M ${x + w} ${y + pitch * k} h 12`} />
+        </g>
+      ))}
+    </g>
+  );
+}
+
+/** Two-pad passive (resistor/capacitor) footprint, horizontal or vertical */
+function Passive({ x, y, vertical = false }: { x: number; y: number; vertical?: boolean }) {
+  const pw = 11;
+  const ph = 14;
+  const gap = 15;
+  return vertical ? (
+    <g>
+      <rect x={x - pw / 2} y={y} width={pw} height={ph} rx="2" className="circuit-pad" strokeWidth="1.2" />
+      <rect x={x - pw / 2} y={y + ph + gap} width={pw} height={ph} rx="2" className="circuit-pad" strokeWidth="1.2" />
+      <path d={`M ${x} ${y + ph} v ${gap}`} className="circuit-trace-cyan" strokeWidth="1.5" />
+    </g>
+  ) : (
+    <g>
+      <rect x={x} y={y - pw / 2} width={ph} height={pw} rx="2" className="circuit-pad" strokeWidth="1.2" />
+      <rect x={x + ph + gap} y={y - pw / 2} width={ph} height={pw} rx="2" className="circuit-pad" strokeWidth="1.2" />
+      <path d={`M ${x + ph} ${y} h ${gap}`} className="circuit-trace-cyan" strokeWidth="1.5" />
+    </g>
+  );
+}
+
+/** Pin header: row of annular pads with a silkscreen box */
+function Header({ x, y, n, vertical = true }: { x: number; y: number; n: number; vertical?: boolean }) {
+  const pitch = 24;
+  const idx = Array.from({ length: n }, (_, k) => k);
+  return (
+    <g>
+      <rect
+        x={vertical ? x - 11 : x - 11}
+        y={vertical ? y - 11 : y - 11}
+        width={vertical ? 22 : pitch * (n - 1) + 22}
+        height={vertical ? pitch * (n - 1) + 22 : 22}
+        rx="3"
+        className="circuit-silk-box"
+        strokeWidth="1"
+      />
+      {idx.map((k) => (
+        <g key={k}>
+          <circle cx={vertical ? x : x + pitch * k} cy={vertical ? y + pitch * k : y} r="5.5" className="circuit-pad" strokeWidth="1.5" />
+          <circle cx={vertical ? x : x + pitch * k} cy={vertical ? y + pitch * k : y} r="2" className="circuit-via" />
+        </g>
+      ))}
+    </g>
+  );
+}
+
+/* ---------- Routing ---------- */
+
+const u1 = { x: 1120, y: 120, s: 120, n: 7 };
+const u1pitch = u1.s / (u1.n + 1);
+const pinIdx = Array.from({ length: u1.n }, (_, k) => k + 1);
+
+/* U1 escape routing */
+const u1Right = pinIdx.map((k) => ({
+  d: `M ${u1.x + u1.s + 12} ${u1.y + u1pitch * k} H ${1330 + 4 * k}`,
+  pad: { x: 1330 + 4 * k, y: u1.y + u1pitch * k } as Pt,
 }));
-const ic1Left = [0, 1, 2, 3, 4].map((i) => ({
-  d: `M ${ic1.x - 10} ${pinY(ic1, i)} H ${1090 - 12 * i} l -36 36`,
-  pad: { x: 1054 - 12 * i, y: pinY(ic1, i) + 36 } as Pt,
+const u1Top = pinIdx.map((k) => ({
+  d: `M ${u1.x + u1pitch * k} ${u1.y - 12} V ${88 - 4 * k}`,
+  pad: { x: u1.x + u1pitch * k, y: 88 - 4 * k } as Pt,
+}));
+const u1Left = pinIdx.map((k) => ({
+  d: `M ${u1.x - 12} ${u1.y + u1pitch * k} H ${1052 - 8 * k} l -28 28`,
+  pad: { x: 1024 - 8 * k, y: u1.y + u1pitch * k + 28 } as Pt,
+}));
+const u1BottomVias = pinIdx.map((k) => ({ x: u1.x + u1pitch * k, y: u1.y + u1.s + 20 }) as Pt);
+
+const u2 = { x: 200, y: 590, w: 100, h: 70, n: 4 };
+const u2pitch = u2.h / (u2.n + 1);
+const u2Idx = Array.from({ length: u2.n }, (_, k) => k + 1);
+const u2Left = u2Idx.map((k) => ({ d: `M ${u2.x - 12} ${u2.y + u2pitch * k} H -60` }));
+const u2Right = u2Idx.map((k) => ({
+  d: `M ${u2.x + u2.w + 12} ${u2.y + u2pitch * k} H ${360 + 8 * k} l 26 26`,
+  pad: { x: 386 + 8 * k, y: u2.y + u2pitch * k + 26 } as Pt,
 }));
 
-/* IC2: left pins run to the left edge; right pins fan out 45° to test pads */
-const ic2Left = [0, 1, 2, 3, 4].map((i) => ({
-  d: `M ${ic2.x - 10} ${pinY(ic2, i)} H -60`,
-}));
-const ic2Right = [0, 1, 2, 3, 4].map((i) => ({
-  d: `M ${ic2.x + ic2.w + 10} ${pinY(ic2, i)} H ${450 + 12 * i} l 36 36`,
-  pad: { x: 486 + 12 * i, y: pinY(ic2, i) + 36 } as Pt,
+/* J1 vertical header (right side): traces run left, jog up, end in vias */
+const j1 = { x: 1520, y: 540, n: 6 };
+const j1Traces = Array.from({ length: j1.n }, (_, k) => ({
+  d: `M ${j1.x - 6} ${j1.y + 24 * k} H ${1360 - 10 * k} l -34 -34 H ${1270 - 10 * k}`,
+  via: { x: 1270 - 10 * k, y: j1.y + 24 * k - 34 } as Pt,
 }));
 
-/* ---- Long signal traces carrying flowing light ---- */
+/* J2 horizontal header (bottom): traces rise, end in vias */
+const j2 = { x: 560, y: 830, n: 8 };
+const j2Traces = Array.from({ length: j2.n }, (_, k) => ({
+  d: `M ${j2.x + 24 * k} ${j2.y - 6} V ${772 - 6 * k}`,
+  via: { x: j2.x + 24 * k, y: 772 - 6 * k } as Pt,
+}));
+
+/* Side + top buses */
+const leftBus = [0, 1, 2, 3].map((i) => ({
+  d: `M ${48 + 14 * i} -60 V ${300 - 14 * i} l 36 36 V ${838 - 14 * i}`,
+  pad: { x: 84 + 14 * i, y: 838 - 14 * i } as Pt,
+  via: { x: 48 + 14 * i, y: 300 - 14 * i } as Pt,
+}));
+const topBus = [0, 1, 2, 3].map((i) => ({
+  d: `M -60 ${52 + 14 * i} H ${520 - 14 * i} l 36 36 V ${240 - 14 * i}`,
+  pad: { x: 556 - 14 * i, y: 240 - 14 * i } as Pt,
+  via: { x: 520 - 14 * i, y: 52 + 14 * i } as Pt,
+}));
+
+/* Long signal nets carrying flowing light */
 interface LightTrace {
   d: string;
   tone: "cyan" | "mint";
@@ -76,109 +170,115 @@ interface LightTrace {
   delay: number;
   vias: Pt[];
 }
-
 const lightTraces: LightTrace[] = [
-  {
-    d: "M -60 470 H 600 l 40 40 H 1050 l 40 -40 H 1600",
-    tone: "cyan",
-    duration: 26,
-    delay: 0,
-    vias: [{ x: 640, y: 510 }, { x: 1050, y: 510 }],
-  },
-  {
-    d: "M 1600 620 H 1000 l -40 40 H 520 l -40 -40 H -60",
-    tone: "mint",
-    duration: 30,
-    delay: 12,
-    vias: [{ x: 960, y: 660 }, { x: 520, y: 660 }],
-  },
-  {
-    d: "M 76 -60 V 314 l 40 40 V 834",
-    tone: "cyan",
-    duration: 28,
-    delay: 6,
-    vias: [],
-  },
-  {
-    d: "M 1524 960 V 576 l -40 -40 V 136",
-    tone: "mint",
-    duration: 32,
-    delay: 19,
-    vias: [],
-  },
-  {
-    d: "M 700 -60 V 60 l 40 40 H 900",
-    tone: "cyan",
-    duration: 22,
-    delay: 15,
-    vias: [{ x: 700, y: 60 }],
-  },
+  { d: "M -60 470 H 600 l 40 40 H 1050 l 40 -40 H 1600", tone: "cyan", duration: 26, delay: 0, vias: [{ x: 640, y: 510 }, { x: 1050, y: 510 }] },
+  { d: "M 1600 660 H 1000 l -40 40 H 520 l -40 -40 H -60", tone: "mint", duration: 30, delay: 12, vias: [{ x: 960, y: 700 }, { x: 520, y: 700 }] },
+  { d: "M 62 -60 V 286 l 36 36 V 824", tone: "cyan", duration: 28, delay: 6, vias: [] },
+  { d: "M 1600 320 H 1300 l -40 40 H 1150", tone: "mint", duration: 24, delay: 19, vias: [{ x: 1260, y: 360 }] },
+  { d: "M 700 -60 V 60 l 40 40 H 940", tone: "cyan", duration: 22, delay: 15, vias: [{ x: 700, y: 60 }] },
 ];
 
-function ICFootprint({ ic }: { ic: IC }) {
-  return (
-    <g>
-      <rect x={ic.x} y={ic.y} width={ic.w} height={ic.h} rx="5" className="circuit-ic" strokeWidth="1.5" />
-      {/* pin-1 marker */}
-      <circle cx={ic.x + 14} cy={ic.y + 14} r="2.5" className="circuit-via" />
-      {[0, 1, 2, 3, 4].map((i) => (
-        <g key={i} className="circuit-trace-cyan">
-          <path d={`M ${ic.x - 10} ${pinY(ic, i)} h 10`} strokeWidth="3" />
-          <path d={`M ${ic.x + ic.w} ${pinY(ic, i)} h 10`} strokeWidth="3" />
-        </g>
-      ))}
-    </g>
-  );
-}
+/* Silkscreen designators */
+const silk: { x: number; y: number; t: string }[] = [
+  { x: 1122, y: 112, t: "U1" },
+  { x: 202, y: 582, t: "U2" },
+  { x: 1544, y: 528, t: "J1" },
+  { x: 548, y: 858, t: "J2" },
+  { x: 952, y: 296, t: "R1" },
+  { x: 952, y: 338, t: "R2" },
+  { x: 1040, y: 78, t: "C3" },
+  { x: 372, y: 508, t: "R3" },
+  { x: 428, y: 508, t: "C2" },
+  { x: 700, y: 130, t: "TP1" },
+];
 
-interface StaticTrace {
-  d: string;
-  pad: Pt;
-  via?: Pt;
-}
+const passives: { x: number; y: number; vertical?: boolean }[] = [
+  { x: 960, y: 308 },
+  { x: 960, y: 350 },
+  { x: 1048, y: 90 },
+  { x: 380, y: 516, vertical: true },
+  { x: 436, y: 516, vertical: true },
+];
 
 export function CircuitBackground() {
-  const staticTraces: StaticTrace[] = [...leftColumn, ...rightColumn, ...cornerBus, ...brBus];
-  const fanouts = [...ic1Left, ...ic2Right];
-  const edgeRuns = [...ic1Right, ...ic2Left];
+  const escapes = [...u1Right, ...u1Top, ...u1Left, ...u2Right];
+  const buses = [...leftBus, ...topBus];
 
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-[1] overflow-hidden">
-      {/* Diffuse pools of drifting light */}
       <div className="glow-orb glow-orb-1" />
       <div className="glow-orb glow-orb-2" />
       <div className="glow-orb glow-orb-3" />
       <div className="glow-orb glow-orb-4" />
-      <svg
-        className="h-full w-full"
-        viewBox="0 0 1600 900"
-        preserveAspectRatio="xMidYMid slice"
-        fill="none"
-      >
-        {staticTraces.map((t, i) => (
-          <g key={`s-${i}`}>
+      <svg className="h-full w-full" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" fill="none">
+        {/* Board edge */}
+        <rect x="16" y="16" width="1568" height="868" rx="14" className="circuit-edge" strokeWidth="2" />
+        <MountHole x={54} y={54} />
+        <MountHole x={1546} y={54} />
+        <MountHole x={54} y={846} />
+        <MountHole x={1546} y={846} />
+
+        {/* Buses */}
+        {buses.map((t, i) => (
+          <g key={`b-${i}`}>
             <path d={t.d} className="circuit-trace-cyan" strokeWidth="1.5" />
             <circle cx={t.pad.x} cy={t.pad.y} r="4.5" className="circuit-pad" strokeWidth="1.5" />
             <circle cx={t.pad.x} cy={t.pad.y} r="1.4" className="circuit-via" />
-            {t.via && <circle cx={t.via.x} cy={t.via.y} r="2.2" className="circuit-via" />}
+            <circle cx={t.via.x} cy={t.via.y} r="2.2" className="circuit-via" />
           </g>
         ))}
 
-        {edgeRuns.map((t, i) => (
-          <path key={`e-${i}`} d={t.d} className="circuit-trace-cyan" strokeWidth="1.5" />
-        ))}
-
-        {fanouts.map((t, i) => (
-          <g key={`f-${i}`}>
+        {/* IC escape routing */}
+        {escapes.map((t, i) => (
+          <g key={`e-${i}`}>
             <path d={t.d} className="circuit-trace-cyan" strokeWidth="1.5" />
-            <circle cx={t.pad.x} cy={t.pad.y} r="4.5" className="circuit-pad" strokeWidth="1.5" />
-            <circle cx={t.pad.x} cy={t.pad.y} r="1.4" className="circuit-via" />
+            <circle cx={t.pad.x} cy={t.pad.y} r="4" className="circuit-pad" strokeWidth="1.5" />
+          </g>
+        ))}
+        {u2Left.map((t, i) => (
+          <path key={`u2l-${i}`} d={t.d} className="circuit-trace-cyan" strokeWidth="1.5" />
+        ))}
+        {u1BottomVias.map((v, i) => (
+          <g key={`u1b-${i}`}>
+            <path d={`M ${v.x} ${u1.y + u1.s + 12} V ${v.y}`} className="circuit-trace-cyan" strokeWidth="1.5" />
+            <circle cx={v.x} cy={v.y} r="2.2" className="circuit-via" />
           </g>
         ))}
 
-        <ICFootprint ic={ic1} />
-        <ICFootprint ic={ic2} />
+        {/* Headers with their routing */}
+        <Header x={j1.x} y={j1.y} n={j1.n} vertical />
+        {j1Traces.map((t, i) => (
+          <g key={`j1-${i}`}>
+            <path d={t.d} className="circuit-trace-cyan" strokeWidth="1.5" />
+            <circle cx={t.via.x} cy={t.via.y} r="2.2" className="circuit-via" />
+          </g>
+        ))}
+        <Header x={j2.x} y={j2.y} n={j2.n} vertical={false} />
+        {j2Traces.map((t, i) => (
+          <g key={`j2-${i}`}>
+            <path d={t.d} className="circuit-trace-cyan" strokeWidth="1.5" />
+            <circle cx={t.via.x} cy={t.via.y} r="2.2" className="circuit-via" />
+          </g>
+        ))}
 
+        {/* Components */}
+        <QFP x={u1.x} y={u1.y} s={u1.s} n={u1.n} />
+        <SOIC x={u2.x} y={u2.y} w={u2.w} h={u2.h} n={u2.n} />
+        {passives.map((p, i) => (
+          <Passive key={`p-${i}`} {...p} />
+        ))}
+
+        {/* Silkscreen */}
+        {silk.map((s, i) => (
+          <text key={`t-${i}`} x={s.x} y={s.y} className="circuit-silk">
+            {s.t}
+          </text>
+        ))}
+        <text x={40} y={876} className="circuit-silk">
+          AHMADALI.CA — REV 2.6
+        </text>
+
+        {/* Flowing light nets */}
         {lightTraces.map((t, i) => (
           <g key={`l-${i}`}>
             <path d={t.d} className={`circuit-trace-${t.tone}`} strokeWidth="1.5" />

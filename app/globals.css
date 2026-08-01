@@ -187,6 +187,28 @@ body::after {
   stroke: rgba(0, 229, 255, 0.14);
   fill: rgba(12, 20, 32, 0.45);
 }
+.circuit-pin {
+  stroke: rgba(0, 229, 255, 0.14);
+  stroke-width: 3;
+}
+.circuit-edge {
+  stroke: rgba(0, 229, 255, 0.07);
+  fill: none;
+}
+.circuit-hole {
+  stroke: rgba(0, 229, 255, 0.1);
+  fill: none;
+}
+.circuit-silk {
+  fill: rgba(0, 229, 255, 0.11);
+  font-family: Consolas, monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+}
+.circuit-silk-box {
+  stroke: rgba(0, 229, 255, 0.09);
+  fill: none;
+}
 .circuit-via {
   fill: rgba(0, 229, 255, 0.14);
 }
