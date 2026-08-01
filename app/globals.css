@@ -167,6 +167,13 @@ body::after {
     stroke-dashoffset: -1000;
   }
 }
+.circuit-pad {
+  stroke: rgba(0, 229, 255, 0.16);
+  fill: rgba(6, 10, 16, 0.6);
+}
+.circuit-via {
+  fill: rgba(0, 229, 255, 0.14);
+}
 .circuit-node {
   fill: rgba(0, 229, 255, 0.12);
   animation: node-pulse 7s ease-in-out infinite;
