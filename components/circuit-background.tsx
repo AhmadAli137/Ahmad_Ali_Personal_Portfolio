@@ -131,8 +131,14 @@ function ICFootprint({ ic }: { ic: IC }) {
   );
 }
 
+interface StaticTrace {
+  d: string;
+  pad: Pt;
+  via?: Pt;
+}
+
 export function CircuitBackground() {
-  const staticTraces = [...leftColumn, ...rightColumn, ...cornerBus, ...brBus];
+  const staticTraces: StaticTrace[] = [...leftColumn, ...rightColumn, ...cornerBus, ...brBus];
   const fanouts = [...ic1Left, ...ic2Right];
   const edgeRuns = [...ic1Right, ...ic2Left];
 
@@ -154,7 +160,7 @@ export function CircuitBackground() {
             <path d={t.d} className="circuit-trace-cyan" strokeWidth="1.5" />
             <circle cx={t.pad.x} cy={t.pad.y} r="4.5" className="circuit-pad" strokeWidth="1.5" />
             <circle cx={t.pad.x} cy={t.pad.y} r="1.4" className="circuit-via" />
-            {"via" in t && t.via && <circle cx={t.via.x} cy={t.via.y} r="2.2" className="circuit-via" />}
+            {t.via && <circle cx={t.via.x} cy={t.via.y} r="2.2" className="circuit-via" />}
           </g>
         ))}
 
