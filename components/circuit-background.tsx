@@ -33,6 +33,10 @@ const nodes: { cx: number; cy: number; delay: number }[] = [
 export function CircuitBackground() {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-[1] overflow-hidden">
+      {/* Drifting pools of light */}
+      <div className="glow-orb glow-orb-1" />
+      <div className="glow-orb glow-orb-2" />
+      <div className="glow-orb glow-orb-3" />
       <svg
         className="h-full w-full"
         viewBox="0 0 1440 900"
