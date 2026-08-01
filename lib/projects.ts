@@ -24,6 +24,8 @@ export interface Project {
   solution: string;
   demoCaption?: string;
   demoNote?: string;
+  /** Live app embedded as a playable iframe on the project page */
+  demoUrl?: string;
   features: string[];
   stack: string[];
   challenges: string[];
@@ -363,7 +365,8 @@ export const projects: Project[] = [
     badge: "NASA SPACE APPS 2025 — 1ST PLACE + GLOBAL NOMINATION",
     badgeTone: "amber",
     tagline:
-      "Visualizing near-Earth asteroid data to make planetary defense tangible — winner of NASA Space Apps Windsor with a global nomination.",
+      "An asteroid impact simulator built on NASA near-earth-object data — winner of NASA Space Apps Windsor with a global nomination. Try it live below.",
+    demoUrl: "https://meteor-madness-six.vercel.app",
     cardBlurb: "NASA Space Apps winner: making near-Earth asteroid data tangible.",
     cardCaption: "Team with 1st Place certificates",
     cardSrc: "/img/nasa-space-apps-1.jpg",
@@ -386,7 +389,39 @@ export const projects: Project[] = [
       { caption: "The team with 1st Place Windsor certificates", src: "/img/nasa-space-apps-2.jpg" },
       { caption: "NASA Space Apps Windsor 2025", src: "/img/nasa-space-apps-3.jpg" },
     ],
-    links: [{ label: "GitHub", href: "https://github.com/AhmadAli137/meteor-madness-nasa" }],
+    links: [
+      { label: "Live Demo", href: "https://meteor-madness-six.vercel.app" },
+      { label: "GitHub", href: "https://github.com/AhmadAli137/meteor-madness" },
+    ],
+  },
+  {
+    slug: "grand-theft-calculus",
+    title: "Grand Theft Calculus",
+    badge: "UNDERGRAD GAME — UWINDSOR",
+    badgeTone: "mint",
+    tagline:
+      "A University of Windsor calculus heist — a 3D adventure game that makes calculus a playable mission. Playable right here in your browser.",
+    cardBlurb:
+      "A calculus heist adventure game — learn math by pulling off the job. Playable in-browser.",
+    cardCaption: "SCREENSHOT: Grand Theft Calculus gameplay",
+    chips: ["Game Dev", "3D", "EdTech", "Web"],
+    heroCaption: "SCREENSHOT: Grand Theft Calculus (add when available)",
+    problem:
+      "Calculus is taught as drills and drilled as homework. Nobody remembers homework — everybody remembers a heist.",
+    solution:
+      "Grand Theft Calculus wraps calculus learning in an adventure-game heist across the University of Windsor: explore with WASD, talk to characters, and solve the math that cracks the job.",
+    demoUrl: "https://grand-theft-calculus.vercel.app",
+    features: [
+      "3D explorable campus with WASD movement and sprint",
+      "NPC dialogue system driving the heist narrative",
+      "Calculus challenges woven into gameplay",
+      "Graphics quality toggle and fullscreen support",
+    ],
+    stack: ["TODO: engine / framework details"],
+    challenges: ["TODO"],
+    lessons: ["TODO"],
+    gallery: [],
+    links: [{ label: "Play Live", href: "https://grand-theft-calculus.vercel.app" }],
   },
   {
     slug: "winparks",
@@ -639,4 +674,13 @@ export function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
 }
 
-export const featuredSlugs = ["drone", "sketchbot", "sayspark", "asl-glove", "memory-optimizer", "edge-pong"];
+export const featuredSlugs = [
+  "drone",
+  "sketchbot",
+  "sayspark",
+  "asl-glove",
+  "memory-optimizer",
+  "edge-pong",
+  "meteor-madness",
+  "grand-theft-calculus",
+];

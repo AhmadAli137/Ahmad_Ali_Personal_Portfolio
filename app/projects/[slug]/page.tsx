@@ -72,13 +72,34 @@ export default async function ProjectPage({
           </div>
         </Reveal>
 
-        {project.demoCaption && (
+        {project.demoUrl ? (
           <Reveal className="pb-10">
-            <H2>Demo</H2>
-            {/* TODO: embed real demo video */}
-            <Ph caption={project.demoCaption} minH="min-h-[420px]" />
-            {project.demoNote && <p className="mt-3.5 text-muted">{project.demoNote}</p>}
+            <H2>Live Demo</H2>
+            <div className="overflow-hidden rounded-xl border border-line-strong shadow-[0_0_40px_rgba(0,229,255,0.08)]">
+              <iframe
+                src={project.demoUrl}
+                title={`${project.title} — live demo`}
+                className="h-[70vh] min-h-[480px] w-full"
+                allow="fullscreen; accelerometer; gyroscope"
+                loading="lazy"
+              />
+            </div>
+            <p className="mt-3.5 text-sm text-muted">
+              Running live, right here.{" "}
+              <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="text-cyan hover:underline">
+                Open full screen →
+              </a>
+            </p>
           </Reveal>
+        ) : (
+          project.demoCaption && (
+            <Reveal className="pb-10">
+              <H2>Demo</H2>
+              {/* TODO: embed real demo video */}
+              <Ph caption={project.demoCaption} minH="min-h-[420px]" />
+              {project.demoNote && <p className="mt-3.5 text-muted">{project.demoNote}</p>}
+            </Reveal>
+          )
         )}
 
         <Reveal className="grid gap-10 py-6 lg:grid-cols-2">
