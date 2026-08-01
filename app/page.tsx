@@ -85,14 +85,29 @@ export default function Home() {
               </div>
             </div>
             <Hud>
-              {/* Swap for a robot/drone build photo when available */}
-              <Ph
-                caption="Ahmad working on an EV powertrain test rig"
-                src="/img/charge-lab-ev-rnd.jpg"
-                alt="Ahmad working hands-on with an EV motor on a dynamometer test rig at the CHARGE Lab"
-                minH="min-h-[460px]"
-                className="shadow-[0_0_60px_rgba(0,229,255,0.08)]"
-              />
+              <div className="grid grid-cols-2 gap-3">
+                <Ph
+                  caption="Ahmad with the EPICentre Innovation Mastery Award"
+                  src="/img/founder.jpg"
+                  alt="Ahmad holding the EPICentre Innovation Mastery Award"
+                  minH="min-h-[460px]"
+                  className="shadow-[0_0_60px_rgba(0,229,255,0.08)]"
+                />
+                <div className="flex flex-col gap-3">
+                  <Ph
+                    caption="At work on an EV powertrain test rig"
+                    src="/img/charge-lab-ev-rnd.jpg"
+                    alt="Ahmad working hands-on with an EV motor on a dynamometer test rig at the CHARGE Lab"
+                    minH="min-h-[224px]"
+                  />
+                  <Ph
+                    caption="Mentoring at the Genius Cup"
+                    src="/img/genius-cup-main.jpg"
+                    alt="Ahmad mentoring young students with robots at the Genius Cup competition"
+                    minH="min-h-[224px]"
+                  />
+                </div>
+              </div>
             </Hud>
           </div>
 
