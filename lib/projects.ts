@@ -376,14 +376,23 @@ export const projects: Project[] = [
     problem:
       "NASA publishes rich near-Earth object data, but raw orbital parameters mean nothing to most people. Planetary defense only gets public support when the public can see the problem.",
     solution:
-      "Meteor Madness turns NASA's asteroid datasets into an interactive experience that makes near-Earth objects — their paths, sizes, and close approaches — tangible. {/* TODO: sharpen with your real feature list */}",
+      "An interactive asteroid impact visualization and mitigation simulator in four acts: explore ~250 real near-Earth objects, design an impact scenario, watch its consequences unfold on a 3D globe, then try to save Earth with a kinetic deflection mission.",
     features: [
-      "Interactive visualization of NASA near-Earth object data",
-      "TODO: your real feature list",
+      "Observatory — ~250 real NEOs from NASA's NeoWs API with 2D orbit maps and 3D heliocentric views",
+      "Impactor Lab — design collision scenarios: velocity, diameter, density, impact location",
+      "Impact Site — crater footprints and damage radii on a CesiumJS 3D globe",
+      "Mission: Save Earth — kinetic deflection simulation showing how lead time changes everything",
+      "Orbital mechanics via Keplerian elements solved with Newton-Raphson",
     ],
-    stack: ["JavaScript", "NASA APIs"],
-    challenges: ["TODO"],
-    lessons: ["TODO"],
+    stack: ["Next.js 15", "React 19", "TypeScript", "CesiumJS", "Three.js", "Tailwind CSS", "NASA NeoWs API"],
+    challenges: [
+      "Solving Keplerian orbital mechanics accurately enough for real NEO data",
+      "Grounding crater and seismic effects in the peer-reviewed Collins, Melosh & Marcus (2005) scaling models",
+    ],
+    lessons: [
+      "Real physics makes a simulation credible — the scientific references are part of the product",
+      "CesiumJS + Three.js can coexist for planetary-scale and orbital-scale rendering",
+    ],
     next: "Earned the Galactic Problem Solver award — 1st place in Windsor plus a nomination to the global round.",
     gallery: [
       { caption: "The team with 1st Place Windsor certificates", src: "/img/nasa-space-apps-2.jpg" },
@@ -397,31 +406,43 @@ export const projects: Project[] = [
   {
     slug: "grand-theft-calculus",
     title: "Grand Theft Calculus",
-    badge: "UNDERGRAD GAME — UWINDSOR",
+    badge: "UWINDSOR COURSE PROJECT 2020 — REBUILT 2026",
     badgeTone: "mint",
     tagline:
-      "A University of Windsor calculus heist — a 3D adventure game that makes calculus a playable mission. Playable right here in your browser.",
+      "A comedic campus stealth game: collect the 8 scattered exam pages before Professor Sarker catches you. Playable right here in your browser.",
     cardBlurb:
-      "A calculus heist adventure game — learn math by pulling off the job. Playable in-browser.",
+      "Campus stealth game — collect the exam pages, evade Professor Sarker. Playable in-browser.",
     cardCaption: "SCREENSHOT: Grand Theft Calculus gameplay",
-    chips: ["Game Dev", "3D", "EdTech", "Web"],
+    chips: ["Pygame", "Pygbag", "Game Dev", "Procedural Art"],
     heroCaption: "SCREENSHOT: Grand Theft Calculus (add when available)",
     problem:
-      "Calculus is taught as drills and drilled as homework. Nobody remembers homework — everybody remembers a heist.",
+      "An undergrad desperate to pass integral calculus discovers the exam pages scattered across the University of Windsor campus. One problem: Professor Sarker is patrolling.",
     solution:
-      "Grand Theft Calculus wraps calculus learning in an adventure-game heist across the University of Windsor: explore with WASD, talk to characters, and solve the math that cracks the job.",
+      "A 2D stealth game where you sprint (limited stamina), gather intel from NPCs, and grab all 8 exam pages while evading a professor who's faster than your walk but slower than your sprint. Speed runs rank on the leaderboard.",
     demoUrl: "https://grand-theft-calculus.vercel.app",
     features: [
-      "3D explorable campus with WASD movement and sprint",
-      "NPC dialogue system driving the heist narrative",
-      "Calculus challenges woven into gameplay",
-      "Graphics quality toggle and fullscreen support",
+      "8 exam pages hidden across a pixel-art UWindsor campus",
+      "Professor Sarker patrol-and-chase AI",
+      "Stamina-based sprint and NPC intel dialogue",
+      "Speed-run leaderboard",
+      "Procedurally generated pixel art and synthesized audio",
+      "Runs on desktop (Pygame) and in-browser (Pygbag / WebAssembly)",
     ],
-    stack: ["TODO: engine / framework details"],
-    challenges: ["TODO"],
-    lessons: ["TODO"],
+    stack: ["Python", "Pygame", "Pygbag (WebAssembly)", "Procedural asset tooling"],
+    challenges: [
+      "Reconstructing the original 2020 art as procedural 4px-cell pixel assets",
+      "Making a desktop Pygame build run cleanly in the browser via WebAssembly",
+    ],
+    lessons: [
+      "Automated testing and spawn verification pay off even for games",
+      "Old course projects are worth reviving — six years of skill turns a demo into a product",
+    ],
+    next: "Originally a 2020 course project; rebuilt from scratch in 2026 with procedural art, synthesized audio, and a web build.",
     gallery: [],
-    links: [{ label: "Play Live", href: "https://grand-theft-calculus.vercel.app" }],
+    links: [
+      { label: "Play Live", href: "https://grand-theft-calculus.vercel.app" },
+      { label: "GitHub", href: "https://github.com/AhmadAli137/grand-theft-calculus" },
+    ],
   },
   {
     slug: "winparks",
