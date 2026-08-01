@@ -82,6 +82,62 @@ body::after {
   animation: blink 1s steps(1) infinite;
 }
 
+/* ---- Circuit background animation ---- */
+.circuit-trace-cyan {
+  stroke: rgba(0, 229, 255, 0.06);
+}
+.circuit-trace-mint {
+  stroke: rgba(52, 245, 162, 0.05);
+}
+.circuit-pulse {
+  stroke-dasharray: 34 966;
+  stroke-dashoffset: 1000;
+  stroke-linecap: round;
+  animation-name: circuit-travel;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.circuit-pulse-cyan {
+  stroke: rgba(0, 229, 255, 0.45);
+  filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.6));
+}
+.circuit-pulse-mint {
+  stroke: rgba(52, 245, 162, 0.4);
+  filter: drop-shadow(0 0 6px rgba(52, 245, 162, 0.55));
+}
+@keyframes circuit-travel {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+.circuit-node {
+  fill: rgba(0, 229, 255, 0.25);
+  animation: node-pulse 4s ease-in-out infinite;
+}
+@keyframes node-pulse {
+  0%,
+  100% {
+    fill: rgba(0, 229, 255, 0.15);
+    filter: none;
+  }
+  50% {
+    fill: rgba(0, 229, 255, 0.55);
+    filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.6));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .circuit-pulse,
+  .circuit-node {
+    animation: none;
+  }
+  .circuit-pulse {
+    opacity: 0;
+  }
+}
+
 @keyframes pulse-glow {
   0%,
   100% {

@@ -3,6 +3,7 @@ import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/nav";
 import { SiteFooter } from "@/components/site-footer";
+import { CircuitBackground } from "@/components/circuit-background";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
       <body className="font-sans antialiased">
+        <CircuitBackground />
         <Nav />
         {children}
         <SiteFooter />
