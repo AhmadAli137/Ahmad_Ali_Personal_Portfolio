@@ -1,300 +1,336 @@
 /**
- * Site-wide ambient background styled as a real control board:
- * board-edge outline, corner mounting holes, QFP + SOIC footprints with
- * escape routing, passives, pin headers, buses with 45° jogs, vias,
- * silkscreen designators, and light flowing along a few long nets.
- * Plus large diffuse pools of drifting light. Styles in globals.css.
+ * Full-page scrolling background styled after an 8-bit microcomputer board
+ * (6502-era): DIP CPU with address/data bus escape routing, RAM bank, ROM,
+ * video chip, crystal, electrolytic caps, voltage regulator, edge connector,
+ * via stitching, silkscreen designators. The board is a vertical tile repeated
+ * down the whole document, so scrolling reveals new sections. Light pulses
+ * originate at chip pins and flow along the nets. Styles in globals.css.
  */
 
-interface Pt {
-  x: number;
-  y: number;
-}
+const range = (n: number) => Array.from({ length: n }, (_, i) => i);
 
-/* ---------- Component footprints ---------- */
+/* ---------- Small footprint components ---------- */
 
-function MountHole({ x, y }: Pt) {
-  return (
-    <g>
-      <circle cx={x} cy={y} r="10" className="circuit-hole" strokeWidth="2.5" />
-      <circle cx={x} cy={y} r="4.5" className="circuit-hole" strokeWidth="1" />
-    </g>
-  );
-}
-
-/** Quad flat package: body, die, pin-1 dot, pins on all four sides */
-function QFP({ x, y, s, n }: { x: number; y: number; s: number; n: number }) {
-  const pitch = s / (n + 1);
-  const idx = Array.from({ length: n }, (_, k) => k + 1);
-  return (
-    <g>
-      <rect x={x} y={y} width={s} height={s} rx="4" className="circuit-ic" strokeWidth="1.5" />
-      <rect x={x + s * 0.28} y={y + s * 0.28} width={s * 0.44} height={s * 0.44} className="circuit-ic" strokeWidth="1" />
-      <circle cx={x + 14} cy={y + 14} r="2.5" className="circuit-via" />
-      {idx.map((k) => (
-        <g key={k} className="circuit-pin">
-          <path d={`M ${x + pitch * k} ${y} v -12`} />
-          <path d={`M ${x + pitch * k} ${y + s} v 12`} />
-          <path d={`M ${x} ${y + pitch * k} h -12`} />
-          <path d={`M ${x + s} ${y + pitch * k} h 12`} />
-        </g>
-      ))}
-    </g>
-  );
-}
-
-/** Small outline IC: body + pins left/right */
-function SOIC({ x, y, w, h, n }: { x: number; y: number; w: number; h: number; n: number }) {
-  const pitch = h / (n + 1);
-  const idx = Array.from({ length: n }, (_, k) => k + 1);
+function DIPv({ x, y, w, h, pins, label }: { x: number; y: number; w: number; h: number; pins: number; label: string }) {
+  const pitch = h / (pins + 1);
   return (
     <g>
       <rect x={x} y={y} width={w} height={h} rx="4" className="circuit-ic" strokeWidth="1.5" />
-      <circle cx={x + 12} cy={y + 12} r="2.2" className="circuit-via" />
-      {idx.map((k) => (
-        <g key={k} className="circuit-pin">
-          <path d={`M ${x} ${y + pitch * k} h -12`} />
-          <path d={`M ${x + w} ${y + pitch * k} h 12`} />
+      <path d={`M ${x + w / 2 - 10} ${y} a 10 10 0 0 0 20 0`} className="circuit-ic" strokeWidth="1.2" />
+      {range(pins).map((k) => (
+        <g key={k}>
+          <path d={`M ${x} ${y + pitch * (k + 1)} h -9`} className="circuit-pin" />
+          <circle cx={x - 13} cy={y + pitch * (k + 1)} r="3.4" className="circuit-pad" strokeWidth="1.2" />
+          <path d={`M ${x + w} ${y + pitch * (k + 1)} h 9`} className="circuit-pin" />
+          <circle cx={x + w + 13} cy={y + pitch * (k + 1)} r="3.4" className="circuit-pad" strokeWidth="1.2" />
         </g>
       ))}
+      <text x={x} y={y - 8} className="circuit-silk">{label}</text>
     </g>
   );
 }
 
-/** Two-pad passive (resistor/capacitor) footprint, horizontal or vertical */
-function Passive({ x, y, vertical = false }: { x: number; y: number; vertical?: boolean }) {
-  const pw = 11;
-  const ph = 14;
-  const gap = 15;
-  return vertical ? (
-    <g>
-      <rect x={x - pw / 2} y={y} width={pw} height={ph} rx="2" className="circuit-pad" strokeWidth="1.2" />
-      <rect x={x - pw / 2} y={y + ph + gap} width={pw} height={ph} rx="2" className="circuit-pad" strokeWidth="1.2" />
-      <path d={`M ${x} ${y + ph} v ${gap}`} className="circuit-trace-cyan" strokeWidth="1.5" />
-    </g>
-  ) : (
-    <g>
-      <rect x={x} y={y - pw / 2} width={ph} height={pw} rx="2" className="circuit-pad" strokeWidth="1.2" />
-      <rect x={x + ph + gap} y={y - pw / 2} width={ph} height={pw} rx="2" className="circuit-pad" strokeWidth="1.2" />
-      <path d={`M ${x + ph} ${y} h ${gap}`} className="circuit-trace-cyan" strokeWidth="1.5" />
-    </g>
-  );
-}
-
-/** Pin header: row of annular pads with a silkscreen box */
-function Header({ x, y, n, vertical = true }: { x: number; y: number; n: number; vertical?: boolean }) {
-  const pitch = 24;
-  const idx = Array.from({ length: n }, (_, k) => k);
+function DIPh({ x, y, w, h, pins, label }: { x: number; y: number; w: number; h: number; pins: number; label: string }) {
+  const pitch = w / (pins + 1);
   return (
     <g>
-      <rect
-        x={vertical ? x - 11 : x - 11}
-        y={vertical ? y - 11 : y - 11}
-        width={vertical ? 22 : pitch * (n - 1) + 22}
-        height={vertical ? pitch * (n - 1) + 22 : 22}
-        rx="3"
-        className="circuit-silk-box"
-        strokeWidth="1"
-      />
-      {idx.map((k) => (
+      <rect x={x} y={y} width={w} height={h} rx="4" className="circuit-ic" strokeWidth="1.5" />
+      <path d={`M ${x} ${y + h / 2 - 10} a 10 10 0 0 0 0 20`} className="circuit-ic" strokeWidth="1.2" />
+      {range(pins).map((k) => (
         <g key={k}>
-          <circle cx={vertical ? x : x + pitch * k} cy={vertical ? y + pitch * k : y} r="5.5" className="circuit-pad" strokeWidth="1.5" />
-          <circle cx={vertical ? x : x + pitch * k} cy={vertical ? y + pitch * k : y} r="2" className="circuit-via" />
+          <path d={`M ${x + pitch * (k + 1)} ${y} v -9`} className="circuit-pin" />
+          <circle cx={x + pitch * (k + 1)} cy={y - 13} r="3.4" className="circuit-pad" strokeWidth="1.2" />
+          <path d={`M ${x + pitch * (k + 1)} ${y + h} v 9`} className="circuit-pin" />
+          <circle cx={x + pitch * (k + 1)} cy={y + h + 13} r="3.4" className="circuit-pad" strokeWidth="1.2" />
         </g>
+      ))}
+      <text x={x} y={y - 20} className="circuit-silk">{label}</text>
+    </g>
+  );
+}
+
+function ElectroCap({ x, y, r = 16, label }: { x: number; y: number; r?: number; label: string }) {
+  return (
+    <g>
+      <circle cx={x} cy={y} r={r} className="circuit-ic" strokeWidth="1.5" />
+      <circle cx={x} cy={y} r={r * 0.55} className="circuit-hole" strokeWidth="1" />
+      <path d={`M ${x + r + 4} ${y - r + 2} h 7 M ${x + r + 7.5} ${y - r - 1.5} v 7`} className="circuit-pin" strokeWidth="1.5" />
+      <text x={x - r} y={y + r + 14} className="circuit-silk">{label}</text>
+    </g>
+  );
+}
+
+function Crystal({ x, y, label }: { x: number; y: number; label: string }) {
+  return (
+    <g>
+      <rect x={x} y={y} width={46} height={20} rx="10" className="circuit-ic" strokeWidth="1.5" />
+      <circle cx={x - 8} cy={y + 10} r="3.4" className="circuit-pad" strokeWidth="1.2" />
+      <circle cx={x + 54} cy={y + 10} r="3.4" className="circuit-pad" strokeWidth="1.2" />
+      <text x={x - 4} y={y + 36} className="circuit-silk">{label}</text>
+    </g>
+  );
+}
+
+function Passive({ x, y, label, vertical = false }: { x: number; y: number; label: string; vertical?: boolean }) {
+  return (
+    <g>
+      {vertical ? (
+        <>
+          <rect x={x - 5.5} y={y} width={11} height={13} rx="2" className="circuit-pad" strokeWidth="1.2" />
+          <rect x={x - 5.5} y={y + 27} width={11} height={13} rx="2" className="circuit-pad" strokeWidth="1.2" />
+          <path d={`M ${x} ${y + 13} v 14`} className="circuit-trace-cyan" strokeWidth="1.5" />
+        </>
+      ) : (
+        <>
+          <rect x={x} y={y - 5.5} width={13} height={11} rx="2" className="circuit-pad" strokeWidth="1.2" />
+          <rect x={x + 27} y={y - 5.5} width={13} height={11} rx="2" className="circuit-pad" strokeWidth="1.2" />
+          <path d={`M ${x + 13} ${y} h 14`} className="circuit-trace-cyan" strokeWidth="1.5" />
+        </>
+      )}
+      <text x={x - 6} y={vertical ? y - 8 : y - 12} className="circuit-silk">{label}</text>
+    </g>
+  );
+}
+
+function Regulator({ x, y, label }: { x: number; y: number; label: string }) {
+  return (
+    <g>
+      <rect x={x - 10} y={y - 14} width={110} height={14} rx="2" className="circuit-ic" strokeWidth="1.2" />
+      <circle cx={x + 45} cy={y - 7} r="4" className="circuit-hole" strokeWidth="1" />
+      <rect x={x} y={y} width={90} height={54} rx="3" className="circuit-ic" strokeWidth="1.5" />
+      {range(3).map((k) => (
+        <g key={k}>
+          <path d={`M ${x + 20 + 25 * k} ${y + 54} v 14`} className="circuit-pin" />
+          <circle cx={x + 20 + 25 * k} cy={y + 72} r="3.6" className="circuit-pad" strokeWidth="1.2" />
+        </g>
+      ))}
+      <text x={x} y={y + 94} className="circuit-silk">{label}</text>
+    </g>
+  );
+}
+
+function ViaGrid({ x, y, cols, rows }: { x: number; y: number; cols: number; rows: number }) {
+  return (
+    <g>
+      {range(cols * rows).map((i) => (
+        <circle key={i} cx={x + 14 * (i % cols)} cy={y + 14 * Math.floor(i / cols)} r="1.7" className="circuit-via" />
       ))}
     </g>
   );
 }
 
-/* ---------- Routing ---------- */
+function EdgeConnector({ x, y, n, label }: { x: number; y: number; n: number; label: string }) {
+  return (
+    <g>
+      <rect x={x - 10} y={y - 8} width={n * 26 + 12} height={76} rx="3" className="circuit-silk-box" strokeWidth="1" />
+      {range(n).map((k) => (
+        <rect key={k} x={x + 26 * k} y={y} width={16} height={60} rx="2" className="circuit-gold" strokeWidth="1" />
+      ))}
+      <text x={x - 8} y={y - 16} className="circuit-silk">{label}</text>
+    </g>
+  );
+}
 
-const u1 = { x: 1120, y: 120, s: 120, n: 7 };
-const u1pitch = u1.s / (u1.n + 1);
-const pinIdx = Array.from({ length: u1.n }, (_, k) => k + 1);
+/* ---------- One board tile (viewBox 1600 x 2400) ---------- */
 
-/* U1 escape routing */
-const u1Right = pinIdx.map((k) => ({
-  d: `M ${u1.x + u1.s + 12} ${u1.y + u1pitch * k} H ${1330 + 4 * k}`,
-  pad: { x: 1330 + 4 * k, y: u1.y + u1pitch * k } as Pt,
-}));
-const u1Top = pinIdx.map((k) => ({
-  d: `M ${u1.x + u1pitch * k} ${u1.y - 12} V ${88 - 4 * k}`,
-  pad: { x: u1.x + u1pitch * k, y: 88 - 4 * k } as Pt,
-}));
-const u1Left = pinIdx.map((k) => ({
-  d: `M ${u1.x - 12} ${u1.y + u1pitch * k} H ${1052 - 8 * k} l -28 28`,
-  pad: { x: 1024 - 8 * k, y: u1.y + u1pitch * k + 28 } as Pt,
-}));
-const u1BottomVias = pinIdx.map((k) => ({ x: u1.x + u1pitch * k, y: u1.y + u1.s + 20 }) as Pt);
+const cpu = { x: 1080, y: 100, w: 130, h: 440, pins: 20 };
+const cpuPinY = (k: number) => cpu.y + (cpu.h / (cpu.pins + 1)) * k;
 
-const u2 = { x: 200, y: 590, w: 100, h: 70, n: 4 };
-const u2pitch = u2.h / (u2.n + 1);
-const u2Idx = Array.from({ length: u2.n }, (_, k) => k + 1);
-const u2Left = u2Idx.map((k) => ({ d: `M ${u2.x - 12} ${u2.y + u2pitch * k} H -60` }));
-const u2Right = u2Idx.map((k) => ({
-  d: `M ${u2.x + u2.w + 12} ${u2.y + u2pitch * k} H ${360 + 8 * k} l 26 26`,
-  pad: { x: 386 + 8 * k, y: u2.y + u2pitch * k + 26 } as Pt,
-}));
+/* Address bus: CPU left pins 1..16 route left, 45° down, into the left trunk */
+const addrBus = range(16).map((i) => {
+  const k = i + 1;
+  const y = cpuPinY(k);
+  return { d: `M ${cpu.x - 17} ${y} H ${700 + 8 * k} l -30 30 H 160`, via: { x: 160, y: y + 30 } };
+});
 
-/* J1 vertical header (right side): traces run left, jog up, end in vias */
-const j1 = { x: 1520, y: 540, n: 6 };
-const j1Traces = Array.from({ length: j1.n }, (_, k) => ({
-  d: `M ${j1.x - 6} ${j1.y + 24 * k} H ${1360 - 10 * k} l -34 -34 H ${1270 - 10 * k}`,
-  via: { x: 1270 - 10 * k, y: j1.y + 24 * k - 34 } as Pt,
-}));
+/* Data/control: CPU right pins 1..16 route right into the right trunk */
+const dataBus = range(16).map((i) => {
+  const k = i + 1;
+  const y = cpuPinY(k);
+  return { d: `M ${cpu.x + cpu.w + 17} ${y} H ${1420 - 8 * k} l 30 30 H 1462`, via: { x: 1462, y: y + 30 } };
+});
 
-/* J2 horizontal header (bottom): traces rise, end in vias */
-const j2 = { x: 560, y: 830, n: 8 };
-const j2Traces = Array.from({ length: j2.n }, (_, k) => ({
-  d: `M ${j2.x + 24 * k} ${j2.y - 6} V ${772 - 6 * k}`,
-  via: { x: j2.x + 24 * k, y: 772 - 6 * k } as Pt,
-}));
+/* Trunks running the full tile height (tile-continuous) */
+const leftTrunk = range(10).map((i) => ({ x: 44 + 9 * i }));
+const rightTrunk = range(10).map((i) => ({ x: 1475 + 9 * i }));
 
-/* Side + top buses */
-const leftBus = [0, 1, 2, 3].map((i) => ({
-  d: `M ${48 + 14 * i} -60 V ${300 - 14 * i} l 36 36 V ${838 - 14 * i}`,
-  pad: { x: 84 + 14 * i, y: 838 - 14 * i } as Pt,
-  via: { x: 48 + 14 * i, y: 300 - 14 * i } as Pt,
-}));
-const topBus = [0, 1, 2, 3].map((i) => ({
-  d: `M -60 ${52 + 14 * i} H ${520 - 14 * i} l 36 36 V ${240 - 14 * i}`,
-  pad: { x: 556 - 14 * i, y: 240 - 14 * i } as Pt,
-  via: { x: 520 - 14 * i, y: 52 + 14 * i } as Pt,
+/* RAM bank + its bus */
+const rams = range(4).map((j) => ({ x: 280 + 220 * j, y: 1000 }));
+const ramBusY = (i: number) => 862 + 9 * i;
+const ramTaps = rams.flatMap((r, j) =>
+  range(8).map((i) => ({
+    x: r.x + (170 / 9) * (i + 1),
+    busY: ramBusY(i),
+    j,
+    i,
+  }))
+);
+
+/* Video chip bus */
+const vid = { x: 560, y: 1560, w: 420, h: 110, pins: 20 };
+const vidBusY = (i: number) => 1408 + 9 * i;
+const vidTaps = range(8).map((i) => ({ x: vid.x + (vid.w / 21) * (2 * i + 3), busY: vidBusY(i) }));
+
+/* Edge connector risers */
+const edge = { x: 500, y: 2324, n: 22 };
+const edgeRisers = range(edge.n).map((k) => ({
+  x: edge.x + 26 * k + 8,
+  topY: 2270 - (k % 4) * 8,
 }));
 
-/* Long signal nets carrying flowing light */
-interface LightTrace {
+interface Net {
   d: string;
   tone: "cyan" | "mint";
   duration: number;
   delay: number;
-  vias: Pt[];
 }
-const lightTraces: LightTrace[] = [
-  { d: "M -60 470 H 600 l 40 40 H 1050 l 40 -40 H 1600", tone: "cyan", duration: 26, delay: 0, vias: [{ x: 640, y: 510 }, { x: 1050, y: 510 }] },
-  { d: "M 1600 660 H 1000 l -40 40 H 520 l -40 -40 H -60", tone: "mint", duration: 30, delay: 12, vias: [{ x: 960, y: 700 }, { x: 520, y: 700 }] },
-  { d: "M 62 -60 V 286 l 36 36 V 824", tone: "cyan", duration: 28, delay: 6, vias: [] },
-  { d: "M 1600 320 H 1300 l -40 40 H 1150", tone: "mint", duration: 24, delay: 19, vias: [{ x: 1260, y: 360 }] },
-  { d: "M 700 -60 V 60 l 40 40 H 940", tone: "cyan", duration: 22, delay: 15, vias: [{ x: 700, y: 60 }] },
+const lightNets: Net[] = [
+  { d: `M 62 0 V 2400`, tone: "cyan", duration: 30, delay: 0 },
+  { d: `M 1547 2400 V 0`, tone: "mint", duration: 34, delay: 8 },
+  { d: `M ${cpu.x - 17} ${cpuPinY(5)} H ${700 + 8 * 5} l -30 30 H 160`, tone: "cyan", duration: 16, delay: 3 },
+  { d: `M ${cpu.x + cpu.w + 17} ${cpuPinY(10)} H ${1420 - 8 * 10} l 30 30 H 1462`, tone: "mint", duration: 18, delay: 11 },
+  { d: `M 134 ${ramBusY(3)} H 1240`, tone: "cyan", duration: 22, delay: 6 },
+  { d: `M 134 ${vidBusY(5)} H 1120`, tone: "mint", duration: 26, delay: 15 },
 ];
 
-/* Silkscreen designators */
-const silk: { x: number; y: number; t: string }[] = [
-  { x: 1122, y: 112, t: "U1" },
-  { x: 202, y: 582, t: "U2" },
-  { x: 1544, y: 528, t: "J1" },
-  { x: 548, y: 858, t: "J2" },
-  { x: 952, y: 296, t: "R1" },
-  { x: 952, y: 338, t: "R2" },
-  { x: 1040, y: 78, t: "C3" },
-  { x: 372, y: 508, t: "R3" },
-  { x: 428, y: 508, t: "C2" },
-  { x: 700, y: 130, t: "TP1" },
-];
+function BoardTile() {
+  return (
+    <svg className="w-full" viewBox="0 0 1600 2400" preserveAspectRatio="xMidYMin slice" fill="none">
+      {/* Trunks */}
+      {leftTrunk.map((t, i) => (
+        <path key={`lt-${i}`} d={`M ${t.x} 0 V 2400`} className="circuit-trace-cyan" strokeWidth="1.3" />
+      ))}
+      {rightTrunk.map((t, i) => (
+        <path key={`rt-${i}`} d={`M ${t.x} 0 V 2400`} className="circuit-trace-cyan" strokeWidth="1.3" />
+      ))}
 
-const passives: { x: number; y: number; vertical?: boolean }[] = [
-  { x: 960, y: 308 },
-  { x: 960, y: 350 },
-  { x: 1048, y: 90 },
-  { x: 380, y: 516, vertical: true },
-  { x: 436, y: 516, vertical: true },
-];
+      {/* ===== CPU section ===== */}
+      <DIPv x={cpu.x} y={cpu.y} w={cpu.w} h={cpu.h} pins={cpu.pins} label="U1 · CPU 6502" />
+      {addrBus.map((t, i) => (
+        <g key={`a-${i}`}>
+          <path d={t.d} className="circuit-trace-cyan" strokeWidth="1.3" />
+          <circle cx={t.via.x} cy={t.via.y} r="2.1" className="circuit-via" />
+        </g>
+      ))}
+      {dataBus.map((t, i) => (
+        <g key={`d-${i}`}>
+          <path d={t.d} className="circuit-trace-cyan" strokeWidth="1.3" />
+          <circle cx={t.via.x} cy={t.via.y} r="2.1" className="circuit-via" />
+        </g>
+      ))}
+      <text x={560} y={470} className="circuit-silk">A0–A15</text>
+      <text x={1300} y={470} className="circuit-silk">D0–D7</text>
+      <Crystal x={1170} y={620} label="Y1 · 1.79 MHz" />
+      <path d={`M 1162 630 H 1132 V 553 M 1224 630 h 24 V 553`} className="circuit-trace-cyan" strokeWidth="1.3" />
+      <ElectroCap x={1000} y={632} label="C1" />
+      <Passive x={940} y={80} label="R1" />
+      <Passive x={1000} y={80} label="R2" />
+      <ViaGrid x={1330} y={640} cols={4} rows={5} />
+
+      {/* ===== RAM section ===== */}
+      {range(8).map((i) => (
+        <path key={`rb-${i}`} d={`M 134 ${ramBusY(i)} H 1240`} className="circuit-trace-cyan" strokeWidth="1.3" />
+      ))}
+      {ramTaps.map((t, i) => (
+        <g key={`tap-${i}`}>
+          <path d={`M ${t.x} ${t.busY} V 978`} className="circuit-trace-cyan" strokeWidth="1.2" />
+          <circle cx={t.x} cy={t.busY} r="2.1" className="circuit-via" />
+        </g>
+      ))}
+      {rams.map((r, j) => (
+        <g key={`ram-${j}`}>
+          <DIPh x={r.x} y={r.y} w={170} h={64} pins={8} label={`U${3 + j} · RAM 2114`} />
+          <Passive x={r.x + 176} y={r.y + 90} label={`C${4 + j}`} vertical />
+        </g>
+      ))}
+      <DIPh x={1250} y={990} w={220} h={70} pins={12} label="U7 · ROM 2764" />
+      <ViaGrid x={180} y={1230} cols={6} rows={4} />
+      <text x={140} y={840} className="circuit-silk">DATA BUS</text>
+
+      {/* ===== Video section ===== */}
+      {range(8).map((i) => (
+        <path key={`vb-${i}`} d={`M 134 ${vidBusY(i)} H 1120`} className="circuit-trace-cyan" strokeWidth="1.3" />
+      ))}
+      {vidTaps.map((t, i) => (
+        <g key={`vt-${i}`}>
+          <path d={`M ${t.x} ${t.busY} V ${vid.y - 22}`} className="circuit-trace-cyan" strokeWidth="1.2" />
+          <circle cx={t.x} cy={t.busY} r="2.1" className="circuit-via" />
+        </g>
+      ))}
+      <DIPh x={vid.x} y={vid.y} w={vid.w} h={vid.h} pins={vid.pins} label="U8 · VIDEO PPU" />
+      {range(6).map((k) => (
+        <path
+          key={`vr-${k}`}
+          d={`M ${vid.x + vid.w + 30 + 10 * k} ${vid.y + (vid.h / 21) * (3 * k + 2)} H ${1380 + 6 * k} l 24 24 H 1462`}
+          className="circuit-trace-cyan"
+          strokeWidth="1.3"
+        />
+      ))}
+      <Passive x={1090} y={1500} label="R5" vertical />
+      <Passive x={1130} y={1500} label="R6" vertical />
+      <Passive x={1170} y={1500} label="C9" vertical />
+      <ElectroCap x={480} y={1620} label="C10" />
+      <ViaGrid x={1280} y={1780} cols={5} rows={4} />
+
+      {/* ===== Power / expansion section ===== */}
+      <Regulator x={170} y={2140} label="VR1 · 7805" />
+      <path d={`M 260 2212 H 420 V 2140 H 700`} className="circuit-power" strokeWidth="5" />
+      <text x={430} y={2128} className="circuit-silk">+5V</text>
+      <ElectroCap x={1420} y={2200} r={20} label="C14" />
+      <g>
+        <rect x={1290} y={2160} width={44} height={44} rx="4" className="circuit-ic" strokeWidth="1.5" />
+        {[
+          [1290, 2160], [1334, 2160], [1290, 2204], [1334, 2204],
+        ].map(([px, py], i) => (
+          <circle key={i} cx={px} cy={py} r="3.4" className="circuit-pad" strokeWidth="1.2" />
+        ))}
+        <text x={1284} y={2148} className="circuit-silk">SW1 · RST</text>
+      </g>
+      <EdgeConnector x={edge.x} y={edge.y} n={edge.n} label="J1 · EXPANSION" />
+      {edgeRisers.map((r, i) => (
+        <g key={`er-${i}`}>
+          <path d={`M ${r.x} ${edge.y - 10} V ${r.topY}`} className="circuit-trace-cyan" strokeWidth="1.2" />
+          <circle cx={r.x} cy={r.topY} r="2.1" className="circuit-via" />
+        </g>
+      ))}
+      <text x={170} y={2330} className="circuit-silk">AHMADALI.CA · 8-BIT · REV 2.6</text>
+      <ViaGrid x={880} y={2160} cols={7} rows={3} />
+
+      {/* Flowing light, originating at chip pins */}
+      {lightNets.map((t, i) => (
+        <path
+          key={`n-${i}`}
+          d={t.d}
+          pathLength={1000}
+          className={`circuit-pulse circuit-pulse-${t.tone}`}
+          strokeWidth="2.5"
+          style={{ animationDuration: `${t.duration}s`, animationDelay: `${t.delay}s` }}
+        />
+      ))}
+    </svg>
+  );
+}
+
+const TILES = 8;
 
 export function CircuitBackground() {
-  const escapes = [...u1Right, ...u1Top, ...u1Left, ...u2Right];
-  const buses = [...leftBus, ...topBus];
-
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 -z-[1] overflow-hidden">
-      <div className="glow-orb glow-orb-1" />
-      <div className="glow-orb glow-orb-2" />
-      <div className="glow-orb glow-orb-3" />
-      <div className="glow-orb glow-orb-4" />
-      <svg className="h-full w-full" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" fill="none">
-        {/* Board edge */}
-        <rect x="16" y="16" width="1568" height="868" rx="14" className="circuit-edge" strokeWidth="2" />
-        <MountHole x={54} y={54} />
-        <MountHole x={1546} y={54} />
-        <MountHole x={54} y={846} />
-        <MountHole x={1546} y={846} />
-
-        {/* Buses */}
-        {buses.map((t, i) => (
-          <g key={`b-${i}`}>
-            <path d={t.d} className="circuit-trace-cyan" strokeWidth="1.5" />
-            <circle cx={t.pad.x} cy={t.pad.y} r="4.5" className="circuit-pad" strokeWidth="1.5" />
-            <circle cx={t.pad.x} cy={t.pad.y} r="1.4" className="circuit-via" />
-            <circle cx={t.via.x} cy={t.via.y} r="2.2" className="circuit-via" />
-          </g>
-        ))}
-
-        {/* IC escape routing */}
-        {escapes.map((t, i) => (
-          <g key={`e-${i}`}>
-            <path d={t.d} className="circuit-trace-cyan" strokeWidth="1.5" />
-            <circle cx={t.pad.x} cy={t.pad.y} r="4" className="circuit-pad" strokeWidth="1.5" />
-          </g>
-        ))}
-        {u2Left.map((t, i) => (
-          <path key={`u2l-${i}`} d={t.d} className="circuit-trace-cyan" strokeWidth="1.5" />
-        ))}
-        {u1BottomVias.map((v, i) => (
-          <g key={`u1b-${i}`}>
-            <path d={`M ${v.x} ${u1.y + u1.s + 12} V ${v.y}`} className="circuit-trace-cyan" strokeWidth="1.5" />
-            <circle cx={v.x} cy={v.y} r="2.2" className="circuit-via" />
-          </g>
-        ))}
-
-        {/* Headers with their routing */}
-        <Header x={j1.x} y={j1.y} n={j1.n} vertical />
-        {j1Traces.map((t, i) => (
-          <g key={`j1-${i}`}>
-            <path d={t.d} className="circuit-trace-cyan" strokeWidth="1.5" />
-            <circle cx={t.via.x} cy={t.via.y} r="2.2" className="circuit-via" />
-          </g>
-        ))}
-        <Header x={j2.x} y={j2.y} n={j2.n} vertical={false} />
-        {j2Traces.map((t, i) => (
-          <g key={`j2-${i}`}>
-            <path d={t.d} className="circuit-trace-cyan" strokeWidth="1.5" />
-            <circle cx={t.via.x} cy={t.via.y} r="2.2" className="circuit-via" />
-          </g>
-        ))}
-
-        {/* Components */}
-        <QFP x={u1.x} y={u1.y} s={u1.s} n={u1.n} />
-        <SOIC x={u2.x} y={u2.y} w={u2.w} h={u2.h} n={u2.n} />
-        {passives.map((p, i) => (
-          <Passive key={`p-${i}`} {...p} />
-        ))}
-
-        {/* Silkscreen */}
-        {silk.map((s, i) => (
-          <text key={`t-${i}`} x={s.x} y={s.y} className="circuit-silk">
-            {s.t}
-          </text>
-        ))}
-        <text x={40} y={876} className="circuit-silk">
-          AHMADALI.CA — REV 2.6
-        </text>
-
-        {/* Flowing light nets */}
-        {lightTraces.map((t, i) => (
-          <g key={`l-${i}`}>
-            <path d={t.d} className={`circuit-trace-${t.tone}`} strokeWidth="1.5" />
-            <path
-              d={t.d}
-              pathLength={1000}
-              className={`circuit-pulse circuit-pulse-${t.tone}`}
-              strokeWidth="2.5"
-              style={{ animationDuration: `${t.duration}s`, animationDelay: `${t.delay}s` }}
-            />
-            {t.vias.map((v, j) => (
-              <circle key={j} cx={v.x} cy={v.y} r="2.2" className="circuit-via" />
-            ))}
-          </g>
-        ))}
-      </svg>
-    </div>
+    <>
+      {/* Fixed ambient light (stays with the viewport) */}
+      <div aria-hidden className="pointer-events-none fixed inset-0 -z-[1]">
+        <div className="glow-orb glow-orb-1" />
+        <div className="glow-orb glow-orb-2" />
+        <div className="glow-orb glow-orb-3" />
+        <div className="glow-orb glow-orb-4" />
+      </div>
+      {/* Board scrolls with the page; new sections appear as you scroll */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-[1] overflow-hidden">
+        <div className="flex flex-col">
+          {range(TILES).map((i) => (
+            <BoardTile key={i} />
+          ))}
+        </div>
+      </div>
+    </>
   );
 }

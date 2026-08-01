@@ -29,7 +29,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
-      <body className="font-sans antialiased">
+      <body className="relative font-sans antialiased">
         <CircuitBackground />
         <Nav />
         {children}

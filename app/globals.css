@@ -209,6 +209,13 @@ body::after {
   stroke: rgba(0, 229, 255, 0.09);
   fill: none;
 }
+.circuit-gold {
+  fill: rgba(255, 180, 84, 0.08);
+  stroke: rgba(255, 180, 84, 0.16);
+}
+.circuit-power {
+  stroke: rgba(255, 180, 84, 0.1);
+}
 .circuit-via {
   fill: rgba(0, 229, 255, 0.14);
 }
