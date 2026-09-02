@@ -1,17 +1,14 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Award } from "lucide-react";
 import { DroneShowcase } from "@/components/drone-showcase";
 import { Reveal } from "@/components/reveal";
-import { ScrambleText } from "@/components/scramble-text";
 import { TypingRoles } from "@/components/typing";
 import { CountUp } from "@/components/count-up";
 import { Ph } from "@/components/image-placeholder";
 import { Hud } from "@/components/hud";
 import { Btn, Card, Chip, Chips, SectionHeading } from "@/components/ui";
 import { projects, featuredSlugs } from "@/lib/projects";
-import { comps } from "@/lib/competitions";
-import { LogoWall } from "@/components/logo-wall";
 
 const focusAreas = [
   "Robotics",
@@ -71,21 +68,17 @@ export default function Home() {
                   <span className="text-muted">{"> "}</span>from concept to reality
                 </p>
                 <h1 className="mb-5 text-4xl font-extrabold leading-[1.12] tracking-tight sm:text-5xl">
-                  <ScrambleText text="Hi, I'm Ahmad Ali." />
+                  Hi, I&apos;m Ahmad Ali.
                   <br />
                   I build <span className="holo-text">intelligent robots</span>, AI-powered products,
                   and educational technology that solve real-world problems.
                 </h1>
-              </Reveal>
-              <Reveal delay={0.18}>
                 <p className="mb-4 max-w-xl text-lg text-muted">
                   I take ideas from a blank page all the way to working products — combining
                   hardware, software, and artificial intelligence into experiences people genuinely
                   enjoy using.
                 </p>
                 <div className="mb-8 h-6"><TypingRoles /></div>
-              </Reveal>
-              <Reveal delay={0.32}>
                 <div className="flex flex-wrap gap-3.5">
                   <Btn href="/#work" variant="primary">View My Work</Btn>
                   <Btn href="/#contact">Let&apos;s Build Something</Btn>
@@ -99,7 +92,7 @@ export default function Home() {
                   src="/img/founder.jpg"
                   alt="Ahmad holding the EPICentre Innovation Mastery Award"
                   minH="min-h-[460px]"
-                  className="kenburns shadow-[0_0_60px_rgba(0,229,255,0.08)]"
+                  className="shadow-[0_0_60px_rgba(0,229,255,0.08)]"
                 />
                 <div className="flex flex-col gap-3">
                   <Ph
@@ -107,14 +100,12 @@ export default function Home() {
                     src="/img/charge-lab-ev-rnd.jpg"
                     alt="Ahmad working hands-on with an EV motor on a dynamometer test rig at the CHARGE Lab"
                     minH="min-h-[224px]"
-                    className="kenburns"
                   />
                   <Ph
                     caption="Running a robot battle at the Genius Cup"
                     src="/img/genius-cup-robot-battle.jpg"
                     alt="Ahmad refereeing a robot battle at the Genius Cup as students watch"
                     minH="min-h-[224px]"
-                    className="kenburns"
                   />
                 </div>
               </div>
@@ -146,25 +137,6 @@ export default function Home() {
 
       {/* ============ 3D SIGNATURE: THE DRONE ============ */}
       <DroneShowcase />
-
-      {/* ============ TICKER ============ */}
-      <div className="marquee border-y border-line py-3.5">
-        <div className="marquee-track font-mono text-[13px] tracking-[0.25em] text-muted">
-          {[0, 1].map((copy) => (
-            <span key={copy} className="whitespace-nowrap">
-              {[
-                "ROBOTICS", "EDGE AI", "EMBEDDED SYSTEMS", "COMPUTER VISION", "BATTERY SYSTEMS",
-                "FIRMWARE", "PCB DESIGN", "AI AGENTS", "PRODUCT DESIGN", "ENTREPRENEURSHIP", "STEM EDUCATION",
-              ].map((t) => (
-                <span key={t}>
-                  <span className="mx-5 text-cyan/60">✦</span>
-                  {t}
-                </span>
-              ))}
-            </span>
-          ))}
-        </div>
-      </div>
 
       {/* ============ ABOUT ============ */}
       <section id="about" className="scroll-mt-20 px-6 py-20">
@@ -250,8 +222,8 @@ export default function Home() {
                     <div className="relative">
                       <Ph caption={p.cardCaption} src={p.cardSrc} alt={p.cardCaption} minH="min-h-[190px]" />
                       {p.demoUrl && (
-                        <span className="absolute inset-0 grid place-items-center rounded-xl bg-bg/20 transition-colors group-hover:bg-bg/5">
-                          <span className="rounded-full bg-cyan px-5 py-2.5 font-mono text-xs font-bold text-[#04252b] shadow-[0_0_24px_rgba(0,229,255,0.5)] transition-all group-hover:scale-110 group-hover:shadow-[0_0_36px_rgba(0,229,255,0.7)]">
+                        <span className="absolute inset-0 grid place-items-center rounded-xl opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                          <span className="rounded-full bg-cyan px-5 py-2.5 font-mono text-xs font-bold text-[#04252b] shadow-[0_0_24px_rgba(0,229,255,0.5)]">
                             ▶ TRY IT NOW
                           </span>
                         </span>
@@ -315,14 +287,6 @@ export default function Home() {
               { img: "/img/nasa-space-apps-1.jpg", award: "1st Place + Global Nomination", event: "NASA Space Apps 2025", note: "Meteor Madness" },
               { caption: "PHOTO: CWSF medals", award: "2× Bronze · Silver · $10k Scholarship", event: "Canada-Wide Science Fair", note: "Four national finals, 2015–2019" },
               { img: "/img/epicentre-award-trophy.jpg", award: "Innovation Mastery Award + $1,000", event: "EPICentre Excellence Awards 2023", note: "Entrepreneurship & innovation" },
-              { img: "/img/wec-1st-place.jpg", award: "4× 1st Place — Programming", event: "Windsor Engineering Competition", note: "Four straight years, 2020–2023" },
-              { caption: "PHOTO: science fair medals", award: "6× Gold + Sponsor Awards", event: "Windsor Regional Science Fair", note: "2014–2019 — where it all started" },
-              { img: "/img/presentpro-award-1.jpg", award: "2nd Overall · 1st in Category", event: "WinHacks 2025", note: "PresentPro — AI presentation coach" },
-              { img: "/img/secondlife-award.jpg", award: "2nd Place Overall", event: "WinHacks 2024", note: "Second Life — EV battery reuse" },
-              { img: "/img/winhacks26-sketchbot-award-2.jpg", award: "Finalist", event: "WinHacks 2026", note: "SketchBot — drawing robot" },
-              { img: "/img/jlr-team-1.jpg", award: "$600 + JLR Internship", event: "UWindsor × JLR AI Competition 2025", note: "Automotive AI memory optimization" },
-              { caption: "PHOTO: RV challenge", award: "1st Place", event: "Automotive UI/UX Challenge 2026", note: "RV interface challenge" },
-              { caption: "PHOTO: pitch competition", award: "4th Place — $2,500", event: "Take Your Shot 2026 — Leamington", note: "Startup pitch competition" },
             ] as { img?: string; caption?: string; award: string; event: string; note: string }[]).map((a, i) => (
               <Reveal key={a.event + a.award} delay={(i % 4) * 0.06}>
                 <Card className="flex h-full flex-col gap-3 !p-5">
@@ -338,39 +302,8 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
-          {/* The Wall — every competition attended */}
-          <Reveal className="mt-14">
-            <h3 className="mb-6 font-mono text-lg text-mint">
-              <span className="text-muted">## </span>The Wall
-            </h3>
-            <LogoWall />
-          </Reveal>
-
-          {/* Full record — expanded by default */}
-          <Reveal className="mt-14">
-            <h3 className="mb-6 font-mono text-lg text-mint">
-              <span className="text-muted">## </span>The Full Record — 44 Events, 2014 → Now
-            </h3>
-            <div className="grid gap-x-12 gap-y-4 md:grid-cols-2">
-              {comps.map((c, i) => (
-                <div key={c.title + c.years + i} className="border-l-2 border-line pl-4 transition-colors hover:border-cyan/60">
-                  <div className="flex flex-wrap items-baseline gap-x-2.5">
-                    <span className="font-mono text-xs text-cyan">{c.years}</span>
-                    <span className="text-sm font-bold">{c.title}</span>
-                    {c.location && <span className="font-mono text-[10px] text-muted">// {c.location}</span>}
-                  </div>
-                  {c.result && (
-                    <div className="flex items-center gap-1.5 font-mono text-xs text-amber">
-                      <Award size={11} /> {c.result}
-                    </div>
-                  )}
-                  {c.detail && <p className="text-xs text-muted">{c.detail}</p>}
-                </div>
-              ))}
-            </div>
-          </Reveal>
-          <Reveal className="mt-10">
-            <Btn href="/competitions">The Wall — Logos &amp; Locations →</Btn>
+          <Reveal className="mt-8">
+            <Btn href="/competitions">All 44 Competitions — The Full Record &amp; The Wall →</Btn>
           </Reveal>
         </div>
       </section>

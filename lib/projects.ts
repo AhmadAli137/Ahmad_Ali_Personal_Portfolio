@@ -704,13 +704,11 @@ export function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
 }
 
+/* Homepage shows a curated five; everything else lives on /hackathons and /projects/[slug] */
 export const featuredSlugs = [
   "drone",
   "sketchbot",
-  "sayspark",
-  "asl-glove",
-  "memory-optimizer",
-  "edge-pong",
   "meteor-madness",
+  "edge-pong",
   "grand-theft-calculus",
 ];

@@ -387,8 +387,8 @@ function BoardTile() {
       <Px map={HEART} x={620} y={82} s={4} cls="px-mint" />
       <Px map={HEART} x={668} y={82} s={4} cls="px-mint" />
       <Px map={HEART} x={716} y={82} s={4} cls="px-mint" />
-      {/* Invader squad marching between the buses */}
-      <g className="invader-march">
+      {/* Invader squad holding formation between the buses */}
+      <g>
         <Invader x={300} y={680} />
         <Invader x={390} y={680} />
         <Invader x={480} y={680} />
@@ -422,7 +422,7 @@ function BoardTile() {
   );
 }
 
-const TILES = 8;
+const TILES = 4;
 
 export function CircuitBackground() {
   return (
@@ -431,8 +431,6 @@ export function CircuitBackground() {
       <div aria-hidden className="pointer-events-none fixed inset-0 -z-[1]">
         <div className="glow-orb glow-orb-1" />
         <div className="glow-orb glow-orb-2" />
-        <div className="glow-orb glow-orb-3" />
-        <div className="glow-orb glow-orb-4" />
       </div>
       {/* Board scrolls with the page; new sections appear as you scroll */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-[1] overflow-hidden">
@@ -442,9 +440,8 @@ export function CircuitBackground() {
           ))}
         </div>
       </div>
-      {/* CRT overlay: scanlines + vignette (fixed to the viewport) */}
+      {/* Soft vignette (fixed to the viewport) */}
       <div aria-hidden className="crt-vignette -z-[1]" />
-      <div aria-hidden className="crt-scanlines -z-[1]" />
     </>
   );
 }

@@ -6,7 +6,6 @@ import { SiteFooter } from "@/components/site-footer";
 import { CircuitBackground } from "@/components/circuit-background";
 import { CursorGlow } from "@/components/cursor-glow";
 import { ScrollProgress } from "@/components/scroll-progress";
-import { BootScreen } from "@/components/boot-screen";
 import { CommandPalette } from "@/components/command-palette";
 
 const spaceGrotesk = Space_Grotesk({
@@ -37,7 +36,6 @@ export default function RootLayout({
         <CircuitBackground />
         <CursorGlow />
         <ScrollProgress />
-        <BootScreen />
         <CommandPalette />
         <Nav />
         {children}

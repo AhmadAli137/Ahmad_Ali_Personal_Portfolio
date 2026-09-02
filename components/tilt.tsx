@@ -9,7 +9,7 @@ import { useRef, type ReactNode } from "react";
 export function Tilt({
   children,
   className = "",
-  max = 7,
+  max = 4,
 }: {
   children: ReactNode;
   className?: string;
