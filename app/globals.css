@@ -339,6 +339,107 @@ body::after {
   .sprite-f2 {
     opacity: 0;
   }
+  .holo-text,
+  .kenburns img {
+    animation: none;
+  }
+  .tilt {
+    transform: none !important;
+  }
+}
+
+/* ---- Holographic tilt cards ---- */
+.tilt {
+  position: relative;
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.16s ease-out;
+  will-change: transform;
+}
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s;
+  background: radial-gradient(
+    circle at var(--gx, 50%) var(--gy, 50%),
+    rgba(0, 229, 255, 0.13),
+    rgba(52, 245, 162, 0.05) 38%,
+    transparent 68%
+  );
+  mix-blend-mode: screen;
+}
+.tilt:hover .tilt-glare {
+  opacity: 1;
+}
+
+/* ---- Holographic text ---- */
+.holo-text {
+  background: linear-gradient(100deg, #00e5ff 0%, #34f5a2 28%, #8ab8ff 55%, #00e5ff 80%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 18px rgba(0, 229, 255, 0.35));
+  animation: holo-shift 7s linear infinite;
+}
+@keyframes holo-shift {
+  to {
+    background-position: 220% 0;
+  }
+}
+
+/* ---- Button shine sweep ---- */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -70%;
+  width: 45%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.55s ease;
+}
+.btn-shine:hover::after {
+  left: 130%;
+}
+
+/* ---- Ken Burns drift on hero imagery ---- */
+.kenburns img {
+  animation: kenburns 26s ease-in-out infinite alternate;
+}
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08) translate(1.5%, -1.5%);
+  }
+}
+
+/* ---- Cursor light ---- */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.09), transparent 65%);
+  transition: opacity 0.4s;
+}
+@media (hover: none) {
+  .cursor-glow {
+    display: none;
+  }
 }
 
 @keyframes pulse-glow {

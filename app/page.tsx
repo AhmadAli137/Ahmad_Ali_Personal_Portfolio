@@ -64,27 +64,31 @@ export default function Home() {
         <div className="mx-auto w-full max-w-6xl">
           <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
             <div>
-              <p className="mb-4 font-mono text-[13px] tracking-wider text-mint">
-                <span className="text-muted">{"> "}</span>from concept to reality
-              </p>
-              <h1 className="mb-5 text-4xl font-extrabold leading-[1.12] tracking-tight sm:text-5xl">
-                Hi, I&apos;m Ahmad Ali.
-                <br />
-                I build{" "}
-                <span className="text-cyan [text-shadow:0_0_24px_rgba(0,229,255,0.5)]">
-                  intelligent robots
-                </span>
-                , AI-powered products, and educational technology that solve real-world problems.
-              </h1>
-              <p className="mb-4 max-w-xl text-lg text-muted">
-                I take ideas from a blank page all the way to working products — combining hardware,
-                software, and artificial intelligence into experiences people genuinely enjoy using.
-              </p>
-              <div className="mb-8 h-6"><TypingRoles /></div>
-              <div className="flex flex-wrap gap-3.5">
-                <Btn href="/#work" variant="primary">View My Work</Btn>
-                <Btn href="/#contact">Let&apos;s Build Something</Btn>
-              </div>
+              <Reveal>
+                <p className="mb-4 font-mono text-[13px] tracking-wider text-mint">
+                  <span className="text-muted">{"> "}</span>from concept to reality
+                </p>
+                <h1 className="mb-5 text-4xl font-extrabold leading-[1.12] tracking-tight sm:text-5xl">
+                  Hi, I&apos;m Ahmad Ali.
+                  <br />
+                  I build <span className="holo-text">intelligent robots</span>, AI-powered products,
+                  and educational technology that solve real-world problems.
+                </h1>
+              </Reveal>
+              <Reveal delay={0.18}>
+                <p className="mb-4 max-w-xl text-lg text-muted">
+                  I take ideas from a blank page all the way to working products — combining
+                  hardware, software, and artificial intelligence into experiences people genuinely
+                  enjoy using.
+                </p>
+                <div className="mb-8 h-6"><TypingRoles /></div>
+              </Reveal>
+              <Reveal delay={0.32}>
+                <div className="flex flex-wrap gap-3.5">
+                  <Btn href="/#work" variant="primary">View My Work</Btn>
+                  <Btn href="/#contact">Let&apos;s Build Something</Btn>
+                </div>
+              </Reveal>
             </div>
             <Hud>
               <div className="grid grid-cols-2 gap-3">
@@ -93,7 +97,7 @@ export default function Home() {
                   src="/img/founder.jpg"
                   alt="Ahmad holding the EPICentre Innovation Mastery Award"
                   minH="min-h-[460px]"
-                  className="shadow-[0_0_60px_rgba(0,229,255,0.08)]"
+                  className="kenburns shadow-[0_0_60px_rgba(0,229,255,0.08)]"
                 />
                 <div className="flex flex-col gap-3">
                   <Ph
@@ -101,12 +105,14 @@ export default function Home() {
                     src="/img/charge-lab-ev-rnd.jpg"
                     alt="Ahmad working hands-on with an EV motor on a dynamometer test rig at the CHARGE Lab"
                     minH="min-h-[224px]"
+                    className="kenburns"
                   />
                   <Ph
                     caption="Running a robot battle at the Genius Cup"
                     src="/img/genius-cup-robot-battle.jpg"
                     alt="Ahmad refereeing a robot battle at the Genius Cup as students watch"
                     minH="min-h-[224px]"
+                    className="kenburns"
                   />
                 </div>
               </div>

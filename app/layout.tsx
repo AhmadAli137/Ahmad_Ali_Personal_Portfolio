@@ -4,6 +4,8 @@ import "./globals.css";
 import { Nav } from "@/components/nav";
 import { SiteFooter } from "@/components/site-footer";
 import { CircuitBackground } from "@/components/circuit-background";
+import { CursorGlow } from "@/components/cursor-glow";
+import { ScrollProgress } from "@/components/scroll-progress";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -31,6 +33,8 @@ export default function RootLayout({
     <html lang="en" className={`${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
       <body className="relative font-sans antialiased">
         <CircuitBackground />
+        <CursorGlow />
+        <ScrollProgress />
         <Nav />
         {children}
         <SiteFooter />

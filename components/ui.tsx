@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { Tilt } from "./tilt";
 
 export function SectionHeading({
   tag,
@@ -51,11 +52,11 @@ export function Chips({ items, tone = "cyan" }: { items: string[]; tone?: ChipTo
 
 export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
-    <div
-      className={`rounded-2xl border border-line bg-[linear-gradient(160deg,var(--color-panel2),var(--color-panel))] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-line-strong hover:shadow-[0_12px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(0,229,255,0.06)] ${className}`}
+    <Tilt
+      className={`rounded-2xl border border-line bg-[linear-gradient(160deg,var(--color-panel2),var(--color-panel))] p-7 transition-[border-color,box-shadow] duration-300 hover:border-line-strong hover:shadow-[0_12px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(0,229,255,0.08)] ${className}`}
     >
       {children}
-    </div>
+    </Tilt>
   );
 }
 
@@ -74,8 +75,8 @@ export function Btn({
     "inline-block rounded-lg px-6 py-3 font-mono text-sm transition-all duration-200 hover:-translate-y-0.5";
   const styles =
     variant === "primary"
-      ? "bg-cyan font-bold text-[#04252b] shadow-[0_0_24px_rgba(0,229,255,0.35)] hover:shadow-[0_0_36px_rgba(0,229,255,0.55)]"
-      : "border border-line-strong bg-cyan/5 text-ink hover:border-cyan";
+      ? "btn-shine bg-cyan font-bold text-[#04252b] shadow-[0_0_24px_rgba(0,229,255,0.35)] hover:shadow-[0_0_36px_rgba(0,229,255,0.55)]"
+      : "btn-shine border border-line-strong bg-cyan/5 text-ink hover:border-cyan";
   if (external) {
     return (
       <a href={href} target="_blank" rel="noopener noreferrer" className={`${base} ${styles}`}>
