@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Award } from "lucide-react";
+import { DroneShowcase } from "@/components/drone-showcase";
 import { Reveal } from "@/components/reveal";
 import { ScrambleText } from "@/components/scramble-text";
 import { TypingRoles } from "@/components/typing";
@@ -142,6 +143,9 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+
+      {/* ============ 3D SIGNATURE: THE DRONE ============ */}
+      <DroneShowcase />
 
       {/* ============ TICKER ============ */}
       <div className="marquee border-y border-line py-3.5">
