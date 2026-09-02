@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowRight, Award } from "lucide-react";
 import { DroneShowcase } from "@/components/drone-showcase";
 import { Reveal } from "@/components/reveal";
+import { Spark } from "@/components/spark";
 import { TypingRoles } from "@/components/typing";
 import { CountUp } from "@/components/count-up";
 import { Ph } from "@/components/image-placeholder";
@@ -65,7 +66,8 @@ export default function Home() {
             <div>
               <Reveal>
                 <p className="mb-4 font-mono text-[13px] tracking-wider text-mint">
-                  <span className="text-muted">{"> "}</span>from concept to reality
+                  <span className="text-muted">{"> "}</span>from concept to reality{" "}
+                  <Spark id="origin" fact="It started in 2014 with a science-fair project — six Windsor Regional gold medals followed before university." />
                 </p>
                 <h1 className="mb-5 text-4xl font-extrabold leading-[1.12] tracking-tight sm:text-5xl">
                   Hi, I&apos;m Ahmad Ali.
@@ -175,7 +177,10 @@ export default function Home() {
           <SectionHeading tag="featured venture" title="Currently Building" />
           <div className="grid items-center gap-9 rounded-2xl border border-line-strong bg-[radial-gradient(ellipse_60%_100%_at_100%_0%,rgba(52,245,162,0.08),transparent),linear-gradient(160deg,var(--color-panel2),var(--color-panel))] p-10 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
-              <div className="mb-4"><Chip tone="mint">FOUNDER — LIVE IN EARLY ACCESS</Chip></div>
+              <div className="mb-4">
+                <Chip tone="mint">FOUNDER — LIVE IN EARLY ACCESS</Chip>{" "}
+                <Spark id="sayspark" fact="SaySpark exists because a missed semicolon shouldn't end a kid's engineering dream — born from mentoring hundreds of students in Windsor classrooms." />
+              </div>
               <h3 className="mb-3.5 text-2xl font-bold sm:text-3xl">
                 SaySpark — Voice-First Robotics for Kids
               </h3>
@@ -302,8 +307,9 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
-          <Reveal className="mt-8">
+          <Reveal className="mt-8 flex items-center gap-3">
             <Btn href="/competitions">All 44 Competitions — The Full Record &amp; The Wall →</Btn>
+            <Spark id="cwsf" fact="Canada-Wide Science Fair, four national finals: two bronze, one silver, and a $10k UOttawa scholarship — as a teenager." />
           </Reveal>
         </div>
       </section>
@@ -485,7 +491,15 @@ export default function Home() {
               <div key={i} className="relative pb-8 last:pb-0">
                 <span className="absolute -left-[29px] top-1.5 h-3 w-3 rounded-full border-2 border-cyan bg-bg shadow-[0_0_12px_rgba(0,229,255,0.6)]" />
                 {t.year && <span className="font-mono text-[13px] text-cyan">{t.year}</span>}
-                <h3 className="mt-1 text-base font-bold">{t.title}</h3>
+                <h3 className="mt-1 text-base font-bold">
+                  {t.title}
+                  {t.year === "2025" && (
+                    <>
+                      {" "}
+                      <Spark id="nasa" fact="Meteor Madness won NASA Space Apps Windsor 2025 AND a global nomination — you can play it on this site right now." />
+                    </>
+                  )}
+                </h3>
                 <p className="max-w-xl text-sm text-muted">{t.desc}</p>
               </div>
             ))}

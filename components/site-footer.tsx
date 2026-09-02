@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Spark } from "@/components/spark";
 
 export function SiteFooter() {
   const [time, setTime] = useState("");
@@ -31,7 +32,10 @@ export function SiteFooter() {
           </a>{" "}
           · open to opportunities
         </span>
-        <span>ahmad.ali {"//"} hardware to cloud</span>
+        <span>
+          ahmad.ali {"//"} hardware to cloud{" "}
+          <Spark id="status" fact="The status line is real: building SaySpark, starting at McMaster Fall 2026, and always up for interesting problems." />
+        </span>
         <span suppressHydrationWarning>ONT, CANADA — {time || "--:--:--"} ET</span>
       </div>
     </footer>

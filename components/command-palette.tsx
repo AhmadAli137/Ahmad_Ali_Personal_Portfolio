@@ -50,6 +50,7 @@ export function CommandPalette() {
       icon: p.demoUrl ? "game" : "cpu",
     }));
     const external: Item[] = [
+      { title: "✦ Psst — something is hidden on this site", group: "Secret", href: "#hint", icon: "game" },
       { title: "sayspark.ca ↗", group: "Links", href: "https://sayspark.ca", external: true, icon: "ext" },
       { title: "GitHub ↗", group: "Links", href: "https://github.com/AhmadAli137", external: true, icon: "ext" },
       { title: "LinkedIn ↗", group: "Links", href: "https://www.linkedin.com/in/ahmad-a-658008170/", external: true, icon: "ext" },
@@ -68,6 +69,10 @@ export function CommandPalette() {
   const go = useCallback(
     (item: Item) => {
       setOpen(false);
+      if (item.href === "#hint") {
+        window.dispatchEvent(new Event("spark-hint"));
+        return;
+      }
       if (item.external) window.open(item.href, "_blank", "noopener");
       else router.push(item.href);
     },

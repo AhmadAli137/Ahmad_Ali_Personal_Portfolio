@@ -170,10 +170,69 @@ body::after {
   animation: pulse-glow 2.4s ease-in-out infinite;
 }
 
+/* ---- Byte hunt finale ---- */
+.dance-bounce {
+  animation: dance-bounce 0.55s ease-in-out infinite alternate;
+}
+@keyframes dance-bounce {
+  from {
+    transform: translateY(0) rotate(-5deg);
+  }
+  to {
+    transform: translateY(-16px) rotate(5deg);
+  }
+}
+.cs-f1 {
+  animation: cs-a 0.5s steps(1) infinite;
+}
+.cs-f2 {
+  animation: cs-b 0.5s steps(1) infinite;
+}
+@keyframes cs-a {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes cs-b {
+  0%,
+  49% {
+    opacity: 0;
+  }
+  50%,
+  100% {
+    opacity: 1;
+  }
+}
+.confetti-piece {
+  position: absolute;
+  top: -20px;
+  width: 8px;
+  height: 14px;
+  border-radius: 2px;
+  animation: confetti-fall linear infinite;
+}
+@keyframes confetti-fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-pulse-glow,
-  .cursor-blink {
+  .cursor-blink,
+  .dance-bounce,
+  .cs-f1,
+  .cs-f2,
+  .confetti-piece {
     animation: none;
+  }
+  .cs-f2 {
+    opacity: 0;
   }
   .tilt {
     transform: none !important;
