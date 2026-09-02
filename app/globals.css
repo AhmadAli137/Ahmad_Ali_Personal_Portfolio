@@ -210,6 +210,97 @@ body::after {
   fill: none;
 }
 .circuit-gold {
+  fill: rgba(255, 180, 84, 0.1);
+  stroke: rgba(255, 180, 84, 0.16);
+}
+.circuit-power {
+  stroke: rgba(255, 180, 84, 0.12);
+}
+
+/* ---- 8-bit game layer ---- */
+.px-cyan {
+  fill: rgba(0, 229, 255, 0.13);
+}
+.px-mint {
+  fill: rgba(52, 245, 162, 0.15);
+}
+.px-amber {
+  fill: rgba(255, 180, 84, 0.16);
+}
+.hud-text {
+  fill: rgba(0, 229, 255, 0.15);
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+}
+.sprite-f1 {
+  animation: sprite-a 1.4s steps(1) infinite;
+}
+.sprite-f2 {
+  animation: sprite-b 1.4s steps(1) infinite;
+}
+@keyframes sprite-a {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes sprite-b {
+  0%,
+  49% {
+    opacity: 0;
+  }
+  50%,
+  100% {
+    opacity: 1;
+  }
+}
+.invader-march {
+  animation: march 8s steps(8) infinite alternate;
+}
+@keyframes march {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(80px);
+  }
+}
+.blink-start {
+  animation: press-blink 2.2s steps(1) infinite;
+}
+@keyframes press-blink {
+  0%,
+  60% {
+    opacity: 1;
+  }
+  61%,
+  100% {
+    opacity: 0;
+  }
+}
+.crt-scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(223, 233, 243, 0.02) 0px 1px,
+    transparent 1px 3px
+  );
+}
+.crt-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 100% 100% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.26) 100%);
+}
+.circuit-gold {
   fill: rgba(255, 180, 84, 0.08);
   stroke: rgba(255, 180, 84, 0.16);
 }
@@ -237,10 +328,15 @@ body::after {
 @media (prefers-reduced-motion: reduce) {
   .circuit-pulse,
   .circuit-node,
-  .glow-orb {
+  .glow-orb,
+  .sprite-f1,
+  .sprite-f2,
+  .invader-march,
+  .blink-start {
     animation: none;
   }
-  .circuit-pulse {
+  .circuit-pulse,
+  .sprite-f2 {
     opacity: 0;
   }
 }

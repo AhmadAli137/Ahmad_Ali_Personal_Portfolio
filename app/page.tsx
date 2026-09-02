@@ -49,6 +49,7 @@ const timeline: { year: string; title: string; desc: string }[] = [
   { year: "", title: "Graduate Research — CHARGE Lab", desc: "EV battery systems with Magna — presented at IEEE EPEC 2025 in Waterloo." },
   { year: "2025", title: "NASA Space Apps — 1st + Global Nomination", desc: "Meteor Madness wins Windsor and earns a global nomination; JLR competition earns an internship." },
   { year: "Now", title: "Entrepreneurship — SaySpark", desc: "Founding SaySpark (sayspark.ca): voice-first robotics education, live in early access — and mentoring the next generation along the way." },
+  { year: "Fall 2026", title: "McMaster University", desc: "Starting the next chapter in Hamilton." },
 ];
 
 export default function Home() {
@@ -349,6 +350,29 @@ export default function Home() {
         <Reveal className="mx-auto max-w-6xl">
           <SectionHeading tag="experience" title="Where I've Worked" />
           <div className="divide-y divide-[rgba(0,229,255,0.1)]">
+            <div className="grid gap-4 py-7 md:grid-cols-[200px_1fr] md:gap-7">
+              <div className="font-mono text-xs text-muted">
+                <span className="block text-[13px] text-mint">Education</span>
+                Fall 2026 →
+              </div>
+              <div>
+                <div className="mb-3 inline-block rounded-lg bg-white/90 p-2.5">
+                  <Image
+                    src="/img/logos/mcmaster.png"
+                    alt="McMaster University"
+                    width={180}
+                    height={45}
+                    className="h-9 w-auto object-contain"
+                  />
+                </div>
+                <h3 className="mb-2 text-lg font-bold">McMaster University — Hamilton, Ontario</h3>
+                <p className="mb-3 text-sm text-muted">
+                  Starting at McMaster this fall — the next chapter after the University of Windsor
+                  and the CHARGE Lab. {/* TODO: program name + focus */}
+                </p>
+              </div>
+            </div>
+
             <div className="grid gap-4 py-7 md:grid-cols-[200px_1fr] md:gap-7">
               <div className="font-mono text-xs text-muted">
                 <span className="block text-[13px] text-mint">Software Engineering</span>

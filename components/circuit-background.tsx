@@ -9,6 +9,91 @@
 
 const range = (n: number) => Array.from({ length: n }, (_, i) => i);
 
+/* ---------- 8-bit game sprites (original pixel art) ---------- */
+
+const INV_A = [
+  "..#.....#..",
+  "...#...#...",
+  "..#######..",
+  ".##.###.##.",
+  "###########",
+  "#.#######.#",
+  "#.#.....#.#",
+  "...##.##...",
+];
+const INV_B = [
+  "..#.....#..",
+  "#..#...#..#",
+  "#.#######.#",
+  "###.###.###",
+  ".#########.",
+  "..#######..",
+  "..#.....#..",
+  ".#..#.#..#.",
+];
+const HEART = [
+  ".##...##.",
+  "####.####",
+  "#########",
+  "#########",
+  ".#######.",
+  "..#####..",
+  "...###...",
+  "....#....",
+];
+const COIN_A = [
+  "..####..",
+  ".#....#.",
+  "#..##..#",
+  "#..##..#",
+  "#..##..#",
+  "#..##..#",
+  ".#....#.",
+  "..####..",
+];
+const COIN_B = [
+  "...##...",
+  "..#..#..",
+  "..#..#..",
+  "..#..#..",
+  "..#..#..",
+  "..#..#..",
+  "..#..#..",
+  "...##...",
+];
+
+function Px({ map, x, y, s = 5, cls }: { map: string[]; x: number; y: number; s?: number; cls: string }) {
+  return (
+    <g>
+      {map.flatMap((row, r) =>
+        row
+          .split("")
+          .map((c, i) =>
+            c === "#" ? <rect key={`${r}-${i}`} x={x + i * s} y={y + r * s} width={s} height={s} className={cls} /> : null
+          )
+      )}
+    </g>
+  );
+}
+
+function Invader({ x, y, s = 5 }: { x: number; y: number; s?: number }) {
+  return (
+    <g>
+      <g className="sprite-f1"><Px map={INV_A} x={x} y={y} s={s} cls="px-cyan" /></g>
+      <g className="sprite-f2"><Px map={INV_B} x={x} y={y} s={s} cls="px-cyan" /></g>
+    </g>
+  );
+}
+
+function Coin({ x, y, s = 5 }: { x: number; y: number; s?: number }) {
+  return (
+    <g>
+      <g className="sprite-f1"><Px map={COIN_A} x={x} y={y} s={s} cls="px-amber" /></g>
+      <g className="sprite-f2"><Px map={COIN_B} x={x} y={y} s={s} cls="px-amber" /></g>
+    </g>
+  );
+}
+
 /* ---------- Small footprint components ---------- */
 
 function DIPv({ x, y, w, h, pins, label }: { x: number; y: number; w: number; h: number; pins: number; label: string }) {
@@ -296,6 +381,32 @@ function BoardTile() {
       <text x={170} y={2330} className="circuit-silk">AHMADALI.CA · 8-BIT · REV 2.6</text>
       <ViaGrid x={880} y={2160} cols={7} rows={3} />
 
+      {/* ===== Game layer ===== */}
+      {/* Player HUD near the CPU */}
+      <text x={620} y={66} className="hud-text">1UP 004400</text>
+      <Px map={HEART} x={620} y={82} s={4} cls="px-mint" />
+      <Px map={HEART} x={668} y={82} s={4} cls="px-mint" />
+      <Px map={HEART} x={716} y={82} s={4} cls="px-mint" />
+      {/* Invader squad marching between the buses */}
+      <g className="invader-march">
+        <Invader x={300} y={680} />
+        <Invader x={390} y={680} />
+        <Invader x={480} y={680} />
+      </g>
+      {/* Coin trail toward the video chip */}
+      <Coin x={240} y={1280} />
+      {range(8).map((k) => (
+        <rect key={`ct-${k}`} x={330 + 44 * k} y={1297} width={7} height={7} className="px-amber" />
+      ))}
+      <text x={700} y={1316} className="hud-text">x26</text>
+      {/* ? block */}
+      <g>
+        <rect x={1330} y={1400} width={46} height={46} rx="5" className="circuit-ic" strokeWidth="1.5" />
+        <text x={1345} y={1433} className="hud-text">?</text>
+      </g>
+      {/* Press start at the expansion slot */}
+      <text x={1120} y={2368} className="hud-text blink-start">PRESS START</text>
+
       {/* Flowing light, originating at chip pins */}
       {lightNets.map((t, i) => (
         <path
@@ -331,6 +442,9 @@ export function CircuitBackground() {
           ))}
         </div>
       </div>
+      {/* CRT overlay: scanlines + vignette (fixed to the viewport) */}
+      <div aria-hidden className="crt-vignette -z-[1]" />
+      <div aria-hidden className="crt-scanlines -z-[1]" />
     </>
   );
 }
