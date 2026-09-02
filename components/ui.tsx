@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Tilt } from "./tilt";
+import { Magnetic } from "./magnetic";
 
 export function SectionHeading({
   tag,
@@ -79,14 +80,18 @@ export function Btn({
       : "btn-shine border border-line-strong bg-cyan/5 text-ink hover:border-cyan";
   if (external) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={`${base} ${styles}`}>
-        {children}
-      </a>
+      <Magnetic>
+        <a href={href} target="_blank" rel="noopener noreferrer" className={`${base} ${styles}`}>
+          {children}
+        </a>
+      </Magnetic>
     );
   }
   return (
-    <Link href={href} className={`${base} ${styles}`}>
-      {children}
-    </Link>
+    <Magnetic>
+      <Link href={href} className={`${base} ${styles}`}>
+        {children}
+      </Link>
+    </Magnetic>
   );
 }

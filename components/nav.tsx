@@ -68,6 +68,14 @@ export function Nav() {
           >
             sayspark.ca ↗
           </a>
+          <button
+            type="button"
+            aria-label="Open command palette"
+            onClick={() => window.dispatchEvent(new Event("open-palette"))}
+            className="rounded-md border border-line px-2 py-1 font-mono text-[11px] text-muted transition-colors hover:border-cyan/50 hover:text-cyan"
+          >
+            ⌘K
+          </button>
         </div>
 
         <button

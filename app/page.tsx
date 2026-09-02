@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Award } from "lucide-react";
 import { Reveal } from "@/components/reveal";
+import { ScrambleText } from "@/components/scramble-text";
 import { TypingRoles } from "@/components/typing";
 import { CountUp } from "@/components/count-up";
 import { Ph } from "@/components/image-placeholder";
@@ -69,7 +70,7 @@ export default function Home() {
                   <span className="text-muted">{"> "}</span>from concept to reality
                 </p>
                 <h1 className="mb-5 text-4xl font-extrabold leading-[1.12] tracking-tight sm:text-5xl">
-                  Hi, I&apos;m Ahmad Ali.
+                  <ScrambleText text="Hi, I'm Ahmad Ali." />
                   <br />
                   I build <span className="holo-text">intelligent robots</span>, AI-powered products,
                   and educational technology that solve real-world problems.
@@ -141,6 +142,25 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+
+      {/* ============ TICKER ============ */}
+      <div className="marquee border-y border-line py-3.5">
+        <div className="marquee-track font-mono text-[13px] tracking-[0.25em] text-muted">
+          {[0, 1].map((copy) => (
+            <span key={copy} className="whitespace-nowrap">
+              {[
+                "ROBOTICS", "EDGE AI", "EMBEDDED SYSTEMS", "COMPUTER VISION", "BATTERY SYSTEMS",
+                "FIRMWARE", "PCB DESIGN", "AI AGENTS", "PRODUCT DESIGN", "ENTREPRENEURSHIP", "STEM EDUCATION",
+              ].map((t) => (
+                <span key={t}>
+                  <span className="mx-5 text-cyan/60">✦</span>
+                  {t}
+                </span>
+              ))}
+            </span>
+          ))}
+        </div>
+      </div>
 
       {/* ============ ABOUT ============ */}
       <section id="about" className="scroll-mt-20 px-6 py-20">

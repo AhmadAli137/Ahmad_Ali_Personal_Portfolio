@@ -340,7 +340,8 @@ body::after {
     opacity: 0;
   }
   .holo-text,
-  .kenburns img {
+  .kenburns img,
+  .marquee-track {
     animation: none;
   }
   .tilt {
@@ -420,6 +421,24 @@ body::after {
   }
   to {
     transform: scale(1.08) translate(1.5%, -1.5%);
+  }
+}
+
+/* ---- Marquee ticker ---- */
+.marquee {
+  overflow: hidden;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 36s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
   }
 }
 
