@@ -35,8 +35,8 @@ body::before {
   inset: 0;
   z-index: -2;
   background:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0, 229, 255, 0.07), transparent),
-    radial-gradient(ellipse 60% 40% at 90% 100%, rgba(52, 245, 162, 0.05), transparent),
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0, 229, 255, 0.06), transparent),
+    radial-gradient(ellipse 60% 40% at 90% 100%, rgba(52, 245, 162, 0.04), transparent),
     var(--color-bg);
 }
 
@@ -46,7 +46,7 @@ body::after {
   position: fixed;
   inset: 0;
   z-index: -1;
-  opacity: 0.5;
+  opacity: 0.45;
   background-image:
     linear-gradient(var(--color-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
@@ -82,274 +82,7 @@ body::after {
   animation: blink 1s steps(1) infinite;
 }
 
-/* ---- Circuit background animation ---- */
-.circuit-trace-cyan {
-  stroke: rgba(0, 229, 255, 0.06);
-}
-.circuit-trace-mint {
-  stroke: rgba(52, 245, 162, 0.05);
-}
-.circuit-pulse {
-  stroke-dasharray: 260 740;
-  stroke-dashoffset: 1000;
-  stroke-linecap: round;
-  animation-name: circuit-travel;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
-.circuit-pulse-cyan {
-  stroke: rgba(0, 229, 255, 0.3);
-  filter: blur(1.5px) drop-shadow(0 0 10px rgba(0, 229, 255, 0.5));
-}
-.circuit-pulse-mint {
-  stroke: rgba(52, 245, 162, 0.26);
-  filter: blur(1.5px) drop-shadow(0 0 10px rgba(52, 245, 162, 0.45));
-}
-
-/* Large diffuse pools of drifting light — soft ambience, not spotlights */
-.glow-orb {
-  position: absolute;
-  width: 1000px;
-  height: 1000px;
-  border-radius: 50%;
-  filter: blur(100px);
-  will-change: transform;
-}
-.glow-orb-1 {
-  top: -25%;
-  left: -18%;
-  background: radial-gradient(circle, rgba(0, 229, 255, 0.08), transparent 65%);
-  animation: orb-drift-1 55s ease-in-out infinite alternate;
-}
-.glow-orb-2 {
-  bottom: -28%;
-  right: -18%;
-  background: radial-gradient(circle, rgba(52, 245, 162, 0.07), transparent 65%);
-  animation: orb-drift-2 65s ease-in-out infinite alternate;
-}
-.glow-orb-3 {
-  top: 15%;
-  right: -22%;
-  background: radial-gradient(circle, rgba(0, 229, 255, 0.06), transparent 65%);
-  animation: orb-drift-3 60s ease-in-out infinite alternate;
-}
-.glow-orb-4 {
-  bottom: -20%;
-  left: -15%;
-  background: radial-gradient(circle, rgba(52, 245, 162, 0.06), transparent 65%);
-  animation: orb-drift-4 70s ease-in-out infinite alternate;
-}
-@keyframes orb-drift-1 {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(18vw, 14vh);
-  }
-}
-@keyframes orb-drift-2 {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(-16vw, -12vh);
-  }
-}
-@keyframes orb-drift-3 {
-  from {
-    transform: translate(0, 8vh);
-  }
-  to {
-    transform: translate(-12vw, -8vh);
-  }
-}
-@keyframes orb-drift-4 {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(14vw, -10vh);
-  }
-}
-@keyframes circuit-travel {
-  from {
-    stroke-dashoffset: 1000;
-  }
-  to {
-    stroke-dashoffset: -1000;
-  }
-}
-.circuit-pad {
-  stroke: rgba(0, 229, 255, 0.16);
-  fill: rgba(6, 10, 16, 0.6);
-}
-.circuit-ic {
-  stroke: rgba(0, 229, 255, 0.14);
-  fill: rgba(12, 20, 32, 0.45);
-}
-.circuit-pin {
-  stroke: rgba(0, 229, 255, 0.14);
-  stroke-width: 3;
-}
-.circuit-edge {
-  stroke: rgba(0, 229, 255, 0.07);
-  fill: none;
-}
-.circuit-hole {
-  stroke: rgba(0, 229, 255, 0.1);
-  fill: none;
-}
-.circuit-silk {
-  fill: rgba(0, 229, 255, 0.11);
-  font-family: Consolas, monospace;
-  font-size: 11px;
-  letter-spacing: 0.05em;
-}
-.circuit-silk-box {
-  stroke: rgba(0, 229, 255, 0.09);
-  fill: none;
-}
-.circuit-gold {
-  fill: rgba(255, 180, 84, 0.1);
-  stroke: rgba(255, 180, 84, 0.16);
-}
-.circuit-power {
-  stroke: rgba(255, 180, 84, 0.12);
-}
-
-/* ---- 8-bit game layer ---- */
-.px-cyan {
-  fill: rgba(0, 229, 255, 0.13);
-}
-.px-mint {
-  fill: rgba(52, 245, 162, 0.15);
-}
-.px-amber {
-  fill: rgba(255, 180, 84, 0.16);
-}
-.hud-text {
-  fill: rgba(0, 229, 255, 0.15);
-  font-family: Consolas, "Courier New", monospace;
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: 0.3em;
-}
-.sprite-f1 {
-  animation: sprite-a 1.4s steps(1) infinite;
-}
-.sprite-f2 {
-  animation: sprite-b 1.4s steps(1) infinite;
-}
-@keyframes sprite-a {
-  0%,
-  49% {
-    opacity: 1;
-  }
-  50%,
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes sprite-b {
-  0%,
-  49% {
-    opacity: 0;
-  }
-  50%,
-  100% {
-    opacity: 1;
-  }
-}
-.invader-march {
-  animation: march 8s steps(8) infinite alternate;
-}
-@keyframes march {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(80px);
-  }
-}
-.blink-start {
-  animation: press-blink 2.2s steps(1) infinite;
-}
-@keyframes press-blink {
-  0%,
-  60% {
-    opacity: 1;
-  }
-  61%,
-  100% {
-    opacity: 0;
-  }
-}
-.crt-scanlines {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(223, 233, 243, 0.02) 0px 1px,
-    transparent 1px 3px
-  );
-}
-.crt-vignette {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(ellipse 100% 100% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.26) 100%);
-}
-.circuit-gold {
-  fill: rgba(255, 180, 84, 0.08);
-  stroke: rgba(255, 180, 84, 0.16);
-}
-.circuit-power {
-  stroke: rgba(255, 180, 84, 0.1);
-}
-.circuit-via {
-  fill: rgba(0, 229, 255, 0.14);
-}
-.circuit-node {
-  fill: rgba(0, 229, 255, 0.12);
-  animation: node-pulse 7s ease-in-out infinite;
-}
-@keyframes node-pulse {
-  0%,
-  100% {
-    fill: rgba(0, 229, 255, 0.08);
-    filter: none;
-  }
-  50% {
-    fill: rgba(0, 229, 255, 0.22);
-    filter: none;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .circuit-pulse,
-  .circuit-node,
-  .glow-orb,
-  .sprite-f1,
-  .sprite-f2,
-  .invader-march,
-  .blink-start {
-    animation: none;
-  }
-  .circuit-pulse,
-  .sprite-f2 {
-    opacity: 0;
-  }
-  .holo-text,
-  .kenburns img,
-  .marquee-track {
-    animation: none;
-  }
-  .tilt {
-    transform: none !important;
-  }
-}
-
-/* ---- Holographic tilt cards ---- */
+/* ---- Tilt cards ---- */
 .tilt {
   position: relative;
   transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
@@ -365,8 +98,8 @@ body::after {
   transition: opacity 0.25s;
   background: radial-gradient(
     circle at var(--gx, 50%) var(--gy, 50%),
-    rgba(0, 229, 255, 0.13),
-    rgba(52, 245, 162, 0.05) 38%,
+    rgba(0, 229, 255, 0.1),
+    rgba(52, 245, 162, 0.04) 38%,
     transparent 68%
   );
   mix-blend-mode: screen;
@@ -375,19 +108,13 @@ body::after {
   opacity: 1;
 }
 
-/* ---- Holographic text ---- */
+/* ---- Gradient accent text ---- */
 .holo-text {
-  background: linear-gradient(100deg, #00e5ff 0%, #34f5a2 28%, #8ab8ff 55%, #00e5ff 80%);
-  background-size: 220% 100%;
+  background: linear-gradient(100deg, #00e5ff 0%, #34f5a2 60%, #8ab8ff 110%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 0 18px rgba(0, 229, 255, 0.35));
-}
-@keyframes holo-shift {
-  to {
-    background-position: 220% 0;
-  }
+  filter: drop-shadow(0 0 18px rgba(0, 229, 255, 0.3));
 }
 
 /* ---- Button shine sweep ---- */
@@ -410,37 +137,6 @@ body::after {
   left: 130%;
 }
 
-/* ---- Ken Burns drift on hero imagery ---- */
-.kenburns img {
-  animation: kenburns 26s ease-in-out infinite alternate;
-}
-@keyframes kenburns {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.08) translate(1.5%, -1.5%);
-  }
-}
-
-/* ---- Marquee ticker ---- */
-.marquee {
-  overflow: hidden;
-}
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 36s linear infinite;
-}
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
-}
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 /* ---- Cursor light ---- */
 .cursor-glow {
   position: fixed;
@@ -451,7 +147,7 @@ body::after {
   border-radius: 50%;
   pointer-events: none;
   opacity: 0;
-  background: radial-gradient(circle, rgba(0, 229, 255, 0.09), transparent 65%);
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.08), transparent 65%);
   transition: opacity 0.4s;
 }
 @media (hover: none) {
@@ -460,6 +156,7 @@ body::after {
   }
 }
 
+/* ---- Nav CTA pulse ---- */
 @keyframes pulse-glow {
   0%,
   100% {
@@ -471,4 +168,14 @@ body::after {
 }
 .animate-pulse-glow {
   animation: pulse-glow 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse-glow,
+  .cursor-blink {
+    animation: none;
+  }
+  .tilt {
+    transform: none !important;
+  }
 }
