@@ -138,7 +138,7 @@ export function SparkHunt() {
     const onHint = () =>
       setToast({
         title: "SECRET",
-        body: `${TOTAL_BITS} ✦ bits are hidden across this site. Collect the full byte to unlock something special.`,
+        body: `${TOTAL_BITS} sparkbots are hiding around this site — they peek out, then duck away. Catch all ${TOTAL_BITS} to complete the byte and unlock something special.`,
       });
     window.addEventListener("spark-collect", onCollect);
     window.addEventListener("spark-hint", onHint);
@@ -177,8 +177,8 @@ export function SparkHunt() {
             complete
               ? setCutscene(true)
               : setToast({
-                  title: `${TOTAL_BITS - found.length} BITS LEFT`,
-                  body: "Keep exploring — some pages you haven't visited are hiding bits.",
+                  title: `${TOTAL_BITS - found.length} SPARKBOTS STILL HIDING`,
+                  body: "Keep exploring — a couple of them hide on pages you may not have visited yet.",
                 })
           }
           className="fixed bottom-4 left-4 z-40 rounded-full border border-line-strong bg-bg/80 px-3.5 py-1.5 font-mono text-[11px] text-cyan backdrop-blur transition-colors hover:border-cyan"

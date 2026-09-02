@@ -170,6 +170,76 @@ body::after {
   animation: pulse-glow 2.4s ease-in-out infinite;
 }
 
+/* ---- Sparkbot critters ---- */
+.critter-peek {
+  transform: translateY(110%);
+  animation-name: critter-peek;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+@keyframes critter-peek {
+  0%,
+  6% {
+    transform: translateY(110%);
+  }
+  12%,
+  55% {
+    transform: translateY(0);
+  }
+  58% {
+    transform: translateY(-8%);
+  }
+  64%,
+  100% {
+    transform: translateY(110%);
+  }
+}
+.critter-window:hover .critter-peek {
+  animation-play-state: paused;
+}
+.critter-window:hover .critter-idle {
+  animation: critter-wiggle 0.35s ease-in-out infinite;
+}
+@keyframes critter-wiggle {
+  0%,
+  100% {
+    transform: rotate(-8deg) scale(1.06);
+  }
+  50% {
+    transform: rotate(8deg) scale(1.12);
+  }
+}
+.critter-pop {
+  animation: critter-pop 0.7s ease-out forwards;
+}
+@keyframes critter-pop {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  35% {
+    transform: translateY(-12px) scale(1.35) rotate(12deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-22px) scale(0.2) rotate(140deg);
+    opacity: 0;
+  }
+}
+.critter-spark {
+  animation: critter-spark 0.65s ease-out forwards;
+}
+@keyframes critter-spark {
+  0% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)));
+    opacity: 0;
+  }
+}
+
 /* ---- Byte hunt finale ---- */
 .dance-bounce {
   animation: dance-bounce 0.55s ease-in-out infinite alternate;
@@ -228,8 +298,15 @@ body::after {
   .dance-bounce,
   .cs-f1,
   .cs-f2,
-  .confetti-piece {
+  .confetti-piece,
+  .critter-peek,
+  .critter-idle,
+  .critter-pop,
+  .critter-spark {
     animation: none;
+  }
+  .critter-peek {
+    transform: translateY(0);
   }
   .cs-f2 {
     opacity: 0;
