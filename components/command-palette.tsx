@@ -56,6 +56,7 @@ export function CommandPalette() {
       { title: "LinkedIn ↗", group: "Links", href: "https://www.linkedin.com/in/ahmad-a-658008170/", external: true, icon: "ext" },
       { title: "Devpost ↗", group: "Links", href: "https://devpost.com/AhmadAli137", external: true, icon: "ext" },
       { title: "Email Ahmad ↗", group: "Links", href: "mailto:ahmad100307@gmail.com", external: true, icon: "ext" },
+      { title: "Resume (PDF) ↗", group: "Links", href: "/AhmadAli_Resume.pdf", external: true, icon: "ext" },
     ];
     return [...sections, ...projectItems, ...external];
   }, []);

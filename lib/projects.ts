@@ -68,7 +68,10 @@ export const projects: Project[] = [
       "Real-time constraints on embedded compute",
       "Tuning control loops for stable indoor flight",
     ],
-    lessons: ["TODO: your real war stories from flight testing"],
+    lessons: [
+      "One firmware stack, two worlds: optical flow indoors, GPS outdoors",
+      "Supporting both autonomous and radio-controlled modes made flight testing survivable",
+    ],
     next: "Recognition: Best Demo Award at IEEE PIMRC 2023 in Toronto. Built as our University of Windsor capstone project: flight controller design, positioning, and obstacle avoidance.",
     gallery: [
       { caption: "Best Demo Award — IEEE PIMRC, Toronto", src: "/img/pimrc-best-demo-award.jpg" },
@@ -227,19 +230,20 @@ export const projects: Project[] = [
     problem:
       "Millions of people communicate through sign language, yet most of the hearing world can't understand it. That communication gap creates daily friction in classrooms, workplaces, and public life.",
     solution:
-      "A wearable glove that captures hand pose and motion through embedded sensors, classifies ASL gestures with machine learning, and outputs translations in real time.",
-    demoCaption: "VIDEO: live gesture → translation demo (embed here)",
+      "A wearable glove with flex sensors and an IMU, firmware doing real-time acquisition and preprocessing, and a full-stack pipeline that streams data to a web server running an ML gesture classifier — recognized ASL is spoken aloud as synthesized speech in real time.",
+    demoCaption: "VIDEO: live gesture → speech demo (embed here)",
     features: [
-      "Finger-flex and hand-motion sensing",
-      "Real-time gesture classification",
-      "Wireless, wearable form factor",
+      "Flex-sensor + IMU hand pose and motion capture",
+      "Firmware for real-time sensor acquisition and preprocessing",
+      "Streaming pipeline to a web server running the ML classifier",
+      "Recognized gestures delivered as real-time synthesized speech",
     ],
-    stack: ["Arduino / MCU", "Flex Sensors", "IMU", "Python", "ML Classification"],
+    stack: ["Embedded C++", "Flex Sensors", "IMU", "Python", "ML Classification", "Speech Synthesis"],
     challenges: [
       "Distinguishing similar gestures from noisy sensor data",
-      "Fitting inference and sensing into a comfortable wearable",
+      "Keeping the sensor → server → speech loop fast enough to feel conversational",
     ],
-    lessons: ["TODO: what you learned building it"],
+    lessons: ["Sensor preprocessing quality mattered more than model complexity"],
     gallery: [
       { caption: "PHOTO: glove build / wiring" },
       { caption: "PHOTO: sensor close-up" },
@@ -264,11 +268,18 @@ export const projects: Project[] = [
     problem:
       "Modern vehicles run increasingly heavy AI workloads on tightly constrained embedded compute. Memory is a hard limit — and inefficient usage means dropped features, higher hardware cost, or failed real-time deadlines. Jaguar Land Rover posed this challenge to UWindsor engineering teams.",
     solution:
-      "A systems-level approach to profiling and optimizing memory consumption of AI components on automotive platforms.",
-    features: ["TODO: memory profiling across AI modules", "TODO: optimization strategy + measured savings"],
-    stack: ["C / C++", "Embedded Linux", "Profiling Tools"],
-    challenges: ["TODO"],
-    lessons: ["TODO"],
+      "A full analysis-and-optimization pipeline: capture real AI workload memory traces, replay them through cycle-accurate DRAM simulation, then use Bayesian optimization to find memory configurations that balance latency, bandwidth, and power under automotive constraints.",
+    features: [
+      "Real AI workload memory-trace capture and analysis",
+      "Cycle-accurate DRAM simulation of candidate configurations",
+      "Bayesian optimization across the latency / bandwidth / power trade space",
+    ],
+    stack: ["Python", "DRAM Simulation", "Bayesian Optimization", "Memory Trace Analysis"],
+    challenges: [
+      "Making cycle-accurate simulation fast enough to sit inside an optimization loop",
+      "Encoding automotive constraints (power, determinism) into the objective",
+    ],
+    lessons: ["Memory, not compute, is often the real bottleneck for automotive AI inference"],
     next: "Awarded $600 and a one-week internship with Jaguar Land Rover at the 2025 competition.",
     gallery: [
       { caption: "Competition day at the UWindsor × JLR Automotive AI Competition", src: "/img/jlr-team-2.jpg" },

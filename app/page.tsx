@@ -43,10 +43,10 @@ const timeline: { year: string; title: string; desc: string }[] = [
   { year: "2014", title: "First Science Fair", desc: "The start of six gold-medal years at the Windsor Regional Science Fair." },
   { year: "2015", title: "The National Stage", desc: "Canada-Wide Science Fair: four finals appearances, two bronze, a silver, and a $10k UOttawa scholarship." },
   { year: "2017", title: "First Hackathon, First Win", desc: "WeatherPy takes 1st place at Bordercity Hackathon — the start of a decade of building under pressure." },
-  { year: "", title: "University of Windsor — Electrical Engineering", desc: "Circuits, control, and software — plus the Formula SAE accumulator team and four straight WEC programming titles." },
+  { year: "2019", title: "University of Windsor — Electrical & Computer Engineering", desc: "BASc with a CS minor — plus the Formula SAE accumulator team and four straight WEC programming titles." },
   { year: "2023", title: "IEEE PIMRC Best Demo — Toronto", desc: "The capstone indoor autonomous drone wins Best Demo; EPICentre awards the Innovation Mastery Award." },
-  { year: "", title: "RIIS", desc: "Building intelligent drone software in industry." },
-  { year: "", title: "Graduate Research — CHARGE Lab", desc: "EV battery systems with Magna — presented at IEEE EPEC 2025 in Waterloo." },
+  { year: "2021", title: "RIIS — Software Engineer Intern", desc: "Full-stack autonomous drone systems: flight automation, AWS cloud, and computer vision." },
+  { year: "2024", title: "Research — CHARGE Lab", desc: "EV battery packs, BMS firmware, and power electronics with Magna — presented at IEEE EPEC 2025 in Waterloo." },
   { year: "2025", title: "NASA Space Apps — 1st + Global Nomination", desc: "Meteor Madness wins Windsor and earns a global nomination; JLR competition earns an internship." },
   { year: "Now", title: "Entrepreneurship — SaySpark", desc: "Founding SaySpark (sayspark.ca): voice-first robotics education, live in early access — and mentoring the next generation along the way." },
   { year: "Fall 2026", title: "McMaster University", desc: "Starting the next chapter in Hamilton." },
@@ -322,7 +322,6 @@ export default function Home() {
             <div className="grid gap-4 py-7 md:grid-cols-[200px_1fr] md:gap-7">
               <div className="font-mono text-xs text-muted">
                 <span className="block text-[13px] text-mint">Education</span>
-                Fall 2026 →
               </div>
               <div>
                 <div className="mb-3 inline-block rounded-lg bg-white/90 p-2.5">
@@ -335,51 +334,64 @@ export default function Home() {
                   />
                 </div>
                 <h3 className="mb-2 text-lg font-bold">McMaster University — Hamilton, Ontario</h3>
-                <p className="mb-3 text-sm text-muted">
-                  Starting at McMaster this fall — the next chapter after the University of Windsor
-                  and the CHARGE Lab. {/* TODO: program name + focus */}
+                <p className="mb-4 text-sm text-muted">
+                  Starting Fall 2026 — the next chapter. {/* TODO: program name + focus */}
+                </p>
+                <h3 className="mb-2 text-lg font-bold">
+                  BASc, Electrical &amp; Computer Engineering — University of Windsor
+                </h3>
+                <p className="text-sm text-muted">
+                  Minor in Computer Science · 2019–2024 · Capstone: the IEEE Best Demo autonomous
+                  drone.
                 </p>
               </div>
             </div>
 
             <div className="grid gap-4 py-7 md:grid-cols-[200px_1fr] md:gap-7">
               <div className="font-mono text-xs text-muted">
-                <span className="block text-[13px] text-mint">Software Engineering</span>
-                {/* TODO: company + dates */}
+                <span className="block text-[13px] text-mint">RIIS LLC</span>
+                05/2021 – 12/2022 · Windsor
               </div>
               <div>
-                <h3 className="mb-2 text-lg font-bold">Software Engineer — Intelligent Drone Systems</h3>
+                <h3 className="mb-2 text-lg font-bold">Software Engineer Intern — Autonomous Drone Systems</h3>
                 <p className="mb-3 text-sm text-muted">
-                  Built software for intelligent drone systems: scalable architectures, user
-                  interfaces, cloud integration, and applications that interact seamlessly with
-                  physical hardware. Rapid iteration from prototype to polished product.
+                  Built full-stack autonomous drone systems at Research Into Internet Systems —
+                  flight automation, cloud backends, and computer vision working as one product.
                 </p>
-                <Chips items={["Python", "C++", "Kotlin", "Cloud", "Embedded"]} />
+                <ul className="mb-4 list-disc space-y-1 pl-5 text-sm text-muted">
+                  <li>Computer-vision models counting vehicles in parking lots from drone imagery</li>
+                  <li>End-to-end drone mapping with cloud processing and weed-detection delivery</li>
+                  <li>AWS cloud APIs for large-scale image processing and secure flight-data storage</li>
+                  <li>Backend + UI for managing media from DJI and Parrot drones</li>
+                  <li>Vehicle logistics platform: manager dashboard + React Native driver app with real-time tracking</li>
+                </ul>
+                <Chips items={["Python", "React Native", "AWS", "Computer Vision", "DJI SDK"]} />
               </div>
             </div>
 
             <div className="grid gap-4 py-7 md:grid-cols-[200px_1fr] md:gap-7">
               <div className="font-mono text-xs text-muted">
-                <span className="block text-[13px] text-mint">Graduate Research</span>
-                University of Windsor — CHARGE Lab
-                {/* TODO: dates */}
+                <span className="block text-[13px] text-mint">CHARGE Lab — UWindsor</span>
+                01/2024 – 01/2026 · Windsor
               </div>
               <div>
                 <h3 className="mb-2 text-lg font-bold">
-                  Battery Systems Researcher — EV Battery &amp; Power Electronics
+                  Automotive Power Electronics &amp; Battery Research Assistant
                 </h3>
                 <p className="mb-3 text-sm text-muted">
-                  EV battery research at the CHARGE Lab (Centre for Hybrid Automotive Research and
-                  Green Energy): experimental battery testing, electrochemical impedance spectroscopy
-                  (EIS), battery characterization, and hybrid energy storage concepts.
+                  EV battery and power electronics research at the Centre for Hybrid Automotive
+                  Research and Green Energy — from designing battery packs to helping build the lab
+                  itself.
                 </p>
                 <ul className="mb-4 list-disc space-y-1 pl-5 text-sm text-muted">
+                  <li>Designed and assembled battery packs and BMS, with firmware enforcing electrical/thermal safety limits</li>
+                  <li>Developed power electronic converters and motor-drive firmware for EV propulsion</li>
+                  <li>Designed PCBs around Texas Instruments controllers with current/voltage sensing</li>
                   <li>
                     Presented &quot;Dual-Chemistry Load Distribution for EV Battery Systems Using
-                    Cascaded H-Bridge Inverters&quot; at IEEE EPEC 2025
+                    Cascaded H-Bridge Inverters&quot; at IEEE EPEC 2025 — industry-partnered with Magna
                   </li>
-                  <li>Industry-partnered research with Magna on EV powertrain systems</li>
-                  <li>Hands-on with battery cyclers, EIS equipment, and dynamometer test rigs</li>
+                  <li>Helped establish the university battery research laboratory from planning to installation</li>
                 </ul>
                 <div className="grid max-w-3xl grid-cols-2 gap-4 sm:grid-cols-3">
                   <Ph
@@ -564,7 +576,7 @@ export default function Home() {
                 <Btn href="https://www.linkedin.com/in/ahmad-a-658008170/" external>LinkedIn</Btn>
                 <Btn href="https://github.com/AhmadAli137" external>GitHub</Btn>
                 <Btn href="https://devpost.com/AhmadAli137" external>Devpost</Btn>
-                {/* TODO: add resume PDF to /public and link it */}
+                <Btn href="/AhmadAli_Resume.pdf" external>Resume</Btn>
               </div>
             </div>
           </Hud>
