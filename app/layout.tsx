@@ -9,6 +9,7 @@ import { CommandPalette } from "@/components/command-palette";
 import { SparkHunt } from "@/components/spark-hunt";
 import { Sparkbots } from "@/components/sparkbots";
 import { Terminal } from "@/components/terminal";
+import { BootScreen } from "@/components/boot-screen";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -41,6 +42,7 @@ export default function RootLayout({
         <SparkHunt />
         <Sparkbots />
         <Terminal />
+        <BootScreen />
         <Nav />
         {children}
         <SiteFooter />
