@@ -3,53 +3,28 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { Hud } from "@/components/hud";
 
 const HoloScene = dynamic(() => import("./holo-scene"), {
   ssr: false,
   loading: () => (
     <div className="grid h-full w-full place-items-center font-mono text-xs text-mint">
-      INITIALIZING HOLO-ARCHIVE<span className="cursor-blink ml-1 inline-block h-[1em] w-[8px] bg-mint" />
+      PROJECTING<span className="cursor-blink ml-1 inline-block h-[1em] w-[8px] bg-mint" />
     </div>
   ),
 });
 
 const MODELS = [
-  {
-    key: "drone",
-    label: "UAV-01 DRONE",
-    blurb: "GPS-denied autonomy · IEEE Best Demo 2023",
-    href: "/projects/drone",
-  },
-  {
-    key: "glove",
-    label: "ASL GLOVE",
-    blurb: "Sign language → synthesized speech, in real time",
-    href: "/projects/asl-glove",
-  },
-  {
-    key: "spark",
-    label: "SPARK MINI",
-    blurb: "SaySpark's voice-first robot — live in early access",
-    href: "/venture",
-  },
-  {
-    key: "paddle",
-    label: "EDGE PADDLE",
-    blurb: "Spatial haptics smart paddle · Hack the 6ix 2026",
-    href: "/projects/edge-pong",
-  },
-  {
-    key: "battery",
-    label: "EV PACK",
-    blurb: "Battery packs + BMS firmware · CHARGE Lab",
-    href: "/#experience",
-  },
+  { key: "drone", label: "UAV-01 DRONE", blurb: "GPS-denied autonomy · IEEE Best Demo 2023", href: "/projects/drone" },
+  { key: "glove", label: "ASL GLOVE", blurb: "Sign language → synthesized speech, in real time", href: "/projects/asl-glove" },
+  { key: "spark", label: "SPARK MINI", blurb: "SaySpark's voice-first robot — live in early access", href: "/venture" },
+  { key: "paddle", label: "EDGE PADDLE", blurb: "Spatial haptics smart paddle · Hack the 6ix 2026", href: "/projects/edge-pong" },
+  { key: "battery", label: "EV PACK", blurb: "Battery packs + BMS firmware · CHARGE Lab", href: "/#experience" },
 ];
 
 /**
- * The signature section: Ahmad's hardware as morphing point-cloud holograms.
- * The three.js bundle loads only when the section nears the viewport.
+ * Frameless hologram archive: the point-cloud projections float directly on
+ * the page (soft-masked edges, no panel), reading as part of the site rather
+ * than a widget. Lazy-loads three.js as the section approaches.
  */
 export function HoloShowcase() {
   const ref = useRef<HTMLDivElement>(null);
@@ -66,7 +41,7 @@ export function HoloShowcase() {
           obs.disconnect();
         }
       },
-      { rootMargin: "400px" }
+      { rootMargin: "500px" }
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -75,23 +50,36 @@ export function HoloShowcase() {
   const current = MODELS[model];
 
   return (
-    <div ref={ref} className="mx-auto max-w-6xl px-6 pb-20">
-      <Hud>
-        <div className="relative h-[480px] overflow-hidden rounded-2xl border border-line-strong bg-[radial-gradient(ellipse_70%_90%_at_50%_100%,rgba(0,229,255,0.06),transparent),linear-gradient(160deg,rgba(12,20,32,0.7),rgba(10,14,20,0.7))]">
+    <section ref={ref} className="px-6 pb-20 pt-4">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-2">
+          <span className="mb-2.5 block font-mono text-[13px] text-mint">
+            <span className="text-muted">{"// "}</span>hologram archive
+          </span>
+          <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
+            Things I&apos;ve Built, Reconstructed
+          </h2>
+        </div>
+
+        {/* the projection floats on the page itself — soft-masked, no frame */}
+        <div
+          className="h-[440px] w-full"
+          style={{
+            maskImage: "radial-gradient(ellipse 72% 85% at 50% 46%, black 55%, transparent 97%)",
+            WebkitMaskImage: "radial-gradient(ellipse 72% 85% at 50% 46%, black 55%, transparent 97%)",
+          }}
+        >
           {load && <HoloScene model={model} />}
+        </div>
 
-          <div className="pointer-events-none absolute left-4 top-3.5 font-mono text-[11px] tracking-wider text-cyan/80">
-            HOLO-ARCHIVE {"//"} THINGS I&apos;VE BUILT
-          </div>
-          <div className="pointer-events-none absolute right-4 top-3.5 font-mono text-[11px] text-mint/80">
-            ◉ {current.label}
-          </div>
-          <div className="pointer-events-none absolute bottom-[74px] left-4 right-4 text-center font-mono text-[11px] text-muted">
-            {current.blurb}
-          </div>
-
-          {/* selector */}
-          <div className="absolute inset-x-0 bottom-3.5 flex flex-wrap items-center justify-center gap-2 px-4">
+        <div className="-mt-6 text-center">
+          <p className="mb-4 font-mono text-[12px] text-muted">
+            <span className="text-mint">◉ {current.label}</span> — {current.blurb} ·{" "}
+            <Link href={current.href} className="text-cyan hover:underline">
+              open →
+            </Link>
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-2">
             {MODELS.map((m, i) => (
               <button
                 key={m.key}
@@ -106,15 +94,10 @@ export function HoloShowcase() {
                 {m.label}
               </button>
             ))}
-            <Link
-              href={current.href}
-              className="rounded-full border border-mint/40 bg-mint/10 px-3.5 py-1.5 font-mono text-[11px] text-mint transition-all hover:bg-mint/20"
-            >
-              open →
-            </Link>
           </div>
+          <p className="mt-3 font-mono text-[10px] text-muted/70">drag to orbit</p>
         </div>
-      </Hud>
-    </div>
+      </div>
+    </section>
   );
 }

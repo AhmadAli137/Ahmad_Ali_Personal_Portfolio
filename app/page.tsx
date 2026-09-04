@@ -135,9 +135,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ 3D SIGNATURE: HOLO-ARCHIVE ============ */}
-      <HoloShowcase />
-
       {/* ============ ABOUT ============ */}
       <section id="about" className="scroll-mt-20 px-6 py-20">
         <Reveal className="mx-auto max-w-6xl">
@@ -168,6 +165,9 @@ export default function Home() {
           </div>
         </Reveal>
       </section>
+
+      {/* ============ HOLOGRAM ARCHIVE ============ */}
+      <HoloShowcase />
 
       {/* ============ FEATURED VENTURE ============ */}
       <section className="px-6 py-10">
