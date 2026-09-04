@@ -176,105 +176,105 @@ body::after {
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
 }
+/* All peeks keep bots visible ~80% of the cycle — hides are brief and characterful */
 .pk-default {
   animation-name: critter-peek;
 }
-/* shy: mostly half-hidden, one brief full pop */
+/* shy: rides low behind the edge, pops fully for a stretch, one quick hide */
 .pk-shy {
   animation-name: shy-peek;
 }
 @keyframes shy-peek {
   0%,
-  8% {
+  3% {
     transform: translateY(115%);
   }
-  14%,
-  38% {
-    transform: translateY(52%);
+  8%,
+  34% {
+    transform: translateY(34%);
   }
-  44%,
-  52% {
-    transform: translateY(8%);
+  40%,
+  62% {
+    transform: translateY(4%);
   }
-  58%,
-  70% {
-    transform: translateY(52%);
+  68%,
+  88% {
+    transform: translateY(34%);
   }
-  76%,
+  93%,
   100% {
     transform: translateY(115%);
   }
 }
-/* zoomer: abrupt darts, two short windows per cycle */
+/* zoomer: mostly out, but darts down and back once mid-cycle */
 .pk-zoom {
   animation-name: zoom-peek;
-  animation-timing-function: steps(1);
 }
 @keyframes zoom-peek {
   0%,
-  9% {
+  2% {
     transform: translateY(115%);
   }
-  10%,
-  28% {
+  5%,
+  42% {
     transform: translateY(0);
   }
-  29%,
-  54% {
+  44%,
+  49% {
     transform: translateY(115%);
   }
-  55%,
-  76% {
-    transform: translateY(4%);
+  51%,
+  93% {
+    transform: translateY(2%);
   }
-  77%,
+  96%,
   100% {
     transform: translateY(115%);
   }
 }
-/* sleepy: shuffles out and stays a long while */
+/* sleepy: shuffles out and stays nearly the whole time */
 .pk-sleepy {
   animation-name: sleepy-peek;
 }
 @keyframes sleepy-peek {
   0%,
-  6% {
+  3% {
     transform: translateY(115%);
   }
-  14%,
-  86% {
+  9%,
+  93% {
     transform: translateY(2%);
   }
-  94%,
+  98%,
   100% {
     transform: translateY(115%);
   }
 }
-/* floaty: rises past the ground and hovers, tilting */
+/* floaty: hovers above the ground line, rocking, almost always out */
 .pk-float {
   animation-name: float-peek;
 }
 @keyframes float-peek {
   0%,
-  6% {
+  3% {
     transform: translateY(115%) rotate(0deg);
   }
-  14% {
-    transform: translateY(-12%) rotate(-4deg);
+  10% {
+    transform: translateY(-10%) rotate(-4deg);
   }
-  30% {
-    transform: translateY(-4%) rotate(4deg);
+  28% {
+    transform: translateY(-3%) rotate(4deg);
   }
   46% {
-    transform: translateY(-14%) rotate(-3deg);
+    transform: translateY(-12%) rotate(-3deg);
   }
-  62% {
-    transform: translateY(-6%) rotate(3deg);
+  64% {
+    transform: translateY(-4%) rotate(3deg);
   }
-  72% {
+  82% {
     transform: translateY(-10%) rotate(0deg);
   }
-  80%,
+  92%,
   100% {
     transform: translateY(115%) rotate(0deg);
   }
@@ -384,129 +384,175 @@ body::after {
   animation: none;
 }
 
-/* ---- personality frame sequences ---- */
-.al-on {
-  opacity: 1;
+/* ---- bot part animation (SVG mascot) ---- */
+.bot-svg * {
+  transform-box: fill-box;
 }
-/* showoff dance: open → wave → mirrored wave */
-.so-1 {
-  animation: so-1 1.5s steps(1) infinite;
+/* eyes blink — quick natural blink every few seconds */
+.bot-eyes {
+  transform-origin: center;
+  animation: bot-blink 4.4s ease-in-out infinite;
 }
-.so-2 {
-  opacity: 0;
-  animation: so-2 1.5s steps(1) infinite;
-}
-.so-3 {
-  opacity: 0;
-  animation: so-3 1.5s steps(1) infinite;
-}
-@keyframes so-1 {
+@keyframes bot-blink {
   0%,
-  39% {
-    opacity: 1;
+  90% {
+    transform: scaleY(1);
   }
-  40%,
+  93%,
+  95% {
+    transform: scaleY(0.08);
+  }
+  98%,
   100% {
-    opacity: 0;
+    transform: scaleY(1);
   }
 }
-@keyframes so-2 {
+/* antenna bobble + glow pulse */
+.bot-antenna {
+  transform-origin: center;
+  animation: bot-antenna 2.2s ease-in-out infinite;
+  filter: drop-shadow(0 0 3px currentColor);
+}
+@keyframes bot-antenna {
   0%,
-  39% {
-    opacity: 0;
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
   }
-  40%,
-  69% {
+  50% {
+    transform: scale(1.35);
     opacity: 1;
+  }
+}
+/* belly light heartbeat */
+.bot-belly {
+  transform-origin: center;
+  animation: bot-belly 1.8s ease-in-out infinite;
+}
+@keyframes bot-belly {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+/* arms rest with a gentle sway */
+.bot-arm-l,
+.bot-arm-r {
+  transform-origin: 50% 15%;
+  animation: bot-arm-rest 2.4s ease-in-out infinite;
+}
+@keyframes bot-arm-rest {
+  0%,
+  100% {
+    transform: rotate(3deg);
+  }
+  50% {
+    transform: rotate(-3deg);
+  }
+}
+/* showoff: right arm waves big, left arm swings counter */
+.critter-window[data-p="showoff"] .bot-arm-r {
+  animation: bot-wave 0.9s ease-in-out infinite;
+}
+@keyframes bot-wave {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-120deg);
+  }
+}
+.critter-window[data-p="showoff"] .bot-arm-l {
+  animation: bot-arm-groove 0.9s ease-in-out infinite;
+}
+@keyframes bot-arm-groove {
+  0%,
+  100% {
+    transform: rotate(8deg);
+  }
+  50% {
+    transform: rotate(-14deg);
+  }
+}
+/* curious: eyes scan side to side */
+.critter-window[data-p="curious"] .bot-eyes {
+  animation: bot-eyes-scan 3.4s ease-in-out infinite;
+}
+@keyframes bot-eyes-scan {
+  0%,
+  18% {
+    transform: translateX(0);
+  }
+  30%,
+  46% {
+    transform: translateX(-2.6px);
+  }
+  58%,
+  74% {
+    transform: translateX(2.6px);
+  }
+  88%,
+  93% {
+    transform: scaleY(0.08);
+  }
+  96%,
+  100% {
+    transform: translateX(0);
+  }
+}
+/* zoomer: arms tucked back like it's sprinting */
+.critter-window[data-p="zoomer"] .bot-arm-l,
+.critter-window[data-p="zoomer"] .bot-arm-r {
+  animation: bot-arm-sprint 0.25s linear infinite;
+}
+@keyframes bot-arm-sprint {
+  0%,
+  100% {
+    transform: rotate(14deg);
+  }
+  50% {
+    transform: rotate(22deg);
+  }
+}
+/* sleepy: lids droop over the eyes, slow heavy blink pattern */
+.critter-window[data-p="sleepy"] .bot-lid {
+  animation: bot-lid-droop 5s ease-in-out infinite;
+}
+@keyframes bot-lid-droop {
+  0%,
+  60% {
+    height: 7px;
   }
   70%,
+  80% {
+    height: 2px;
+  }
+  90%,
   100% {
-    opacity: 0;
+    height: 7px;
   }
 }
-@keyframes so-3 {
-  0%,
-  69% {
-    opacity: 0;
-  }
-  70%,
-  100% {
-    opacity: 1;
-  }
+.critter-window[data-p="sleepy"] .bot-eyes {
+  animation: none;
 }
-/* curious/floaty: center → glance left → glance right */
-.cu-1 {
-  animation: cu-1 3.6s steps(1) infinite;
+/* floaty: stronger antenna glow, slow arm drift */
+.critter-window[data-p="floaty"] .bot-antenna {
+  animation-duration: 1.4s;
 }
-.cu-2 {
-  opacity: 0;
-  animation: cu-2 3.6s steps(1) infinite;
+.critter-window[data-p="floaty"] .bot-arm-l,
+.critter-window[data-p="floaty"] .bot-arm-r {
+  animation-duration: 3.6s;
 }
-.cu-3 {
-  opacity: 0;
-  animation: cu-3 3.6s steps(1) infinite;
-}
-@keyframes cu-1 {
-  0%,
-  49% {
-    opacity: 1;
-  }
-  50%,
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes cu-2 {
-  0%,
-  49% {
-    opacity: 0;
-  }
-  50%,
-  74% {
-    opacity: 1;
-  }
-  75%,
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes cu-3 {
-  0%,
-  74% {
-    opacity: 0;
-  }
-  75%,
-  100% {
-    opacity: 1;
-  }
-}
-/* sleepy: eyes closed most of the time, brief bleary open */
-.sl-closed {
-  animation: sl-closed 4s steps(1) infinite;
-}
-.sl-open {
-  opacity: 0;
-  animation: sl-open 4s steps(1) infinite;
-}
-@keyframes sl-closed {
-  0%,
-  84% {
-    opacity: 1;
-  }
-  85%,
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes sl-open {
-  0%,
-  84% {
-    opacity: 0;
-  }
-  85%,
-  100% {
-    opacity: 1;
-  }
+/* hover: sleepy snaps awake */
+.critter-window[data-p="sleepy"]:hover .bot-lid {
+  animation: none;
+  height: 0.01px;
 }
 /* sleepy z's */
 .critter-z {
@@ -570,14 +616,6 @@ body::after {
 }
 .critter-window[data-p="sleepy"]:hover .critter-z {
   opacity: 0;
-  animation: none;
-}
-.critter-window[data-p="sleepy"]:hover .sl-closed {
-  opacity: 0;
-  animation: none;
-}
-.critter-window[data-p="sleepy"]:hover .sl-open {
-  opacity: 1;
   animation: none;
 }
 /* sprite palette */
@@ -733,30 +771,16 @@ body::after {
   .critter-twinkle,
   .critter-z,
   .critter-alert,
-  .so-1,
-  .so-2,
-  .so-3,
-  .cu-1,
-  .cu-2,
-  .cu-3,
-  .sl-closed,
-  .sl-open {
+  .bot-eyes,
+  .bot-antenna,
+  .bot-belly,
+  .bot-arm-l,
+  .bot-arm-r,
+  .bot-lid {
     animation: none;
   }
   .critter-peek {
     transform: translateY(0);
-  }
-  .so-1,
-  .cu-1,
-  .sl-closed {
-    opacity: 1;
-  }
-  .so-2,
-  .so-3,
-  .cu-2,
-  .cu-3,
-  .sl-open {
-    opacity: 0;
   }
   .cs-f2 {
     opacity: 0;
