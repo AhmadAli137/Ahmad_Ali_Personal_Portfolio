@@ -3,7 +3,6 @@ import Link from "next/link";
 import { ArrowRight, Award, ExternalLink } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { Ph } from "@/components/image-placeholder";
-import { HackathonVenue } from "@/components/hackathon-venue";
 import { Btn, Card, Chip, Chips } from "@/components/ui";
 
 export const metadata: Metadata = {
@@ -221,8 +220,6 @@ export default function HackathonsPage() {
           </a>
           .
         </p>
-
-        <HackathonVenue />
 
         <div className="grid gap-6 md:grid-cols-2">
           {hacks.map((h, i) => {

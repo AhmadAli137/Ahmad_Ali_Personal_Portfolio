@@ -14,7 +14,7 @@ const HACK_SECONDS = 36 * 3600;
 const fmt = (s: number) =>
   `${String(Math.floor(s / 3600)).padStart(2, "0")}:${String(Math.floor((s % 3600) / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 
-export function HackathonVenue() {
+export function WorkshopScene() {
   const [remaining, setRemaining] = useState<number | null>(null);
   useEffect(() => {
     const tick = () => {
@@ -73,7 +73,7 @@ export function HackathonVenue() {
           </linearGradient>
         </defs>
         <text x="640" y="84" textAnchor="middle" fontFamily="Consolas, monospace" fontSize="15" fill="#34f5a2" letterSpacing="4">
-          SUBMISSIONS CLOSE IN
+          NEXT DEADLINE IN
         </text>
         <text
           suppressHydrationWarning

@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { ArrowRight, Award } from "lucide-react";
 import { HoloShowcase } from "@/components/holo-showcase";
+import { WorkshopScene } from "@/components/workshop-scene";
 import { Reveal } from "@/components/reveal";
 import { TypingRoles } from "@/components/typing";
 import { CountUp } from "@/components/count-up";
@@ -548,6 +549,18 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* ============ THE WORKSHOP ============ */}
+      <section className="px-6 py-10">
+        <Reveal className="mx-auto max-w-6xl">
+          <SectionHeading
+            tag="the workshop"
+            title="Where It All Gets Built"
+            lede="Live from the bench: too much coffee, a robot mid-assembly, and something always printing."
+          />
+          <WorkshopScene />
+        </Reveal>
       </section>
 
       {/* ============ CONTACT ============ */}
