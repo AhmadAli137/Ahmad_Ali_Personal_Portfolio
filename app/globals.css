@@ -173,9 +173,111 @@ body::after {
 /* ---- Sparkbot critters ---- */
 .critter-peek {
   transform: translateY(115%);
-  animation-name: critter-peek;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
+}
+.pk-default {
+  animation-name: critter-peek;
+}
+/* shy: mostly half-hidden, one brief full pop */
+.pk-shy {
+  animation-name: shy-peek;
+}
+@keyframes shy-peek {
+  0%,
+  8% {
+    transform: translateY(115%);
+  }
+  14%,
+  38% {
+    transform: translateY(52%);
+  }
+  44%,
+  52% {
+    transform: translateY(8%);
+  }
+  58%,
+  70% {
+    transform: translateY(52%);
+  }
+  76%,
+  100% {
+    transform: translateY(115%);
+  }
+}
+/* zoomer: abrupt darts, two short windows per cycle */
+.pk-zoom {
+  animation-name: zoom-peek;
+  animation-timing-function: steps(1);
+}
+@keyframes zoom-peek {
+  0%,
+  9% {
+    transform: translateY(115%);
+  }
+  10%,
+  28% {
+    transform: translateY(0);
+  }
+  29%,
+  54% {
+    transform: translateY(115%);
+  }
+  55%,
+  76% {
+    transform: translateY(4%);
+  }
+  77%,
+  100% {
+    transform: translateY(115%);
+  }
+}
+/* sleepy: shuffles out and stays a long while */
+.pk-sleepy {
+  animation-name: sleepy-peek;
+}
+@keyframes sleepy-peek {
+  0%,
+  6% {
+    transform: translateY(115%);
+  }
+  14%,
+  86% {
+    transform: translateY(2%);
+  }
+  94%,
+  100% {
+    transform: translateY(115%);
+  }
+}
+/* floaty: rises past the ground and hovers, tilting */
+.pk-float {
+  animation-name: float-peek;
+}
+@keyframes float-peek {
+  0%,
+  6% {
+    transform: translateY(115%) rotate(0deg);
+  }
+  14% {
+    transform: translateY(-12%) rotate(-4deg);
+  }
+  30% {
+    transform: translateY(-4%) rotate(4deg);
+  }
+  46% {
+    transform: translateY(-14%) rotate(-3deg);
+  }
+  62% {
+    transform: translateY(-6%) rotate(3deg);
+  }
+  72% {
+    transform: translateY(-10%) rotate(0deg);
+  }
+  80%,
+  100% {
+    transform: translateY(115%) rotate(0deg);
+  }
 }
 /* peek out with squash-and-stretch, idle, glance-duck tease, hide */
 @keyframes critter-peek {
@@ -215,19 +317,216 @@ body::after {
 .critter-window:hover .critter-peek {
   animation-play-state: paused;
 }
-/* idle bob, always running */
-.critter-idle {
-  animation: critter-bob 1.1s ease-in-out infinite;
+/* ---- personality idles (on the frame container) ---- */
+.id-dance {
+  animation: id-dance 0.8s ease-in-out infinite;
 }
-@keyframes critter-bob {
+@keyframes id-dance {
   0%,
   100% {
-    transform: translateY(0);
+    transform: translateY(0) rotate(-6deg);
   }
   50% {
-    transform: translateY(-2px);
+    transform: translateY(-3px) rotate(6deg);
   }
 }
+.id-vibrate {
+  animation: id-vibrate 0.12s linear infinite;
+}
+@keyframes id-vibrate {
+  0% {
+    transform: translate(0.5px, -0.5px);
+  }
+  50% {
+    transform: translate(-0.5px, 0.5px);
+  }
+  100% {
+    transform: translate(0.5px, 0);
+  }
+}
+.id-tilt {
+  animation: id-tilt 3s ease-in-out infinite;
+}
+@keyframes id-tilt {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+.id-tremble {
+  animation: id-tremble 0.5s ease-in-out infinite;
+}
+@keyframes id-tremble {
+  0%,
+  100% {
+    transform: translateX(-0.5px);
+  }
+  50% {
+    transform: translateX(0.5px);
+  }
+}
+.id-doze {
+  animation: id-doze 2.6s ease-in-out infinite;
+}
+@keyframes id-doze {
+  0%,
+  100% {
+    transform: translateY(0) rotate(2deg);
+  }
+  50% {
+    transform: translateY(1.5px) rotate(3deg);
+  }
+}
+.id-drift {
+  animation: none;
+}
+
+/* ---- personality frame sequences ---- */
+.al-on {
+  opacity: 1;
+}
+/* showoff dance: open → wave → mirrored wave */
+.so-1 {
+  animation: so-1 1.5s steps(1) infinite;
+}
+.so-2 {
+  opacity: 0;
+  animation: so-2 1.5s steps(1) infinite;
+}
+.so-3 {
+  opacity: 0;
+  animation: so-3 1.5s steps(1) infinite;
+}
+@keyframes so-1 {
+  0%,
+  39% {
+    opacity: 1;
+  }
+  40%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes so-2 {
+  0%,
+  39% {
+    opacity: 0;
+  }
+  40%,
+  69% {
+    opacity: 1;
+  }
+  70%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes so-3 {
+  0%,
+  69% {
+    opacity: 0;
+  }
+  70%,
+  100% {
+    opacity: 1;
+  }
+}
+/* curious/floaty: center → glance left → glance right */
+.cu-1 {
+  animation: cu-1 3.6s steps(1) infinite;
+}
+.cu-2 {
+  opacity: 0;
+  animation: cu-2 3.6s steps(1) infinite;
+}
+.cu-3 {
+  opacity: 0;
+  animation: cu-3 3.6s steps(1) infinite;
+}
+@keyframes cu-1 {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes cu-2 {
+  0%,
+  49% {
+    opacity: 0;
+  }
+  50%,
+  74% {
+    opacity: 1;
+  }
+  75%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes cu-3 {
+  0%,
+  74% {
+    opacity: 0;
+  }
+  75%,
+  100% {
+    opacity: 1;
+  }
+}
+/* sleepy: eyes closed most of the time, brief bleary open */
+.sl-closed {
+  animation: sl-closed 4s steps(1) infinite;
+}
+.sl-open {
+  opacity: 0;
+  animation: sl-open 4s steps(1) infinite;
+}
+@keyframes sl-closed {
+  0%,
+  84% {
+    opacity: 1;
+  }
+  85%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes sl-open {
+  0%,
+  84% {
+    opacity: 0;
+  }
+  85%,
+  100% {
+    opacity: 1;
+  }
+}
+/* sleepy z's */
+.critter-z {
+  animation: z-float 2.2s ease-in-out infinite;
+}
+@keyframes z-float {
+  0% {
+    opacity: 0;
+    transform: translateY(3px) scale(0.8);
+  }
+  35% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-6px) scale(1.2);
+  }
+}
+
+/* ---- personality hover reactions ---- */
 .critter-window:hover .critter-idle {
   animation: critter-excite 0.3s ease-in-out infinite;
 }
@@ -240,59 +539,46 @@ body::after {
     transform: translateY(-5px) rotate(7deg) scale(1.12);
   }
 }
-/* 3-frame cycle: open (most of the time) → blink → wave */
-.cq-open {
-  animation: cq-open 2.6s steps(1) infinite;
+/* shy: ducks lower and trembles harder */
+.critter-window[data-p="shy"]:hover .critter-idle {
+  animation: shy-duck 0.25s ease-in-out infinite;
 }
-.cq-blink {
+@keyframes shy-duck {
+  0%,
+  100% {
+    transform: translateY(9px) translateX(-0.5px);
+  }
+  50% {
+    transform: translateY(9px) translateX(0.5px);
+  }
+}
+/* zoomer: total freeze — caught in the act */
+.critter-window[data-p="zoomer"]:hover .critter-idle {
+  animation: none;
+}
+/* sleepy: startles awake */
+.critter-window[data-p="sleepy"]:hover .critter-idle {
+  animation: sleepy-startle 0.35s ease-out infinite alternate;
+}
+@keyframes sleepy-startle {
+  from {
+    transform: translateY(0) rotate(-3deg);
+  }
+  to {
+    transform: translateY(-6px) rotate(3deg) scale(1.1);
+  }
+}
+.critter-window[data-p="sleepy"]:hover .critter-z {
   opacity: 0;
-  animation: cq-blink 2.6s steps(1) infinite;
+  animation: none;
 }
-.cq-wave {
+.critter-window[data-p="sleepy"]:hover .sl-closed {
   opacity: 0;
-  animation: cq-wave 2.6s steps(1) infinite;
+  animation: none;
 }
-@keyframes cq-open {
-  0%,
-  41% {
-    opacity: 1;
-  }
-  42%,
-  49% {
-    opacity: 0;
-  }
-  50%,
-  74% {
-    opacity: 1;
-  }
-  75%,
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes cq-blink {
-  0%,
-  41% {
-    opacity: 0;
-  }
-  42%,
-  49% {
-    opacity: 1;
-  }
-  50%,
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes cq-wave {
-  0%,
-  74% {
-    opacity: 0;
-  }
-  75%,
-  100% {
-    opacity: 1;
-  }
+.critter-window[data-p="sleepy"]:hover .sl-open {
+  opacity: 1;
+  animation: none;
 }
 /* sprite palette */
 .critter-dark {
@@ -445,20 +731,31 @@ body::after {
   .critter-spark,
   .critter-plus,
   .critter-twinkle,
-  .cq-open,
-  .cq-blink,
-  .cq-wave,
-  .critter-alert {
+  .critter-z,
+  .critter-alert,
+  .so-1,
+  .so-2,
+  .so-3,
+  .cu-1,
+  .cu-2,
+  .cu-3,
+  .sl-closed,
+  .sl-open {
     animation: none;
   }
   .critter-peek {
     transform: translateY(0);
   }
-  .cq-open {
+  .so-1,
+  .cu-1,
+  .sl-closed {
     opacity: 1;
   }
-  .cq-blink,
-  .cq-wave {
+  .so-2,
+  .so-3,
+  .cu-2,
+  .cu-3,
+  .sl-open {
     opacity: 0;
   }
   .cs-f2 {
