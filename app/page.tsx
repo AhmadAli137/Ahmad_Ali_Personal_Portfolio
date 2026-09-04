@@ -49,7 +49,7 @@ const timeline: { year: string; title: string; desc: string }[] = [
   { year: "2024", title: "Research — CHARGE Lab", desc: "EV battery packs, BMS firmware, and power electronics with Magna — presented at IEEE EPEC 2025 in Waterloo." },
   { year: "2025", title: "NASA Space Apps — 1st + Global Nomination", desc: "Meteor Madness wins Windsor and earns a global nomination; JLR competition earns an internship." },
   { year: "Now", title: "Entrepreneurship — SaySpark", desc: "Founding SaySpark (sayspark.ca): voice-first robotics education, live in early access — and mentoring the next generation along the way." },
-  { year: "Fall 2026", title: "McMaster University", desc: "Starting the next chapter in Hamilton." },
+  { year: "Fall 2026", title: "MASc — McMaster University", desc: "EV battery research in Hamilton — the next chapter." },
 ];
 
 export default function Home() {
@@ -333,9 +333,12 @@ export default function Home() {
                     className="h-9 w-auto object-contain"
                   />
                 </div>
-                <h3 className="mb-2 text-lg font-bold">McMaster University — Hamilton, Ontario</h3>
+                <h3 className="mb-2 text-lg font-bold">
+                  MASc, Electrical &amp; Computer Engineering — McMaster University
+                </h3>
                 <p className="mb-4 text-sm text-muted">
-                  Starting Fall 2026 — the next chapter. {/* TODO: program name + focus */}
+                  Hamilton, Ontario · starting Fall 2026 · EV battery research — continuing the
+                  thread from the CHARGE Lab into graduate study.
                 </p>
                 <h3 className="mb-2 text-lg font-bold">
                   BASc, Electrical &amp; Computer Engineering — University of Windsor
