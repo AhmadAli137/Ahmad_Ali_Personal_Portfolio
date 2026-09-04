@@ -427,11 +427,22 @@ function Roamer({ bot, initialDelay }: { bot: BotDef; initialDelay: number }) {
 
 export function Sparkbots() {
   const pathname = usePathname();
+  const [released, setReleased] = useState(false);
+
+  useEffect(() => {
+    const check = () => setReleased(sparkStore.active);
+    check();
+    window.addEventListener("spark-sync", check);
+    return () => window.removeEventListener("spark-sync", check);
+  }, []);
+
+  if (!released) return null;
+
   const active = BOTS.filter((b) => b.pages.includes(pathname));
   return (
     <>
       {active.map((b, i) => (
-        <Roamer key={b.id} bot={b} initialDelay={2500 + i * 5000} />
+        <Roamer key={`${b.id}`} bot={b} initialDelay={1200 + i * 5000} />
       ))}
     </>
   );

@@ -50,7 +50,7 @@ export function CommandPalette() {
       icon: p.demoUrl ? "game" : "cpu",
     }));
     const external: Item[] = [
-      { title: "✦ Psst — little robots are hiding on this site", group: "Secret", href: "#hint", icon: "game" },
+      { title: "✦ Release the sparkbots (hidden mini-game)", group: "Secret", href: "#hint", icon: "game" },
       { title: "sayspark.ca ↗", group: "Links", href: "https://sayspark.ca", external: true, icon: "ext" },
       { title: "GitHub ↗", group: "Links", href: "https://github.com/AhmadAli137", external: true, icon: "ext" },
       { title: "LinkedIn ↗", group: "Links", href: "https://www.linkedin.com/in/ahmad-a-658008170/", external: true, icon: "ext" },

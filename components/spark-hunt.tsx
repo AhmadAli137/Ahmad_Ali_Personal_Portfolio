@@ -128,11 +128,14 @@ export function SparkHunt() {
         return next;
       });
     };
-    const onHint = () =>
+    const onHint = () => {
+      sparkStore.active = true;
+      window.dispatchEvent(new Event("spark-sync"));
       setToast({
-        title: "SECRET",
-        body: `${TOTAL_BITS} sparkbots are hiding around this site — they peek out, then duck away. Catch all ${TOTAL_BITS} to complete the byte and unlock something special.`,
+        title: "SPARKBOTS RELEASED",
+        body: `${TOTAL_BITS} little robots are now roaming this site (two are on pages beyond the homepage). Catch all ${TOTAL_BITS} to complete the byte and unlock something special.`,
       });
+    };
     window.addEventListener("spark-collect", onCollect);
     window.addEventListener("spark-hint", onHint);
     return () => {
