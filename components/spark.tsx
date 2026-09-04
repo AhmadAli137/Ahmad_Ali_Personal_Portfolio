@@ -1,44 +1,64 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { sparkStore } from "@/lib/spark-store";
 
 /**
- * A sparkbot — a tiny pixel critter hiding behind the UI. It peeks out,
- * bobs around, and ducks back into hiding on a cycle; catch it while it's
- * out. Caught bots pop in a sparkle burst (then count toward the byte).
+ * A sparkbot — a detailed pixel critter hiding behind the UI. It peeks out
+ * with a squash-and-stretch pop, idles through a bob → blink → wave cycle
+ * with twinkles, ducks back into hiding, and bursts into sparkles (+BIT)
+ * when caught. State is per-visit: refresh restarts the hunt.
+ *
+ * Pixel map legend: b = body, d = screen face, e = glowing eye/antenna, . = empty
  */
 
-const BOT_A = [
-  "....#....",
-  "....#....",
-  "..#####..",
-  ".#######.",
-  ".##.#.##.",
-  ".#######.",
-  ".#.###.#.",
-  "..#####..",
-  "..#...#..",
+const F_OPEN = [
+  "....be.....",
+  "....b......",
+  "..bbbbbbb..",
+  ".bbbbbbbbb.",
+  ".bdddddddb.",
+  ".bdeddeddb.",
+  ".bdddddddb.",
+  ".bbbbbbbbb.",
+  "..bb...bb..",
 ];
-const BOT_B = [
-  ".....#...",
-  "....#....",
-  "..#####..",
-  ".#######.",
-  ".#######.",
-  ".#######.",
-  ".#.###.#.",
-  "..#####..",
-  "...#.#...",
+const F_BLINK = [
+  "....be.....",
+  "....b......",
+  "..bbbbbbb..",
+  ".bbbbbbbbb.",
+  ".bdddddddb.",
+  ".bdddddddb.",
+  ".bdddddddb.",
+  ".bbbbbbbbb.",
+  "..bb...bb..",
+];
+const F_WAVE = [
+  "....be.....",
+  "...b.......",
+  "b.bbbbbbb..",
+  ".bbbbbbbbb.",
+  ".bdddddddb.",
+  ".bdeddeddb.",
+  ".bdddddddb.",
+  ".bbbbbbbbb.",
+  "..bb...bb..",
 ];
 
-function Frame({ map, cls }: { map: string[]; cls: string }) {
-  const s = 3;
+const S = 3;
+const W = 11 * S;
+const H = 9 * S;
+
+function Frame({ map, body }: { map: string[]; body: string }) {
   return (
-    <svg width={9 * s} height={9 * s} viewBox={`0 0 ${9 * s} ${9 * s}`} className={cls}>
+    <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
       {map.flatMap((row, r) =>
-        row
-          .split("")
-          .map((c, i) => (c === "#" ? <rect key={`${r}-${i}`} x={i * s} y={r * s} width={s} height={s} /> : null))
+        row.split("").map((c, i) => {
+          if (c === ".") return null;
+          const cls = c === "b" ? body : c === "d" ? "critter-dark" : "critter-eye";
+          return <rect key={`${r}-${i}`} x={i * S} y={r * S} width={S} height={S} className={cls} />;
+        })
       )}
     </svg>
   );
@@ -51,16 +71,11 @@ export function Spark({ id, fact }: { id: string; fact: string }) {
   const [collecting, setCollecting] = useState(false);
 
   const seed = useMemo(() => id.split("").reduce((a, c) => a + c.charCodeAt(0), 0), [id]);
-  const color = COLORS[seed % COLORS.length];
-  const cycle = { animationDelay: `${seed % 5}s`, animationDuration: `${8 + (seed % 4)}s` };
+  const body = COLORS[seed % COLORS.length];
+  const cycle = { animationDelay: `${seed % 5}s`, animationDuration: `${9 + (seed % 4)}s` };
 
   useEffect(() => {
-    const check = () => {
-      try {
-        const arr: string[] = JSON.parse(localStorage.getItem("byte-bits") ?? "[]");
-        setFound(arr.includes(id));
-      } catch {}
-    };
+    const check = () => setFound(sparkStore.found.has(id));
     check();
     window.addEventListener("spark-sync", check);
     return () => window.removeEventListener("spark-sync", check);
@@ -72,7 +87,7 @@ export function Spark({ id, fact }: { id: string; fact: string }) {
     if (collecting) return;
     setCollecting(true);
     window.dispatchEvent(new CustomEvent("spark-collect", { detail: { id, fact } }));
-    setTimeout(() => setCollecting(false), 750);
+    setTimeout(() => setCollecting(false), 900);
   };
 
   return (
@@ -80,35 +95,54 @@ export function Spark({ id, fact }: { id: string; fact: string }) {
       type="button"
       aria-label="A hiding sparkbot — catch it!"
       onClick={onCatch}
-      className="critter-window relative inline-block h-8 w-8 cursor-pointer overflow-hidden align-middle"
+      className="critter-window relative inline-block h-10 w-9 cursor-pointer overflow-hidden align-middle"
     >
       {collecting ? (
         <span className="absolute inset-0">
-          <span className="critter-pop absolute inset-0 grid place-items-center">
-            <Frame map={BOT_B} cls={color} />
+          <span className="critter-pop absolute inset-x-0 bottom-1 grid place-items-center">
+            <Frame map={F_WAVE} body={body} />
           </span>
-          {Array.from({ length: 8 }, (_, i) => (
+          <span className="critter-plus absolute inset-x-0 top-0 text-center font-mono text-[9px] font-bold text-mint">
+            +BIT
+          </span>
+          {Array.from({ length: 10 }, (_, i) => (
             <span
               key={i}
-              className={`critter-spark absolute left-1/2 top-1/2 h-1 w-1 rounded-sm ${
+              className={`critter-spark absolute left-1/2 top-1/2 rounded-sm ${
                 ["bg-cyan", "bg-mint", "bg-amber"][i % 3]
-              }`}
+              } ${i % 2 ? "h-1 w-1" : "h-1.5 w-1.5"}`}
               style={
                 {
-                  "--dx": `${Math.round(Math.cos((i / 8) * Math.PI * 2) * 22)}px`,
-                  "--dy": `${Math.round(Math.sin((i / 8) * Math.PI * 2) * 22)}px`,
+                  "--dx": `${Math.round(Math.cos((i / 10) * Math.PI * 2) * (18 + (i % 3) * 6))}px`,
+                  "--dy": `${Math.round(Math.sin((i / 10) * Math.PI * 2) * (18 + (i % 3) * 6))}px`,
+                  animationDelay: `${(i % 4) * 0.04}s`,
                 } as React.CSSProperties
               }
             />
           ))}
         </span>
       ) : (
-        <span className="critter-peek absolute inset-x-0 bottom-0" style={cycle}>
-          <span className="critter-idle block">
-            <span className="cs-f1 block"><Frame map={BOT_A} cls={color} /></span>
-            <span className="cs-f2 -mt-[27px] block"><Frame map={BOT_B} cls={color} /></span>
+        <>
+          {/* alert bubble on hover */}
+          <span className="critter-alert absolute inset-x-0 top-0 text-center font-mono text-[10px] font-bold text-amber">
+            !
           </span>
-        </span>
+          <span className="critter-peek absolute inset-x-0 bottom-0 origin-bottom" style={cycle}>
+            {/* ground shadow */}
+            <span className="absolute -bottom-0.5 left-1/2 h-1 w-6 -translate-x-1/2 rounded-full bg-black/50 blur-[1px]" />
+            {/* twinkles */}
+            <span className="critter-twinkle absolute -left-0.5 top-0 text-[8px] text-cyan">✦</span>
+            <span className="critter-twinkle absolute -right-0.5 top-2 text-[7px] text-mint" style={{ animationDelay: "0.8s" }}>
+              ✦
+            </span>
+            {/* 3-frame idle: bob → blink → wave */}
+            <span className="critter-idle relative block" style={{ width: W, height: H, margin: "0 auto" }}>
+              <span className="cq-open absolute inset-0"><Frame map={F_OPEN} body={body} /></span>
+              <span className="cq-blink absolute inset-0"><Frame map={F_BLINK} body={body} /></span>
+              <span className="cq-wave absolute inset-0"><Frame map={F_WAVE} body={body} /></span>
+            </span>
+          </span>
+        </>
       )}
     </button>
   );

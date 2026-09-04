@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { X } from "lucide-react";
+import { sparkStore } from "@/lib/spark-store";
 
 export const TOTAL_BITS = 8;
 
@@ -96,19 +97,14 @@ export function SparkHunt() {
   const [found, setFound] = useState<string[]>([]);
   const [toast, setToast] = useState<Toast | null>(null);
   const [cutscene, setCutscene] = useState(false);
-  const [celebrated, setCelebrated] = useState(false);
 
   useEffect(() => {
-    try {
-      setFound(JSON.parse(localStorage.getItem("byte-bits") ?? "[]"));
-      setCelebrated(localStorage.getItem("byte-celebrated") === "1");
-    } catch {}
+    /* module store survives client-side navigation, resets on refresh */
+    setFound(Array.from(sparkStore.found));
   }, []);
 
   const save = useCallback((ids: string[]) => {
-    try {
-      localStorage.setItem("byte-bits", JSON.stringify(ids));
-    } catch {}
+    sparkStore.found = new Set(ids);
     window.dispatchEvent(new Event("spark-sync"));
   }, []);
 
@@ -125,10 +121,7 @@ export function SparkHunt() {
         if (next.length >= TOTAL_BITS) {
           setToast(null);
           setCutscene(true);
-          try {
-            localStorage.setItem("byte-celebrated", "1");
-          } catch {}
-          setCelebrated(true);
+          sparkStore.celebrated = true;
         } else {
           setToast({ title: `BIT ${next.length}/${TOTAL_BITS} COLLECTED`, body: fact });
         }
@@ -315,8 +308,6 @@ export function SparkHunt() {
         )}
       </AnimatePresence>
 
-      {/* Quiet replay hook for returning finishers with a cleared toast state */}
-      {celebrated && !cutscene && found.length === 0 && null}
     </>
   );
 }
