@@ -21,6 +21,16 @@ const DroneScene = dynamic(() => import("./drone-scene"), {
 export function DroneShowcase() {
   const ref = useRef<HTMLDivElement>(null);
   const [load, setLoad] = useState(false);
+  const [status, setStatus] = useState("SYSTEMS CHECK");
+
+  useEffect(() => {
+    if (!load) return;
+    let id: ReturnType<typeof setInterval>;
+    import("./drone-scene").then((m) => {
+      id = setInterval(() => setStatus(m.droneStatus.text), 350);
+    });
+    return () => clearInterval(id);
+  }, [load]);
 
   useEffect(() => {
     const el = ref.current;
@@ -45,13 +55,13 @@ export function DroneShowcase() {
           {load && <DroneScene />}
           {/* HUD chrome */}
           <div className="pointer-events-none absolute left-4 top-3.5 font-mono text-[11px] tracking-wider text-cyan/80">
-            UAV-01 · INDOOR AUTONOMOUS DRONE
+            UAV-01 · AUTONOMOUS PATROL — LIDAR + OPTICAL FLOW + VISION
           </div>
           <div className="pointer-events-none absolute right-4 top-3.5 font-mono text-[11px] text-mint/80">
-            ◉ HOVER STABLE
+            ◉ {status}
           </div>
           <div className="pointer-events-none absolute bottom-3.5 left-4 font-mono text-[11px] text-muted">
-            drag to orbit
+            drag to orbit · it flies itself
           </div>
           <Link
             href="/projects/drone"
