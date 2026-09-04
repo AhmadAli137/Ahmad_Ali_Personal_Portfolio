@@ -31,7 +31,17 @@ export function SiteFooter() {
           </a>{" "}
           · open to opportunities
         </span>
-        <span>ahmad.ali {"//"} hardware to cloud</span>
+        <span>
+          ahmad.ali {"//"} hardware to cloud{" "}
+          <button
+            type="button"
+            aria-label="Open terminal"
+            onClick={() => window.dispatchEvent(new Event("open-terminal"))}
+            className="ml-1 rounded border border-line px-1.5 py-0.5 text-[10px] text-muted transition-colors hover:border-cyan/50 hover:text-cyan"
+          >
+            &gt;_
+          </button>
+        </span>
         <span suppressHydrationWarning>ONT, CANADA — {time || "--:--:--"} ET</span>
       </div>
     </footer>

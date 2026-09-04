@@ -16,18 +16,12 @@ interface Item {
 
 const ICONS = { hash: Hash, cpu: Cpu, award: Award, game: Gamepad2, ext: ExternalLink };
 
-const KONAMI = [
-  "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
-  "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a",
-];
-
 export function CommandPalette() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
   const [sel, setSel] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
-  const konamiRef = useRef(0);
 
   const items = useMemo<Item[]>(() => {
     const sections: Item[] = [
@@ -50,7 +44,7 @@ export function CommandPalette() {
       icon: p.demoUrl ? "game" : "cpu",
     }));
     const external: Item[] = [
-      { title: "✦ Release the sparkbots (hidden mini-game)", group: "Secret", href: "#hint", icon: "game" },
+      { title: ">_ Open the terminal", group: "Secret", href: "#terminal", icon: "game" },
       { title: "sayspark.ca ↗", group: "Links", href: "https://sayspark.ca", external: true, icon: "ext" },
       { title: "GitHub ↗", group: "Links", href: "https://github.com/AhmadAli137", external: true, icon: "ext" },
       { title: "LinkedIn ↗", group: "Links", href: "https://www.linkedin.com/in/ahmad-a-658008170/", external: true, icon: "ext" },
@@ -70,8 +64,8 @@ export function CommandPalette() {
   const go = useCallback(
     (item: Item) => {
       setOpen(false);
-      if (item.href === "#hint") {
-        window.dispatchEvent(new Event("spark-hint"));
+      if (item.href === "#terminal") {
+        window.dispatchEvent(new Event("open-terminal"));
         return;
       }
       if (item.external) window.open(item.href, "_blank", "noopener");
@@ -88,18 +82,6 @@ export function CommandPalette() {
         return;
       }
       if (e.key === "Escape") setOpen(false);
-
-      /* ↑↑↓↓←→←→BA — a fitting way to launch a game */
-      const expected = KONAMI[konamiRef.current];
-      if (e.key === expected || e.key.toLowerCase() === expected) {
-        konamiRef.current += 1;
-        if (konamiRef.current === KONAMI.length) {
-          konamiRef.current = 0;
-          router.push("/projects/grand-theft-calculus");
-        }
-      } else {
-        konamiRef.current = e.key === KONAMI[0] ? 1 : 0;
-      }
     };
     const onOpen = () => setOpen(true);
     window.addEventListener("keydown", onKey);
@@ -187,7 +169,7 @@ export function CommandPalette() {
               })}
             </div>
             <div className="border-t border-line px-4 py-2 font-mono text-[10px] text-muted">
-              ↑↓ navigate · ↵ open · psst: ↑↑↓↓←→←→BA
+              ↑↓ navigate · ↵ open · psst: press ` for the terminal
             </div>
           </motion.div>
         </motion.div>
