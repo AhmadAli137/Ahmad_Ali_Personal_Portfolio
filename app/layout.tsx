@@ -7,6 +7,7 @@ import { CursorGlow } from "@/components/cursor-glow";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { CommandPalette } from "@/components/command-palette";
 import { SparkHunt } from "@/components/spark-hunt";
+import { Sparkbots } from "@/components/sparkbots";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -37,6 +38,7 @@ export default function RootLayout({
         <ScrollProgress />
         <CommandPalette />
         <SparkHunt />
+        <Sparkbots />
         <Nav />
         {children}
         <SiteFooter />

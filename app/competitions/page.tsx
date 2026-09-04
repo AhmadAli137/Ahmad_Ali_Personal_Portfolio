@@ -4,7 +4,6 @@ import { Reveal } from "@/components/reveal";
 import { LogoWall } from "@/components/logo-wall";
 import { Btn, Chip } from "@/components/ui";
 import { comps, locations } from "@/lib/competitions";
-import { Spark } from "@/components/spark";
 
 export const metadata: Metadata = {
   title: "Competitions",
@@ -31,8 +30,7 @@ export default function CompetitionsPage() {
         {/* Locations unlocked */}
         <div className="mb-14">
           <h2 className="mb-3.5 font-mono text-sm text-cyan">
-            <span className="text-muted">[ </span>locations unlocked<span className="text-muted"> ]</span>{" "}
-            <Spark id="cities" fact="44 competitions across 10 cities — from Windsor classrooms to Michigan's Formula SAE track to national science fairs." />
+            <span className="text-muted">[ </span>locations unlocked<span className="text-muted"> ]</span>
           </h2>
           <div className="flex flex-wrap gap-2.5">
             {locations.map((l) => (

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { ArrowRight, Award, ExternalLink } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { Ph } from "@/components/image-placeholder";
-import { Spark } from "@/components/spark";
 import { Btn, Card, Chip, Chips } from "@/components/ui";
 
 export const metadata: Metadata = {
@@ -203,10 +202,7 @@ export default function HackathonsPage() {
     <main className="px-6 pb-10 pt-36">
       <div className="mx-auto max-w-6xl">
         <p className="mb-4 font-mono text-[13px] text-muted">home / work / hackathons</p>
-        <div className="mb-4">
-          <Chip>14 HACKATHONS — 2017 → NOW</Chip>{" "}
-          <Spark id="hackathons" fact="First hackathon ever: Bordercity 2017 — and WeatherPy took 1st place. Ahmad's been shipping weekend builds for a decade since." />
-        </div>
+        <div className="mb-4"><Chip>14 HACKATHONS — 2017 → NOW</Chip></div>
         <h1 className="mb-3.5 text-4xl font-extrabold tracking-tight sm:text-5xl">
           Hackathons: Ship It in a Weekend
         </h1>

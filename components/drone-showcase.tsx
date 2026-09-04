@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Hud } from "@/components/hud";
-import { Spark } from "@/components/spark";
 
 const DroneScene = dynamic(() => import("./drone-scene"), {
   ssr: false,
@@ -45,9 +44,8 @@ export function DroneShowcase() {
         <div className="relative h-[440px] overflow-hidden rounded-2xl border border-line-strong bg-[radial-gradient(ellipse_70%_90%_at_50%_100%,rgba(0,229,255,0.06),transparent),linear-gradient(160deg,rgba(12,20,32,0.7),rgba(10,14,20,0.7))]">
           {load && <DroneScene />}
           {/* HUD chrome */}
-          <div className="absolute left-4 top-3.5 font-mono text-[11px] tracking-wider text-cyan/80">
-            <span className="pointer-events-none">UAV-01 · INDOOR AUTONOMOUS DRONE</span>{" "}
-            <Spark id="drone" fact="This quadcopter is real — it won Best Demo at IEEE PIMRC 2023 in Toronto, flying GPS-denied with optical flow. Built as Ahmad's capstone." />
+          <div className="pointer-events-none absolute left-4 top-3.5 font-mono text-[11px] tracking-wider text-cyan/80">
+            UAV-01 · INDOOR AUTONOMOUS DRONE
           </div>
           <div className="pointer-events-none absolute right-4 top-3.5 font-mono text-[11px] text-mint/80">
             ◉ HOVER STABLE
