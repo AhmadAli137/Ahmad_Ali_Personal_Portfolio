@@ -1,7 +1,7 @@
 ﻿import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Award } from "lucide-react";
-import { DroneShowcase } from "@/components/drone-showcase";
+import { HoloShowcase } from "@/components/holo-showcase";
 import { Reveal } from "@/components/reveal";
 import { TypingRoles } from "@/components/typing";
 import { CountUp } from "@/components/count-up";
@@ -135,8 +135,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ 3D SIGNATURE: THE DRONE ============ */}
-      <DroneShowcase />
+      {/* ============ 3D SIGNATURE: HOLO-ARCHIVE ============ */}
+      <HoloShowcase />
 
       {/* ============ ABOUT ============ */}
       <section id="about" className="scroll-mt-20 px-6 py-20">
