@@ -1311,6 +1311,239 @@ body::after {
   }
 }
 
+/* ---- Workshop scene (hackathon venue illustration) ---- */
+.ws-scene * {
+  transform-box: fill-box;
+}
+.ws-bob {
+  animation: ws-bob 2.6s ease-in-out infinite;
+}
+@keyframes ws-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(-0.4deg);
+  }
+}
+.ws-type-a {
+  animation: ws-type 0.22s linear infinite;
+}
+.ws-type-b {
+  animation: ws-type 0.22s linear infinite reverse;
+}
+@keyframes ws-type {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3.5px);
+  }
+}
+.ws-code {
+  animation: ws-code 4.9s ease-out infinite;
+}
+@keyframes ws-code {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  8% {
+    transform: scaleX(1);
+    opacity: 0.75;
+  }
+  88% {
+    opacity: 0.75;
+  }
+  96%,
+  100% {
+    opacity: 0;
+  }
+}
+.ws-led {
+  animation: ws-led 1.1s steps(1) infinite;
+}
+@keyframes ws-led {
+  0%,
+  60% {
+    opacity: 1;
+  }
+  61%,
+  100% {
+    opacity: 0.25;
+  }
+}
+.ws-eye {
+  animation: ws-eye 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 0 4px #34f5a2);
+}
+@keyframes ws-eye {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.ws-tip {
+  animation: ws-tip 1.3s ease-in-out infinite;
+  filter: drop-shadow(0 0 4px #ffb454);
+}
+@keyframes ws-tip {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.ws-smoke {
+  opacity: 0;
+  animation: ws-smoke 3.4s ease-out infinite;
+}
+@keyframes ws-smoke {
+  0% {
+    transform: translateY(6px);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+}
+.ws-spark {
+  opacity: 0;
+  animation: ws-spark 2.8s steps(2) infinite;
+}
+@keyframes ws-spark {
+  0%,
+  88% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  90%,
+  96% {
+    opacity: 1;
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.ws-print-head {
+  animation: ws-print-head 2.8s ease-in-out infinite alternate;
+}
+@keyframes ws-print-head {
+  from {
+    transform: translateX(-48px);
+  }
+  to {
+    transform: translateX(42px);
+  }
+}
+.ws-print-part {
+  transform-origin: 50% 100%;
+  animation: ws-print-part 26s linear infinite;
+}
+@keyframes ws-print-part {
+  0% {
+    transform: scaleY(0.06);
+  }
+  92% {
+    transform: scaleY(1);
+  }
+  96% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  98% {
+    opacity: 0;
+  }
+  100% {
+    transform: scaleY(0.06);
+    opacity: 1;
+  }
+}
+.ws-spool {
+  animation: ws-spool 7s linear infinite;
+}
+@keyframes ws-spool {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.ws-wire {
+  animation: ws-wire 2.7s ease-in-out infinite;
+}
+@keyframes ws-wire {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(6deg);
+  }
+}
+.ws-star {
+  animation: ws-star 3.2s ease-in-out infinite;
+}
+@keyframes ws-star {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.ws-light-a {
+  animation: ws-star 2.1s ease-in-out infinite;
+  filter: drop-shadow(0 0 3px #34f5a2);
+}
+.ws-light-b {
+  animation: ws-star 2.1s ease-in-out infinite 1.05s;
+  filter: drop-shadow(0 0 3px #00e5ff);
+}
+.ws-mote {
+  opacity: 0;
+  animation: ws-mote 9s linear infinite;
+}
+@keyframes ws-mote {
+  0% {
+    transform: translateY(14px);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.5;
+  }
+  80% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-40px);
+    opacity: 0;
+  }
+}
+.ws-glow {
+  animation: ws-eye 2.8s ease-in-out infinite;
+}
+.ws-screen-glow {
+  filter: drop-shadow(0 0 18px rgba(0, 229, 255, 0.15));
+}
+.ws-sticker {
+  filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.5));
+}
+.ws-clock {
+  filter: drop-shadow(0 0 12px rgba(0, 229, 255, 0.45));
+}
+
 /* ---- Byte hunt finale ---- */
 .dance-bounce {
   animation: dance-bounce 0.55s ease-in-out infinite alternate;
@@ -1390,7 +1623,9 @@ body::after {
     transform: translateY(0);
   }
   .roamer,
-  .roamer * {
+  .roamer *,
+  .ws-scene,
+  .ws-scene * {
     animation: none !important;
   }
   .roamer {
