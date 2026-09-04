@@ -91,6 +91,19 @@ export default async function ProjectPage({
               </a>
             </p>
           </Reveal>
+        ) : project.videoUrl ? (
+          <Reveal className="pb-10">
+            <H2>Demo</H2>
+            <div className="mx-auto max-w-md overflow-hidden rounded-xl border border-line-strong shadow-[0_0_40px_rgba(0,229,255,0.08)]">
+              <iframe
+                src={project.videoUrl}
+                title={`${project.title} — demo video`}
+                className="aspect-[9/16] w-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                loading="lazy"
+              />
+            </div>
+          </Reveal>
         ) : (
           project.demoCaption && (
             <Reveal className="pb-10">

@@ -26,6 +26,8 @@ export interface Project {
   demoNote?: string;
   /** Live app embedded as a playable iframe on the project page */
   demoUrl?: string;
+  /** Demo video embedded on the project page (YouTube embed URL) */
+  videoUrl?: string;
   features: string[];
   stack: string[];
   challenges: string[];
@@ -149,7 +151,7 @@ export const projects: Project[] = [
       "Gaming keeps retreating behind screens and headsets. I wanted a tangible gaming experience — swinging a real paddle at virtual balls and actually feeling the impact in your hand, no VR headset required.",
     solution:
       "A projected ping-pong arena driven by a custom smart paddle. The paddle streams motion data from an ESP32-C5; when you hit a virtual ball, four vibration-motor quadrants encode where on the paddle the ball struck, using bilinear interpolation across motors.",
-    demoCaption: "VIDEO: Edge Pong gameplay demo (embed here)",
+    videoUrl: "https://www.youtube-nocookie.com/embed/Clbel6krUeM",
     features: [
       "Backend (Python) — physics engine with collision detection, rally system, AI opponent, and quaternion-based pose fusion",
       "Frontend (Three.js + TypeScript) — 3D arena synced over WebSockets at 60 Hz",
@@ -167,11 +169,12 @@ export const projects: Project[] = [
     ],
     next: "Real camera tracking with AprilTag detection, and housing the electronics fully inside the paddle handle.",
     gallery: [
-      { caption: "PHOTO: paddle electronics" },
-      { caption: "PHOTO: projected arena" },
+      { caption: "From the demo: 3D arena scoring a PERFECT +250, smart paddle opened below — ESP32 and motor drivers visible", src: "/img/edge-pong-video.jpg" },
+      { caption: "PHOTO: paddle electronics close-up" },
       { caption: "SCREENSHOT: 3D game view" },
     ],
     links: [
+      { label: "Watch Demo", href: "https://www.youtube.com/watch?v=Clbel6krUeM" },
       { label: "GitHub", href: "https://github.com/AhmadAli137/PongMasterHT6" },
       { label: "Devpost", href: "https://devpost.com/software/edge-pong" },
     ],
