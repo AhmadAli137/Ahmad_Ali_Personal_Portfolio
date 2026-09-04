@@ -48,12 +48,12 @@ export function BootScreen() {
     const reveal = () => {
       i += 1;
       setShown(i);
-      if (i < LINES.length) timers.push(setTimeout(reveal, 150));
-      else timers.push(setTimeout(dismiss, 600));
+      if (i < LINES.length) timers.push(setTimeout(reveal, 420));
+      else timers.push(setTimeout(dismiss, 1400));
     };
 
     const skip = () => dismiss();
-    timers.push(setTimeout(reveal, 200));
+    timers.push(setTimeout(reveal, 450));
     window.addEventListener("keydown", skip, { once: true });
     window.addEventListener("pointerdown", skip, { once: true });
     return () => {
