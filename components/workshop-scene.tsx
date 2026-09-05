@@ -1,289 +1,289 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AhmadHead, SceneDefs, Shadow } from "@/components/scene-bits";
 
 /**
- * The hackathon, illustrated: Ahmad clacking at his laptop under a wall
- * projection of the hack clock — soldering iron smoking, a half-built robot
- * blinking, a 3D printer laying down layers in the back, and entirely too
- * much coffee. Every prop animates (CSS classes in globals: ws-*).
+ * The workshop at hack-hour: Ahmad typing between monitors, helping-hands
+ * holding a PCB by the smoking iron, a vise-gripped robot mid-assembly,
+ * the 3D printer laying layers, and a small city of coffee.
  */
 
 const HACK_SECONDS = 36 * 3600;
-
 const fmt = (s: number) =>
   `${String(Math.floor(s / 3600)).padStart(2, "0")}:${String(Math.floor((s % 3600) / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 
 export function WorkshopScene() {
   const [remaining, setRemaining] = useState<number | null>(null);
   useEffect(() => {
-    const tick = () => {
-      const elapsed = Math.floor(Date.now() / 1000) % HACK_SECONDS;
-      setRemaining(HACK_SECONDS - elapsed);
-    };
+    const tick = () => setRemaining(HACK_SECONDS - (Math.floor(Date.now() / 1000) % HACK_SECONDS));
     tick();
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
   }, []);
 
   return (
-    <div className="mb-12 overflow-hidden rounded-2xl border border-line-strong bg-[linear-gradient(175deg,#0a121e,#070b11)] shadow-[0_0_50px_rgba(0,229,255,0.07)]">
-      <svg viewBox="0 0 1200 560" className="ws-scene block w-full" role="img" aria-label="Ahmad at a hackathon: typing at his laptop beside a soldering station and half-built robot, with a 3D printer running behind him">
-        {/* ======== back wall ======== */}
-        <rect x="0" y="0" width="1200" height="450" fill="#0b1420" />
+    <div className="overflow-hidden rounded-2xl border border-line-strong bg-[linear-gradient(175deg,#0a121e,#070b11)] shadow-[0_0_50px_rgba(0,229,255,0.07)]">
+      <svg viewBox="0 0 1200 560" className="ws-scene block w-full" role="img" aria-label="Ahmad typing at his hackathon desk: soldering station smoking, half-built robot in a vise, 3D printer running, wall clock counting down">
+        <SceneDefs />
+
+        {/* ---- room ---- */}
+        <rect x="0" y="0" width="1200" height="452" fill="#0c1522" />
+        <rect x="0" y="0" width="1200" height="452" fill="url(#sb-cone-cyan)" opacity="0.25" />
         <rect x="0" y="440" width="1200" height="120" fill="#080d15" />
-        <line x1="0" y1="440" x2="1200" y2="440" stroke="#122033" strokeWidth="2" />
+        <rect x="0" y="436" width="1200" height="6" fill="#111d2e" />
 
-        {/* string lights */}
-        <path d="M0 26 Q 300 46 600 26 T 1200 26" stroke="#16283d" strokeWidth="2" fill="none" />
-        {[60, 160, 260, 360, 460, 560, 660, 760, 860, 960, 1060, 1160].map((x, i) => (
-          <circle
-            key={i}
-            cx={x}
-            cy={30 + Math.sin(x / 90) * 8}
-            r="5"
-            className={i % 2 ? "ws-light-a" : "ws-light-b"}
-            fill={i % 2 ? "#34f5a2" : "#00e5ff"}
-          />
+        {/* string lights with glow pools */}
+        <path d="M0 26 Q 300 48 600 26 T 1200 26" stroke="#152538" strokeWidth="2.5" fill="none" />
+        {[70, 190, 310, 430, 550, 670, 790, 910, 1030, 1150].map((x, i) => (
+          <g key={i}>
+            <line x1={x} y1={28 + Math.sin(x / 90) * 8} x2={x} y2={38 + Math.sin(x / 90) * 8} stroke="#152538" strokeWidth="2" />
+            <circle cx={x} cy={42 + Math.sin(x / 90) * 8} r="4.5" fill={i % 2 ? "#34f5a2" : "#00e5ff"} className={i % 2 ? "ws-light-a" : "ws-light-b"} />
+          </g>
         ))}
 
-        {/* ======== window (night) ======== */}
-        <rect x="58" y="52" width="190" height="150" rx="6" fill="#050910" stroke="#1a2c42" strokeWidth="5" />
-        <line x1="153" y1="52" x2="153" y2="202" stroke="#1a2c42" strokeWidth="4" />
-        <line x1="58" y1="128" x2="248" y2="128" stroke="#1a2c42" strokeWidth="4" />
-        {[[85, 82], [122, 105], [190, 74], [222, 112], [102, 170], [206, 160], [172, 186]].map(([x, y], i) => (
-          <circle key={i} cx={x} cy={y} r="2" fill="#dfe9f3" className="ws-star" style={{ animationDelay: `${i * 0.55}s` }} />
+        {/* ---- window, night ---- */}
+        <rect x="56" y="58" width="196" height="152" rx="4" fill="#04070d" />
+        {[[88, 92], [126, 118], [196, 84], [226, 124], [104, 178], [208, 168], [174, 196]].map(([x, y], i) => (
+          <circle key={i} cx={x} cy={y} r="1.8" fill="#dfe9f3" className="ws-star" style={{ animationDelay: `${i * 0.55}s` }} />
         ))}
-        <circle cx="215" cy="86" r="13" fill="#dfe9f3" opacity="0.85" />
-        <circle cx="209" cy="82" r="11" fill="#050910" />
-        {/* city silhouette */}
-        <path d="M58 202 v-24 h14 v10 h12 v-18 h16 v14 h10 v-8 h18 v26 z M153 202 v-16 h12 v-10 h14 v14 h12 v-22 h16 v18 h12 v16 z" fill="#0d1725" />
+        <circle cx="218" cy="94" r="12" fill="#e8eef6" opacity="0.9" filter="url(#sb-soft)" />
+        <circle cx="212" cy="90" r="10" fill="#04070d" />
+        <path d="M56 210 v-22 h16 v9 h12 v-17 h18 v13 h10 v-7 h20 v24 z M170 210 v-15 h13 v-9 h15 v13 h12 v-20 h17 v17 h12 v14 z" fill="#0b1320" />
+        <rect x="52" y="54" width="204" height="160" rx="6" fill="none" stroke="#1c2f47" strokeWidth="7" />
+        <line x1="154" y1="56" x2="154" y2="212" stroke="#1c2f47" strokeWidth="5" />
+        <line x1="54" y1="134" x2="254" y2="134" stroke="#1c2f47" strokeWidth="5" />
 
-        {/* ======== wall projection: the hack clock ======== */}
-        <rect x="430" y="46" width="420" height="150" rx="10" fill="#060b12" stroke="#0f3a4a" strokeWidth="2" className="ws-screen-glow" />
-        <rect x="430" y="46" width="420" height="150" rx="10" fill="url(#ws-proj)" opacity="0.5" />
-        <defs>
-          <linearGradient id="ws-proj" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#00e5ff" stopOpacity="0.06" />
-            <stop offset="100%" stopColor="#00e5ff" stopOpacity="0" />
-          </linearGradient>
-          <linearGradient id="ws-desk" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#1b2b40" />
-            <stop offset="100%" stopColor="#131f30" />
-          </linearGradient>
-        </defs>
-        <text x="640" y="84" textAnchor="middle" fontFamily="Consolas, monospace" fontSize="15" fill="#34f5a2" letterSpacing="4">
-          NEXT DEADLINE IN
-        </text>
-        <text
-          suppressHydrationWarning
-          x="640"
-          y="146"
-          textAnchor="middle"
-          fontFamily="Consolas, monospace"
-          fontSize="52"
-          fontWeight="bold"
-          fill="#00e5ff"
-          letterSpacing="6"
-          className="ws-clock"
-        >
+        {/* ---- wall clock projection ---- */}
+        <rect x="446" y="52" width="392" height="140" rx="10" fill="#060b12" stroke="#12455a" strokeWidth="2" className="ws-screen-glow" />
+        <rect x="446" y="52" width="392" height="46" rx="10" fill="#00e5ff" opacity="0.04" />
+        <text x="642" y="88" textAnchor="middle" fontFamily="Consolas, monospace" fontSize="14" fill="#34f5a2" letterSpacing="5">NEXT DEADLINE IN</text>
+        <text suppressHydrationWarning x="642" y="146" textAnchor="middle" fontFamily="Consolas, monospace" fontSize="48" fontWeight="bold" fill="#00e5ff" letterSpacing="6" className="ws-clock">
           {remaining === null ? "--:--:--" : fmt(remaining)}
         </text>
-        <text x="640" y="178" textAnchor="middle" fontFamily="Consolas, monospace" fontSize="12" fill="#8aa0b6" letterSpacing="3">
-          WIFI: HACKNET · PASS: sh1p-1t · PIZZA AT 02:00
+        <text x="642" y="176" textAnchor="middle" fontFamily="Consolas, monospace" fontSize="11" fill="#8aa0b6" letterSpacing="3">
+          WIFI: HACKNET · PIZZA 02:00 · COMMIT EARLY
         </text>
 
-        {/* ======== shelf with trophies ======== */}
-        <rect x="950" y="120" width="190" height="8" rx="3" fill="#152438" />
-        <path d="M985 120 v-26 q0 -12 12 -12 h6 q12 0 12 12 v26 z" fill="#ffb454" opacity="0.85" />
-        <rect x="990" y="76" width="20" height="8" rx="2" fill="#b06f1e" />
-        <rect x="1045" y="94" width="34" height="26" rx="4" fill="#101c2c" stroke="#1f3550" strokeWidth="2" />
-        <circle cx="1062" cy="104" r="5" fill="#34f5a2" className="ws-eye" />
-        <rect x="1100" y="88" width="26" height="32" rx="3" fill="#ffb454" opacity="0.6" />
-        <text x="1113" y="108" textAnchor="middle" fontFamily="Consolas, monospace" fontSize="12" fill="#070b11" fontWeight="bold">1</text>
+        {/* ---- shelf: trophy + tiny robot ---- */}
+        <rect x="950" y="118" width="196" height="9" rx="3" fill="#152538" />
+        <rect x="962" y="127" width="6" height="10" fill="#0f1b2b" />
+        <rect x="1130" y="127" width="6" height="10" fill="#0f1b2b" />
+        <Shadow cx={998} cy={116} rx={20} o={0.25} />
+        <path d="M986 116 v-8 q -12 -2 -12 -16 q 0 -4 4 -4 h 40 q 4 0 4 4 q 0 14 -12 16 v 8 z" fill="#e8b45a" />
+        <rect x="982" y="116" width="32" height="6" rx="2" fill="#a3742c" />
+        <Shadow cx={1075} cy={116} rx={18} o={0.25} />
+        <rect x="1056" y="90" width="38" height="27" rx="5" fill="#12233a" stroke="#27405f" strokeWidth="2" />
+        <circle cx="1068" cy="102" r="4" fill="#34f5a2" className="ws-eye" />
+        <circle cx="1082" cy="102" r="4" fill="#0a1220" stroke="#27405f" strokeWidth="1.4" />
 
-        {/* ======== 3D printer (background right) ======== */}
+        {/* ---- 3D printer on side table ---- */}
         <g>
-          {/* side table */}
-          <rect x="920" y="404" width="230" height="12" rx="3" fill="#131f30" />
-          <rect x="936" y="416" width="10" height="60" fill="#101a29" />
-          <rect x="1124" y="416" width="10" height="60" fill="#101a29" />
-          {/* frame */}
-          <rect x="950" y="212" width="12" height="192" rx="3" fill="#1b2b40" />
-          <rect x="1108" y="212" width="12" height="192" rx="3" fill="#1b2b40" />
-          <rect x="944" y="200" width="182" height="14" rx="4" fill="#1b2b40" />
+          <Shadow cx={1035} cy={476} rx={104} o={0.4} />
+          <rect x="922" y="408" width="226" height="13" rx="4" fill="url(#sb-desk)" />
+          <rect x="922" y="421" width="226" height="6" fill="#0f1b2d" />
+          <rect x="938" y="427" width="11" height="56" fill="#101a29" />
+          <rect x="1120" y="427" width="11" height="56" fill="#101a29" />
+          {/* frame + z-rods */}
+          <rect x="948" y="214" width="13" height="194" rx="3" fill="url(#sb-metal)" />
+          <rect x="1106" y="214" width="13" height="194" rx="3" fill="url(#sb-metal)" />
+          <rect x="941" y="202" width="186" height="14" rx="4" fill="url(#sb-metal)" />
+          <line x1="967" y1="216" x2="967" y2="400" stroke="#22354e" strokeWidth="3" />
+          <line x1="1100" y1="216" x2="1100" y2="400" stroke="#22354e" strokeWidth="3" />
           {/* gantry + head */}
-          <rect x="962" y="252" width="146" height="8" rx="3" fill="#22354e" />
+          <rect x="960" y="256" width="148" height="9" rx="4" fill="#2a405d" />
           <g className="ws-print-head">
-            <rect x="1020" y="244" width="30" height="26" rx="4" fill="#2a405d" />
-            <rect x="1031" y="270" width="8" height="12" fill="#34f5a2" opacity="0.9" />
-            <circle cx="1035" cy="286" r="2.5" fill="#34f5a2" className="ws-led" />
+            <rect x="1018" y="246" width="32" height="28" rx="5" fill="#33507a" />
+            <rect x="1029" y="274" width="9" height="13" fill="#34f5a2" />
+            <circle cx="1034" cy="291" r="2.4" fill="#34f5a2" className="ws-led" />
           </g>
-          {/* growing print */}
-          <rect x="1002" y="396" width="66" height="8" rx="2" fill="#22354e" />
+          {/* bed + growing part with layer lines */}
+          <rect x="998" y="398" width="74" height="9" rx="3" fill="#2a405d" />
           <g className="ws-print-part">
-            <rect x="1014" y="352" width="42" height="44" rx="3" fill="#34f5a2" opacity="0.35" />
-            <rect x="1014" y="352" width="42" height="44" rx="3" fill="none" stroke="#34f5a2" strokeWidth="1.5" opacity="0.7" />
+            <rect x="1012" y="352" width="46" height="46" rx="3" fill="#34f5a2" opacity="0.28" />
+            {[360, 370, 380, 390].map((y) => (
+              <line key={y} x1="1012" y1={y} x2="1058" y2={y} stroke="#34f5a2" strokeWidth="1" opacity="0.5" />
+            ))}
+            <rect x="1012" y="352" width="46" height="46" rx="3" fill="none" stroke="#34f5a2" strokeWidth="1.6" opacity="0.8" />
           </g>
-          <ellipse cx="1035" cy="398" rx="40" ry="5" fill="#34f5a2" opacity="0.1" className="ws-glow" />
-          {/* filament spool */}
-          <g className="ws-spool">
-            <circle cx="936" cy="238" r="22" fill="none" stroke="#22354e" strokeWidth="9" />
-            <circle cx="936" cy="238" r="4" fill="#22354e" />
-            <line x1="936" y1="218" x2="936" y2="228" stroke="#00e5ff" strokeWidth="3" />
+          <ellipse cx="1035" cy="400" rx="42" ry="6" fill="#34f5a2" opacity="0.12" className="ws-glow" filter="url(#sb-soft)" />
+          {/* spool + filament */}
+          <g className="ws-spool" style={{ transformOrigin: "934px 240px" }}>
+            <circle cx="934" cy="240" r="23" fill="none" stroke="#2a405d" strokeWidth="10" />
+            <circle cx="934" cy="240" r="5" fill="#2a405d" />
+            <line x1="934" y1="219" x2="934" y2="230" stroke="#00e5ff" strokeWidth="3" />
           </g>
-          <path d="M936 260 Q 950 300 1032 268" stroke="#00e5ff" strokeWidth="1.6" fill="none" opacity="0.5" />
+          <path d="M934 263 Q 946 306 1030 270" stroke="#00e5ff" strokeWidth="1.6" fill="none" opacity="0.5" />
         </g>
 
-        {/* ======== main desk ======== */}
-        <rect x="70" y="380" width="820" height="18" rx="5" fill="url(#ws-desk)" />
-        <rect x="100" y="398" width="14" height="120" fill="#101a29" />
-        <rect x="836" y="398" width="14" height="120" fill="#101a29" />
+        {/* ================= main desk ================= */}
+        <Shadow cx={480} cy={492} rx={330} ry={14} o={0.42} />
+        <rect x="66" y="382" width="828" height="15" rx="4" fill="url(#sb-desk)" />
+        <rect x="66" y="397" width="828" height="8" fill="#0f1b2d" />
+        <rect x="96" y="405" width="14" height="112" fill="#101a29" />
+        <rect x="96" y="405" width="4" height="112" fill="#1b2b40" />
+        <rect x="842" y="405" width="14" height="112" fill="#101a29" />
+        {/* cable to floor, swaying */}
+        <g className="ws-cable" style={{ transformOrigin: "648px 397px" }}>
+          <path d="M648 397 q 10 46 -4 78" stroke="#1f3550" strokeWidth="3" fill="none" />
+        </g>
 
-        {/* ======== soldering station (left) ======== */}
+        {/* ---- soldering station (left) ---- */}
         <g>
-          {/* PCB */}
-          <rect x="150" y="360" width="94" height="20" rx="3" fill="#0f8f5a" transform="rotate(-3 197 370)" />
-          {[165, 185, 205, 225].map((x, i) => (
-            <rect key={i} x={x} y="364" width="8" height="5" fill="#ffd9a0" transform="rotate(-3 197 370)" />
+          {/* helping hands holding PCB */}
+          <Shadow cx={196} cy={392} rx={44} o={0.3} />
+          <rect x="176" y="372" width="42" height="9" rx="3" fill="url(#sb-metal)" />
+          <line x1="188" y1="372" x2="176" y2="346" stroke="#8aa0b6" strokeWidth="3" />
+          <line x1="208" y1="372" x2="222" y2="348" stroke="#8aa0b6" strokeWidth="3" />
+          <path d="M172 344 l 8 -5 6 8 -8 5 z" fill="#8aa0b6" />
+          <path d="M226 346 l -8 -6 -6 8 8 6 z" fill="#8aa0b6" />
+          {/* pcb */}
+          <rect x="168" y="332" width="66" height="16" rx="2.5" fill="#0f8f5a" transform="rotate(-4 200 340)" />
+          {[178, 194, 210].map((x) => (
+            <rect key={x} x={x} y="336" width="7" height="4.5" fill="#ffd9a0" transform="rotate(-4 200 340)" />
           ))}
-          <rect x="174" y="352" width="12" height="10" fill="#0a0e14" transform="rotate(-3 197 370)" />
-          {/* iron stand + iron */}
-          <path d="M300 380 l0 -18 a14 14 0 0 1 26 0 l0 18" fill="none" stroke="#22354e" strokeWidth="5" />
-          <g transform="rotate(-36 312 344)">
-            <rect x="300" y="340" width="52" height="9" rx="4" fill="#1b2b40" />
-            <rect x="348" y="342" width="26" height="5" rx="2" fill="#8aa0b6" />
-            <rect x="372" y="343" width="9" height="3" rx="1.5" fill="#ffb454" className="ws-tip" />
+          <rect x="186" y="326" width="10" height="8" fill="#0a0e14" transform="rotate(-4 200 340)" />
+          {/* iron stand + coiled iron */}
+          <Shadow cx={302} cy={392} rx={34} o={0.3} />
+          <rect x="280" y="374" width="46" height="8" rx="3" fill="url(#sb-metal)" />
+          <path d="M288 374 q -2 -22 14 -24 q 16 2 14 24" stroke="#2a405d" strokeWidth="4" fill="none" />
+          <g transform="rotate(-38 302 352)">
+            <rect x="292" y="348" width="44" height="8" rx="4" fill="#1b2b40" />
+            <rect x="333" y="350" width="22" height="4.5" rx="2" fill="#8aa0b6" />
+            <rect x="353" y="351" width="8" height="2.6" rx="1.3" fill="#ffb454" className="ws-tip" />
           </g>
-          {/* smoke wisps from tip */}
-          <path d="M262 306 q -8 -12 2 -22 q 10 -10 2 -22" stroke="#8aa0b6" strokeWidth="2" fill="none" className="ws-smoke" />
-          <path d="M270 310 q 8 -14 -2 -24 q -8 -10 0 -20" stroke="#8aa0b6" strokeWidth="1.6" fill="none" className="ws-smoke" style={{ animationDelay: "1.3s" }} />
-          {/* sparks */}
-          <circle cx="266" cy="322" r="2.4" fill="#ffb454" className="ws-spark" />
-          <circle cx="274" cy="318" r="1.7" fill="#ffd9a0" className="ws-spark" style={{ animationDelay: "1.7s" }} />
-          {/* solder spool + tweezers */}
-          <circle cx="128" cy="368" r="12" fill="none" stroke="#8aa0b6" strokeWidth="5" />
-          <line x1="255" y1="376" x2="292" y2="368" stroke="#8aa0b6" strokeWidth="2.4" />
-          <line x1="255" y1="379" x2="292" y2="374" stroke="#8aa0b6" strokeWidth="2.4" />
+          {/* layered smoke */}
+          <path d="M258 316 q -8 -12 2 -22 q 10 -10 2 -20" stroke="#9db3c8" strokeWidth="2.2" fill="none" className="ws-smoke" />
+          <path d="M264 320 q 8 -14 -2 -24 q -8 -10 0 -18" stroke="#9db3c8" strokeWidth="1.7" fill="none" className="ws-smoke" style={{ animationDelay: "1.2s" }} />
+          <path d="M252 318 q -5 -16 4 -26" stroke="#9db3c8" strokeWidth="1.3" fill="none" className="ws-smoke" style={{ animationDelay: "2.3s" }} />
+          <circle cx="262" cy="330" r="2.2" fill="#ffcf8a" className="ws-spark" />
+          <circle cx="268" cy="326" r="1.5" fill="#ffe9c9" className="ws-spark" style={{ animationDelay: "1.6s" }} />
+          {/* solder spool */}
+          <circle cx="132" cy="372" r="11" fill="none" stroke="#93a9be" strokeWidth="5" />
+          <line x1="132" y1="361" x2="150" y2="352" stroke="#93a9be" strokeWidth="1.6" />
         </g>
 
-        {/* ======== empty coffee army (left of laptop) ======== */}
+        {/* ---- coffee city ---- */}
         <g>
-          <path d="M360 380 l4 -26 h22 l4 26 z" fill="#1b2b40" />
-          <path d="M394 380 l4 -26 h22 l4 26 z" fill="#16233a" transform="rotate(6 407 367)" />
-          <path d="M338 378 l14 -20 h16 l-22 22 z" fill="#131f30" />
-          {/* energy can */}
-          <rect x="430" y="350" width="16" height="30" rx="4" fill="#0f8f5a" />
-          <rect x="430" y="356" width="16" height="6" fill="#34f5a2" opacity="0.6" />
+          <Shadow cx={392} cy={392} rx={52} o={0.3} />
+          <path d="M356 382 l 5 -27 h 22 l 5 27 z" fill="#1d2f47" />
+          <path d="M360 360 h 24" stroke="#2e4664" strokeWidth="5" />
+          <path d="M390 382 l 5 -27 h 22 l 5 27 z" fill="#17273c" transform="rotate(7 406 368)" />
+          <path d="M338 380 l 15 -21 h 15 l -22 23 z" fill="#131f30" />
+          <rect x="428" y="352" width="15" height="30" rx="4" fill="#0f8f5a" />
+          <rect x="428" y="358" width="15" height="5" fill="#34f5a2" opacity="0.6" />
         </g>
 
-        {/* ======== Ahmad at the laptop ======== */}
-        <g className="ws-bob" style={{ transformOrigin: "560px 300px" }}>
-          {/* chair back */}
-          <rect x="510" y="238" width="104" height="150" rx="18" fill="#0e1826" />
-          {/* torso hoodie */}
-          <path d="M512 388 q -4 -96 48 -104 q 52 8 48 104 z" fill="#1a2940" />
-          <path d="M540 292 q 20 14 40 0" stroke="#34f5a2" strokeWidth="2" fill="none" opacity="0.6" />
-          <line x1="552" y1="298" x2="552" y2="316" stroke="#34f5a2" strokeWidth="2" opacity="0.5" />
-          <line x1="568" y1="298" x2="568" y2="316" stroke="#34f5a2" strokeWidth="2" opacity="0.5" />
-          {/* head */}
-          <circle cx="560" cy="248" r="34" fill="#d1a37c" />
-          {/* hair + beard */}
-          <path d="M528 240 q 2 -30 32 -28 q 30 -2 32 28 q -6 -14 -32 -14 q -26 0 -32 14" fill="#171310" />
-          <path d="M534 262 q 6 22 26 22 q 20 0 26 -22 q -4 16 -26 16 q -22 0 -26 -16" fill="#20180f" />
-          {/* glasses */}
-          <rect x="536" y="242" width="20" height="13" rx="4" fill="none" stroke="#00e5ff" strokeWidth="2" opacity="0.85" />
-          <rect x="564" y="242" width="20" height="13" rx="4" fill="none" stroke="#00e5ff" strokeWidth="2" opacity="0.85" />
-          <line x1="556" y1="248" x2="564" y2="248" stroke="#00e5ff" strokeWidth="2" opacity="0.85" />
-          {/* headphones */}
-          <path d="M528 240 q 2 -34 32 -34 q 30 0 32 34" stroke="#101a29" strokeWidth="7" fill="none" />
-          <rect x="521" y="236" width="11" height="22" rx="5" fill="#101a29" stroke="#00e5ff" strokeWidth="1.4" />
-          <rect x="588" y="236" width="11" height="22" rx="5" fill="#101a29" stroke="#00e5ff" strokeWidth="1.4" />
-          {/* arms typing */}
-          <g className="ws-type-a" style={{ transformOrigin: "524px 320px" }}>
-            <path d="M524 316 q -18 30 8 46" stroke="#1a2940" strokeWidth="15" fill="none" strokeLinecap="round" />
-            <circle cx="534" cy="366" r="7.5" fill="#d1a37c" />
+        {/* ================= AHMAD ================= */}
+        <g className="ws-bob" style={{ transformOrigin: "560px 320px" }}>
+          {/* chair */}
+          <rect x="500" y="234" width="120" height="158" rx="20" fill="#0d1727" />
+          <rect x="506" y="240" width="108" height="146" rx="16" fill="#111d30" />
+          {/* torso with breathing */}
+          <g className="ws-breathe" style={{ transformOrigin: "560px 392px" }}>
+            <path d="M498 392 q -6 -70 22 -92 q 18 -14 40 -14 q 22 0 40 14 q 28 22 22 92 z" fill="#1c2c46" />
+            <path d="M520 300 q -14 12 -18 34" stroke="#12203a" strokeWidth="5" fill="none" />
+            <path d="M600 300 q 14 12 18 34" stroke="#12203a" strokeWidth="5" fill="none" />
+            {/* hoodie cords + pocket */}
+            <path d="M544 300 q 16 10 32 0" stroke="#34f5a2" strokeWidth="2.2" fill="none" opacity="0.65" />
+            <line x1="552" y1="304" x2="551" y2="326" stroke="#34f5a2" strokeWidth="2" opacity="0.5" />
+            <line x1="568" y1="304" x2="569" y2="326" stroke="#34f5a2" strokeWidth="2" opacity="0.5" />
+            <path d="M530 360 q 30 14 60 0 l -4 20 q -26 10 -52 0 z" fill="#16233a" />
           </g>
-          <g className="ws-type-b" style={{ transformOrigin: "596px 320px" }}>
-            <path d="M596 316 q 18 30 -8 46" stroke="#1a2940" strokeWidth="15" fill="none" strokeLinecap="round" />
-            <circle cx="586" cy="366" r="7.5" fill="#d1a37c" />
+          {/* head (kit) */}
+          <AhmadHead x={560} y={248} accessory="headphones" />
+          {/* upper arms sloping to desk; forearms tap behind laptop lid */}
+          <g className="ws-forearm-a" style={{ transformOrigin: "512px 330px" }}>
+            <path d="M512 316 q -18 26 -6 52 q 6 10 18 12" stroke="#1c2c46" strokeWidth="17" fill="none" strokeLinecap="round" />
+          </g>
+          <g className="ws-forearm-b" style={{ transformOrigin: "608px 330px" }}>
+            <path d="M608 316 q 18 26 6 52 q -6 10 -18 12" stroke="#1c2c46" strokeWidth="17" fill="none" strokeLinecap="round" />
           </g>
         </g>
 
-        {/* laptop (lid to viewer, AA sticker, screen glow spilling) */}
+        {/* laptop: open lid toward Ahmad, back to viewer */}
         <g>
-          <path d="M496 380 l8 -52 h114 l8 52 z" fill="#101a29" />
-          <path d="M500 380 l7 -48 h108 l7 48 z" fill="#0c1420" />
-          <rect x="540" y="344" width="42" height="18" rx="4" fill="none" stroke="#00e5ff" strokeWidth="1.6" className="ws-sticker" />
-          <text x="561" y="358" textAnchor="middle" fontFamily="Consolas, monospace" fontSize="12" fontWeight="bold" fill="#00e5ff">AA</text>
-          <ellipse cx="561" cy="330" rx="66" ry="9" fill="#00e5ff" opacity="0.1" className="ws-glow" />
-          <rect x="488" y="380" width="146" height="7" rx="3" fill="#22354e" />
+          <Shadow cx={560} cy={396} rx={82} o={0.35} />
+          <path d="M492 382 l 9 -56 h 118 l 9 56 z" fill="#101b2c" />
+          <path d="M497 382 l 8 -52 h 110 l 8 52 z" fill="#0b1422" />
+          <rect x="538" y="344" width="44" height="19" rx="4" fill="none" stroke="#00e5ff" strokeWidth="1.6" className="ws-sticker" />
+          <text x="560" y="358" textAnchor="middle" fontFamily="Consolas, monospace" fontSize="12" fontWeight="bold" fill="#00e5ff">AA</text>
+          <ellipse cx="560" cy="330" rx="70" ry="8" fill="#00e5ff" opacity="0.12" className="ws-glow" filter="url(#sb-soft)" />
+          <rect x="484" y="382" width="152" height="6" rx="3" fill="#22354e" />
         </g>
 
         {/* external monitor with living code */}
         <g>
-          <rect x="652" y="252" width="150" height="104" rx="7" fill="#0a0e14" stroke="#1f3550" strokeWidth="3" />
-          <rect x="712" y="356" width="26" height="16" fill="#1b2b40" />
-          <rect x="694" y="372" width="62" height="7" rx="3" fill="#1b2b40" />
+          <Shadow cx={726} cy={394} rx={62} o={0.3} />
+          <rect x="648" y="248" width="158" height="110" rx="8" fill="#0a0f18" stroke="#22354e" strokeWidth="3" />
+          <rect x="654" y="254" width="146" height="98" rx="5" fill="#070d16" />
           {[0, 1, 2, 3, 4, 5, 6].map((i) => (
             <rect
               key={i}
-              x={664 + (i % 3) * 8}
-              y={264 + i * 12}
-              width={[70, 96, 54, 108, 62, 88, 44][i]}
+              x={664 + (i % 3) * 9}
+              y={262 + i * 12.5}
+              width={[68, 96, 52, 106, 60, 86, 42][i]}
               height="5"
               rx="2.5"
               fill={i % 3 === 1 ? "#34f5a2" : i % 3 === 2 ? "#ffb454" : "#00e5ff"}
               opacity="0.75"
               className="ws-code"
-              style={{ animationDelay: `${i * 0.5}s`, transformOrigin: `${664 + (i % 3) * 8}px 0px` }}
+              style={{ animationDelay: `${i * 0.55}s`, transformOrigin: `${664 + (i % 3) * 9}px 0px` }}
             />
           ))}
-          <rect x="664" y="348" width="8" height="6" fill="#00e5ff" className="ws-led" />
+          <rect x="664" y="346" width="8" height="5" fill="#00e5ff" className="ws-led" />
+          <rect x="716" y="358" width="22" height="14" fill="#16243a" />
+          <rect x="700" y="372" width="56" height="7" rx="3" fill="#1b2b40" />
         </g>
 
-        {/* hot coffee, steaming */}
+        {/* hot coffee with handle + layered steam */}
         <g>
-          <rect x="618" y="352" width="30" height="28" rx="4" fill="#ffb454" opacity="0.9" />
-          <path d="M648 358 q 12 4 0 14" stroke="#ffb454" strokeWidth="4" fill="none" opacity="0.9" />
-          <path d="M626 344 q -6 -10 2 -18" stroke="#dfe9f3" strokeWidth="2" fill="none" className="ws-smoke" style={{ animationDelay: "0.6s" }} />
-          <path d="M638 344 q 6 -12 -2 -20" stroke="#dfe9f3" strokeWidth="1.6" fill="none" className="ws-smoke" style={{ animationDelay: "1.9s" }} />
+          <Shadow cx={630} cy={390} rx={24} o={0.3} />
+          <rect x="614" y="352" width="30" height="29" rx="4.5" fill="#e8b45a" />
+          <rect x="614" y="352" width="30" height="7" rx="3.5" fill="#f3cd87" />
+          <path d="M644 358 q 13 5 0 16" stroke="#e8b45a" strokeWidth="4.5" fill="none" />
+          <path d="M622 344 q -6 -10 2 -18" stroke="#e6eef6" strokeWidth="2" fill="none" className="ws-smoke" style={{ animationDelay: "0.5s" }} />
+          <path d="M634 344 q 6 -12 -2 -20" stroke="#e6eef6" strokeWidth="1.5" fill="none" className="ws-smoke" style={{ animationDelay: "1.8s" }} />
         </g>
 
-        {/* ======== half-built robot (right on desk) ======== */}
+        {/* ---- robot in bench vise ---- */}
         <g>
-          {/* torso with open panel */}
-          <rect x="716" y="298" width="74" height="82" rx="12" fill="#182a42" stroke="#2a405d" strokeWidth="2" />
-          <rect x="728" y="322" width="34" height="40" rx="4" fill="#0a0e14" />
-          <path d="M732 330 q 10 8 24 2 M732 342 q 12 -6 24 4 M732 352 q 8 6 24 -2" stroke="#ffb454" strokeWidth="2" fill="none" opacity="0.8" />
-          <path d="M732 330 q 10 8 24 2" stroke="#00e5ff" strokeWidth="2" fill="none" opacity="0.8" transform="translate(0 4)" />
-          {/* head, tilted, one eye lit */}
-          <g transform="rotate(-8 753 284)">
-            <rect x="726" y="262" width="54" height="40" rx="10" fill="#1e3350" stroke="#2a405d" strokeWidth="2" />
-            <rect x="734" y="272" width="38" height="18" rx="5" fill="#0a0e14" />
-            <circle cx="746" cy="281" r="5" fill="#34f5a2" className="ws-eye" />
-            <circle cx="762" cy="281" r="5" fill="#101a29" stroke="#2a405d" strokeWidth="1.5" />
-            <line x1="753" y1="262" x2="753" y2="250" stroke="#2a405d" strokeWidth="2.5" />
-            <circle cx="753" cy="247" r="3.5" fill="#ffb454" className="ws-led" />
+          {/* vise */}
+          <Shadow cx={764} cy={392} rx={54} o={0.32} />
+          <rect x="738" y="368" width="54" height="14" rx="3" fill="url(#sb-metal)" />
+          <rect x="748" y="352" width="10" height="18" fill="#2a405d" />
+          <rect x="774" y="352" width="10" height="18" fill="#2a405d" />
+          <circle cx="800" cy="376" r="6" fill="none" stroke="#8aa0b6" strokeWidth="2.5" />
+          <line x1="806" y1="376" x2="820" y2="370" stroke="#8aa0b6" strokeWidth="2.5" />
+          {/* torso gripped */}
+          <rect x="742" y="292" width="48" height="64" rx="9" fill="#1a2c46" stroke="#2f4a6e" strokeWidth="2" />
+          <rect x="750" y="308" width="22" height="30" rx="3" fill="#0a0f18" />
+          <path d="M753 314 q 8 6 16 1 M753 322 q 9 -4 16 3 M753 330 q 7 5 16 -1" stroke="#ffb454" strokeWidth="1.8" fill="none" opacity="0.85" />
+          {/* head tilted, one eye alive */}
+          <g transform="rotate(-7 766 276)">
+            <rect x="744" y="258" width="44" height="32" rx="8" fill="#203752" stroke="#2f4a6e" strokeWidth="2" />
+            <rect x="750" y="266" width="32" height="14" rx="4" fill="#0a0f18" />
+            <circle cx="760" cy="273" r="4" fill="#34f5a2" className="ws-eye" />
+            <circle cx="773" cy="273" r="4" fill="#0e1524" stroke="#2f4a6e" strokeWidth="1.3" />
+            <line x1="766" y1="258" x2="766" y2="248" stroke="#2f4a6e" strokeWidth="2.4" />
+            <circle cx="766" cy="245" r="3" fill="#ffb454" className="ws-led" />
           </g>
-          {/* attached arm raised */}
-          <path d="M790 312 q 22 -8 26 -30" stroke="#2a405d" strokeWidth="10" fill="none" strokeLinecap="round" />
-          <circle cx="818" cy="278" r="7" fill="#182a42" stroke="#2a405d" strokeWidth="2" />
-          {/* detached arm on desk + screwdriver */}
-          <path d="M800 372 q 24 -6 40 2" stroke="#2a405d" strokeWidth="9" fill="none" strokeLinecap="round" />
-          <line x1="852" y1="376" x2="878" y2="368" stroke="#8aa0b6" strokeWidth="3" />
-          <rect x="874" y="362" width="14" height="9" rx="3" fill="#ffb454" transform="rotate(-16 881 366)" />
-          {/* dangling wire, swaying */}
-          <g className="ws-wire" style={{ transformOrigin: "716px 340px" }}>
-            <path d="M716 340 q -14 22 -6 42" stroke="#00e5ff" strokeWidth="2.2" fill="none" opacity="0.8" />
-            <circle cx="710" cy="384" r="3" fill="#00e5ff" opacity="0.8" />
+          {/* detached arm + screwdriver */}
+          <path d="M806 374 q 22 -6 38 1" stroke="#2f4a6e" strokeWidth="8" fill="none" strokeLinecap="round" />
+          <line x1="848" y1="378" x2="872" y2="371" stroke="#93a9be" strokeWidth="2.6" />
+          <rect x="868" y="365" width="13" height="8" rx="3" fill="#e8b45a" transform="rotate(-15 874 369)" />
+          {/* dangling wire */}
+          <g className="ws-wire" style={{ transformOrigin: "742px 340px" }}>
+            <path d="M742 340 q -13 20 -6 40" stroke="#00e5ff" strokeWidth="2" fill="none" opacity="0.8" />
+            <circle cx="736" cy="382" r="2.6" fill="#00e5ff" opacity="0.8" />
           </g>
         </g>
 
-        {/* floating dust motes */}
-        {[[220, 250], [520, 150], [760, 210], [980, 160]].map(([x, y], i) => (
-          <circle key={i} cx={x} cy={y} r="1.6" fill="#8aa0b6" className="ws-mote" style={{ animationDelay: `${i * 2.1}s` }} />
+        {/* motes + vignette */}
+        {[[220, 250], [520, 160], [760, 214], [980, 168]].map(([x, y], i) => (
+          <circle key={i} cx={x} cy={y} r="1.5" fill="#9db3c8" className="ws-mote" style={{ animationDelay: `${i * 2.1}s` }} />
         ))}
+        <rect x="0" y="0" width="1200" height="560" fill="url(#sb-vignette)" />
       </svg>
     </div>
   );

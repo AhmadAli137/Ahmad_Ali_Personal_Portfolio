@@ -1327,19 +1327,73 @@ body::after {
     transform: translateY(-3px) rotate(-0.4deg);
   }
 }
-.ws-type-a {
-  animation: ws-type 0.22s linear infinite;
+/* natural typing: forearms tap at slightly different tempos */
+.ws-forearm-a {
+  animation: ws-tap 0.34s ease-in-out infinite;
 }
-.ws-type-b {
-  animation: ws-type 0.22s linear infinite reverse;
+.ws-forearm-b {
+  animation: ws-tap 0.27s ease-in-out infinite 0.09s;
 }
-@keyframes ws-type {
+@keyframes ws-tap {
   0%,
   100% {
-    transform: translateY(0);
+    transform: rotate(0deg);
+  }
+  45% {
+    transform: rotate(2.4deg) translateY(-1.5px);
+  }
+}
+/* chest breathing */
+.ws-breathe {
+  animation: ws-breathe 3.6s ease-in-out infinite;
+}
+@keyframes ws-breathe {
+  0%,
+  100% {
+    transform: scaleY(1);
   }
   50% {
-    transform: translateY(-3.5px);
+    transform: scaleY(1.016);
+  }
+}
+/* rare double-blink on the shared head */
+.sb-blink {
+  opacity: 0;
+  animation: sb-blink 5.2s steps(1) infinite;
+}
+@keyframes sb-blink {
+  0%,
+  88% {
+    opacity: 0;
+  }
+  89%,
+  91% {
+    opacity: 1;
+  }
+  92%,
+  94% {
+    opacity: 0;
+  }
+  95%,
+  97% {
+    opacity: 1;
+  }
+  98%,
+  100% {
+    opacity: 0;
+  }
+}
+/* desk cable sway */
+.ws-cable {
+  animation: ws-cable 4.6s ease-in-out infinite;
+}
+@keyframes ws-cable {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2.5deg);
   }
 }
 .ws-code {
@@ -1403,18 +1457,21 @@ body::after {
 }
 .ws-smoke {
   opacity: 0;
-  animation: ws-smoke 3.4s ease-out infinite;
+  animation: ws-smoke 3.8s cubic-bezier(0.3, 0.2, 0.4, 1) infinite;
 }
 @keyframes ws-smoke {
   0% {
-    transform: translateY(6px);
+    transform: translateY(8px) scale(0.85);
     opacity: 0;
   }
-  25% {
-    opacity: 0.45;
+  22% {
+    opacity: 0.42;
+  }
+  70% {
+    opacity: 0.2;
   }
   100% {
-    transform: translateY(-30px);
+    transform: translateY(-34px) scale(1.25);
     opacity: 0;
   }
 }
