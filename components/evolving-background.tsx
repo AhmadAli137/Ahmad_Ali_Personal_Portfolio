@@ -48,44 +48,44 @@ export function EvolvingBackground() {
 
   const m = MOODS[idx];
   const common =
-    "absolute rounded-full transition-[background-color,transform] duration-[1600ms] ease-out will-change-transform";
+    "absolute rounded-full transition-[background-color,transform,opacity] duration-[1800ms] ease-out will-change-transform";
 
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 -z-[1] overflow-hidden" style={{ filter: "blur(110px)" }}>
+    <div aria-hidden className="pointer-events-none fixed inset-0 -z-[1] overflow-hidden" style={{ filter: "blur(90px)" }}>
       <div
         className={common}
         style={{
-          width: "55vw",
-          height: "55vw",
-          left: "-18vw",
-          top: "-20vh",
+          width: "70vw",
+          height: "70vw",
+          left: "-22vw",
+          top: "-24vh",
           backgroundColor: m.a,
-          opacity: 0.1,
-          transform: `translateY(${idx % 2 ? 6 : -4}vh)`,
+          opacity: 0.26,
+          transform: `translate(${idx % 2 ? 10 : -6}vw, ${idx % 2 ? 14 : -8}vh)`,
         }}
       />
       <div
         className={common}
         style={{
-          width: "48vw",
-          height: "48vw",
-          right: "-16vw",
-          top: "18vh",
+          width: "58vw",
+          height: "58vw",
+          right: "-20vw",
+          top: "12vh",
           backgroundColor: m.b,
-          opacity: 0.08,
-          transform: `translateY(${idx % 2 ? -5 : 5}vh)`,
+          opacity: 0.2,
+          transform: `translate(${idx % 2 ? -8 : 8}vw, ${idx % 2 ? -12 : 10}vh)`,
         }}
       />
       <div
         className={common}
         style={{
-          width: "60vw",
-          height: "40vw",
-          left: "12vw",
-          bottom: "-28vh",
+          width: "80vw",
+          height: "52vw",
+          left: "8vw",
+          bottom: "-32vh",
           backgroundColor: m.c,
-          opacity: 0.14,
-          transform: `translateX(${idx % 3 === 0 ? -4 : 4}vw)`,
+          opacity: 0.32,
+          transform: `translateX(${idx % 3 === 0 ? -12 : 12}vw) rotate(${idx * 4}deg)`,
         }}
       />
     </div>
