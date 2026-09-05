@@ -159,7 +159,7 @@ export default function Home() {
               </p>
               <div className="flex flex-wrap gap-3.5">
                 <Btn href="https://sayspark.ca" variant="primary" external>Visit sayspark.ca ↗</Btn>
-                <Btn href="/venture">The Story →</Btn>
+                <Btn href="/projects/sayspark">The Origin Story →</Btn>
               </div>
             </div>
             <div className="relative grid min-h-[420px] place-items-center">

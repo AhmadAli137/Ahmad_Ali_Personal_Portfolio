@@ -16,7 +16,7 @@ const HoloScene = dynamic(() => import("./holo-scene"), {
 const MODELS = [
   { key: "drone", label: "UAV-01 DRONE", blurb: "GPS-denied autonomy · IEEE Best Demo 2023", href: "/projects/drone" },
   { key: "glove", label: "ASL GLOVE", blurb: "Sign language → synthesized speech, in real time", href: "/projects/asl-glove" },
-  { key: "spark", label: "SPARK MINI", blurb: "SaySpark's voice-first robot — live in early access", href: "/venture" },
+  { key: "spark", label: "SPARK MINI", blurb: "SaySpark's voice-first robot — live in early access", href: "/projects/sayspark" },
   { key: "paddle", label: "EDGE PADDLE", blurb: "Spatial haptics smart paddle · Hack the 6ix 2026", href: "/projects/edge-pong" },
   { key: "battery", label: "EV PACK", blurb: "Battery packs + BMS firmware · CHARGE Lab", href: "/#experience" },
 ];

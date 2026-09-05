@@ -26,7 +26,7 @@ export function CommandPalette() {
   const items = useMemo<Item[]>(() => {
     const sections: Item[] = [
       { title: "Work / Projects", group: "Go to", href: "/#work", icon: "hash" },
-      { title: "SaySpark — The Venture", group: "Go to", href: "/venture", icon: "hash" },
+      { title: "SaySpark — The Project", group: "Go to", href: "/projects/sayspark", icon: "hash" },
       { title: "Experience", group: "Go to", href: "/#experience", icon: "hash" },
       { title: "Awards & The Wall", group: "Go to", href: "/#awards", icon: "award" },
       { title: "Community & Mentorship", group: "Go to", href: "/#community", icon: "hash" },

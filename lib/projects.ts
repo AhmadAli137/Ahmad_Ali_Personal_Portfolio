@@ -215,7 +215,6 @@ export const projects: Project[] = [
     ],
     links: [
       { label: "sayspark.ca", href: "https://sayspark.ca" },
-      { label: "The Venture", href: "/venture" },
     ],
   },
   {
