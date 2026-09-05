@@ -9,7 +9,7 @@ import { AhmadHead, SceneDefs, Shadow } from "@/components/scene-bits";
  */
 export function PitchScene() {
   return (
-    <div className="overflow-hidden rounded-2xl border border-line-strong bg-[linear-gradient(175deg,#0a121e,#070b11)] shadow-[0_0_50px_rgba(0,229,255,0.07)]">
+    <div className="overflow-hidden rounded-2xl bg-[linear-gradient(175deg,#0a121e,#070b11)] shadow-[0_0_50px_rgba(0,229,255,0.05)]">
       <svg viewBox="0 0 1200 560" className="ws-scene block w-full" role="img" aria-label="Ahmad in a suit pitching SaySpark on stage: podium with water glass, growth chart on the big screen, sweeping spotlights, seated audience">
         <SceneDefs />
         <defs>

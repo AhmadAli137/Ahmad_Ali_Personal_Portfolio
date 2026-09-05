@@ -17,7 +17,7 @@ export function LottieScene({
   maxWidth?: number;
 }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-line-strong bg-[linear-gradient(175deg,#0a121e,#070b11)] shadow-[0_0_50px_rgba(0,229,255,0.07)]">
+    <div className="overflow-hidden rounded-2xl bg-[linear-gradient(175deg,#0a121e,#070b11)] shadow-[0_0_50px_rgba(0,229,255,0.05)]">
       <div className="mx-auto" style={{ maxWidth }}>
         <DotLottieReact src={src} loop autoplay aria-label={label} />
       </div>

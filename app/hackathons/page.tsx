@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight, Award, ExternalLink } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { Ph } from "@/components/image-placeholder";
-import { Btn, Card, Chip, Chips } from "@/components/ui";
+import { Btn, Chip, Chips } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Hackathons",
@@ -221,10 +221,10 @@ export default function HackathonsPage() {
           .
         </p>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-x-9 gap-y-12 md:grid-cols-2">
           {hacks.map((h, i) => {
             const inner = (
-              <Card className="flex h-full flex-col gap-3.5">
+              <div className="flex h-full flex-col gap-3.5">
                 {h.img && <Ph caption={h.title} src={h.img} alt={h.imgAlt ?? h.title} minH="min-h-[200px]" />}
                 <span
                   className={`flex items-center gap-1.5 font-mono text-xs ${
@@ -243,7 +243,7 @@ export default function HackathonsPage() {
                 </h3>
                 <p className="text-sm text-muted">{h.desc}</p>
                 <div className="mt-auto"><Chips items={h.chips} /></div>
-              </Card>
+              </div>
             );
             return (
               <Reveal key={h.title} delay={(i % 2) * 0.08}>

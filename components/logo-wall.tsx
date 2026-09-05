@@ -12,7 +12,7 @@ export function LogoWall() {
       {wall.map((o) => (
         <div
           key={o.name}
-          className="group relative grid min-h-[110px] place-items-center rounded-xl border border-line bg-[linear-gradient(160deg,var(--color-panel2),var(--color-panel))] p-4 transition-all hover:z-20 hover:-translate-y-1 hover:border-cyan/60 hover:shadow-[0_0_24px_rgba(0,229,255,0.15)]"
+          className="group relative grid min-h-[110px] place-items-center rounded-xl bg-white/[0.02] p-4 transition-all hover:z-20 hover:-translate-y-1 hover:bg-white/[0.04] hover:shadow-[0_0_24px_rgba(0,229,255,0.15)]"
         >
           {o.logo ? (
             <Image
