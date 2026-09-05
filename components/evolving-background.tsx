@@ -60,7 +60,7 @@ export function EvolvingBackground() {
           left: "-22vw",
           top: "-24vh",
           backgroundColor: m.a,
-          opacity: 0.26,
+          opacity: 0.15,
           transform: `translate(${idx % 2 ? 10 : -6}vw, ${idx % 2 ? 14 : -8}vh)`,
         }}
       />
@@ -72,7 +72,7 @@ export function EvolvingBackground() {
           right: "-20vw",
           top: "12vh",
           backgroundColor: m.b,
-          opacity: 0.2,
+          opacity: 0.11,
           transform: `translate(${idx % 2 ? -8 : 8}vw, ${idx % 2 ? -12 : 10}vh)`,
         }}
       />
@@ -84,7 +84,7 @@ export function EvolvingBackground() {
           left: "8vw",
           bottom: "-32vh",
           backgroundColor: m.c,
-          opacity: 0.32,
+          opacity: 0.18,
           transform: `translateX(${idx % 3 === 0 ? -12 : 12}vw) rotate(${idx * 4}deg)`,
         }}
       />
