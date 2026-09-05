@@ -1730,8 +1730,11 @@ body::after {
     opacity: 0;
   }
 }
-.ps-clap {
-  animation: ps-clap 0.5s ease-in-out infinite;
+.ps-clap-a {
+  animation: ps-clap 0.46s ease-in-out infinite;
+}
+.ps-clap-b {
+  animation: ps-clap 0.61s ease-in-out infinite 0.2s;
 }
 @keyframes ps-clap {
   0%,
