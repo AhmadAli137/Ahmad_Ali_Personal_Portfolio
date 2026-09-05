@@ -2,6 +2,8 @@
 import Image from "next/image";
 import { ArrowRight, Award } from "lucide-react";
 import { HoloShowcase } from "@/components/holo-showcase";
+import { Parallax } from "@/components/parallax";
+import { StorySpine } from "@/components/story-spine";
 import { WorkshopScene } from "@/components/workshop-scene";
 import { GarageScene } from "@/components/garage-scene";
 import { PitchScene } from "@/components/pitch-scene";
@@ -51,8 +53,9 @@ export default function Home() {
 
   return (
     <main>
+      <StorySpine />
       {/* ============ HERO ============ */}
-      <section className="flex min-h-screen items-center px-6 pb-16 pt-32">
+      <section data-chapter="01 · HELLO" className="flex min-h-screen items-center px-6 pb-16 pt-32">
         <div className="mx-auto w-full max-w-6xl">
           <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
             <div>
@@ -78,6 +81,7 @@ export default function Home() {
                 </div>
               </Reveal>
             </div>
+            <Parallax from={16} to={-40}>
             <Hud>
               <div className="grid grid-cols-2 gap-3">
                 <Ph
@@ -103,6 +107,7 @@ export default function Home() {
                 </div>
               </div>
             </Hud>
+            </Parallax>
           </div>
 
           {/* Stats */}
@@ -129,12 +134,17 @@ export default function Home() {
       </section>
 
       {/* ============ HOLOGRAM ARCHIVE ============ */}
-      <HoloShowcase />
+      <div data-chapter="02 · THE ARCHIVE">
+        <Parallax from={40} to={-24} scale>
+          <HoloShowcase />
+        </Parallax>
+      </div>
 
       {/* ============ FEATURED VENTURE ============ */}
-      <section className="px-6 py-10">
+      <section data-chapter="03 · SAYSPARK" className="px-6 py-10">
         <Reveal className="mx-auto max-w-6xl">
           <SectionHeading tag="featured venture" title="Currently Building" />
+          <Parallax from={28} to={-20} scale>
           <div className="grid items-center gap-9 rounded-2xl border border-line-strong bg-[radial-gradient(ellipse_60%_100%_at_100%_0%,rgba(52,245,162,0.08),transparent),linear-gradient(160deg,var(--color-panel2),var(--color-panel))] p-10 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
               <div className="mb-4"><Chip tone="mint">FOUNDER — LIVE IN EARLY ACCESS</Chip></div>
@@ -163,11 +173,12 @@ export default function Home() {
               />
             </div>
           </div>
+          </Parallax>
         </Reveal>
       </section>
 
       {/* ============ FEATURED PROJECTS ============ */}
-      <section id="work" className="scroll-mt-20 px-6 py-20">
+      <section id="work" data-chapter="04 · PROJECTS" className="scroll-mt-20 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <SectionHeading
@@ -234,7 +245,7 @@ export default function Home() {
       </section>
 
       {/* ============ AWARDS ============ */}
-      <section id="awards" className="scroll-mt-20 px-6 py-20">
+      <section id="awards" data-chapter="05 · THE ARENAS" className="scroll-mt-20 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <SectionHeading
@@ -247,7 +258,7 @@ export default function Home() {
           {/* ---- engineering & science ---- */}
           <Reveal className="mt-2">
             <h3 className="mb-4 font-mono text-lg text-mint"><span className="text-muted">## </span>Engineering &amp; Science</h3>
-            <GarageScene />
+            <Parallax from={30} to={-18} scale><GarageScene /></Parallax>
             <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {([
                 { img: "/img/pimrc-best-demo-award.jpg", award: "Best Demo Award", event: "IEEE PIMRC 2023 — Toronto", note: "Indoor autonomous drone navigation" },
@@ -275,7 +286,7 @@ export default function Home() {
               <span className="text-muted">## </span>Hackathons{" "}
               <Link href="/hackathons" className="ml-2 text-sm text-cyan hover:underline">all 14 →</Link>
             </h3>
-            <WorkshopScene />
+            <Parallax from={-24} to={22} scale><WorkshopScene /></Parallax>
             <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {([
                 { img: "/img/nasa-space-apps-1.jpg", award: "1st Place + Global Nomination", event: "NASA Space Apps 2025", note: "Meteor Madness" },
@@ -299,7 +310,7 @@ export default function Home() {
           {/* ---- pitches & entrepreneurship ---- */}
           <Reveal className="mt-14">
             <h3 className="mb-4 font-mono text-lg text-mint"><span className="text-muted">## </span>Pitches &amp; Entrepreneurship</h3>
-            <PitchScene />
+            <Parallax from={30} to={-18} scale><PitchScene /></Parallax>
             <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {([
                 { img: "/img/epicentre-award-trophy.jpg", award: "Innovation Mastery Award + $1,000", event: "EPICentre Excellence Awards 2023", note: "Entrepreneurship & innovation" },
@@ -327,7 +338,7 @@ export default function Home() {
       </section>
 
       {/* ============ EXPERIENCE ============ */}
-      <section id="experience" className="scroll-mt-20 px-6 py-20">
+      <section id="experience" data-chapter="06 · THE ROAD" className="scroll-mt-20 px-6 py-12">
         <Reveal className="mx-auto max-w-6xl">
           <SectionHeading tag="experience" title="Where I've Worked" />
           <div className="divide-y divide-[rgba(0,229,255,0.1)]">
@@ -454,7 +465,7 @@ export default function Home() {
       </section>
 
       {/* ============ COMMUNITY & MENTORSHIP ============ */}
-      <section id="community" className="scroll-mt-20 px-6 py-20">
+      <section id="community" className="scroll-mt-20 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <SectionHeading
@@ -510,7 +521,7 @@ export default function Home() {
       </section>
 
       {/* ============ TIMELINE ============ */}
-      <section id="timeline" className="scroll-mt-20 px-6 py-20">
+      <section id="timeline" className="scroll-mt-20 px-6 py-12">
         <Reveal className="mx-auto max-w-6xl">
           <SectionHeading tag="journey" title="The Path So Far" />
           <div className="relative pl-9 before:absolute before:bottom-1.5 before:left-2 before:top-1.5 before:w-0.5 before:bg-gradient-to-b before:from-cyan before:to-mint before:opacity-35">
@@ -527,7 +538,7 @@ export default function Home() {
       </section>
 
       {/* ============ SKILLS ============ */}
-      <section id="skills" className="scroll-mt-20 px-6 py-20">
+      <section id="skills" data-chapter="07 · THE TOOLKIT" className="scroll-mt-20 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <SectionHeading tag="skills" title="The Full Stack — Silicon to Cloud" />
@@ -548,7 +559,7 @@ export default function Home() {
       </section>
 
       {/* ============ SERVICES ============ */}
-      <section id="services" className="scroll-mt-20 px-6 py-20">
+      <section id="services" className="scroll-mt-20 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <SectionHeading tag="services" title="Work With Me" />
@@ -569,7 +580,7 @@ export default function Home() {
       </section>
 
       {/* ============ CONTACT ============ */}
-      <section id="contact" className="scroll-mt-20 px-6 py-20">
+      <section id="contact" data-chapter="08 · YOUR MOVE" className="scroll-mt-20 px-6 py-12">
         <Reveal className="mx-auto max-w-6xl">
           <Hud>
             <div className="rounded-2xl border border-line-strong bg-[radial-gradient(ellipse_70%_120%_at_50%_0%,rgba(0,229,255,0.07),transparent),linear-gradient(160deg,var(--color-panel2),var(--color-panel))] px-8 py-16 text-center">

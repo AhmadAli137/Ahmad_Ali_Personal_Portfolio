@@ -13,7 +13,7 @@ export function SectionHeading({
   lede?: string;
 }) {
   return (
-    <div className="mb-11">
+    <div className="mb-7">
       <span className="mb-2.5 block font-mono text-[13px] text-mint">
         <span className="text-muted">{"// "}</span>
         {tag}
