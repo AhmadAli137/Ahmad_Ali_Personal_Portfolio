@@ -18,42 +18,35 @@ interface Page {
 }
 
 const PAGES: Page[] = [
+  // full-page solo: where it started
   { year: "2018", caption: "A science-fair kid gets a golden ticket", imgs: [{ src: "/img/stem-bootcamp-golden-ticket.jpg", alt: "Golden ticket at CWSF with the SignSmart glove" }] },
-  { year: "2018", caption: "First taste of entrepreneurship", imgs: [{ src: "/img/stem-bootcamp-lassonde.jpg", alt: "Bootcamp cohort at Lassonde" }, { src: "/img/stem-bootcamp-trophy.jpg", alt: "People's Choice trophy" }] },
-  { year: "2020", caption: "Building through the strange years", imgs: [{ src: "/img/covid-a.png", alt: "Covid-19 Global desktop app" }] },
-  { year: "2021", caption: "Games along the way — Grand Theft Calculus", imgs: [{ src: "/img/gtc-title.png", alt: "Grand Theft Calculus title screen" }, { src: "/img/gtc-play.png", alt: "Gameplay" }, { src: "/img/gtc-caught.png", alt: "Caught screen" }] },
-  { year: "2021", caption: "People's Choice at BorderHacks", imgs: [{ src: "/img/winparks-a.jpg", alt: "WinParks app" }] },
-  { year: "2020–23", caption: "Four straight programming titles", imgs: [{ src: "/img/wec-1st-place.jpg", alt: "WEC 1st place" }] },
-  { year: "2022", caption: "Formula SAE — and keeping EVs on the grid", imgs: [{ src: "/img/formula-electric-team.jpg", alt: "Formula electric team" }, { src: "/img/wingrid-a.jpg", alt: "WinGrid app" }] },
-  { year: "2023", caption: "The capstone drone crew", imgs: [{ src: "/img/capstone-drone-team.jpg", alt: "Capstone drone team" }] },
-  { year: "2023", caption: "Best Demo — IEEE PIMRC, Toronto", imgs: [{ src: "/img/pimrc-best-demo-award.jpg", alt: "PIMRC Best Demo award" }] },
+  { year: "2018", caption: "First taste of entrepreneurship — People's Choice", imgs: [{ src: "/img/stem-bootcamp-lassonde.jpg", alt: "Bootcamp cohort at Lassonde" }, { src: "/img/stem-bootcamp-trophy.jpg", alt: "People's Choice trophy" }] },
+  { year: "2020–21", caption: "Hackathons through the strange years", imgs: [{ src: "/img/covid-a.png", alt: "Covid-19 Global desktop app" }, { src: "/img/gtc-play.png", alt: "Grand Theft Calculus gameplay" }, { src: "/img/winparks-a.jpg", alt: "WinParks app" }] },
+  { year: "2020–22", caption: "Programming titles, Formula SAE, EVs on the grid", imgs: [{ src: "/img/wec-1st-place.jpg", alt: "WEC 1st place" }, { src: "/img/formula-electric-team.jpg", alt: "Formula electric team" }, { src: "/img/wingrid-a.jpg", alt: "WinGrid app" }] },
+  { year: "2023", caption: "The capstone drone — Best Demo at IEEE PIMRC", imgs: [{ src: "/img/capstone-drone-team.jpg", alt: "Capstone drone team" }, { src: "/img/pimrc-best-demo-award.jpg", alt: "PIMRC Best Demo award" }] },
   { year: "2023", caption: "The Innovation Mastery Award", imgs: [{ src: "/img/epicentre-award-stage.jpg", alt: "On stage at EPICentre" }, { src: "/img/epicentre-award-trophy.jpg", alt: "The trophy" }, { src: "/img/founder.jpg", alt: "Holding the award" }] },
-  { year: "2024", caption: "Second Life — 2nd overall at WinHacks", imgs: [{ src: "/img/secondlife-award.jpg", alt: "Second Life award" }, { src: "/img/secondlife-a.png", alt: "Second Life platform" }] },
-  { year: "2024", caption: "The Iron Ring — an engineer's promise", imgs: [{ src: "/img/iron-ring-ceremony.jpg", alt: "Iron Ring ceremony" }, { src: "/img/iron-ring-classmates.jpg", alt: "With classmates" }] },
-  { year: "2024", caption: "BASc, done", imgs: [{ src: "/img/undergrad-graduation.jpg", alt: "Graduation" }] },
+  { year: "2024", caption: "Second Life — 2nd overall at WinHacks", imgs: [{ src: "/img/secondlife-award.jpg", alt: "Second Life award" }, { src: "/img/secondlife-a.png", alt: "Second Life platform" }, { src: "/img/secondlife-b.png", alt: "Battery listings" }] },
+  { year: "2024", caption: "The Iron Ring, then the degree", imgs: [{ src: "/img/iron-ring-ceremony.jpg", alt: "Iron Ring ceremony" }, { src: "/img/iron-ring-classmates.jpg", alt: "With classmates" }, { src: "/img/undergrad-graduation.jpg", alt: "Graduation" }] },
   { year: "2024", caption: "EV batteries at the CHARGE Lab", imgs: [{ src: "/img/charge-lab-ev-rnd.jpg", alt: "EV powertrain rig" }, { src: "/img/charge-lab-battery.jpg", alt: "Battery bench" }, { src: "/img/charge-lab-magna-team.jpg", alt: "Magna project team" }] },
   { year: "2025", caption: "PresentPro — 2nd overall, 1st in category", imgs: [{ src: "/img/presentpro-award-1.jpg", alt: "PresentPro award" }, { src: "/img/presentpro-a.jpg", alt: "The wearable" }, { src: "/img/presentpro-award-3.jpg", alt: "The team" }] },
-  { year: "2025", caption: "NASA Space Apps — 1st place + global nomination", imgs: [{ src: "/img/nasa-space-apps-1.jpg", alt: "NASA Space Apps win" }, { src: "/img/nasa-space-apps-2.jpg", alt: "Celebration" }] },
-  { year: "2025", caption: "Meteor Madness — the team", imgs: [{ src: "/img/nasa-space-apps-3.jpg", alt: "Team at work" }, { src: "/img/nasa-space-apps-4.jpg", alt: "Demo" }, { src: "/img/nasa-space-apps-5.jpg", alt: "The certificates" }] },
-  { year: "2025", caption: "The JLR AI competition → internship", imgs: [{ src: "/img/jlr-team-1.jpg", alt: "JLR team" }, { src: "/img/jlr-team-2.jpg", alt: "JLR competition" }] },
-  { year: "2025", caption: "Presenting at IEEE EPEC, Waterloo", imgs: [{ src: "/img/ieee-epec-poster.jpg", alt: "EPEC poster session" }] },
-  { year: "2026", caption: "SketchBot draws its first line", imgs: [{ src: "/img/sketchbot-a.jpg", alt: "SketchBot" }, { src: "/img/sketchbot-b.jpg", alt: "Drawing mechanism" }, { src: "/img/sketchbot-c.jpg", alt: "Output" }] },
-  { year: "2026", caption: "Finalist runs — WinHacks & ClubHacks", imgs: [{ src: "/img/winhacks26-sketchbot-award-1.jpg", alt: "WinHacks finalist" }, { src: "/img/clubhacks-sketchbot-v2-1.jpg", alt: "SketchBot V2" }] },
-  { year: "2026", caption: "Edge Pong — haptics you can feel", imgs: [{ src: "/img/edge-pong-video.jpg", alt: "Edge Pong demo" }] },
-  { year: "2026", caption: "Giving the spark away — Genius Cup", imgs: [{ src: "/img/genius-cup-main.jpg", alt: "Genius Cup mentoring" }, { src: "/img/genius-cup-robot-battle.jpg", alt: "Robot battle" }, { src: "/img/genius-cup-2.jpg", alt: "Students with robots" }] },
-  { year: "2026", caption: "CS Games, Montréal — mentor now", imgs: [{ src: "/img/cs-games-1.jpg", alt: "CS Games" }, { src: "/img/cs-games-2.jpg", alt: "The delegation" }, { src: "/img/cs-games-3.jpg", alt: "Competing" }] },
-  { year: "2026", caption: "Judging where it all started", imgs: [{ src: "/img/wrstef-judge-2026.jpg", alt: "Science fair judging" }, { src: "/img/wrstef-fair.jpg", alt: "The fair" }] },
+  // full-page solo: the big one
+  { year: "2025", caption: "NASA Space Apps — 1st place + global nomination", imgs: [{ src: "/img/nasa-space-apps-1.jpg", alt: "NASA Space Apps win" }] },
+  { year: "2025", caption: "Meteor Madness — the team", imgs: [{ src: "/img/nasa-space-apps-2.jpg", alt: "Celebration" }, { src: "/img/nasa-space-apps-3.jpg", alt: "Team at work" }, { src: "/img/nasa-space-apps-4.jpg", alt: "Demo" }, { src: "/img/nasa-space-apps-5.jpg", alt: "The certificates" }] },
+  { year: "2024–25", caption: "Posters, delegations, and a JLR internship", imgs: [{ src: "/img/ieee-epec-poster.jpg", alt: "EPEC poster session" }, { src: "/img/jlr-team-1.jpg", alt: "JLR team" }, { src: "/img/jlr-team-2.jpg", alt: "JLR competition" }, { src: "/img/oec-2024-delegation.jpg", alt: "OEC delegation" }] },
+  { year: "2026", caption: "Hardware year — SketchBot ×2 & Edge Pong", imgs: [{ src: "/img/sketchbot-a.jpg", alt: "SketchBot" }, { src: "/img/winhacks26-sketchbot-award-1.jpg", alt: "WinHacks finalist" }, { src: "/img/clubhacks-sketchbot-v2-1.jpg", alt: "SketchBot V2" }, { src: "/img/edge-pong-video.jpg", alt: "Edge Pong demo" }] },
+  { year: "2026", caption: "Giving the spark away — Genius Cup", imgs: [{ src: "/img/genius-cup-main.jpg", alt: "Genius Cup mentoring" }, { src: "/img/genius-cup-robot-battle.jpg", alt: "Robot battle" }, { src: "/img/genius-cup-2.jpg", alt: "Students with robots" }, { src: "/img/genius-cup-3.jpg", alt: "Robotics activities" }] },
+  { year: "2026", caption: "Mentor and judge now — CS Games & the fair", imgs: [{ src: "/img/cs-games-1.jpg", alt: "CS Games" }, { src: "/img/cs-games-2.jpg", alt: "The delegation" }, { src: "/img/wrstef-judge-2026.jpg", alt: "Science fair judging" }, { src: "/img/wrstef-fair.jpg", alt: "The fair" }] },
   { year: "NOW", caption: "SaySpark — the next chapter", imgs: [{ src: "/img/sayspark-robot.png", alt: "Spark robots" }, { src: "/img/sayspark-simulator.png", alt: "The simulator" }, { src: "/img/sayspark-vision.jpg", alt: "Kids and robots" }] },
 ];
 
-/* hold time before each page turns: slow → quick → slow */
+/* hold time before each page turns: unhurried in, brisk middle, easing out */
 function holdFor(i: number, n: number) {
   const edge = 3;
-  if (i < edge) return 1050 - i * 200;
-  if (i >= n - edge) return 650 + (i - (n - edge)) * 250;
-  return 340;
+  if (i < edge) return 1600 - i * 250;
+  if (i >= n - edge) return 1000 + (i - (n - edge)) * 300;
+  return 850;
 }
-const FLIP_MS = 460;
+const FLIP_MS = 520;
 
 const HALFTONE =
   "radial-gradient(circle, rgba(30,25,20,0.22) 1px, transparent 1.4px)";
@@ -83,6 +76,7 @@ function ComicPage({ page, tilt }: { page: Page; tilt: number }) {
             className={`relative overflow-hidden border-[3px] border-[#2b2a24] bg-white ${
               n === 3 && i === 0 ? "col-span-2" : ""
             }`}
+            style={n >= 3 ? { transform: `rotate(${i % 2 ? 0.4 : -0.4}deg)` } : undefined}
           >
             <Image
               src={im.src}
@@ -209,6 +203,7 @@ export function StoryReel() {
             }
             @keyframes bookIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
             @keyframes reelZoom { from { transform: scale(1); } to { transform: scale(1.045); } }
+            /* zoom paced to the longer film */
             @keyframes reelTitle { 0% { opacity: 0; transform: scale(0.85); } 55% { opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
             @keyframes reelFade { from { opacity: 0; } to { opacity: 1; } }
             @media (prefers-reduced-motion: reduce) {
@@ -244,7 +239,7 @@ export function StoryReel() {
           )}
 
           {phase === "film" && (
-            <div className="reel-zoom grid h-full place-items-center" style={{ animation: "reelZoom 22s linear both" }}>
+            <div className="reel-zoom grid h-full place-items-center" style={{ animation: "reelZoom 26s linear both" }}>
               <div
                 className="relative aspect-[3/4] h-[78vh] max-w-[88vw] [perspective:1900px]"
                 style={{ animation: "bookIn 500ms ease-out both" }}
