@@ -3,7 +3,6 @@ import Image from "next/image";
 import { ArrowRight, Award } from "lucide-react";
 import { HoloShowcase } from "@/components/holo-showcase";
 import { Parallax } from "@/components/parallax";
-import { StorySpine } from "@/components/story-spine";
 import { WorkshopScene } from "@/components/workshop-scene";
 import { GarageScene } from "@/components/garage-scene";
 import { PitchScene } from "@/components/pitch-scene";
@@ -53,7 +52,6 @@ export default function Home() {
 
   return (
     <main>
-      <StorySpine />
       {/* ============ HERO ============ */}
       <section data-chapter="01 · HELLO" className="flex min-h-screen items-center px-6 pb-16 pt-32">
         <div className="mx-auto w-full max-w-6xl">
