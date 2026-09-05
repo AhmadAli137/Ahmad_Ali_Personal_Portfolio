@@ -13,16 +13,6 @@ import { Hud } from "@/components/hud";
 import { Btn, Card, Chip, Chips, SectionHeading } from "@/components/ui";
 import { projects, featuredSlugs } from "@/lib/projects";
 
-const focusAreas = [
-  "Robotics",
-  "Edge AI",
-  "Computer Vision",
-  "Embedded Systems",
-  "AI Applications",
-  "Product Design",
-  "Entrepreneurship",
-];
-
 const skillGroups: { name: string; items: string[] }[] = [
   { name: "AI", items: ["OpenAI APIs", "Local LLMs", "Prompt Engineering", "AI Agents", "Computer Vision"] },
   { name: "Software", items: ["Python", "C++", "Kotlin", "React", "Next.js", "Node.js"] },
@@ -136,37 +126,6 @@ export default function Home() {
             ))}
           </Reveal>
         </div>
-      </section>
-
-      {/* ============ ABOUT ============ */}
-      <section id="about" className="scroll-mt-20 px-6 py-20">
-        <Reveal className="mx-auto max-w-6xl">
-          <SectionHeading tag="about" title="Why I Build" />
-          <div className="grid gap-10 lg:grid-cols-2">
-            <div className="space-y-4">
-              <p>
-                I&apos;ve always believed technology should feel{" "}
-                <strong>empowering rather than intimidating</strong>.
-              </p>
-              <p className="text-muted">
-                From autonomous drones and battery systems to AI-powered educational robots, I create
-                products that combine hardware, software, and artificial intelligence into experiences
-                that people genuinely enjoy using. My work spans robotics, embedded systems, computer
-                vision, and product design — which means I can take an idea from concept to a fully
-                functional prototype, and then toward a real product.
-              </p>
-              <p className="font-mono text-sm text-mint">
-                My goal is simple: build technology that inspires curiosity while solving meaningful problems.
-              </p>
-            </div>
-            <div>
-              <h3 className="mb-4 font-mono text-sm text-cyan">
-                <span className="text-muted">[ </span>current focus<span className="text-muted"> ]</span>
-              </h3>
-              <Chips items={focusAreas} />
-            </div>
-          </div>
-        </Reveal>
       </section>
 
       {/* ============ HOLOGRAM ARCHIVE ============ */}
