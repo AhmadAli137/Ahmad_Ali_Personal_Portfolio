@@ -1,7 +1,6 @@
 ﻿import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Award } from "lucide-react";
-import { HoloShowcase } from "@/components/holo-showcase";
 import { Parallax } from "@/components/parallax";
 import { Reveal } from "@/components/reveal";
 import { TypingRoles } from "@/components/typing";
@@ -133,15 +132,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ HOLOGRAM ARCHIVE ============ */}
-      <div data-chapter="02 · THE ARCHIVE">
-        <Parallax from={40} to={-24} scale>
-          <HoloShowcase />
-        </Parallax>
-      </div>
-
       {/* ============ FEATURED VENTURE ============ */}
-      <section data-chapter="03 · SAYSPARK" className="px-6 py-10">
+      <section data-chapter="02 · SAYSPARK" className="px-6 py-10">
         <Reveal className="mx-auto max-w-6xl">
           <SectionHeading tag="featured venture" title="Currently Building" />
           <Parallax from={28} to={-20} scale>
@@ -178,7 +170,7 @@ export default function Home() {
       </section>
 
       {/* ============ FEATURED PROJECTS ============ */}
-      <section id="work" data-chapter="04 · PROJECTS" className="scroll-mt-20 px-6 py-12">
+      <section id="work" data-chapter="03 · PROJECTS" className="scroll-mt-20 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <SectionHeading
@@ -245,7 +237,7 @@ export default function Home() {
       </section>
 
       {/* ============ AWARDS ============ */}
-      <section id="awards" data-chapter="05 · COMPETITIONS" className="scroll-mt-20 px-6 py-12">
+      <section id="awards" data-chapter="04 · COMPETITIONS" className="scroll-mt-20 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <SectionHeading
@@ -329,7 +321,7 @@ export default function Home() {
       </section>
 
       {/* ============ EXPERIENCE ============ */}
-      <section id="experience" data-chapter="06 · THE ROAD" className="scroll-mt-20 px-6 py-12">
+      <section id="experience" data-chapter="05 · THE ROAD" className="scroll-mt-20 px-6 py-12">
         <Reveal className="mx-auto max-w-6xl">
           <SectionHeading tag="experience" title="Where I've Worked" />
           <div className="divide-y divide-[rgba(0,229,255,0.1)]">
@@ -545,7 +537,7 @@ export default function Home() {
       </section>
 
       {/* ============ SKILLS ============ */}
-      <section id="skills" data-chapter="07 · THE TOOLKIT" className="scroll-mt-20 px-6 py-12">
+      <section id="skills" data-chapter="06 · THE TOOLKIT" className="scroll-mt-20 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <SectionHeading tag="skills" title="The Full Stack — Silicon to Cloud" />
@@ -587,7 +579,7 @@ export default function Home() {
       </section>
 
       {/* ============ CONTACT ============ */}
-      <section id="contact" data-chapter="08 · YOUR MOVE" className="scroll-mt-20 px-6 py-12">
+      <section id="contact" data-chapter="07 · YOUR MOVE" className="scroll-mt-20 px-6 py-12">
         <Reveal className="mx-auto max-w-6xl">
             <div className="relative px-8 py-20 text-center">
               <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_55%_80%_at_50%_50%,rgba(0,229,255,0.06),transparent)]" />
