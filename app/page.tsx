@@ -11,7 +11,7 @@ import { TypingRoles } from "@/components/typing";
 import { CountUp } from "@/components/count-up";
 import { Ph } from "@/components/image-placeholder";
 import { Hud } from "@/components/hud";
-import { Btn, Card, Chip, Chips, SectionHeading } from "@/components/ui";
+import { Btn, Chip, Chips, SectionHeading } from "@/components/ui";
 import { projects, featuredSlugs } from "@/lib/projects";
 
 const skillGroups: { name: string; items: string[] }[] = [
@@ -108,8 +108,8 @@ export default function Home() {
             </Parallax>
           </div>
 
-          {/* Stats */}
-          <Reveal className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-5">
+          {/* Stats — a flowing readout, not tiles */}
+          <Reveal className="mt-14 flex flex-wrap items-baseline gap-x-10 gap-y-4 border-t border-[rgba(0,229,255,0.1)] pt-7">
             {[
               { num: <CountUp target={20} suffix="+" />, label: "Engineering Projects" },
               { num: <CountUp target={44} />, label: "Competitions & Conferences" },
@@ -117,14 +117,11 @@ export default function Home() {
               { num: <CountUp target={14} />, label: "Hackathons" },
               { num: "Founder", label: "Educational Robotics Venture" },
             ].map((s, i) => (
-              <div
-                key={i}
-                className="rounded-xl border border-line bg-[linear-gradient(160deg,var(--color-panel2),var(--color-panel))] px-5 py-5 text-center transition-all hover:-translate-y-1 hover:border-line-strong"
-              >
+              <div key={i} className="flex items-baseline gap-2.5">
                 <div className="font-mono text-2xl font-bold text-cyan [text-shadow:0_0_18px_rgba(0,229,255,0.4)]">
                   {s.num}
                 </div>
-                <div className="mt-1.5 text-xs text-muted">{s.label}</div>
+                <div className="text-xs text-muted">{s.label}</div>
               </div>
             ))}
           </Reveal>
@@ -143,7 +140,7 @@ export default function Home() {
         <Reveal className="mx-auto max-w-6xl">
           <SectionHeading tag="featured venture" title="Currently Building" />
           <Parallax from={28} to={-20} scale>
-          <div className="grid items-center gap-9 rounded-2xl border border-line-strong bg-[radial-gradient(ellipse_60%_100%_at_100%_0%,rgba(52,245,162,0.08),transparent),linear-gradient(160deg,var(--color-panel2),var(--color-panel))] p-10 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="grid items-center gap-9 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
               <div className="mb-4"><Chip tone="mint">FOUNDER — LIVE IN EARLY ACCESS</Chip></div>
               <h3 className="mb-3.5 text-2xl font-bold sm:text-3xl">
@@ -185,11 +182,11 @@ export default function Home() {
               lede="Every project here started as an observation of a real-world problem and became a working prototype through CAD, electronics, firmware, software, and relentless iteration."
             />
           </Reveal>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-x-9 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((p, i) => (
               <Reveal key={p.slug} delay={(i % 3) * 0.08}>
                 <Link href={`/projects/${p.slug}`} className="group block h-full">
-                  <Card className="flex h-full flex-col gap-4">
+                  <div className="flex h-full flex-col gap-4">
                     <div className="relative">
                       <Ph caption={p.cardCaption} src={p.cardSrc} alt={p.cardCaption} minH="min-h-[190px]" />
                       {p.demoUrl && (
@@ -212,13 +209,13 @@ export default function Home() {
                     </h3>
                     <p className="text-sm text-muted">{p.cardBlurb}</p>
                     <div className="mt-auto"><Chips items={p.chips.slice(0, 3)} /></div>
-                  </Card>
+                  </div>
                 </Link>
               </Reveal>
             ))}
             <Reveal delay={0.16}>
               <Link href="/hackathons" className="group block h-full">
-                <Card className="flex h-full flex-col gap-4">
+                <div className="flex h-full flex-col gap-4">
                   <Ph caption="PHOTO: Hackathon team / demo booth" minH="min-h-[190px]" />
                   <span className="flex items-center gap-1.5 font-mono text-xs text-amber">
                     <Award size={13} /> 14 Hackathons Since 2017
@@ -235,7 +232,7 @@ export default function Home() {
                     36-hour sprints, wins and losses alike.
                   </p>
                   <div className="mt-auto"><Chips items={["Rapid Prototyping", "Teamwork"]} /></div>
-                </Card>
+                </div>
               </Link>
             </Reveal>
           </div>
@@ -257,14 +254,14 @@ export default function Home() {
           <Reveal className="mt-2">
             <h3 className="mb-4 font-mono text-lg text-mint"><span className="text-muted">## </span>Engineering &amp; Science</h3>
             <Parallax from={30} to={-18} scale><GarageScene /></Parallax>
-            <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-5 grid gap-x-9 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
               {([
                 { img: "/img/pimrc-best-demo-award.jpg", award: "Best Demo Award", event: "IEEE PIMRC 2023 — Toronto", note: "Indoor autonomous drone navigation" },
                 { caption: "PHOTO: CWSF medals", award: "2× Bronze · Silver · $10k Scholarship", event: "Canada-Wide Science Fair", note: "Four national finals, 2015–2019" },
                 { img: "/img/wec-1st-place.jpg", award: "4× 1st Place — Programming", event: "Windsor Engineering Competition", note: "Four straight years, 2020–2023" },
                 { img: "/img/jlr-team-1.jpg", award: "$600 + JLR Internship", event: "UWindsor × JLR AI Competition 2025", note: "Automotive AI memory optimization" },
               ] as { img?: string; caption?: string; award: string; event: string; note: string }[]).map((a, i) => (
-                <Card key={a.event} className="flex h-full flex-col gap-3 !p-5">
+                <div key={a.event} className="flex h-full flex-col gap-3">
                   <Ph caption={a.caption ?? a.award} src={a.img} alt={`${a.award} — ${a.event}`} minH="min-h-[150px]" />
                   <div>
                     <div className="flex items-center gap-1.5 font-mono text-xs text-amber">
@@ -273,7 +270,7 @@ export default function Home() {
                     <div className="mt-1 text-sm font-bold">{a.event}</div>
                     <div className="text-xs text-muted">{a.note}</div>
                   </div>
-                </Card>
+                </div>
               ))}
             </div>
           </Reveal>
@@ -285,13 +282,13 @@ export default function Home() {
               <Link href="/hackathons" className="ml-2 text-sm text-cyan hover:underline">all 14 →</Link>
             </h3>
             <Parallax from={-24} to={22} scale><WorkshopScene /></Parallax>
-            <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-5 grid gap-x-9 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
               {([
                 { img: "/img/nasa-space-apps-1.jpg", award: "1st Place + Global Nomination", event: "NASA Space Apps 2025", note: "Meteor Madness" },
                 { img: "/img/presentpro-award-1.jpg", award: "2nd Overall · 1st in Category", event: "WinHacks 2025", note: "PresentPro — AI presentation coach" },
                 { img: "/img/secondlife-award.jpg", award: "2nd Place Overall", event: "WinHacks 2024", note: "Second Life — EV battery reuse" },
               ] as { img?: string; caption?: string; award: string; event: string; note: string }[]).map((a) => (
-                <Card key={a.event} className="flex h-full flex-col gap-3 !p-5">
+                <div key={a.event} className="flex h-full flex-col gap-3">
                   <Ph caption={a.award} src={a.img} alt={`${a.award} — ${a.event}`} minH="min-h-[150px]" />
                   <div>
                     <div className="flex items-center gap-1.5 font-mono text-xs text-amber">
@@ -300,7 +297,7 @@ export default function Home() {
                     <div className="mt-1 text-sm font-bold">{a.event}</div>
                     <div className="text-xs text-muted">{a.note}</div>
                   </div>
-                </Card>
+                </div>
               ))}
             </div>
           </Reveal>
@@ -309,13 +306,13 @@ export default function Home() {
           <Reveal className="mt-14">
             <h3 className="mb-4 font-mono text-lg text-mint"><span className="text-muted">## </span>Pitches &amp; Entrepreneurship</h3>
             <Parallax from={30} to={-18} scale><PitchScene /></Parallax>
-            <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-5 grid gap-x-9 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
               {([
                 { img: "/img/epicentre-award-trophy.jpg", award: "Innovation Mastery Award + $1,000", event: "EPICentre Excellence Awards 2023", note: "Entrepreneurship & innovation" },
                 { caption: "PHOTO: pitch night", award: "4th Place — $2,500", event: "Take Your Shot 2026 — Leamington", note: "Pitching on the startup stage" },
                 { caption: "PHOTO: bootcamp demo", award: "People's Choice Winner", event: "STEM Entrepreneurship Bootcamp 2018", note: "The first pitch — where it started" },
               ] as { img?: string; caption?: string; award: string; event: string; note: string }[]).map((a) => (
-                <Card key={a.event} className="flex h-full flex-col gap-3 !p-5">
+                <div key={a.event} className="flex h-full flex-col gap-3">
                   <Ph caption={a.caption ?? a.award} src={a.img} alt={`${a.award} — ${a.event}`} minH="min-h-[150px]" />
                   <div>
                     <div className="flex items-center gap-1.5 font-mono text-xs text-amber">
@@ -324,7 +321,7 @@ export default function Home() {
                     <div className="mt-1 text-sm font-bold">{a.event}</div>
                     <div className="text-xs text-muted">{a.note}</div>
                   </div>
-                </Card>
+                </div>
               ))}
             </div>
           </Reveal>
@@ -472,7 +469,7 @@ export default function Home() {
               lede="Engineering only matters if it reaches people. Mentoring, judging, and teaching are how I pay forward what robotics gave me."
             />
           </Reveal>
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-x-9 gap-y-12 sm:grid-cols-2">
             {[
               {
                 img: "/img/genius-cup-main.jpg",
@@ -504,14 +501,14 @@ export default function Home() {
               },
             ].map((c, i) => (
               <Reveal key={c.title} delay={(i % 2) * 0.08}>
-                <Card className="flex h-full flex-col gap-4">
+                <div className="flex h-full flex-col gap-4">
                   <Ph caption={c.title} src={c.img} alt={c.alt} minH="min-h-[230px]" />
                   <div>
                     <h3 className="text-lg font-bold">{c.title}</h3>
                     <div className="mb-2 font-mono text-xs text-mint">{c.org}</div>
                     <p className="text-sm text-muted">{c.desc}</p>
                   </div>
-                </Card>
+                </div>
               </Reveal>
             ))}
           </div>
@@ -541,15 +538,15 @@ export default function Home() {
           <Reveal>
             <SectionHeading tag="skills" title="The Full Stack — Silicon to Cloud" />
           </Reveal>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-x-9 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {skillGroups.map((g, i) => (
               <Reveal key={g.name} delay={(i % 3) * 0.08}>
-                <Card className="h-full">
+                <div className="h-full">
                   <h3 className="mb-3.5 font-mono text-sm text-cyan">
                     <span className="text-muted">[ </span>{g.name}<span className="text-muted"> ]</span>
                   </h3>
                   <Chips items={g.items} />
-                </Card>
+                </div>
               </Reveal>
             ))}
           </div>
@@ -562,15 +559,15 @@ export default function Home() {
           <Reveal>
             <SectionHeading tag="services" title="Work With Me" />
           </Reveal>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-x-9 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((s, i) => (
               <Reveal key={s.title} delay={(i % 3) * 0.08}>
-                <Card className="h-full">
+                <div className="h-full">
                   <h3 className="mb-2.5 text-base font-bold">
                     <span className="text-mint">▸ </span>{s.title}
                   </h3>
                   <p className="text-sm text-muted">{s.desc}</p>
-                </Card>
+                </div>
               </Reveal>
             ))}
           </div>
@@ -580,8 +577,8 @@ export default function Home() {
       {/* ============ CONTACT ============ */}
       <section id="contact" data-chapter="08 · YOUR MOVE" className="scroll-mt-20 px-6 py-12">
         <Reveal className="mx-auto max-w-6xl">
-          <Hud>
-            <div className="rounded-2xl border border-line-strong bg-[radial-gradient(ellipse_70%_120%_at_50%_0%,rgba(0,229,255,0.07),transparent),linear-gradient(160deg,var(--color-panel2),var(--color-panel))] px-8 py-16 text-center">
+            <div className="relative px-8 py-20 text-center">
+              <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_55%_80%_at_50%_50%,rgba(0,229,255,0.06),transparent)]" />
               <h2 className="mb-3.5 text-3xl font-extrabold sm:text-4xl">Let&apos;s Build Something.</h2>
               <p className="mx-auto mb-7 max-w-lg text-muted">
                 Whether you&apos;re hiring, investing, collaborating, or just curious about robots —
@@ -595,7 +592,6 @@ export default function Home() {
                 <Btn href="/AhmadAli_Resume.pdf" external>Resume</Btn>
               </div>
             </div>
-          </Hud>
         </Reveal>
       </section>
     </main>
