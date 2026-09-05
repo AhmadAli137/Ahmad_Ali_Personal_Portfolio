@@ -15,6 +15,7 @@ import { PhotoAlbum } from "@/components/photo-album";
 import { CoffeeChatButton } from "@/components/coffee-chat";
 import { LogoWall } from "@/components/logo-wall";
 import { CanadaMap } from "@/components/canada-map";
+import { StoryReel } from "@/components/story-reel";
 
 const skillGroups: { name: string; items: string[] }[] = [
   { name: "AI", items: ["OpenAI APIs", "Local LLMs", "Prompt Engineering", "AI Agents", "Computer Vision"] },
@@ -58,9 +59,9 @@ export default function Home() {
   return (
     <main>
       {/* ============ HERO ============ */}
-      <section data-chapter="01 · HELLO" className="px-6 pb-10 pt-32">
+      <section data-chapter="01 · HELLO" className="px-6 pb-10 pt-28">
         <div className="mx-auto w-full max-w-6xl">
-          <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
             <div>
               <Reveal>
                 <p className="mb-4 font-mono text-[13px] tracking-wider text-mint">
@@ -77,7 +78,7 @@ export default function Home() {
                   hardware, software, and artificial intelligence into experiences people genuinely
                   enjoy using.
                 </p>
-                <div className="mb-8 h-6"><TypingRoles /></div>
+                <div className="mb-6 h-6"><TypingRoles /></div>
                 <div className="flex flex-wrap gap-3.5">
                   <Btn href="/#work" variant="primary">View My Work</Btn>
                   <CoffeeChatButton variant="ghost" />
@@ -91,7 +92,7 @@ export default function Home() {
                   caption="Ahmad with the EPICentre Innovation Mastery Award"
                   src="/img/founder.jpg"
                   alt="Ahmad holding the EPICentre Innovation Mastery Award"
-                  minH="min-h-[460px]"
+                  minH="min-h-[400px]"
                   className="shadow-[0_0_60px_rgba(0,229,255,0.08)]"
                 />
                 <div className="flex flex-col gap-3">
@@ -99,13 +100,13 @@ export default function Home() {
                     caption="At work on an EV powertrain test rig"
                     src="/img/charge-lab-ev-rnd.jpg"
                     alt="Ahmad working hands-on with an EV motor on a dynamometer test rig at the CHARGE Lab"
-                    minH="min-h-[224px]"
+                    minH="min-h-[192px]"
                   />
                   <Ph
                     caption="Running a robot battle at the Genius Cup"
                     src="/img/genius-cup-robot-battle.jpg"
                     alt="Ahmad refereeing a robot battle at the Genius Cup as students watch"
-                    minH="min-h-[224px]"
+                    minH="min-h-[192px]"
                   />
                 </div>
               </div>
@@ -114,7 +115,7 @@ export default function Home() {
           </div>
 
           {/* Stats — a flowing readout, not tiles */}
-          <Reveal className="mt-10 flex flex-wrap items-baseline gap-x-10 gap-y-4 border-t border-[rgba(0,229,255,0.1)] pt-6">
+          <Reveal className="mt-8 flex flex-wrap items-baseline gap-x-10 gap-y-4 border-t border-[rgba(0,229,255,0.1)] pt-5">
             {[
               { num: <CountUp target={20} suffix="+" />, label: "Engineering Projects" },
               { num: <CountUp target={44} />, label: "Competitions & Conferences" },
@@ -335,6 +336,7 @@ export default function Home() {
               title="The Album"
               lede="It turns its own pages — or take over with the arrows. The teams, stages, and labs behind the record."
             />
+            <div className="-mt-2 mb-9"><StoryReel /></div>
           </Reveal>
           <Reveal>
             <PhotoAlbum />
