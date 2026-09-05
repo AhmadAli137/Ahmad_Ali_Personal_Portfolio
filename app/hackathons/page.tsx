@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowRight, Award, ExternalLink } from "lucide-react";
 import { Reveal } from "@/components/reveal";
-import { Ph } from "@/components/image-placeholder";
-import { Btn, Chip, Chips } from "@/components/ui";
+import { Postcard } from "@/components/postcard";
+import { Btn, Chip } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Hackathons",
@@ -221,42 +219,13 @@ export default function HackathonsPage() {
           .
         </p>
 
-        <div className="grid gap-x-9 gap-y-12 md:grid-cols-2">
-          {hacks.map((h, i) => {
-            const inner = (
-              <div className="flex h-full flex-col gap-3.5">
-                {h.img && <Ph caption={h.title} src={h.img} alt={h.imgAlt ?? h.title} minH="min-h-[200px]" />}
-                <span
-                  className={`flex items-center gap-1.5 font-mono text-xs ${
-                    h.awardTone === "amber" ? "text-amber" : "text-cyan"
-                  }`}
-                >
-                  <Award size={13} /> {h.award}
-                </span>
-                <h3 className="text-lg font-bold">
-                  {h.title}{" "}
-                  {h.internal ? (
-                    <ArrowRight size={18} className="inline text-cyan transition-transform group-hover:translate-x-1.5" />
-                  ) : (
-                    <ExternalLink size={15} className="inline text-cyan" />
-                  )}
-                </h3>
-                <p className="text-sm text-muted">{h.desc}</p>
-                <div className="mt-auto"><Chips items={h.chips} /></div>
-              </div>
-            );
-            return (
-              <Reveal key={h.title} delay={(i % 2) * 0.08}>
-                {h.internal ? (
-                  <Link href={h.href} className="group block h-full">{inner}</Link>
-                ) : (
-                  <a href={h.href} target="_blank" rel="noopener noreferrer" className="group block h-full">
-                    {inner}
-                  </a>
-                )}
-              </Reveal>
-            );
-          })}
+        <p className="mb-8 font-mono text-xs text-muted">flip a card to read the back ↻</p>
+        <div className="grid gap-x-8 gap-y-11 sm:grid-cols-2 lg:grid-cols-3">
+          {hacks.map((h, i) => (
+            <Reveal key={h.title} delay={(i % 3) * 0.07}>
+              <Postcard data={h} index={i} />
+            </Reveal>
+          ))}
         </div>
 
         <div className="mt-10 flex flex-wrap gap-3.5">
