@@ -4,24 +4,11 @@ import { useEffect, useState } from "react";
 import { Coffee, X } from "lucide-react";
 
 /**
- * Book a coffee chat. When CALENDLY_URL is set, the dialog embeds the live
- * Calendly scheduler (dark-themed to match the site); until then it offers
- * a prefilled email with time slots — one constant to upgrade.
+ * Book a coffee chat — the dialog embeds the live Calendly scheduler,
+ * dark-themed to match the site.
  */
-const CALENDLY_URL: string | null = "https://calendly.com/ahmad100307/30min";
-
-const CALENDLY_EMBED = CALENDLY_URL
-  ? `${CALENDLY_URL}?hide_gdpr_banner=1&background_color=0c1420&text_color=dfe9f3&primary_color=00e5ff`
-  : null;
-
-const MAILTO = [
-  "mailto:ahmad100307@gmail.com",
-  "?subject=" + encodeURIComponent("Coffee chat ☕"),
-  "&body=" +
-    encodeURIComponent(
-      "Hi Ahmad,\n\nI'd love to grab a coffee (virtual or in person). A few times that work for me:\n\n- \n- \n- \n\nWhat I'd like to chat about:\n\n"
-    ),
-].join("");
+const CALENDLY_EMBED =
+  "https://calendly.com/ahmad100307/30min?hide_gdpr_banner=1&background_color=0c1420&text_color=dfe9f3&primary_color=00e5ff";
 
 const TRIGGER_STYLES = {
   primary:
@@ -67,7 +54,7 @@ export function CoffeeChatButton({
           aria-label="Book a coffee chat"
         >
           <div
-            className={`w-full ${CALENDLY_EMBED ? "max-w-2xl" : "max-w-md"} rounded-2xl border border-line-strong bg-[linear-gradient(160deg,var(--color-panel2),var(--color-panel))] p-7 text-left shadow-[0_24px_80px_rgba(0,0,0,0.7),0_0_40px_rgba(0,229,255,0.1)]`}
+            className="w-full max-w-2xl rounded-2xl border border-line-strong bg-[linear-gradient(160deg,var(--color-panel2),var(--color-panel))] p-7 text-left shadow-[0_24px_80px_rgba(0,0,0,0.7),0_0_40px_rgba(0,229,255,0.1)]"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-1 flex items-start justify-between">
@@ -87,23 +74,11 @@ export function CoffeeChatButton({
               20–30 minutes, virtual or in person around Windsor / Hamilton. Robots, batteries,
               startups, grad school, hiring — all fair game.
             </p>
-            {CALENDLY_EMBED ? (
-              <iframe
-                src={CALENDLY_EMBED}
-                title="Pick a time — Calendly"
-                className="h-[560px] w-full rounded-xl border-0"
-              />
-            ) : (
-              <a
-                href={MAILTO}
-                className="btn-shine block rounded-lg bg-cyan px-6 py-3 text-center font-mono text-sm font-bold text-[#04252b] shadow-[0_0_24px_rgba(0,229,255,0.35)] transition-all duration-200 hover:shadow-[0_0_36px_rgba(0,229,255,0.55)]"
-              >
-                Email me a few times that work →
-              </a>
-            )}
-            <p className="mt-4 font-mono text-[11px] text-muted">
-              I reply to every coffee chat request — usually within a day.
-            </p>
+            <iframe
+              src={CALENDLY_EMBED}
+              title="Pick a time — Calendly"
+              className="h-[560px] w-full rounded-xl border-0"
+            />
           </div>
         </div>
       )}
