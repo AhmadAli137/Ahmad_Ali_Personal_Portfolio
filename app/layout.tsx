@@ -4,6 +4,7 @@ import "./globals.css";
 import { Nav } from "@/components/nav";
 import { SiteFooter } from "@/components/site-footer";
 import { CursorGlow } from "@/components/cursor-glow";
+import { EvolvingBackground } from "@/components/evolving-background";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { CommandPalette } from "@/components/command-palette";
@@ -37,6 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
       <body className="relative font-sans antialiased">
+        <EvolvingBackground />
         <CursorGlow />
         <SmoothScroll />
         <ScrollProgress />
