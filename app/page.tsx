@@ -14,6 +14,7 @@ import { hacks, featuredHackTitles } from "@/lib/hackathons";
 import { Postcard } from "@/components/postcard";
 import { PhotoAlbum } from "@/components/photo-album";
 import { CoffeeChatButton } from "@/components/coffee-chat";
+import { LogoWall } from "@/components/logo-wall";
 
 const skillGroups: { name: string; items: string[] }[] = [
   { name: "AI", items: ["OpenAI APIs", "Local LLMs", "Prompt Engineering", "AI Agents", "Computer Vision"] },
@@ -315,8 +316,14 @@ export default function Home() {
             </div>
           </Reveal>
 
+          {/* ---- the wall ---- */}
+          <Reveal className="mt-14">
+            <h3 className="mb-5 font-mono text-lg text-mint"><span className="text-muted">## </span>The Wall</h3>
+            <LogoWall />
+          </Reveal>
+
           <Reveal className="mt-10">
-            <Btn href="/competitions">All 44 Competitions — The Full Record &amp; The Wall →</Btn>
+            <Btn href="/competitions">All 44 Competitions — The Full Record →</Btn>
           </Reveal>
         </div>
       </section>
