@@ -8,7 +8,7 @@ import { Coffee, X } from "lucide-react";
  * Calendly scheduler (dark-themed to match the site); until then it offers
  * a prefilled email with time slots — one constant to upgrade.
  */
-const CALENDLY_URL: string | null = null; // e.g. "https://calendly.com/ahmadali/coffee-chat"
+const CALENDLY_URL: string | null = "https://calendly.com/ahmad100307/30min";
 
 const CALENDLY_EMBED = CALENDLY_URL
   ? `${CALENDLY_URL}?hide_gdpr_banner=1&background_color=0c1420&text_color=dfe9f3&primary_color=00e5ff`
