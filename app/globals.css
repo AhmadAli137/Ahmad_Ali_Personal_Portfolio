@@ -84,6 +84,13 @@ body::after {
   }
 }
 
+/* travel-map route: marching dashes */
+@keyframes routeDash {
+  to {
+    stroke-dashoffset: -18;
+  }
+}
+
 /* photo album page turn: a gentle lift-in from the spine */
 @keyframes pageIn {
   from {
