@@ -16,7 +16,7 @@ export function CountUp({
 
   useEffect(() => {
     if (!inView) return;
-    const duration = 900;
+    const duration = 1400;
     const start = performance.now();
     let raf: number;
     const tick = (now: number) => {

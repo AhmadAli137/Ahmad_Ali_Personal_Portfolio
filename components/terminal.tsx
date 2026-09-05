@@ -182,7 +182,7 @@ export function Terminal() {
         case "ls":
           return <span>projects/ awards/ sayspark/ resume.pdf secrets/ — nice try with secrets/</span>;
         case "cat":
-          return <span>no files to print here, only robots. try `projects`.</span>;
+          return <span>🐱 no cats here, only robots. try `projects`.</span>;
         case "vim":
           return <span className="text-amber">:q! — you&apos;re free now.</span>;
         case "clear":

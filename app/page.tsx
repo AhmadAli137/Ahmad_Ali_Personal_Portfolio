@@ -62,63 +62,53 @@ export default function Home() {
   return (
     <main>
       {/* ============ HERO ============ */}
-      <section className="min-h-[760px] px-6 pb-12 pt-24 sm:pt-28 lg:min-h-[800px]">
+      <section className="flex min-h-screen items-center px-6 pb-16 pt-32">
         <div className="mx-auto w-full max-w-6xl">
-          <div className="grid items-center gap-10 lg:grid-cols-[1.12fr_0.88fr]">
-            <div className="min-w-0">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+            <div>
               <Reveal>
                 <p className="mb-4 font-mono text-[13px] tracking-wider text-mint">
                   <span className="text-muted">{"> "}</span>from concept to reality
                 </p>
-                <h1 className="mb-5 max-w-[330px] break-words text-[29px] font-extrabold leading-[1.1] tracking-tight [overflow-wrap:anywhere] sm:hidden">
-                  Hi, I&apos;m Ahmad Ali.
-                  <br />
-                  I build <span className="holo-text">intelligent robots</span>,
-                  <br />
-                  AI products, and
-                  <br />
-                  educational tech.
-                </h1>
-                <h1 className="mb-4 hidden max-w-3xl text-[46px] font-extrabold leading-[1.07] tracking-tight xl:text-[52px] sm:block">
+                <h1 className="mb-5 text-4xl font-extrabold leading-[1.12] tracking-tight sm:text-5xl">
                   Hi, I&apos;m Ahmad Ali.
                   <br />
                   I build <span className="holo-text">intelligent robots</span>, AI-powered products,
                   and educational technology that solve real-world problems.
                 </h1>
-                <p className="mb-3.5 max-w-[330px] text-[17px] leading-8 text-muted sm:max-w-xl sm:leading-7">
+                <p className="mb-4 max-w-xl text-lg text-muted">
                   I take ideas from a blank page all the way to working products — combining
                   hardware, software, and artificial intelligence into experiences people genuinely
                   enjoy using.
                 </p>
-                <div className="mb-7 h-6"><TypingRoles /></div>
+                <div className="mb-8 h-6"><TypingRoles /></div>
                 <div className="flex flex-wrap gap-3.5">
                   <Btn href="/#work" variant="primary">View My Work</Btn>
                   <Btn href="/#contact">Let&apos;s Build Something</Btn>
                 </div>
               </Reveal>
             </div>
-            <Hud className="hero-portrait-grid min-w-0">
-              <div className="ambient-scan grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <Hud>
+              <div className="grid grid-cols-2 gap-3">
                 <Ph
                   caption="Ahmad with the EPICentre Innovation Mastery Award"
                   src="/img/founder.jpg"
                   alt="Ahmad holding the EPICentre Innovation Mastery Award"
-                  minH="min-h-[390px] sm:min-h-[440px]"
-                  priority
+                  minH="min-h-[460px]"
                   className="shadow-[0_0_60px_rgba(0,229,255,0.08)]"
                 />
                 <div className="flex flex-col gap-3">
                   <Ph
                     caption="At work on an EV powertrain test rig"
-                  src="/img/charge-lab-ev-rnd.jpg"
+                    src="/img/charge-lab-ev-rnd.jpg"
                     alt="Ahmad working hands-on with an EV motor on a dynamometer test rig at the CHARGE Lab"
-                    minH="min-h-[188px] sm:min-h-[213px]"
+                    minH="min-h-[224px]"
                   />
                   <Ph
                     caption="Running a robot battle at the Genius Cup"
-                  src="/img/genius-cup-robot-battle.jpg"
+                    src="/img/genius-cup-robot-battle.jpg"
                     alt="Ahmad refereeing a robot battle at the Genius Cup as students watch"
-                    minH="min-h-[188px] sm:min-h-[213px]"
+                    minH="min-h-[224px]"
                   />
                 </div>
               </div>
@@ -126,7 +116,7 @@ export default function Home() {
           </div>
 
           {/* Stats */}
-          <Reveal className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-5">
+          <Reveal className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-5">
             {[
               { num: <CountUp target={20} suffix="+" />, label: "Engineering Projects" },
               { num: <CountUp target={44} />, label: "Competitions & Conferences" },
@@ -136,7 +126,7 @@ export default function Home() {
             ].map((s, i) => (
               <div
                 key={i}
-                className="card-surface rounded-lg border border-line bg-[linear-gradient(160deg,var(--color-panel2),var(--color-panel))] px-4 py-4 text-center transition-all duration-300 hover:-translate-y-1 hover:border-line-strong"
+                className="rounded-xl border border-line bg-[linear-gradient(160deg,var(--color-panel2),var(--color-panel))] px-5 py-5 text-center transition-all hover:-translate-y-1 hover:border-line-strong"
               >
                 <div className="font-mono text-2xl font-bold text-cyan [text-shadow:0_0_18px_rgba(0,229,255,0.4)]">
                   {s.num}
@@ -149,7 +139,7 @@ export default function Home() {
       </section>
 
       {/* ============ ABOUT ============ */}
-      <section id="about" className="scroll-mt-20 px-6 py-16">
+      <section id="about" className="scroll-mt-20 px-6 py-20">
         <Reveal className="mx-auto max-w-6xl">
           <SectionHeading tag="about" title="Why I Build" />
           <div className="grid gap-10 lg:grid-cols-2">
@@ -183,10 +173,10 @@ export default function Home() {
       <HoloShowcase />
 
       {/* ============ FEATURED VENTURE ============ */}
-      <section className="px-6 py-8">
+      <section className="px-6 py-10">
         <Reveal className="mx-auto max-w-6xl">
           <SectionHeading tag="featured venture" title="Currently Building" />
-          <div className="ambient-scan grid items-center gap-8 rounded-lg border border-line-strong bg-[radial-gradient(ellipse_60%_100%_at_100%_0%,rgba(52,245,162,0.08),transparent),linear-gradient(160deg,var(--color-panel2),var(--color-panel))] p-6 shadow-[0_18px_70px_rgba(0,0,0,0.28)] sm:p-9 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="grid items-center gap-9 rounded-2xl border border-line-strong bg-[radial-gradient(ellipse_60%_100%_at_100%_0%,rgba(52,245,162,0.08),transparent),linear-gradient(160deg,var(--color-panel2),var(--color-panel))] p-10 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
               <div className="mb-4"><Chip tone="mint">FOUNDER — LIVE IN EARLY ACCESS</Chip></div>
               <h3 className="mb-3.5 text-2xl font-bold sm:text-3xl">
@@ -203,7 +193,7 @@ export default function Home() {
                 <Btn href="/venture">The Story →</Btn>
               </div>
             </div>
-            <div className="relative grid min-h-[360px] place-items-center sm:min-h-[410px]">
+            <div className="relative grid min-h-[420px] place-items-center">
               <div className="absolute inset-0 rounded-full bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,rgba(52,245,162,0.12),transparent)]" />
               <Image
                 src="/img/sayspark-robot.png"
@@ -218,7 +208,7 @@ export default function Home() {
       </section>
 
       {/* ============ FEATURED PROJECTS ============ */}
-      <section id="work" className="scroll-mt-20 px-6 py-16">
+      <section id="work" className="scroll-mt-20 px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <SectionHeading
@@ -285,7 +275,7 @@ export default function Home() {
       </section>
 
       {/* ============ AWARDS ============ */}
-      <section id="awards" className="scroll-mt-20 px-6 py-16">
+      <section id="awards" className="scroll-mt-20 px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <SectionHeading
@@ -378,7 +368,7 @@ export default function Home() {
       </section>
 
       {/* ============ EXPERIENCE ============ */}
-      <section id="experience" className="scroll-mt-20 px-6 py-16">
+      <section id="experience" className="scroll-mt-20 px-6 py-20">
         <Reveal className="mx-auto max-w-6xl">
           <SectionHeading tag="experience" title="Where I've Worked" />
           <div className="divide-y divide-[rgba(0,229,255,0.1)]">
@@ -505,7 +495,7 @@ export default function Home() {
       </section>
 
       {/* ============ COMMUNITY & MENTORSHIP ============ */}
-      <section id="community" className="scroll-mt-20 px-6 py-16">
+      <section id="community" className="scroll-mt-20 px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <SectionHeading
@@ -561,7 +551,7 @@ export default function Home() {
       </section>
 
       {/* ============ TIMELINE ============ */}
-      <section id="timeline" className="scroll-mt-20 px-6 py-16">
+      <section id="timeline" className="scroll-mt-20 px-6 py-20">
         <Reveal className="mx-auto max-w-6xl">
           <SectionHeading tag="journey" title="The Path So Far" />
           <div className="relative pl-9 before:absolute before:bottom-1.5 before:left-2 before:top-1.5 before:w-0.5 before:bg-gradient-to-b before:from-cyan before:to-mint before:opacity-35">
@@ -578,7 +568,7 @@ export default function Home() {
       </section>
 
       {/* ============ SKILLS ============ */}
-      <section id="skills" className="scroll-mt-20 px-6 py-16">
+      <section id="skills" className="scroll-mt-20 px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <SectionHeading tag="skills" title="The Full Stack — Silicon to Cloud" />
@@ -599,7 +589,7 @@ export default function Home() {
       </section>
 
       {/* ============ SERVICES ============ */}
-      <section id="services" className="scroll-mt-20 px-6 py-16">
+      <section id="services" className="scroll-mt-20 px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <SectionHeading tag="services" title="Work With Me" />
@@ -620,10 +610,10 @@ export default function Home() {
       </section>
 
       {/* ============ CONTACT ============ */}
-      <section id="contact" className="scroll-mt-20 px-6 py-16">
+      <section id="contact" className="scroll-mt-20 px-6 py-20">
         <Reveal className="mx-auto max-w-6xl">
           <Hud>
-            <div className="ambient-scan rounded-lg border border-line-strong bg-[radial-gradient(ellipse_70%_120%_at_50%_0%,rgba(0,229,255,0.07),transparent),linear-gradient(160deg,var(--color-panel2),var(--color-panel))] px-6 py-14 text-center shadow-[0_18px_70px_rgba(0,0,0,0.28)] sm:px-8">
+            <div className="rounded-2xl border border-line-strong bg-[radial-gradient(ellipse_70%_120%_at_50%_0%,rgba(0,229,255,0.07),transparent),linear-gradient(160deg,var(--color-panel2),var(--color-panel))] px-8 py-16 text-center">
               <h2 className="mb-3.5 text-3xl font-extrabold sm:text-4xl">Let&apos;s Build Something.</h2>
               <p className="mx-auto mb-7 max-w-lg text-muted">
                 Whether you&apos;re hiring, investing, collaborating, or just curious about robots —

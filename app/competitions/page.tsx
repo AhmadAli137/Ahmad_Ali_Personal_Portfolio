@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function CompetitionsPage() {
   return (
-    <main className="px-6 pb-10 pt-28 sm:pt-32">
+    <main className="px-6 pb-10 pt-36">
       <div className="mx-auto max-w-6xl">
         <p className="mb-4 font-mono text-[13px] text-muted">home / competitions</p>
         <div className="mb-4"><Chip>44 COMPETITIONS — 2014 → NOW</Chip></div>

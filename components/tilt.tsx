@@ -9,7 +9,7 @@ import { useRef, type ReactNode } from "react";
 export function Tilt({
   children,
   className = "",
-  max = 2.8,
+  max = 4,
 }: {
   children: ReactNode;
   className?: string;
@@ -20,7 +20,6 @@ export function Tilt({
   const onMove = (e: React.MouseEvent) => {
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const r = el.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width;
     const py = (e.clientY - r.top) / r.height;
@@ -38,7 +37,7 @@ export function Tilt({
   };
 
   return (
-    <div ref={ref} onMouseMove={onMove} onMouseLeave={onLeave} className={`tilt motion-safe:will-change-transform ${className}`}>
+    <div ref={ref} onMouseMove={onMove} onMouseLeave={onLeave} className={`tilt ${className}`}>
       {children}
       <div className="tilt-glare" />
     </div>

@@ -27,7 +27,7 @@ export function WorkshopScene() {
   }, []);
 
   return (
-    <div className="mb-10 overflow-hidden rounded-lg border border-line-strong bg-[linear-gradient(175deg,#0a121e,#070b11)] shadow-[0_18px_60px_rgba(0,0,0,0.28),0_0_36px_rgba(0,229,255,0.06)]">
+    <div className="mb-12 overflow-hidden rounded-2xl border border-line-strong bg-[linear-gradient(175deg,#0a121e,#070b11)] shadow-[0_0_50px_rgba(0,229,255,0.07)]">
       <svg viewBox="0 0 1200 560" className="ws-scene block w-full" role="img" aria-label="Ahmad at a hackathon: typing at his laptop beside a soldering station and half-built robot, with a 3D printer running behind him">
         {/* ======== back wall ======== */}
         <rect x="0" y="0" width="1200" height="450" fill="#0b1420" />

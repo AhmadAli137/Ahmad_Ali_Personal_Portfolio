@@ -9,7 +9,6 @@ export function Magnetic({ children, strength = 0.25 }: { children: ReactNode; s
   const onMove = (e: React.MouseEvent) => {
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const r = el.getBoundingClientRect();
     const dx = e.clientX - (r.left + r.width / 2);
     const dy = e.clientY - (r.top + r.height / 2);
