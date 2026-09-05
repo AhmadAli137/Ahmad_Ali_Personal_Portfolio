@@ -3,9 +3,6 @@ import Image from "next/image";
 import { ArrowRight, Award } from "lucide-react";
 import { HoloShowcase } from "@/components/holo-showcase";
 import { Parallax } from "@/components/parallax";
-import { WorkshopScene } from "@/components/workshop-scene";
-import { GarageScene } from "@/components/garage-scene";
-import { PitchScene } from "@/components/pitch-scene";
 import { Reveal } from "@/components/reveal";
 import { TypingRoles } from "@/components/typing";
 import { CountUp } from "@/components/count-up";
@@ -259,8 +256,7 @@ export default function Home() {
           {/* ---- engineering & science ---- */}
           <Reveal className="mt-2">
             <h3 className="mb-4 font-mono text-lg text-mint"><span className="text-muted">## </span>Engineering &amp; Science</h3>
-            <Parallax from={30} to={-18} scale><GarageScene /></Parallax>
-            <div className="mt-5 grid gap-x-9 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-x-9 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
               {([
                 { img: "/img/pimrc-best-demo-award.jpg", award: "Best Demo Award", event: "IEEE PIMRC 2023 — Toronto", note: "Indoor autonomous drone navigation" },
                 { caption: "PHOTO: CWSF medals", award: "2× Bronze · Silver · $10k Scholarship", event: "Canada-Wide Science Fair", note: "Four national finals, 2015–2019" },
@@ -287,8 +283,7 @@ export default function Home() {
               <span className="text-muted">## </span>Hackathons{" "}
               <Link href="/hackathons" className="ml-2 text-sm text-cyan hover:underline">all 14 →</Link>
             </h3>
-            <Parallax from={-24} to={22} scale><WorkshopScene /></Parallax>
-            <p className="mb-5 mt-7 font-mono text-xs text-muted">postcards from the road — flip one over ↻</p>
+            <p className="mb-5 font-mono text-xs text-muted">postcards from the road — flip one over ↻</p>
             <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
               {featuredHacks.map((h, i) => (
                 <Postcard key={h.title} data={h} index={i} />
@@ -299,8 +294,7 @@ export default function Home() {
           {/* ---- pitches & entrepreneurship ---- */}
           <Reveal className="mt-14">
             <h3 className="mb-4 font-mono text-lg text-mint"><span className="text-muted">## </span>Pitches &amp; Entrepreneurship</h3>
-            <Parallax from={30} to={-18} scale><PitchScene /></Parallax>
-            <div className="mt-5 grid gap-x-9 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-x-9 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
               {([
                 { img: "/img/epicentre-award-trophy.jpg", award: "Innovation Mastery Award + $1,000", event: "EPICentre Excellence Awards 2023", note: "Entrepreneurship & innovation" },
                 { caption: "PHOTO: pitch night", award: "4th Place — $2,500", event: "Take Your Shot 2026 — Leamington", note: "Pitching on the startup stage" },
