@@ -19,9 +19,10 @@ const MOODS: Mood[] = [
   { a: "#34f5a2", b: "#00e5ff", c: "#0f6e4a" }, // 02 sayspark — mint
   { a: "#8ab8ff", b: "#00e5ff", c: "#2a3a6e" }, // 03 projects — ice
   { a: "#ffb454", b: "#ff8a5c", c: "#6e3a1a" }, // 04 competitions — trophy amber
-  { a: "#8ab8ff", b: "#34f5a2", c: "#1f3a5e" }, // 05 the road — steel & mint
-  { a: "#8a70ff", b: "#00e5ff", c: "#3a2a6e" }, // 06 toolkit — violet
-  { a: "#34f5a2", b: "#00e5ff", c: "#0f5c4a" }, // 07 your move — bright close
+  { a: "#e6c37a", b: "#c9995a", c: "#5c4a26" }, // 05 the album — warm sepia
+  { a: "#8ab8ff", b: "#34f5a2", c: "#1f3a5e" }, // 06 the road — steel & mint
+  { a: "#8a70ff", b: "#00e5ff", c: "#3a2a6e" }, // 07 toolkit — violet
+  { a: "#34f5a2", b: "#00e5ff", c: "#0f5c4a" }, // 08 your move — bright close
 ];
 
 export function EvolvingBackground() {

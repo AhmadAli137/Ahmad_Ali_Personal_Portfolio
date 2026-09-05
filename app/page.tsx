@@ -14,6 +14,7 @@ import { Postcard } from "@/components/postcard";
 import { PhotoAlbum } from "@/components/photo-album";
 import { CoffeeChatButton } from "@/components/coffee-chat";
 import { LogoWall } from "@/components/logo-wall";
+import { CanadaMap } from "@/components/canada-map";
 
 const skillGroups: { name: string; items: string[] }[] = [
   { name: "AI", items: ["OpenAI APIs", "Local LLMs", "Prompt Engineering", "AI Agents", "Computer Vision"] },
@@ -79,7 +80,7 @@ export default function Home() {
                 <div className="mb-8 h-6"><TypingRoles /></div>
                 <div className="flex flex-wrap gap-3.5">
                   <Btn href="/#work" variant="primary">View My Work</Btn>
-                  <Btn href="/#contact">Let&apos;s Build Something</Btn>
+                  <CoffeeChatButton variant="ghost" />
                 </div>
               </Reveal>
             </div>
@@ -151,7 +152,6 @@ export default function Home() {
               </p>
               <div className="flex flex-wrap gap-3.5">
                 <Btn href="https://sayspark.ca" variant="primary" external>Visit sayspark.ca ↗</Btn>
-                <Btn href="/projects/sayspark">The Origin Story →</Btn>
               </div>
             </div>
             <div className="relative grid place-items-center">
@@ -314,14 +314,36 @@ export default function Home() {
             <LogoWall />
           </Reveal>
 
+          {/* ---- the map ---- */}
+          <Reveal className="mt-14">
+            <h3 className="mb-5 font-mono text-lg text-mint"><span className="text-muted">## </span>The Map</h3>
+            <CanadaMap />
+          </Reveal>
+
           <Reveal className="mt-10">
             <Btn href="/competitions">All 44 Competitions — The Full Record →</Btn>
           </Reveal>
         </div>
       </section>
 
+      {/* ============ THE ALBUM ============ */}
+      <section id="album" data-chapter="05 · THE ALBUM" className="scroll-mt-20 px-6 py-12">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <SectionHeading
+              tag="snapshots"
+              title="The Album"
+              lede="It turns its own pages — or take over with the arrows. The teams, stages, and labs behind the record."
+            />
+          </Reveal>
+          <Reveal>
+            <PhotoAlbum />
+          </Reveal>
+        </div>
+      </section>
+
       {/* ============ EXPERIENCE ============ */}
-      <section id="experience" data-chapter="05 · THE ROAD" className="scroll-mt-20 px-6 py-12">
+      <section id="experience" data-chapter="06 · THE ROAD" className="scroll-mt-20 px-6 py-12">
         <Reveal className="mx-auto max-w-6xl">
           <SectionHeading tag="experience" title="Where I've Worked" />
           <div className="divide-y divide-[rgba(0,229,255,0.1)]">
@@ -520,24 +542,8 @@ export default function Home() {
         </Reveal>
       </section>
 
-      {/* ============ THE ALBUM ============ */}
-      <section id="album" className="scroll-mt-20 px-6 py-12">
-        <div className="mx-auto max-w-6xl">
-          <Reveal>
-            <SectionHeading
-              tag="snapshots"
-              title="The Album"
-              lede="A few pages from along the way — the teams, stages, and labs behind the record."
-            />
-          </Reveal>
-          <Reveal>
-            <PhotoAlbum />
-          </Reveal>
-        </div>
-      </section>
-
       {/* ============ SKILLS ============ */}
-      <section id="skills" data-chapter="06 · THE TOOLKIT" className="scroll-mt-20 px-6 py-12">
+      <section id="skills" data-chapter="07 · THE TOOLKIT" className="scroll-mt-20 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <SectionHeading tag="skills" title="The Full Stack — Silicon to Cloud" />
@@ -579,7 +585,7 @@ export default function Home() {
       </section>
 
       {/* ============ CONTACT ============ */}
-      <section id="contact" data-chapter="07 · YOUR MOVE" className="scroll-mt-20 px-6 py-12">
+      <section id="contact" data-chapter="08 · YOUR MOVE" className="scroll-mt-20 px-6 py-12">
         <Reveal className="mx-auto max-w-6xl">
             <div className="relative px-8 py-20 text-center">
               <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_55%_80%_at_50%_50%,rgba(0,229,255,0.06),transparent)]" />

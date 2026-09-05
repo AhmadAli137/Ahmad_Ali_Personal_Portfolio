@@ -180,44 +180,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "sayspark",
-    title: "SaySpark",
-    badge: "EDTECH — NATURAL-LANGUAGE ROBOTICS",
-    badgeTone: "mint",
-    tagline:
-      "Robotics education through natural language. Kids tell the robot what to do in plain words — and it does it. No syntax errors, no barriers to entry.",
-    cardBlurb:
-      "Natural-language robotics education — kids program robots by talking, not typing syntax.",
-    cardCaption: "PHOTO: SaySpark educational robot with students",
-    chips: ["LLMs", "Speech Interfaces", "Robotics", "EdTech", "Product Design"],
-    heroCaption: "HERO PHOTO: SaySpark robot with a student",
-    problem:
-      "After years of mentoring hundreds of elementary students in robotics across Windsor, Ontario, one pattern was undeniable: kids love robots, but syntax-heavy programming stops many of them before the fun starts. A missing semicolon shouldn't end a child's engineering journey.",
-    solution:
-      "SaySpark lets children program robots through natural language — spoken or typed. An AI tutor translates a child's intent into robot behavior and explains its thinking out loud, so the first experience of robotics is creation, not frustration. Now my company — live in free early access at sayspark.ca.",
-    demoCaption: "VIDEO: child commanding the robot in plain English (embed here)",
-    features: [
-      "Natural-language robot programming (speech and text)",
-      "LLM-powered intent → behavior translation with safety limits",
-      "Progression path from natural language toward real code",
-      "Classroom-ready hardware design",
-    ],
-    stack: ["LLM APIs", "Python", "Embedded C++", "Speech Recognition", "Custom Hardware"],
-    challenges: [
-      "Constraining open-ended language into safe, predictable robot actions",
-      "Designing for young users: durability, simplicity, delight",
-    ],
-    lessons: ["The best product insights came from the classroom, not the workbench"],
-    gallery: [
-      { caption: "PHOTO: prototype" },
-      { caption: "PHOTO: classroom testing" },
-      { caption: "SCREENSHOT: software interface" },
-    ],
-    links: [
-      { label: "sayspark.ca", href: "https://sayspark.ca" },
-    ],
-  },
-  {
     slug: "asl-glove",
     title: "ASL Translation Glove",
     badge: "ACCESSIBILITY — WEARABLE TECH",

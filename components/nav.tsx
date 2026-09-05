@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { CoffeeChatButton } from "./coffee-chat";
 import { AnimatePresence, motion } from "motion/react";
 
 const links = [
@@ -63,6 +64,7 @@ export function Nav() {
           >
             sayspark.ca ↗
           </a>
+          <CoffeeChatButton variant="pill" label="coffee chat" />
           <button
             type="button"
             aria-label="Open command palette"
@@ -112,6 +114,9 @@ export function Nav() {
               >
                 sayspark.ca ↗
               </a>
+              <div className="mt-2 flex justify-center">
+                <CoffeeChatButton variant="pill" label="book a coffee chat" />
+              </div>
             </div>
           </motion.div>
         )}

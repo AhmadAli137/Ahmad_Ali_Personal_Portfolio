@@ -58,7 +58,7 @@ function Tape({ className }: { className: string }) {
 function AlbumPhoto({ snap }: { snap: Snap }) {
   return (
     <figure
-      className="relative mx-auto w-full max-w-[360px] pb-1"
+      className="relative mx-auto w-full max-w-[400px] pb-1"
       style={{ transform: `rotate(${snap.tilt}deg)`, color: INK }}
     >
       <div className="relative bg-[#f8f4e8] p-2 pb-2.5 shadow-[0_6px_18px_rgba(0,0,0,0.22)]">
@@ -83,12 +83,17 @@ export function PhotoAlbum() {
   const [page, setPage] = useState(0);
   const [turning, setTurning] = useState<"next" | "prev" | null>(null);
   const timer = useRef<number | null>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const holdUntil = useRef(0); // manual turns take priority over auto for a while
 
   const turn = useCallback(
-    (dir: "next" | "prev") => {
+    (dir: "next" | "prev", manual = true) => {
+      if (manual) holdUntil.current = Date.now() + 15000;
       setPage((p) => {
-        const target = dir === "next" ? p + 1 : p - 1;
-        if (target < 0 || target >= spreads.length) return p;
+        const n = spreads.length;
+        const target = dir === "next" ? (p + 1) % n : (p - 1 + n) % n;
         setTurning(dir);
         if (timer.current) window.clearTimeout(timer.current);
         timer.current = window.setTimeout(() => setTurning(null), 420);
@@ -100,18 +105,43 @@ export function PhotoAlbum() {
 
   useEffect(() => () => { if (timer.current) window.clearTimeout(timer.current); }, []);
 
+  /* auto page-turning: only while on screen, not hovered/focused, and
+     never for reduced-motion users; a manual turn pauses it for 15s */
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.35 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!inView || paused) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => {
+      if (Date.now() < holdUntil.current) return;
+      turn("next", false);
+    }, 4200);
+    return () => window.clearInterval(id);
+  }, [inView, paused, turn]);
+
   const spread = spreads[page];
 
   return (
     <div
-      className="relative mx-auto max-w-4xl outline-none"
+      ref={rootRef}
+      className="relative mx-auto max-w-5xl outline-none"
       tabIndex={0}
       role="group"
-      aria-label="Photo album — use the arrows to turn pages"
+      aria-label="Photo album — turns pages on its own; use the arrows to browse"
       onKeyDown={(e) => {
         if (e.key === "ArrowRight") turn("next");
         if (e.key === "ArrowLeft") turn("prev");
       }}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
     >
       {/* the open book */}
       <div
@@ -146,7 +176,6 @@ export function PhotoAlbum() {
         type="button"
         aria-label="Previous page"
         onClick={() => turn("prev")}
-        disabled={page === 0}
         className="absolute -left-3 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-bg/80 text-cyan backdrop-blur transition-all hover:scale-110 hover:shadow-[0_0_18px_rgba(0,229,255,0.25)] disabled:pointer-events-none disabled:opacity-25 sm:-left-6"
       >
         <ChevronLeft size={20} />
@@ -155,7 +184,6 @@ export function PhotoAlbum() {
         type="button"
         aria-label="Next page"
         onClick={() => turn("next")}
-        disabled={page === spreads.length - 1}
         className="absolute -right-3 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-bg/80 text-cyan backdrop-blur transition-all hover:scale-110 hover:shadow-[0_0_18px_rgba(0,229,255,0.25)] disabled:pointer-events-none disabled:opacity-25 sm:-right-6"
       >
         <ChevronRight size={20} />
