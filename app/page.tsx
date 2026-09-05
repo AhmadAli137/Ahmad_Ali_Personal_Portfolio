@@ -13,6 +13,7 @@ import { projects, featuredSlugs } from "@/lib/projects";
 import { hacks, featuredHackTitles } from "@/lib/hackathons";
 import { Postcard } from "@/components/postcard";
 import { PhotoAlbum } from "@/components/photo-album";
+import { CoffeeChatButton } from "@/components/coffee-chat";
 
 const skillGroups: { name: string; items: string[] }[] = [
   { name: "AI", items: ["OpenAI APIs", "Local LLMs", "Prompt Engineering", "AI Agents", "Computer Vision"] },
@@ -589,7 +590,8 @@ export default function Home() {
                 I&apos;d love to hear from you.
               </p>
               <div className="flex flex-wrap justify-center gap-3.5">
-                <Btn href="mailto:ahmad100307@gmail.com" variant="primary" external>Email Me</Btn>
+                <CoffeeChatButton />
+                <Btn href="mailto:ahmad100307@gmail.com" external>Email Me</Btn>
                 <Btn href="https://www.linkedin.com/in/ahmad-a-658008170/" external>LinkedIn</Btn>
                 <Btn href="https://github.com/AhmadAli137" external>GitHub</Btn>
                 <Btn href="https://devpost.com/AhmadAli137" external>Devpost</Btn>
