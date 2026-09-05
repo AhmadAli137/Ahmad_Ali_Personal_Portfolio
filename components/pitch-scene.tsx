@@ -7,7 +7,7 @@
  */
 export function PitchScene() {
   return (
-    <div className="overflow-hidden rounded-2xl border border-line-strong bg-[linear-gradient(175deg,#0a121e,#070b11)] shadow-[0_0_50px_rgba(0,229,255,0.07)]">
+    <div className="overflow-hidden rounded-lg border border-line-strong bg-[linear-gradient(175deg,#0a121e,#070b11)] shadow-[0_18px_60px_rgba(0,0,0,0.28),0_0_36px_rgba(0,229,255,0.06)]">
       <svg viewBox="0 0 1200 560" className="ws-scene block w-full" role="img" aria-label="Ahmad in a suit pitching SaySpark on stage: podium, growth chart on the big screen, spotlights, and an audience below">
         {/* room */}
         <rect x="0" y="0" width="1200" height="470" fill="#0a111c" />

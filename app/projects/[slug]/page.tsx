@@ -41,7 +41,7 @@ export default async function ProjectPage({
   if (!project) notFound();
 
   return (
-    <main className="px-6 pb-10 pt-36">
+    <main className="px-6 pb-10 pt-28 sm:pt-32">
       <div className="mx-auto max-w-6xl">
         <p className="mb-4 font-mono text-[13px] text-muted">
           <Link href="/" className="hover:text-cyan">home</Link> /{" "}
@@ -56,7 +56,7 @@ export default async function ProjectPage({
             caption={project.heroCaption}
             src={project.heroSrc}
             alt={project.heroCaption}
-            minH="min-h-[440px]"
+            minH="min-h-[360px] sm:min-h-[440px]"
             className="shadow-[0_0_60px_rgba(0,229,255,0.08)]"
           />
         </Hud>
@@ -75,7 +75,7 @@ export default async function ProjectPage({
         {project.demoUrl ? (
           <Reveal className="pb-10">
             <H2>Live Demo</H2>
-            <div className="overflow-hidden rounded-xl border border-line-strong shadow-[0_0_40px_rgba(0,229,255,0.08)]">
+            <div className="overflow-hidden rounded-lg border border-line-strong shadow-[0_0_40px_rgba(0,229,255,0.08)]">
               <iframe
                 src={project.demoUrl}
                 title={`${project.title} — live demo`}
@@ -94,7 +94,7 @@ export default async function ProjectPage({
         ) : project.videoUrl ? (
           <Reveal className="pb-10">
             <H2>Demo</H2>
-            <div className="mx-auto max-w-md overflow-hidden rounded-xl border border-line-strong shadow-[0_0_40px_rgba(0,229,255,0.08)]">
+            <div className="mx-auto max-w-md overflow-hidden rounded-lg border border-line-strong shadow-[0_0_40px_rgba(0,229,255,0.08)]">
               <iframe
                 src={project.videoUrl}
                 title={`${project.title} — demo video`}

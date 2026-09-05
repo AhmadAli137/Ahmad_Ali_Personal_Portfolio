@@ -199,7 +199,7 @@ const hacks: Hack[] = [
 
 export default function HackathonsPage() {
   return (
-    <main className="px-6 pb-10 pt-36">
+    <main className="px-6 pb-10 pt-28 sm:pt-32">
       <div className="mx-auto max-w-6xl">
         <p className="mb-4 font-mono text-[13px] text-muted">home / work / hackathons</p>
         <div className="mb-4"><Chip>14 HACKATHONS — 2017 → NOW</Chip></div>

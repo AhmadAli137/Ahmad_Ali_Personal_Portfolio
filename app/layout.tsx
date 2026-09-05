@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/nav";
@@ -9,7 +9,6 @@ import { CommandPalette } from "@/components/command-palette";
 import { SparkHunt } from "@/components/spark-hunt";
 import { Sparkbots } from "@/components/sparkbots";
 import { Terminal } from "@/components/terminal";
-import { BootScreen } from "@/components/boot-screen";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -30,6 +29,11 @@ export const metadata: Metadata = {
     "Ahmad Ali builds intelligent robots, AI-powered products, and educational technology that solve real-world problems.",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -42,7 +46,6 @@ export default function RootLayout({
         <SparkHunt />
         <Sparkbots />
         <Terminal />
-        <BootScreen />
         <Nav />
         {children}
         <SiteFooter />

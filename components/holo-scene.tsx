@@ -348,7 +348,7 @@ function HoloCloud({ model }: { model: number }) {
         }
       }
       const mat = p.material as THREE.PointsMaterial;
-      mat.opacity = 0.78 + Math.sin(st.clock.elapsedTime * 9) * 0.05 + (Math.random() > 0.985 ? -0.22 : 0);
+      mat.opacity = 0.74 + Math.sin(st.clock.elapsedTime * 3.2) * 0.04;
     }
     if (edgeRef.current) {
       const t = progress.current;
@@ -424,6 +424,10 @@ export default function HoloScene({ model }: { model: number }) {
         makeDefault
         enableZoom={false}
         enablePan={false}
+        autoRotate
+        autoRotateSpeed={0.55}
+        dampingFactor={0.08}
+        enableDamping
         minPolarAngle={Math.PI / 5}
         maxPolarAngle={Math.PI / 2.05}
       />

@@ -50,7 +50,7 @@ export function HoloShowcase() {
   const current = MODELS[model];
 
   return (
-    <section ref={ref} className="px-6 pb-20 pt-4">
+    <section ref={ref} className="px-6 pb-16 pt-2">
       <div className="mx-auto max-w-6xl">
         <div className="mb-2">
           <span className="mb-2.5 block font-mono text-[13px] text-mint">
@@ -63,16 +63,17 @@ export function HoloShowcase() {
 
         {/* the projection floats on the page itself — soft-masked, no frame */}
         <div
-          className="h-[440px] w-full"
+          className="relative h-[390px] w-full sm:h-[440px]"
           style={{
             maskImage: "radial-gradient(ellipse 72% 85% at 50% 46%, black 55%, transparent 97%)",
             WebkitMaskImage: "radial-gradient(ellipse 72% 85% at 50% 46%, black 55%, transparent 97%)",
           }}
         >
+          <div className="absolute inset-x-[12%] bottom-8 h-px bg-gradient-to-r from-transparent via-cyan/40 to-transparent" />
           {load && <HoloScene model={model} />}
         </div>
 
-        <div className="-mt-6 text-center">
+        <div className="-mt-4 text-center">
           <p className="mb-4 font-mono text-[12px] text-muted">
             <span className="text-mint">◉ {current.label}</span> — {current.blurb} ·{" "}
             <Link href={current.href} className="text-cyan hover:underline">
@@ -85,10 +86,10 @@ export function HoloShowcase() {
                 key={m.key}
                 type="button"
                 onClick={() => setModel(i)}
-                className={`rounded-full border px-3.5 py-1.5 font-mono text-[11px] transition-all ${
+                className={`rounded-full border px-3 py-1.5 font-mono text-[10px] transition-all sm:text-[11px] ${
                   i === model
                     ? "border-cyan bg-cyan/15 text-cyan shadow-[0_0_14px_rgba(0,229,255,0.3)]"
-                    : "border-line text-muted hover:border-line-strong hover:text-ink"
+                    : "border-line bg-bg/30 text-muted hover:border-line-strong hover:bg-cyan/5 hover:text-ink"
                 }`}
               >
                 {m.label}

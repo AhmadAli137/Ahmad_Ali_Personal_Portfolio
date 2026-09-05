@@ -26,7 +26,7 @@ export function CursorGlow() {
     const tick = () => {
       x += (tx - x) * 0.12;
       y += (ty - y) * 0.12;
-      el.style.transform = `translate(${x - 260}px, ${y - 260}px)`;
+      el.style.transform = `translate(${x - 220}px, ${y - 220}px)`;
       raf = requestAnimationFrame(tick);
     };
     window.addEventListener("mousemove", onMove, { passive: true });

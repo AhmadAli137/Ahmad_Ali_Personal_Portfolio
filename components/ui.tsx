@@ -13,13 +13,13 @@ export function SectionHeading({
   lede?: string;
 }) {
   return (
-    <div className="mb-11">
+    <div className="mb-8 sm:mb-10">
       <span className="mb-2.5 block font-mono text-[13px] text-mint">
         <span className="text-muted">{"// "}</span>
         {tag}
       </span>
-      <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">{title}</h2>
-      {lede && <p className="mt-3 max-w-2xl text-muted">{lede}</p>}
+      <h2 className="text-2xl font-extrabold leading-tight tracking-tight sm:text-4xl">{title}</h2>
+      {lede && <p className="mt-3 max-w-2xl text-[15px] leading-7 text-muted sm:text-base">{lede}</p>}
     </div>
   );
 }
@@ -33,7 +33,7 @@ const chipTones: Record<ChipTone, string> = {
 
 export function Chip({ children, tone = "cyan" }: { children: ReactNode; tone?: ChipTone }) {
   return (
-    <span className={`rounded-full border px-3.5 py-1.5 font-mono text-xs ${chipTones[tone]}`}>
+    <span className={`rounded-full border px-3 py-1.5 font-mono text-[11px] ${chipTones[tone]}`}>
       {children}
     </span>
   );
@@ -54,7 +54,7 @@ export function Chips({ items, tone = "cyan" }: { items: string[]; tone?: ChipTo
 export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
     <Tilt
-      className={`rounded-2xl border border-line bg-[linear-gradient(160deg,var(--color-panel2),var(--color-panel))] p-7 transition-[border-color,box-shadow] duration-300 hover:border-line-strong hover:shadow-[0_12px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(0,229,255,0.08)] ${className}`}
+      className={`card-surface rounded-lg border border-line bg-[linear-gradient(160deg,rgba(16,26,41,0.92),rgba(12,20,32,0.96))] p-6 transition-[border-color,box-shadow,background-color] duration-300 hover:border-line-strong hover:shadow-[0_16px_46px_rgba(0,0,0,0.34),0_0_28px_rgba(0,229,255,0.08)] ${className}`}
     >
       {children}
     </Tilt>
@@ -73,11 +73,11 @@ export function Btn({
   external?: boolean;
 }) {
   const base =
-    "inline-block rounded-lg px-6 py-3 font-mono text-sm transition-all duration-200 hover:-translate-y-0.5";
+    "inline-flex items-center justify-center rounded-lg px-5 py-2.5 font-mono text-[13px] transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan";
   const styles =
     variant === "primary"
-      ? "btn-shine bg-cyan font-bold text-[#04252b] shadow-[0_0_24px_rgba(0,229,255,0.35)] hover:shadow-[0_0_36px_rgba(0,229,255,0.55)]"
-      : "btn-shine border border-line-strong bg-cyan/5 text-ink hover:border-cyan";
+      ? "btn-shine bg-cyan font-bold text-[#04252b] shadow-[0_0_22px_rgba(0,229,255,0.32)] hover:shadow-[0_0_34px_rgba(0,229,255,0.5)]"
+      : "btn-shine border border-line-strong bg-cyan/5 text-ink hover:border-cyan hover:bg-cyan/10";
   if (external) {
     return (
       <Magnetic>

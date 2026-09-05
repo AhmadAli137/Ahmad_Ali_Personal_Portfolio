@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Reveal } from "@/components/reveal";
 import { Ph } from "@/components/image-placeholder";
 import { Hud } from "@/components/hud";
-import { Btn, Chip } from "@/components/ui";
+import { Btn, Card, Chip } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "SaySpark",
@@ -27,7 +27,7 @@ const architecture = [
 
 export default function VenturePage() {
   return (
-    <main className="px-6 pb-10 pt-36">
+    <main className="px-6 pb-10 pt-28 sm:pt-32">
       <div className="mx-auto max-w-6xl">
         <p className="mb-4 font-mono text-[13px] text-muted">home / venture</p>
         <div className="mb-4"><Chip tone="mint">FOUNDER — LIVE IN EARLY ACCESS</Chip></div>
@@ -42,7 +42,7 @@ export default function VenturePage() {
           <Btn href="https://sayspark.ca" external>Try the Free Simulator</Btn>
         </div>
         <Hud>
-          <div className="relative grid min-h-[460px] place-items-center rounded-xl border border-line-strong bg-[radial-gradient(ellipse_60%_60%_at_50%_45%,rgba(52,245,162,0.1),transparent),linear-gradient(160deg,var(--color-panel2),var(--color-panel))] shadow-[0_0_60px_rgba(0,229,255,0.08)]">
+          <div className="ambient-scan relative grid min-h-[390px] place-items-center rounded-lg border border-line-strong bg-[radial-gradient(ellipse_60%_60%_at_50%_45%,rgba(52,245,162,0.1),transparent),linear-gradient(160deg,var(--color-panel2),var(--color-panel))] shadow-[0_0_60px_rgba(0,229,255,0.08)] sm:min-h-[460px]">
             <Image
               src="/img/sayspark-robot.png"
               alt="Spark and the Spark Mini rover — SaySpark's voice-first robots"
@@ -53,7 +53,7 @@ export default function VenturePage() {
           </div>
         </Hud>
 
-        <Reveal className="grid gap-10 py-14 lg:grid-cols-2">
+        <Reveal className="grid gap-8 py-12 lg:grid-cols-2">
           <div>
             <h2 className="mb-3.5 font-mono text-lg text-mint"><span className="text-muted">## </span>Mission</h2>
             <p className="text-muted">
@@ -95,7 +95,7 @@ export default function VenturePage() {
           </div>
         </Reveal>
 
-        <Reveal className="py-10">
+        <Reveal className="py-8">
           <h2 className="mb-6 font-mono text-lg text-mint"><span className="text-muted">## </span>Roadmap</h2>
           <div className="relative pl-9 before:absolute before:bottom-1.5 before:left-2 before:top-1.5 before:w-0.5 before:bg-gradient-to-b before:from-cyan before:to-mint before:opacity-35">
             {roadmap.map((r) => (
@@ -109,17 +109,16 @@ export default function VenturePage() {
           </div>
         </Reveal>
 
-        <Reveal className="py-10">
+        <Reveal className="py-8">
           <h2 className="mb-5 font-mono text-lg text-mint"><span className="text-muted">## </span>What&apos;s Inside</h2>
-          <ul className="max-w-3xl space-y-2.5 text-muted">
+          <div className="grid gap-4 md:grid-cols-2">
             {architecture.map((a) => (
-              <li key={a.name}>
-                <strong className="text-ink">{a.name}</strong> — {a.desc}
-              </li>
+              <Card key={a.name} className="h-full !p-5">
+                <h3 className="mb-2 font-mono text-sm text-cyan">{a.name}</h3>
+                <p className="text-sm leading-6 text-muted">{a.desc}</p>
+              </Card>
             ))}
-          </ul>
-          {/* TODO: replace with real architecture diagram / product shots */}
-          <Ph caption="DIAGRAM: SaySpark architecture / Spark Mini product shots" minH="min-h-[260px]" className="mt-6" />
+          </div>
         </Reveal>
 
         <Reveal className="py-6">
@@ -153,7 +152,7 @@ export default function VenturePage() {
 
         <Reveal className="py-10">
           <Hud>
-            <div className="rounded-2xl border border-line-strong bg-[radial-gradient(ellipse_70%_120%_at_50%_0%,rgba(52,245,162,0.08),transparent),linear-gradient(160deg,var(--color-panel2),var(--color-panel))] px-8 py-14 text-center">
+            <div className="ambient-scan rounded-lg border border-line-strong bg-[radial-gradient(ellipse_70%_120%_at_50%_0%,rgba(52,245,162,0.08),transparent),linear-gradient(160deg,var(--color-panel2),var(--color-panel))] px-6 py-12 text-center shadow-[0_18px_70px_rgba(0,0,0,0.28)] sm:px-8">
               <h2 className="mb-3.5 text-2xl font-extrabold sm:text-3xl">Everything Here Actually Ships.</h2>
               <p className="mx-auto mb-7 max-w-lg text-muted">
                 The simulator and AI tutor are free during early access. Educators, investors, and

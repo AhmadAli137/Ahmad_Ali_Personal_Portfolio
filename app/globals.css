@@ -26,6 +26,7 @@ body {
   background: var(--color-bg);
   color: var(--color-ink);
   overflow-x: hidden;
+  text-rendering: geometricPrecision;
 }
 
 /* Ambient glow layer */
@@ -35,8 +36,9 @@ body::before {
   inset: 0;
   z-index: -2;
   background:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0, 229, 255, 0.06), transparent),
-    radial-gradient(ellipse 60% 40% at 90% 100%, rgba(52, 245, 162, 0.04), transparent),
+    radial-gradient(ellipse 75% 44% at 50% -10%, rgba(0, 229, 255, 0.08), transparent 70%),
+    radial-gradient(ellipse 55% 34% at 92% 12%, rgba(255, 180, 84, 0.035), transparent 72%),
+    radial-gradient(ellipse 58% 40% at 6% 88%, rgba(52, 245, 162, 0.045), transparent 70%),
     var(--color-bg);
 }
 
@@ -46,11 +48,11 @@ body::after {
   position: fixed;
   inset: 0;
   z-index: -1;
-  opacity: 0.45;
+  opacity: 0.28;
   background-image:
     linear-gradient(var(--color-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
-  background-size: 56px 56px;
+  background-size: 64px 64px;
   mask-image: radial-gradient(ellipse 90% 80% at 50% 30%, black 30%, transparent 90%);
   -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 30%, black 30%, transparent 90%);
 }
@@ -86,8 +88,8 @@ body::after {
 .tilt {
   position: relative;
   transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-  transition: transform 0.16s ease-out;
-  will-change: transform;
+  transform-style: preserve-3d;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .tilt-glare {
   position: absolute;
@@ -98,8 +100,8 @@ body::after {
   transition: opacity 0.25s;
   background: radial-gradient(
     circle at var(--gx, 50%) var(--gy, 50%),
-    rgba(0, 229, 255, 0.1),
-    rgba(52, 245, 162, 0.04) 38%,
+    rgba(255, 255, 255, 0.12),
+    rgba(0, 229, 255, 0.07) 34%,
     transparent 68%
   );
   mix-blend-mode: screen;
@@ -115,6 +117,110 @@ body::after {
   background-clip: text;
   color: transparent;
   filter: drop-shadow(0 0 18px rgba(0, 229, 255, 0.3));
+}
+
+.holo-text,
+.nav-link,
+.card-surface,
+.image-frame {
+  backface-visibility: hidden;
+}
+
+.card-surface {
+  isolation: isolate;
+}
+
+.card-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 28%),
+    radial-gradient(circle at 20% 0%, rgba(0, 229, 255, 0.08), transparent 42%);
+  opacity: 0.52;
+  transition: opacity 0.3s ease;
+}
+
+.card-surface:hover::before {
+  opacity: 0.82;
+}
+
+.image-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), inset 0 -60px 90px rgba(0, 0, 0, 0.18);
+  pointer-events: none;
+}
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-cyan), transparent);
+  opacity: 0;
+  transform: scaleX(0.5);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.nav-link:hover::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.hero-portrait-grid {
+  animation: hero-float 8s ease-in-out infinite;
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.ambient-scan {
+  position: relative;
+  overflow: hidden;
+}
+
+.ambient-scan::after {
+  content: "";
+  position: absolute;
+  inset: -40% 0;
+  background: linear-gradient(180deg, transparent, rgba(0, 229, 255, 0.08), transparent);
+  transform: translateY(-65%);
+  animation: ambient-scan 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes ambient-scan {
+  0%,
+  42% {
+    transform: translateY(-65%);
+    opacity: 0;
+  }
+  52% {
+    opacity: 1;
+  }
+  68%,
+  100% {
+    transform: translateY(65%);
+    opacity: 0;
+  }
 }
 
 /* ---- Button shine sweep ---- */
@@ -142,12 +248,12 @@ body::after {
   position: fixed;
   top: 0;
   left: 0;
-  width: 520px;
-  height: 520px;
+  width: 440px;
+  height: 440px;
   border-radius: 50%;
   pointer-events: none;
   opacity: 0;
-  background: radial-gradient(circle, rgba(0, 229, 255, 0.08), transparent 65%);
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.06), rgba(52, 245, 162, 0.025) 34%, transparent 66%);
   transition: opacity 0.4s;
 }
 @media (hover: none) {
@@ -1767,7 +1873,9 @@ body::after {
   .roamer,
   .roamer *,
   .ws-scene,
-  .ws-scene * {
+  .ws-scene *,
+  .ambient-scan::after,
+  .hero-portrait-grid {
     animation: none !important;
   }
   .roamer {

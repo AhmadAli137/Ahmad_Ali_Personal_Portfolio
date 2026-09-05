@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Command, Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 
 const links = [
@@ -26,14 +26,11 @@ export function Nav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-md transition-colors ${
-        scrolled ? "border-line bg-bg/85" : "border-transparent bg-bg/50"
+      className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-xl transition-all duration-300 ${
+        scrolled ? "border-line bg-bg/82 shadow-[0_12px_40px_rgba(0,0,0,0.24)]" : "border-transparent bg-bg/35"
       }`}
     >
-      <div className="border-b border-amber/20 bg-amber/10 px-4 py-1.5 text-center font-mono text-[11px] tracking-wide text-amber">
-        ⚠ site still in development — check back soon for updates
-      </div>
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
+      <nav className={`mx-auto flex max-w-6xl items-center justify-between px-6 transition-[padding] duration-300 ${scrolled ? "py-3" : "py-4"}`}>
         <Link
           href="/"
           className="flex items-center gap-2.5 font-mono text-sm font-bold"
@@ -42,7 +39,7 @@ export function Nav() {
           <span className="grid h-8 w-8 place-items-center rounded-md border border-cyan text-xs text-cyan shadow-[0_0_12px_rgba(0,229,255,0.35),inset_0_0_8px_rgba(0,229,255,0.12)]">
             AA
           </span>
-          ahmad.ali
+          <span className="tracking-tight">ahmad.ali</span>
         </Link>
 
         <div className="hidden items-center gap-6 md:flex">
@@ -50,7 +47,7 @@ export function Nav() {
             <Link
               key={l.label}
               href={l.href}
-              className="font-mono text-[13px] text-muted transition-colors hover:text-cyan"
+              className="nav-link font-mono text-[13px] text-muted transition-colors hover:text-cyan"
             >
               <span className="text-line-strong">/</span>
               {l.label}
@@ -60,7 +57,7 @@ export function Nav() {
             href="https://sayspark.ca"
             target="_blank"
             rel="noopener noreferrer"
-            className="animate-pulse-glow rounded-full border border-mint/50 bg-mint/10 px-4 py-1.5 font-mono text-xs font-bold text-mint transition-all hover:-translate-y-0.5 hover:bg-mint/20"
+            className="rounded-full border border-mint/50 bg-mint/10 px-4 py-1.5 font-mono text-xs font-bold text-mint transition-all hover:-translate-y-0.5 hover:bg-mint/20 hover:shadow-[0_0_22px_rgba(52,245,162,0.22)]"
           >
             sayspark.ca ↗
           </a>
@@ -68,9 +65,9 @@ export function Nav() {
             type="button"
             aria-label="Open command palette"
             onClick={() => window.dispatchEvent(new Event("open-palette"))}
-            className="rounded-md border border-line px-2 py-1 font-mono text-[11px] text-muted transition-colors hover:border-cyan/50 hover:text-cyan"
+            className="grid h-8 w-8 place-items-center rounded-md border border-line text-muted transition-colors hover:border-cyan/50 hover:text-cyan"
           >
-            ⌘K
+            <Command size={14} />
           </button>
         </div>
 
