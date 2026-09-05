@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, JetBrains_Mono, Caveat } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono, Caveat, Bangers } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/nav";
 import { SiteFooter } from "@/components/site-footer";
@@ -28,6 +28,12 @@ const caveat = Caveat({
   variable: "--font-caveat",
 });
 
+const bangers = Bangers({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-bangers",
+});
+
 export const metadata: Metadata = {
   title: {
     default: "Ahmad Ali — Robotics, AI & Product Engineering",
@@ -41,7 +47,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${jetBrainsMono.variable} ${caveat.variable}`}>
+    <html lang="en" className={`${spaceGrotesk.variable} ${jetBrainsMono.variable} ${caveat.variable} ${bangers.variable}`}>
       <body className="relative font-sans antialiased">
         <EvolvingBackground />
         <CursorGlow />
