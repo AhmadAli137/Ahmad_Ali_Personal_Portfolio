@@ -57,7 +57,7 @@ export default function Home() {
   return (
     <main>
       {/* ============ HERO ============ */}
-      <section data-chapter="01 · HELLO" className="flex min-h-screen items-center px-6 pb-16 pt-32">
+      <section data-chapter="01 · HELLO" className="px-6 pb-10 pt-32">
         <div className="mx-auto w-full max-w-6xl">
           <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
             <div>
@@ -113,7 +113,7 @@ export default function Home() {
           </div>
 
           {/* Stats — a flowing readout, not tiles */}
-          <Reveal className="mt-14 flex flex-wrap items-baseline gap-x-10 gap-y-4 border-t border-[rgba(0,229,255,0.1)] pt-7">
+          <Reveal className="mt-10 flex flex-wrap items-baseline gap-x-10 gap-y-4 border-t border-[rgba(0,229,255,0.1)] pt-6">
             {[
               { num: <CountUp target={20} suffix="+" />, label: "Engineering Projects" },
               { num: <CountUp target={44} />, label: "Competitions & Conferences" },
@@ -133,7 +133,7 @@ export default function Home() {
       </section>
 
       {/* ============ FEATURED VENTURE ============ */}
-      <section data-chapter="02 · SAYSPARK" className="px-6 py-10">
+      <section data-chapter="02 · SAYSPARK" className="px-6 py-8">
         <Reveal className="mx-auto max-w-6xl">
           <SectionHeading tag="featured venture" title="Currently Building" />
           <Parallax from={28} to={-20} scale>
@@ -154,14 +154,14 @@ export default function Home() {
                 <Btn href="/projects/sayspark">The Origin Story →</Btn>
               </div>
             </div>
-            <div className="relative grid min-h-[420px] place-items-center">
+            <div className="relative grid place-items-center">
               <div className="absolute inset-0 rounded-full bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,rgba(52,245,162,0.12),transparent)]" />
               <Image
                 src="/img/sayspark-robot.png"
                 alt="Spark and the Spark Mini rover — SaySpark's voice-first robots"
                 width={480}
                 height={480}
-                className="relative h-auto w-full max-w-[420px] object-contain drop-shadow-[0_0_30px_rgba(0,229,255,0.15)]"
+                className="relative h-auto w-full max-w-[330px] object-contain drop-shadow-[0_0_30px_rgba(0,229,255,0.15)]"
               />
             </div>
           </div>
