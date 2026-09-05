@@ -13,6 +13,9 @@ import { Ph } from "@/components/image-placeholder";
 import { Hud } from "@/components/hud";
 import { Btn, Chip, Chips, SectionHeading } from "@/components/ui";
 import { projects, featuredSlugs } from "@/lib/projects";
+import { hacks, featuredHackTitles } from "@/lib/hackathons";
+import { Postcard } from "@/components/postcard";
+import { PhotoAlbum } from "@/components/photo-album";
 
 const skillGroups: { name: string; items: string[] }[] = [
   { name: "AI", items: ["OpenAI APIs", "Local LLMs", "Prompt Engineering", "AI Agents", "Computer Vision"] },
@@ -49,6 +52,9 @@ export default function Home() {
   const featured = featuredSlugs
     .map((slug) => projects.find((p) => p.slug === slug))
     .filter((p): p is NonNullable<typeof p> => Boolean(p));
+  const featuredHacks = featuredHackTitles
+    .map((t) => hacks.find((h) => h.title === t))
+    .filter((h): h is NonNullable<typeof h> => Boolean(h));
 
   return (
     <main>
@@ -282,22 +288,10 @@ export default function Home() {
               <Link href="/hackathons" className="ml-2 text-sm text-cyan hover:underline">all 14 →</Link>
             </h3>
             <Parallax from={-24} to={22} scale><WorkshopScene /></Parallax>
-            <div className="mt-5 grid gap-x-9 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-              {([
-                { img: "/img/nasa-space-apps-1.jpg", award: "1st Place + Global Nomination", event: "NASA Space Apps 2025", note: "Meteor Madness" },
-                { img: "/img/presentpro-award-1.jpg", award: "2nd Overall · 1st in Category", event: "WinHacks 2025", note: "PresentPro — AI presentation coach" },
-                { img: "/img/secondlife-award.jpg", award: "2nd Place Overall", event: "WinHacks 2024", note: "Second Life — EV battery reuse" },
-              ] as { img?: string; caption?: string; award: string; event: string; note: string }[]).map((a) => (
-                <div key={a.event} className="flex h-full flex-col gap-3">
-                  <Ph caption={a.award} src={a.img} alt={`${a.award} — ${a.event}`} minH="min-h-[150px]" />
-                  <div>
-                    <div className="flex items-center gap-1.5 font-mono text-xs text-amber">
-                      <Award size={13} /> {a.award}
-                    </div>
-                    <div className="mt-1 text-sm font-bold">{a.event}</div>
-                    <div className="text-xs text-muted">{a.note}</div>
-                  </div>
-                </div>
+            <p className="mb-5 mt-7 font-mono text-xs text-muted">postcards from the road — flip one over ↻</p>
+            <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+              {featuredHacks.map((h, i) => (
+                <Postcard key={h.title} data={h} index={i} />
               ))}
             </div>
           </Reveal>
@@ -530,6 +524,22 @@ export default function Home() {
             ))}
           </div>
         </Reveal>
+      </section>
+
+      {/* ============ THE ALBUM ============ */}
+      <section id="album" className="scroll-mt-20 px-6 py-12">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <SectionHeading
+              tag="snapshots"
+              title="The Album"
+              lede="A few pages from along the way — the teams, stages, and labs behind the record."
+            />
+          </Reveal>
+          <Reveal>
+            <PhotoAlbum />
+          </Reveal>
+        </div>
       </section>
 
       {/* ============ SKILLS ============ */}

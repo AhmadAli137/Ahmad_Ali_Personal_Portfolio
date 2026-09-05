@@ -3,6 +3,7 @@
 @theme inline {
   --font-sans: var(--font-space-grotesk), "Segoe UI", system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), Consolas, monospace;
+  --font-hand: var(--font-caveat), "Segoe Script", cursive;
 }
 
 @theme {
@@ -76,6 +77,18 @@ body::after {
 @keyframes blink {
   50% {
     opacity: 0;
+  }
+}
+
+/* photo album page turn: a gentle lift-in from the spine */
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: perspective(1200px) rotateY(-10deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 .cursor-blink {
