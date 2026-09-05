@@ -7,9 +7,9 @@
 }
 
 @theme {
-  --color-bg: #081019;
-  --color-panel: #0c1420;
-  --color-panel2: #101a29;
+  --color-bg: #0e1219;
+  --color-panel: #131720;
+  --color-panel2: #181d28;
   --color-cyan: #00e5ff;
   --color-mint: #34f5a2;
   --color-amber: #ffb454;
@@ -36,10 +36,11 @@ body::before {
   inset: 0;
   z-index: -2;
   background:
-    radial-gradient(ellipse 80% 55% at 50% -10%, rgba(0, 229, 255, 0.11), transparent),
-    radial-gradient(ellipse 60% 40% at 90% 100%, rgba(52, 245, 162, 0.07), transparent),
-    radial-gradient(ellipse 50% 45% at 5% 40%, rgba(80, 140, 255, 0.06), transparent),
-    linear-gradient(180deg, #0c1626, var(--color-bg) 60%);
+    radial-gradient(ellipse 80% 55% at 50% -10%, rgba(0, 229, 255, 0.1), transparent),
+    radial-gradient(ellipse 60% 40% at 90% 100%, rgba(52, 245, 162, 0.06), transparent),
+    radial-gradient(ellipse 55% 40% at 8% 100%, rgba(255, 180, 84, 0.055), transparent),
+    radial-gradient(ellipse 50% 45% at 5% 40%, rgba(80, 140, 255, 0.05), transparent),
+    linear-gradient(180deg, #151a26, var(--color-bg) 60%);
 }
 
 /* Engineering grid layer — blueprint: major lines every 5th cell */
