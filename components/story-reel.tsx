@@ -39,73 +39,89 @@ const PAGES: Page[] = [
   { year: "NOW", caption: "SaySpark — the next chapter", imgs: [{ src: "/img/sayspark-robot.png", alt: "Spark robots" }, { src: "/img/sayspark-simulator.png", alt: "The simulator" }, { src: "/img/sayspark-vision.jpg", alt: "Kids and robots" }] },
 ];
 
-/* hold time before each page turns: unhurried in, brisk middle, easing out */
+/* hold time before each page turns: a real read on every spread */
 function holdFor(i: number, n: number) {
   const edge = 3;
-  if (i < edge) return 1600 - i * 250;
-  if (i >= n - edge) return 1000 + (i - (n - edge)) * 300;
-  return 850;
+  if (i < edge) return 2700 - i * 300;
+  if (i >= n - edge) return 2100 + (i - (n - edge)) * 300;
+  return 1750;
 }
-const FLIP_MS = 520;
+const FLIP_MS = 620;
 
 const HALFTONE =
   "radial-gradient(circle, rgba(30,25,20,0.22) 1px, transparent 1.4px)";
 
 type Phase = "title" | "film" | "end";
 
-function ComicPage({ page, tilt }: { page: Page; tilt: number }) {
+/* Panel grid templates — a different composition per page shape, alternating
+   dominant sides so consecutive spreads never look the same. */
+function panelLayout(n: number, pageIdx: number): { grid: string; spans: string[] } {
+  const flip = pageIdx % 2 === 1;
+  if (n === 1) return { grid: "grid-cols-1", spans: [""] };
+  if (n === 2)
+    return flip
+      ? { grid: "grid-cols-[2fr_3fr]", spans: ["", ""] }
+      : { grid: "grid-cols-[3fr_2fr]", spans: ["", ""] };
+  if (n === 3)
+    return flip
+      ? { grid: "grid-cols-[2fr_3fr] grid-rows-2", spans: ["", "row-span-2 order-first", ""] }
+      : { grid: "grid-cols-[3fr_2fr] grid-rows-2", spans: ["row-span-2", "", ""] };
+  return flip
+    ? { grid: "grid-cols-3 grid-rows-2", spans: ["col-span-2", "", "", "row-span-1 col-span-2 order-first"], }
+    : { grid: "grid-cols-3 grid-rows-2", spans: ["row-span-2", "", "", "col-span-2"] };
+}
+
+function ComicPage({ page, pageIdx }: { page: Page; pageIdx: number }) {
   const n = page.imgs.length;
+  const { grid, spans } = panelLayout(n, pageIdx);
+  const captionLeft = pageIdx % 2 === 0;
   return (
     <div
-      className="relative h-full w-full overflow-hidden rounded-[4px] p-[4%] pb-[9%]"
+      className="relative h-full w-full overflow-hidden rounded-[4px] p-[1.6%] pb-[5%]"
       style={{
         backgroundColor: "#efe7d2",
         backgroundImage: "linear-gradient(160deg, rgba(255,255,255,0.6), rgba(140,115,70,0.12))",
-        boxShadow: "inset 0 0 0 2px rgba(43,42,36,0.55), inset 0 0 60px rgba(90,70,40,0.15)",
-        transform: `rotate(${tilt}deg)`,
+        boxShadow: "inset 0 0 0 2px rgba(43,42,36,0.55), inset 0 0 80px rgba(90,70,40,0.15)",
       }}
     >
-      <div
-        className={`grid h-full w-full gap-[3%] ${
-          n === 1 ? "grid-cols-1" : n === 2 ? "grid-rows-2" : "grid-cols-2 grid-rows-2"
-        }`}
-      >
+      <div className={`grid h-full w-full gap-[1.4%] ${grid}`}>
         {page.imgs.map((im, i) => (
           <div
             key={im.src}
-            className={`relative overflow-hidden border-[3px] border-[#2b2a24] bg-white ${
-              n === 3 && i === 0 ? "col-span-2" : ""
-            }`}
-            style={n >= 3 ? { transform: `rotate(${i % 2 ? 0.4 : -0.4}deg)` } : undefined}
+            className={`relative overflow-hidden border-[3px] border-[#2b2a24] bg-white ${spans[i] ?? ""}`}
+            style={n >= 2 ? { transform: `rotate(${i % 2 ? 0.35 : -0.35}deg)` } : undefined}
           >
             <Image
               src={im.src}
               alt={im.alt}
               fill
-              sizes="70vw"
+              sizes="90vw"
               className="object-cover"
-              style={{ filter: "contrast(1.18) saturate(1.35)" }}
+              style={{ filter: "contrast(1.16) saturate(1.3)" }}
             />
             <div
               className="pointer-events-none absolute inset-0 mix-blend-multiply"
-              style={{ backgroundImage: HALFTONE, backgroundSize: "5px 5px", opacity: 0.5 }}
+              style={{ backgroundImage: HALFTONE, backgroundSize: "5px 5px", opacity: 0.45 }}
             />
           </div>
         ))}
       </div>
 
-      {/* caption box */}
+      {/* caption box — alternates corners */}
       <div
-        className="absolute bottom-[2.5%] left-[4%] max-w-[80%] border-[2.5px] border-[#2b2a24] bg-[#f5d94e] px-3 py-1 shadow-[3px_3px_0_rgba(43,42,36,0.8)]"
-        style={{ transform: "rotate(-1deg)" }}
+        className={`absolute bottom-[1.6%] max-w-[70%] border-[2.5px] border-[#2b2a24] bg-[#f5d94e] px-4 py-1.5 shadow-[3px_3px_0_rgba(43,42,36,0.8)] ${captionLeft ? "left-[2.5%]" : "right-[2.5%]"}`}
+        style={{ transform: `rotate(${captionLeft ? -0.8 : 0.8}deg)` }}
       >
-        <span className="text-[#2b2a24]" style={{ fontFamily: "var(--font-bangers)", fontSize: "clamp(14px, 2.6vmin, 22px)", letterSpacing: "0.04em" }}>
+        <span className="text-[#2b2a24]" style={{ fontFamily: "var(--font-bangers)", fontSize: "clamp(16px, 3vmin, 28px)", letterSpacing: "0.04em" }}>
           {page.caption}
         </span>
       </div>
 
-      {/* year burst */}
-      <div className="absolute right-[2%] top-[1.5%] grid h-[13%] min-h-[54px] w-auto place-items-center" style={{ aspectRatio: "1" }}>
+      {/* year burst — opposite corner from the caption */}
+      <div
+        className={`absolute top-[2.5%] grid h-[16%] min-h-[64px] place-items-center ${captionLeft ? "right-[2%]" : "left-[2%]"}`}
+        style={{ aspectRatio: "1" }}
+      >
         <svg viewBox="-50 -50 100 100" className="absolute inset-0 h-full w-full">
           <path
             d={Array.from({ length: 24 }, (_, i) => {
@@ -118,7 +134,7 @@ function ComicPage({ page, tilt }: { page: Page; tilt: number }) {
             strokeWidth="2.5"
           />
         </svg>
-        <span className="relative text-white" style={{ fontFamily: "var(--font-bangers)", fontSize: "clamp(11px, 2vmin, 17px)" }}>
+        <span className="relative text-white" style={{ fontFamily: "var(--font-bangers)", fontSize: "clamp(13px, 2.3vmin, 20px)" }}>
           {page.year}
         </span>
       </div>
@@ -179,8 +195,6 @@ export function StoryReel() {
     };
   }, [open]);
 
-  const tiltOf = (i: number) => (i % 2 ? 0.8 : -0.8);
-
   return (
     <>
       <button
@@ -188,7 +202,7 @@ export function StoryReel() {
         onClick={() => setOpen(true)}
         className="btn-shine inline-flex items-center gap-2 rounded-lg border border-line-strong bg-cyan/5 px-5 py-2.5 font-mono text-sm text-ink transition-all duration-200 hover:-translate-y-0.5 hover:border-cyan"
       >
-        <Play size={14} className="text-cyan" /> Play the story — 30 sec
+        <Play size={14} className="text-cyan" /> Play the story
       </button>
 
       {open && (
@@ -239,16 +253,16 @@ export function StoryReel() {
           )}
 
           {phase === "film" && (
-            <div className="reel-zoom grid h-full place-items-center" style={{ animation: "reelZoom 26s linear both" }}>
+            <div className="reel-zoom h-full w-full" style={{ animation: "reelZoom 48s linear both" }}>
               <div
-                className="relative aspect-[3/4] h-[78vh] max-w-[88vw] [perspective:1900px]"
+                className="absolute inset-3 [perspective:2400px] sm:inset-6 md:inset-x-10 md:inset-y-8"
                 style={{ animation: "bookIn 500ms ease-out both" }}
               >
                 {/* next pages waiting underneath (also preloads ahead) */}
                 {[idx + 2, idx + 1].map((i) =>
                   i < PAGES.length ? (
                     <div key={i} className="absolute inset-0" style={{ visibility: i === idx + 1 ? "visible" : "hidden" }}>
-                      <ComicPage page={PAGES[i]} tilt={tiltOf(i)} />
+                      <ComicPage page={PAGES[i]} pageIdx={i} />
                     </div>
                   ) : null
                 )}
@@ -262,7 +276,7 @@ export function StoryReel() {
                     boxShadow: "0 30px 80px rgba(0,0,0,0.6)",
                   }}
                 >
-                  <ComicPage page={PAGES[idx]} tilt={tiltOf(idx)} />
+                  <ComicPage page={PAGES[idx]} pageIdx={idx} />
                   {/* shading as the page lifts */}
                   <div
                     aria-hidden
