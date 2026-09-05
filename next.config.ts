@@ -3,9 +3,14 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async redirects() {
     return [
-      // The venture page retired — SaySpark speaks for itself
+      // The venture and origin-story pages retired — SaySpark speaks for itself
       {
         source: "/venture",
+        destination: "https://sayspark.ca",
+        permanent: false,
+      },
+      {
+        source: "/projects/sayspark",
         destination: "https://sayspark.ca",
         permanent: false,
       },
