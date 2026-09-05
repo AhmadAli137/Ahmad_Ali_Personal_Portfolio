@@ -47,7 +47,7 @@ export default function CompetitionsPage() {
           <LogoWall />
         </Reveal>
 
-        {/* Full record, by arena */}
+        {/* Full record, by category */}
         {(["eng", "hack", "pitch"] as CompCategory[]).map((cat) => (
           <Reveal key={cat} className="mb-12">
             <h2 className="mb-6 font-mono text-lg text-mint">

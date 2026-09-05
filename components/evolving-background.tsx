@@ -19,7 +19,7 @@ const MOODS: Mood[] = [
   { a: "#0090ff", b: "#00e5ff", c: "#123a6e" }, // 02 archive — hologram blue
   { a: "#34f5a2", b: "#00e5ff", c: "#0f6e4a" }, // 03 sayspark — mint
   { a: "#8ab8ff", b: "#00e5ff", c: "#2a3a6e" }, // 04 projects — ice
-  { a: "#ffb454", b: "#ff8a5c", c: "#6e3a1a" }, // 05 arenas — trophy amber
+  { a: "#ffb454", b: "#ff8a5c", c: "#6e3a1a" }, // 05 competitions — trophy amber
   { a: "#8ab8ff", b: "#34f5a2", c: "#1f3a5e" }, // 06 the road — steel & mint
   { a: "#8a70ff", b: "#00e5ff", c: "#3a2a6e" }, // 07 toolkit — violet
   { a: "#34f5a2", b: "#00e5ff", c: "#0f5c4a" }, // 08 your move — bright close

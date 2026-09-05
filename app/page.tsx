@@ -243,13 +243,13 @@ export default function Home() {
       </section>
 
       {/* ============ AWARDS ============ */}
-      <section id="awards" data-chapter="05 · THE ARENAS" className="scroll-mt-20 px-6 py-12">
+      <section id="awards" data-chapter="05 · COMPETITIONS" className="scroll-mt-20 px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <SectionHeading
               tag="competitions"
-              title="Three Arenas, One Habit: Shipping"
-              lede="A decade of competing — split across engineering floors, hackathon weekends, and pitch stages."
+              title="A Decade of Competing"
+              lede="44 competitions and conferences — engineering floors, hackathon weekends, and pitch stages."
             />
           </Reveal>
 
