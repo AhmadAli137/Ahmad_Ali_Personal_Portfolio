@@ -1544,6 +1544,148 @@ body::after {
   filter: drop-shadow(0 0 12px rgba(0, 229, 255, 0.45));
 }
 
+/* ---- garage + pitch scenes ---- */
+.gs-turbine {
+  animation: gs-turbine 2.2s linear infinite;
+}
+@keyframes gs-turbine {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.gs-lamp {
+  animation: gs-lamp 3.8s ease-in-out infinite;
+}
+@keyframes gs-lamp {
+  0%,
+  92%,
+  100% {
+    opacity: 1;
+  }
+  94%,
+  96% {
+    opacity: 0.55;
+  }
+}
+.gs-push {
+  animation: gs-push 2.2s ease-in-out infinite;
+}
+@keyframes gs-push {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  55% {
+    transform: translateX(9px);
+  }
+  70% {
+    transform: translateX(7px);
+  }
+}
+.gs-baylight {
+  animation: ws-eye 2.2s ease-in-out infinite;
+}
+.ps-beam-a {
+  animation: ps-beam 7s ease-in-out infinite alternate;
+}
+.ps-beam-b {
+  animation: ps-beam 8.5s ease-in-out infinite alternate-reverse;
+}
+@keyframes ps-beam {
+  from {
+    transform: rotate(-4deg);
+  }
+  to {
+    transform: rotate(5deg);
+  }
+}
+.ps-arm {
+  animation: ps-arm 3.2s ease-in-out infinite;
+}
+@keyframes ps-arm {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  35% {
+    transform: rotate(-14deg);
+  }
+  55% {
+    transform: rotate(6deg);
+  }
+  70% {
+    transform: rotate(-8deg);
+  }
+}
+.ps-chart {
+  stroke-dasharray: 420;
+  animation: ps-chart 6s ease-in-out infinite;
+}
+@keyframes ps-chart {
+  0% {
+    stroke-dashoffset: 420;
+  }
+  45%,
+  88% {
+    stroke-dashoffset: 0;
+  }
+  95%,
+  100% {
+    stroke-dashoffset: 420;
+  }
+}
+.ps-chart-head,
+.ps-rocket {
+  animation: ps-late 6s ease-in-out infinite;
+}
+@keyframes ps-late {
+  0%,
+  42% {
+    opacity: 0;
+  }
+  48%,
+  88% {
+    opacity: 1;
+  }
+  95%,
+  100% {
+    opacity: 0;
+  }
+}
+.ps-rocket {
+  animation-name: ps-rocket;
+}
+@keyframes ps-rocket {
+  0%,
+  42% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  48% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+    transform: translate(10px, -12px);
+  }
+  95%,
+  100% {
+    opacity: 0;
+  }
+}
+.ps-clap {
+  animation: ps-clap 0.5s ease-in-out infinite;
+}
+@keyframes ps-clap {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(4deg);
+  }
+}
+
 /* ---- Byte hunt finale ---- */
 .dance-bounce {
   animation: dance-bounce 0.55s ease-in-out infinite alternate;

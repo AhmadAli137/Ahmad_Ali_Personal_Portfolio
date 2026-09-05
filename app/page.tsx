@@ -3,6 +3,8 @@ import Image from "next/image";
 import { ArrowRight, Award } from "lucide-react";
 import { HoloShowcase } from "@/components/holo-showcase";
 import { WorkshopScene } from "@/components/workshop-scene";
+import { GarageScene } from "@/components/garage-scene";
+import { PitchScene } from "@/components/pitch-scene";
 import { Reveal } from "@/components/reveal";
 import { TypingRoles } from "@/components/typing";
 import { CountUp } from "@/components/count-up";
@@ -277,20 +279,24 @@ export default function Home() {
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <SectionHeading
-              tag="awards"
-              title="The Trophy Shelf"
-              lede="From international conferences to weekend hackathons — proof that shipping fast and shipping well aren't opposites."
+              tag="competitions"
+              title="Three Arenas, One Habit: Shipping"
+              lede="A decade of competing — split across engineering floors, hackathon weekends, and pitch stages."
             />
           </Reveal>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {([
-              { img: "/img/pimrc-best-demo-award.jpg", award: "Best Demo Award", event: "IEEE PIMRC 2023 — Toronto", note: "Indoor autonomous drone navigation" },
-              { img: "/img/nasa-space-apps-1.jpg", award: "1st Place + Global Nomination", event: "NASA Space Apps 2025", note: "Meteor Madness" },
-              { caption: "PHOTO: CWSF medals", award: "2× Bronze · Silver · $10k Scholarship", event: "Canada-Wide Science Fair", note: "Four national finals, 2015–2019" },
-              { img: "/img/epicentre-award-trophy.jpg", award: "Innovation Mastery Award + $1,000", event: "EPICentre Excellence Awards 2023", note: "Entrepreneurship & innovation" },
-            ] as { img?: string; caption?: string; award: string; event: string; note: string }[]).map((a, i) => (
-              <Reveal key={a.event + a.award} delay={(i % 4) * 0.06}>
-                <Card className="flex h-full flex-col gap-3 !p-5">
+
+          {/* ---- engineering & science ---- */}
+          <Reveal className="mt-2">
+            <h3 className="mb-4 font-mono text-lg text-mint"><span className="text-muted">## </span>Engineering &amp; Science</h3>
+            <GarageScene />
+            <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {([
+                { img: "/img/pimrc-best-demo-award.jpg", award: "Best Demo Award", event: "IEEE PIMRC 2023 — Toronto", note: "Indoor autonomous drone navigation" },
+                { caption: "PHOTO: CWSF medals", award: "2× Bronze · Silver · $10k Scholarship", event: "Canada-Wide Science Fair", note: "Four national finals, 2015–2019" },
+                { img: "/img/wec-1st-place.jpg", award: "4× 1st Place — Programming", event: "Windsor Engineering Competition", note: "Four straight years, 2020–2023" },
+                { img: "/img/jlr-team-1.jpg", award: "$600 + JLR Internship", event: "UWindsor × JLR AI Competition 2025", note: "Automotive AI memory optimization" },
+              ] as { img?: string; caption?: string; award: string; event: string; note: string }[]).map((a, i) => (
+                <Card key={a.event} className="flex h-full flex-col gap-3 !p-5">
                   <Ph caption={a.caption ?? a.award} src={a.img} alt={`${a.award} — ${a.event}`} minH="min-h-[150px]" />
                   <div>
                     <div className="flex items-center gap-1.5 font-mono text-xs text-amber">
@@ -300,10 +306,62 @@ export default function Home() {
                     <div className="text-xs text-muted">{a.note}</div>
                   </div>
                 </Card>
-              </Reveal>
-            ))}
-          </div>
-          <Reveal className="mt-8">
+              ))}
+            </div>
+          </Reveal>
+
+          {/* ---- hackathons ---- */}
+          <Reveal className="mt-14">
+            <h3 className="mb-4 font-mono text-lg text-mint">
+              <span className="text-muted">## </span>Hackathons{" "}
+              <Link href="/hackathons" className="ml-2 text-sm text-cyan hover:underline">all 14 →</Link>
+            </h3>
+            <WorkshopScene />
+            <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {([
+                { img: "/img/nasa-space-apps-1.jpg", award: "1st Place + Global Nomination", event: "NASA Space Apps 2025", note: "Meteor Madness" },
+                { img: "/img/presentpro-award-1.jpg", award: "2nd Overall · 1st in Category", event: "WinHacks 2025", note: "PresentPro — AI presentation coach" },
+                { img: "/img/secondlife-award.jpg", award: "2nd Place Overall", event: "WinHacks 2024", note: "Second Life — EV battery reuse" },
+              ] as { img?: string; caption?: string; award: string; event: string; note: string }[]).map((a) => (
+                <Card key={a.event} className="flex h-full flex-col gap-3 !p-5">
+                  <Ph caption={a.award} src={a.img} alt={`${a.award} — ${a.event}`} minH="min-h-[150px]" />
+                  <div>
+                    <div className="flex items-center gap-1.5 font-mono text-xs text-amber">
+                      <Award size={13} /> {a.award}
+                    </div>
+                    <div className="mt-1 text-sm font-bold">{a.event}</div>
+                    <div className="text-xs text-muted">{a.note}</div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </Reveal>
+
+          {/* ---- pitches & entrepreneurship ---- */}
+          <Reveal className="mt-14">
+            <h3 className="mb-4 font-mono text-lg text-mint"><span className="text-muted">## </span>Pitches &amp; Entrepreneurship</h3>
+            <PitchScene />
+            <div className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {([
+                { img: "/img/epicentre-award-trophy.jpg", award: "Innovation Mastery Award + $1,000", event: "EPICentre Excellence Awards 2023", note: "Entrepreneurship & innovation" },
+                { caption: "PHOTO: pitch night", award: "4th Place — $2,500", event: "Take Your Shot 2026 — Leamington", note: "Pitching on the startup stage" },
+                { caption: "PHOTO: bootcamp demo", award: "People's Choice Winner", event: "STEM Entrepreneurship Bootcamp 2018", note: "The first pitch — where it started" },
+              ] as { img?: string; caption?: string; award: string; event: string; note: string }[]).map((a) => (
+                <Card key={a.event} className="flex h-full flex-col gap-3 !p-5">
+                  <Ph caption={a.caption ?? a.award} src={a.img} alt={`${a.award} — ${a.event}`} minH="min-h-[150px]" />
+                  <div>
+                    <div className="flex items-center gap-1.5 font-mono text-xs text-amber">
+                      <Award size={13} /> {a.award}
+                    </div>
+                    <div className="mt-1 text-sm font-bold">{a.event}</div>
+                    <div className="text-xs text-muted">{a.note}</div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </Reveal>
+
+          <Reveal className="mt-10">
             <Btn href="/competitions">All 44 Competitions — The Full Record &amp; The Wall →</Btn>
           </Reveal>
         </div>
@@ -549,18 +607,6 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
-
-      {/* ============ THE WORKSHOP ============ */}
-      <section className="px-6 py-10">
-        <Reveal className="mx-auto max-w-6xl">
-          <SectionHeading
-            tag="the workshop"
-            title="Where It All Gets Built"
-            lede="Live from the bench: too much coffee, a robot mid-assembly, and something always printing."
-          />
-          <WorkshopScene />
-        </Reveal>
       </section>
 
       {/* ============ CONTACT ============ */}
