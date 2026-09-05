@@ -298,7 +298,7 @@ export default function Home() {
               {([
                 { img: "/img/epicentre-award-trophy.jpg", award: "Innovation Mastery Award + $1,000", event: "EPICentre Excellence Awards 2023", note: "Entrepreneurship & innovation" },
                 { caption: "PHOTO: pitch night", award: "4th Place — $2,500", event: "Take Your Shot 2026 — Leamington", note: "Pitching on the startup stage" },
-                { caption: "PHOTO: bootcamp demo", award: "People's Choice Winner", event: "STEM Entrepreneurship Bootcamp 2018", note: "The first pitch — where it started" },
+                { img: "/img/stem-bootcamp-trophy.jpg", award: "People's Choice Winner", event: "STEM Entrepreneurship Bootcamp 2018", note: "Lassonde × Youth Science Canada — the first pitch" },
               ] as { img?: string; caption?: string; award: string; event: string; note: string }[]).map((a) => (
                 <div key={a.event} className="flex h-full flex-col gap-3">
                   <Ph caption={a.caption ?? a.award} src={a.img} alt={`${a.award} — ${a.event}`} minH="min-h-[150px]" />
