@@ -18,29 +18,55 @@ const TILT_MAX = 0.55; // rad
 const YAW_SPEED_MIN = 60;
 const VIEW_TILT = -0.62; // camera-relative viewing angle
 
-function Rotor({ x, y, dir, refFn }: { x: number; y: number; dir: number; refFn: (g: THREE.Group) => void }) {
+const CARBON = { color: "#12181f", metalness: 0.45, roughness: 0.55 } as const;
+const CYAN_ANO = { color: "#0e93a8", metalness: 0.9, roughness: 0.22 } as const;
+const AMBER_ANO = { color: "#c98a2e", metalness: 0.85, roughness: 0.3 } as const;
+
+function Motor({ x, y, dir, refFn }: { x: number; y: number; dir: number; refFn: (g: THREE.Group) => void }) {
   return (
-    <group position={[x, y, 4.2]}>
-      {/* blur disc */}
-      <mesh rotation={[0, 0, 0]}>
-        <circleGeometry args={[7.2, 24]} />
-        <meshBasicMaterial color="#00e5ff" transparent opacity={0.08} side={THREE.DoubleSide} />
+    <group position={[x, y, 1.1]}>
+      {/* motor base + anodized bell */}
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
+        <cylinderGeometry args={[2.3, 2.5, 1.2, 14]} />
+        <meshStandardMaterial {...CARBON} />
       </mesh>
-      <group ref={refFn} userData={{ dir }}>
-        <mesh>
-          <boxGeometry args={[13.5, 1.1, 0.35]} />
-          <meshStandardMaterial color="#dfe9f3" metalness={0.3} roughness={0.5} />
+      <mesh position={[0, 0, 1.7]} rotation={[Math.PI / 2, 0, 0]}>
+        <cylinderGeometry args={[2.05, 2.2, 2.4, 14]} />
+        <meshStandardMaterial {...CYAN_ANO} />
+      </mesh>
+      <mesh position={[0, 0, 3.1]} rotation={[Math.PI / 2, 0, 0]}>
+        <cylinderGeometry args={[0.6, 0.6, 0.8, 8]} />
+        <meshStandardMaterial {...AMBER_ANO} />
+      </mesh>
+      {/* prop blur: disc + rim ring */}
+      <mesh position={[0, 0, 3.5]}>
+        <circleGeometry args={[7.4, 28]} />
+        <meshBasicMaterial color="#9fe8f2" transparent opacity={0.07} side={THREE.DoubleSide} depthWrite={false} />
+      </mesh>
+      <mesh position={[0, 0, 3.5]}>
+        <ringGeometry args={[6.9, 7.4, 28]} />
+        <meshBasicMaterial color="#00e5ff" transparent opacity={0.18} side={THREE.DoubleSide} depthWrite={false} />
+      </mesh>
+      {/* two twisted blades */}
+      <group ref={refFn} userData={{ dir }} position={[0, 0, 3.4]}>
+        <mesh position={[3.5, 0, 0]} rotation={[0.45 * dir, 0, 0]}>
+          <boxGeometry args={[6.6, 1.5, 0.22]} />
+          <meshStandardMaterial color="#20303c" metalness={0.4} roughness={0.5} />
         </mesh>
-        <mesh rotation={[0, 0, Math.PI / 2]}>
-          <boxGeometry args={[13.5, 1.1, 0.35]} />
-          <meshStandardMaterial color="#dfe9f3" metalness={0.3} roughness={0.5} />
+        <mesh position={[-3.5, 0, 0]} rotation={[-0.45 * dir, 0, 0]}>
+          <boxGeometry args={[6.6, 1.5, 0.22]} />
+          <meshStandardMaterial color="#20303c" metalness={0.4} roughness={0.5} />
+        </mesh>
+        {/* cyan blade tips */}
+        <mesh position={[6.5, 0, 0]} rotation={[0.45 * dir, 0, 0]}>
+          <boxGeometry args={[0.9, 1.5, 0.24]} />
+          <meshStandardMaterial color="#00e5ff" emissive="#00e5ff" emissiveIntensity={0.6} />
+        </mesh>
+        <mesh position={[-6.5, 0, 0]} rotation={[-0.45 * dir, 0, 0]}>
+          <boxGeometry args={[0.9, 1.5, 0.24]} />
+          <meshStandardMaterial color="#00e5ff" emissive="#00e5ff" emissiveIntensity={0.6} />
         </mesh>
       </group>
-      {/* motor */}
-      <mesh position={[0, 0, -1.4]}>
-        <cylinderGeometry args={[2.1, 2.4, 3, 12]} />
-        <meshStandardMaterial color="#37506b" metalness={0.7} roughness={0.35} />
-      </mesh>
     </group>
   );
 }
@@ -151,41 +177,78 @@ function Drone() {
       {/* constant 3/4 viewing angle; attitude applies inside it */}
       <group rotation={[VIEW_TILT, 0, 0]}>
         <group ref={att}>
-          {/* airframe body */}
+          {/* faint downwash glow beneath the frame */}
+          <mesh position={[0, 0, -4.5]}>
+            <circleGeometry args={[11, 24]} />
+            <meshBasicMaterial color="#00e5ff" transparent opacity={0.06} side={THREE.DoubleSide} depthWrite={false} />
+          </mesh>
+
+          {/* carbon bottom + top plates with anodized standoffs (racing-quad stack) */}
           <mesh position={[0, 0, 0]}>
-            <boxGeometry args={[10, 15, 4.6]} />
-            <meshStandardMaterial color="#233850" metalness={0.65} roughness={0.35} />
+            <boxGeometry args={[11, 17, 1.2]} />
+            <meshStandardMaterial {...CARBON} />
           </mesh>
-          {/* canopy */}
-          <mesh position={[0, 2.2, 2.9]}>
-            <boxGeometry args={[6, 7.5, 2.2]} />
-            <meshStandardMaterial color="#0c1420" metalness={0.85} roughness={0.2} />
+          <mesh position={[0, -0.6, 4.2]}>
+            <boxGeometry args={[9, 13.5, 1]} />
+            <meshStandardMaterial {...CARBON} />
           </mesh>
-          {/* battery / belly */}
-          <mesh position={[0, 0, -2.9]}>
-            <boxGeometry args={[6.5, 10, 2]} />
-            <meshStandardMaterial color="#31465a" metalness={0.5} roughness={0.5} />
-          </mesh>
-          {/* arms to the corners */}
-          {[[-1, -1], [1, -1], [-1, 1], [1, 1]].map(([sx, sy], i) => (
-            <mesh key={i} position={[sx * 7.5, sy * 7.5, 1.4]} rotation={[0, 0, Math.atan2(sy, sx)]}>
-              <boxGeometry args={[12, 2.2, 1.6]} />
-              <meshStandardMaterial color="#1a2a3d" metalness={0.6} roughness={0.4} />
+          {[[-3.2, -5], [3.2, -5], [-3.2, 4.2], [3.2, 4.2]].map(([sx, sy], i) => (
+            <mesh key={i} position={[sx, sy, 2.1]} rotation={[Math.PI / 2, 0, 0]}>
+              <cylinderGeometry args={[0.6, 0.6, 3.2, 8]} />
+              <meshStandardMaterial {...AMBER_ANO} />
             </mesh>
           ))}
-          {/* rotors */}
-          <Rotor x={-12} y={-12} dir={1} refFn={(g) => (rotors.current[0] = g)} />
-          <Rotor x={12} y={-12} dir={-1} refFn={(g) => (rotors.current[1] = g)} />
-          <Rotor x={-12} y={12} dir={-1} refFn={(g) => (rotors.current[2] = g)} />
-          <Rotor x={12} y={12} dir={1} refFn={(g) => (rotors.current[3] = g)} />
-          {/* nose + tail LEDs (nose = +Y = heading) */}
-          <mesh position={[0, 8.2, 0.8]}>
-            <sphereGeometry args={[1.3, 12, 12]} />
+
+          {/* battery on top with amber strap */}
+          <mesh position={[0, -1, 6.2]}>
+            <boxGeometry args={[6.4, 10.5, 2.8]} />
+            <meshStandardMaterial color="#1c2937" metalness={0.35} roughness={0.6} />
+          </mesh>
+          <mesh position={[0, -1, 6.2]}>
+            <boxGeometry args={[7.1, 2.4, 3.2]} />
+            <meshStandardMaterial color="#ffb454" metalness={0.1} roughness={0.75} />
+          </mesh>
+
+          {/* angled FPV camera pod at the nose */}
+          <mesh position={[0, 6.8, 5]} rotation={[-0.55, 0, 0]}>
+            <boxGeometry args={[4.6, 3, 3]} />
+            <meshStandardMaterial color="#0c1420" metalness={0.7} roughness={0.3} />
+          </mesh>
+          <mesh position={[0, 8.1, 5.6]} rotation={[Math.PI / 2 - 0.55, 0, 0]}>
+            <cylinderGeometry args={[1.15, 1.3, 1.4, 12]} />
+            <meshStandardMaterial color="#05262c" metalness={0.9} roughness={0.15} />
+          </mesh>
+          <mesh position={[0, 8.6, 5.9]} rotation={[Math.PI / 2 - 0.55, 0, 0]}>
+            <sphereGeometry args={[0.7, 10, 10]} />
             <meshStandardMaterial ref={noseLed} color="#00e5ff" emissive="#00e5ff" emissiveIntensity={2.5} />
           </mesh>
-          <mesh position={[0, -8, 0.8]}>
-            <sphereGeometry args={[1.1, 12, 12]} />
+
+          {/* carbon arms to the corners */}
+          {[[-1, -1], [1, -1], [-1, 1], [1, 1]].map(([sx, sy], i) => (
+            <mesh key={i} position={[sx * 7.8, sy * 7.8, 0.9]} rotation={[0, 0, Math.atan2(sy, sx)]}>
+              <boxGeometry args={[13, 2.7, 0.9]} />
+              <meshStandardMaterial {...CARBON} />
+            </mesh>
+          ))}
+
+          {/* motors + props */}
+          <Motor x={-13} y={-13} dir={1} refFn={(g) => (rotors.current[0] = g)} />
+          <Motor x={13} y={-13} dir={-1} refFn={(g) => (rotors.current[1] = g)} />
+          <Motor x={-13} y={13} dir={-1} refFn={(g) => (rotors.current[2] = g)} />
+          <Motor x={13} y={13} dir={1} refFn={(g) => (rotors.current[3] = g)} />
+
+          {/* rear LED bar (amber) + whip antenna with mint tip */}
+          <mesh position={[0, -8.9, 1.6]}>
+            <boxGeometry args={[6.6, 0.9, 0.9]} />
             <meshStandardMaterial ref={tailLed} color="#ffb454" emissive="#ffb454" emissiveIntensity={2.5} />
+          </mesh>
+          <mesh position={[0, -9.6, 6.4]} rotation={[0.9, 0, 0]}>
+            <cylinderGeometry args={[0.22, 0.3, 7.5, 6]} />
+            <meshStandardMaterial color="#31465a" metalness={0.5} roughness={0.5} />
+          </mesh>
+          <mesh position={[0, -12.2, 9.2]}>
+            <sphereGeometry args={[0.7, 8, 8]} />
+            <meshStandardMaterial color="#34f5a2" emissive="#34f5a2" emissiveIntensity={1.6} />
           </mesh>
         </group>
       </group>
@@ -203,9 +266,10 @@ export default function DroneCursorScene() {
       dpr={[1, 1.5]}
       gl={{ alpha: true, antialias: true }}
     >
-      <ambientLight intensity={0.85} />
-      <directionalLight position={[80, 120, 160]} intensity={1.6} />
-      <directionalLight position={[-60, -40, 80]} intensity={0.5} color="#00e5ff" />
+      <ambientLight intensity={0.7} />
+      <directionalLight position={[80, 120, 160]} intensity={1.9} />
+      <directionalLight position={[-70, -50, 90]} intensity={0.6} color="#00e5ff" />
+      <directionalLight position={[30, -90, 40]} intensity={0.35} color="#ffb454" />
       <Drone />
     </Canvas>
   );
