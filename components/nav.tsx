@@ -30,9 +30,6 @@ export function Nav() {
         scrolled ? "border-line bg-bg/85" : "border-transparent bg-bg/50"
       }`}
     >
-      <div className="border-b border-amber/20 bg-amber/10 px-4 py-1.5 text-center font-mono text-[11px] tracking-wide text-amber">
-        ⚠ site still in development — check back soon for updates
-      </div>
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
         <Link
           href="/"
