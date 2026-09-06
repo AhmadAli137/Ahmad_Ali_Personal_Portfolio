@@ -121,19 +121,19 @@ const McMasterHall = (
 );
 
 const LANDMARKS: Landmark[] = [
-  { city: "Windsor", label: "Windsor", ax: 340, ay: 1085, note: "🏠 Home base, under the Ambassador Bridge — science fairs, WEC ×4, 14 hackathons, the CHARGE Lab.",
+  { city: "Windsor", label: "Windsor", ax: 448, ay: 1048, note: "🏠 Home base, under the Ambassador Bridge — science fairs, WEC ×4, 14 hackathons, the CHARGE Lab.",
     links: [{ label: "the postcards", href: "/hackathons" }, { label: "full record", href: "/competitions" }], art: AmbassadorBridge },
-  { city: "Leamington", label: "Leamington", ax: 452, ay: 1088, note: "🍅 The tomato capital — Take Your Shot 2026, pitching on the startup stage.",
+  { city: "Leamington", label: "Leamington", ax: 506, ay: 1078, note: "🍅 The tomato capital — Take Your Shot 2026, pitching on the startup stage.",
     links: [{ label: "pitch record", href: "/competitions" }], art: Tomato },
-  { city: "Waterloo", label: "Waterloo", ax: 548, ay: 1090, note: "🪿 IEEE EPEC 2025 — presenting the EV battery research (geese supervised).",
+  { city: "Waterloo", label: "Waterloo", ax: 455, ay: 988, note: "🪿 IEEE EPEC 2025 — presenting the EV battery research (geese supervised).",
     links: [{ label: "the research", href: "/#experience" }], art: Goose },
-  { city: "Hamilton", label: "Hamilton", ax: 648, ay: 1088, note: "🎓 McMaster — MASc in ECE, EV battery research, Fall 2026.",
+  { city: "Hamilton", label: "Hamilton", ax: 592, ay: 1072, note: "🎓 McMaster — MASc in ECE, EV battery research, Fall 2026.",
     links: [{ label: "the road ahead", href: "/#experience" }], art: McMasterHall },
-  { city: "Toronto", label: "Toronto", ax: 835, ay: 935, note: "🗼 The CN Tower — IEEE PIMRC Best Demo, Hack the 6ix, the bootcamp at York.",
+  { city: "Toronto", label: "Toronto", ax: 634, ay: 1042, note: "🗼 The CN Tower — IEEE PIMRC Best Demo, Hack the 6ix, the bootcamp at York.",
     links: [{ label: "Edge Pong postcard", href: "/projects/edge-pong" }, { label: "full record", href: "/competitions" }], art: CnTower },
-  { city: "Ottawa", label: "Ottawa", ax: 592, ay: 928, note: "🍁 Parliament's Peace Tower — the Canada-Wide Science Fair circuit, $10k uOttawa scholarship.",
+  { city: "Ottawa", label: "Ottawa", ax: 572, ay: 930, note: "🍁 Parliament's Peace Tower — the Canada-Wide Science Fair circuit, $10k uOttawa scholarship.",
     links: [{ label: "science-fair years", href: "/competitions" }], art: PeaceTower },
-  { city: "Montréal", label: "Montréal", ax: 880, ay: 1010, note: "🌐 The Biosphère — CS Games, mentoring the Windsor delegation.",
+  { city: "Montréal", label: "Montréal", ax: 706, ay: 1032, note: "🌐 The Biosphère — CS Games, mentoring the Windsor delegation.",
     links: [{ label: "CS Games", href: "/competitions" }], art: Biosphere },
 ];
 
@@ -170,7 +170,7 @@ export function CanadaMap() {
   return (
     <div className="relative mx-auto max-w-5xl overflow-hidden rounded-[6px] shadow-[0_24px_60px_rgba(0,0,0,0.55)]" style={{ color: INK }}>
       <svg
-        viewBox="-260 405 1310 720"
+        viewBox="-260 405 1310 705"
         className="block w-full"
         role="img"
         aria-label="Cartoon travel map of Canada with landmark markers on Windsor, Leamington, Waterloo, Hamilton, Toronto, Ottawa, and Montréal"
@@ -290,9 +290,9 @@ export function CanadaMap() {
                 transformOrigin: "center bottom",
               }}
             >
-              <ellipse cx="0" cy="4" rx="26" ry="5" fill={INK} opacity="0.15" />
-              {l.art}
-              <text x="0" y="24" textAnchor="middle" fill={INK} fontWeight={active === l.city ? 700 : 500} style={{ fontFamily: "var(--font-caveat)", fontSize: "23px" }}>
+              <ellipse cx="0" cy="4" rx="22" ry="4.5" fill={INK} opacity="0.15" />
+              <g transform="scale(0.85)">{l.art}</g>
+              <text x="0" y="22" textAnchor="middle" fill={INK} fontWeight={active === l.city ? 700 : 500} style={{ fontFamily: "var(--font-caveat)", fontSize: "21px" }}>
                 {l.label}
               </text>
             </g>
@@ -308,8 +308,8 @@ export function CanadaMap() {
           <path d="M0 -17 L4 -4 L17 0 L4 4 L0 17 L-4 4 L-17 0 L-4 -4 Z" strokeWidth="1" fill="#c9463a" fillOpacity="0.85" />
           <text y="-30" textAnchor="middle" fontSize="14" fontWeight="bold" strokeWidth="0">N</text>
         </g>
-        <rect x="-246" y="418" width="1282" height="694" fill="none" stroke={INK} strokeWidth="2.2" opacity="0.55" />
-        <rect x="-238" y="426" width="1266" height="678" fill="none" stroke={INK} strokeWidth="0.8" opacity="0.35" />
+        <rect x="-246" y="418" width="1282" height="679" fill="none" stroke={INK} strokeWidth="2.2" opacity="0.55" />
+        <rect x="-238" y="426" width="1266" height="663" fill="none" stroke={INK} strokeWidth="0.8" opacity="0.35" />
       </svg>
 
       {/* readout + postcard links */}
