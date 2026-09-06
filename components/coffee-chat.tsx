@@ -50,15 +50,15 @@ export function BaristaBot() {
   return (
     <div className="absolute inset-0 z-10 grid place-items-center rounded-xl bg-[#f4eedd]">
       <style>{`
-        @keyframes botRoll { 0% { transform: translateX(-175px); } 18% { transform: translateX(0); } 40% { transform: translateX(0); } 46% { transform: translateX(33px); } 84% { transform: translateX(33px); } 100% { transform: translateX(-175px); } }
+        @keyframes botRoll { 0% { transform: translateX(-175px); } 18% { transform: translateX(0); } 40% { transform: translateX(0); } 46% { transform: translateX(33px); } 68% { transform: translateX(33px); } 82%, 100% { transform: translateX(-175px); } }
         @keyframes potTilt { 0%, 20% { transform: rotate(0); } 25%, 38% { transform: rotate(38deg); } 43%, 48% { transform: rotate(0); } 52%, 64% { transform: rotate(38deg); } 69%, 100% { transform: rotate(0); } }
         @keyframes pour1 { 0%, 25% { opacity: 0; } 27%, 37% { opacity: 1; } 39%, 100% { opacity: 0; } }
         @keyframes pour2 { 0%, 52% { opacity: 0; } 54%, 63% { opacity: 1; } 65%, 100% { opacity: 0; } }
         @keyframes fill1 { 0%, 26% { transform: scaleY(0.04); } 38%, 99% { transform: scaleY(1); } 100% { transform: scaleY(0.04); } }
         @keyframes fill2 { 0%, 53% { transform: scaleY(0.04); } 64%, 99% { transform: scaleY(1); } 100% { transform: scaleY(0.04); } }
-        @keyframes cupL2 { 0%, 70% { transform: none; } 76%, 84% { transform: translate(4px, -3px) rotate(11deg); } 92%, 100% { transform: none; } }
-        @keyframes cupR2 { 0%, 70% { transform: none; } 76%, 84% { transform: translate(-4px, -3px) rotate(-11deg); } 92%, 100% { transform: none; } }
-        @keyframes clink2 { 0%, 74% { opacity: 0; transform: scale(0.2); } 79% { opacity: 1; transform: scale(1.15); } 88%, 100% { opacity: 0; transform: scale(1.35); } }
+        @keyframes cupL2 { 0%, 84% { transform: none; } 88%, 94% { transform: translate(4px, -3px) rotate(11deg); } 99%, 100% { transform: none; } }
+        @keyframes cupR2 { 0%, 84% { transform: none; } 88%, 94% { transform: translate(-4px, -3px) rotate(-11deg); } 99%, 100% { transform: none; } }
+        @keyframes clink2 { 0%, 86% { opacity: 0; transform: scale(0.2); } 90% { opacity: 1; transform: scale(1.15); } 97%, 100% { opacity: 0; transform: scale(1.35); } }
         @keyframes steamGate1 { 0%, 38% { opacity: 0; } 42%, 97% { opacity: 1; } 100% { opacity: 0; } }
         @keyframes steamGate2 { 0%, 64% { opacity: 0; } 68%, 97% { opacity: 1; } 100% { opacity: 0; } }
         @keyframes steamWaft { 0% { transform: translateY(2px); opacity: 0.15; } 50% { opacity: 0.55; } 100% { transform: translateY(-7px); opacity: 0; } }
