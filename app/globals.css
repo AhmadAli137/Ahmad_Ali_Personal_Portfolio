@@ -60,6 +60,18 @@ body::after {
   -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 30%, black 30%, transparent 90%);
 }
 
+/* Drone cursor: hide the native pointer while the quadcopter escorts it —
+   but keep the text caret cursor where typing happens */
+.drone-cursor,
+.drone-cursor * {
+  cursor: none !important;
+}
+.drone-cursor input,
+.drone-cursor textarea,
+.drone-cursor [contenteditable] {
+  cursor: text !important;
+}
+
 ::selection {
   background: rgba(0, 229, 255, 0.3);
 }
