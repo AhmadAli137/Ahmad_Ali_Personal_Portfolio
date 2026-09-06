@@ -9,8 +9,6 @@ import { Ph } from "@/components/image-placeholder";
 import { Hud } from "@/components/hud";
 import { Btn, Chip, Chips, SectionHeading } from "@/components/ui";
 import { projects, featuredSlugs } from "@/lib/projects";
-import { hacks, featuredHackTitles } from "@/lib/hackathons";
-import { Postcard } from "@/components/postcard";
 import { PhotoAlbum } from "@/components/photo-album";
 import { CoffeeChatButton } from "@/components/coffee-chat";
 import { LogoWall } from "@/components/logo-wall";
@@ -52,9 +50,6 @@ export default function Home() {
   const featured = featuredSlugs
     .map((slug) => projects.find((p) => p.slug === slug))
     .filter((p): p is NonNullable<typeof p> => Boolean(p));
-  const featuredHacks = featuredHackTitles
-    .map((t) => hacks.find((h) => h.title === t))
-    .filter((h): h is NonNullable<typeof h> => Boolean(h));
 
   return (
     <main>
@@ -272,20 +267,6 @@ export default function Home() {
             </div>
           </Reveal>
 
-          {/* ---- hackathons ---- */}
-          <Reveal className="mt-14">
-            <h3 className="mb-4 font-mono text-lg text-mint">
-              <span className="text-muted">## </span>Hackathons{" "}
-              <Link href="/hackathons" className="ml-2 text-sm text-cyan hover:underline">all 14 →</Link>
-            </h3>
-            <p className="mb-5 font-mono text-xs text-muted">postcards from the road — flip one over ↻</p>
-            <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-              {featuredHacks.map((h, i) => (
-                <Postcard key={h.title} data={h} index={i} />
-              ))}
-            </div>
-          </Reveal>
-
           {/* ---- pitches & entrepreneurship ---- */}
           <Reveal className="mt-14">
             <h3 className="mb-4 font-mono text-lg text-mint"><span className="text-muted">## </span>Pitches &amp; Entrepreneurship</h3>
@@ -315,9 +296,13 @@ export default function Home() {
             <LogoWall />
           </Reveal>
 
-          {/* ---- the map ---- */}
+          {/* ---- the map: postcards from the road ---- */}
           <Reveal className="mt-14">
-            <h3 className="mb-5 font-mono text-lg text-mint"><span className="text-muted">## </span>The Map</h3>
+            <h3 className="mb-2 font-mono text-lg text-mint">
+              <span className="text-muted">## </span>The Map — Postcards from the Road{" "}
+              <Link href="/hackathons" className="ml-2 text-sm text-cyan hover:underline">all postcards →</Link>
+            </h3>
+            <p className="mb-5 font-mono text-xs text-muted">pick a landmark — each city deals its postcards · flip one over ↻</p>
             <CanadaMap />
           </Reveal>
 
