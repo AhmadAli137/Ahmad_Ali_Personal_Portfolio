@@ -24,11 +24,18 @@ interface Page {
 
 const PAGES: Page[] = [
   { year: "2018", caption: "A science-fair kid gets a golden ticket", splash: { src: "/img/stem-bootcamp-golden-ticket.jpg", alt: "Golden ticket at CWSF with the SignSmart glove", ar: 1 } },
-  { year: "2018–22", caption: "Bootcamp cohorts & the first app wins", rows: [[
-    { src: "/img/stem-bootcamp-lassonde.jpg", alt: "Bootcamp cohort at Lassonde", ar: 1 },
-    { src: "/img/winparks-a.jpg", alt: "WinParks app", ar: 0.45 },
-    { src: "/img/wingrid-a.jpg", alt: "WinGrid app", ar: 0.45 },
-  ]] },
+  { year: "2018–22", caption: "People's Choice — then the first apps & games", rows: [
+    [
+      { src: "/img/stem-bootcamp-lassonde.jpg", alt: "Bootcamp cohort at Lassonde", ar: 1 },
+      { src: "/img/stem-bootcamp-trophy.jpg", alt: "People's Choice trophy", ar: 1.91 },
+    ],
+    [
+      { src: "/img/winparks-a.jpg", alt: "WinParks app", ar: 0.45 },
+      { src: "/img/gtc-title.png", alt: "Grand Theft Calculus title screen", ar: 1.78 },
+      { src: "/img/gtc-caught.png", alt: "Grand Theft Calculus caught screen", ar: 1.78 },
+      { src: "/img/wingrid-a.jpg", alt: "WinGrid app", ar: 0.45 },
+    ],
+  ] },
   { year: "2020–22", caption: "Engineering circuits & pandemic-era builds", rows: [
     [
       { src: "/img/wec-1st-place.jpg", alt: "WEC 1st place", ar: 1.35 },
@@ -63,10 +70,16 @@ const PAGES: Page[] = [
     { src: "/img/charge-lab-ev-rnd.jpg", alt: "EV powertrain rig", ar: 1 },
     { src: "/img/charge-lab-battery.jpg", alt: "Battery bench", ar: 1 },
   ]] },
-  { year: "2024–25", caption: "Research on the road — Magna & IEEE EPEC", rows: [[
-    { src: "/img/charge-lab-magna-team.jpg", alt: "Magna project team", ar: 1.33 },
-    { src: "/img/secondlife-award.jpg", alt: "Second Life 2nd overall", ar: 1.5 },
-  ]] },
+  { year: "2024", caption: "Second Life — 2nd overall, born from battery research", rows: [
+    [
+      { src: "/img/secondlife-award.jpg", alt: "Second Life 2nd overall", ar: 1.5 },
+      { src: "/img/secondlife-a.png", alt: "Second Life platform", ar: 1.88 },
+    ],
+    [
+      { src: "/img/secondlife-b.png", alt: "Battery marketplace", ar: 1.88 },
+      { src: "/img/charge-lab-magna-team.jpg", alt: "Magna project team", ar: 1.33 },
+    ],
+  ] },
   { year: "2025", caption: "PresentPro podiums & the JLR internship", rows: [
     [
       { src: "/img/presentpro-award-1.jpg", alt: "PresentPro award", ar: 1.5 },
@@ -89,27 +102,39 @@ const PAGES: Page[] = [
       { src: "/img/nasa-space-apps-5.jpg", alt: "The certificates", ar: 2.16 },
     ],
   ] },
-  { year: "2026", caption: "Hardware year — SketchBot ×2, Edge Pong, robot battles", rows: [
+  { year: "2026", caption: "Hardware year — SketchBot ×2 & Edge Pong", rows: [
     [
       { src: "/img/sketchbot-a.jpg", alt: "SketchBot", ar: 1.33 },
-      { src: "/img/winhacks26-sketchbot-award-1.jpg", alt: "WinHacks finalist", ar: 1.33 },
-      { src: "/img/edge-pong-video.jpg", alt: "Edge Pong demo", ar: 1.78 },
+      { src: "/img/sketchbot-b.jpg", alt: "Drawing mechanism", ar: 1.33 },
+      { src: "/img/sketchbot-c.jpg", alt: "SketchBot output", ar: 1.33 },
     ],
     [
+      { src: "/img/winhacks26-sketchbot-award-1.jpg", alt: "WinHacks finalist", ar: 1.33 },
       { src: "/img/clubhacks-sketchbot-v2-1.jpg", alt: "SketchBot V2", ar: 2.17 },
-      { src: "/img/genius-cup-robot-battle.jpg", alt: "Robot battle", ar: 1.5 },
+      { src: "/img/edge-pong-video.jpg", alt: "Edge Pong demo", ar: 1.78 },
     ],
   ] },
   { year: "2026", caption: "Giving the spark away — mentor & judge now", rows: [
     [
       { src: "/img/genius-cup-main.jpg", alt: "Genius Cup mentoring", ar: 1.5 },
       { src: "/img/genius-cup-2.jpg", alt: "Students with robots", ar: 1.5 },
-      { src: "/img/wrstef-judge-2026.jpg", alt: "Science fair judging", ar: 1.33 },
+      { src: "/img/genius-cup-3.jpg", alt: "Robotics activities", ar: 1.5 },
     ],
     [
-      { src: "/img/cs-games-2.jpg", alt: "CS Games delegation", ar: 1.5 },
-      { src: "/img/cs-games-1.jpg", alt: "CS Games", ar: 1.09 },
+      { src: "/img/genius-cup-robot-battle.jpg", alt: "Robot battle", ar: 1.5 },
+      { src: "/img/wrstef-judge-2026.jpg", alt: "Science fair judging", ar: 1.33 },
       { src: "/img/wrstef-fair.jpg", alt: "The fair", ar: 0.75 },
+    ],
+  ] },
+  { year: "2026", caption: "CS Games with the delegation — while building SaySpark", rows: [
+    [
+      { src: "/img/cs-games-1.jpg", alt: "CS Games", ar: 1.09 },
+      { src: "/img/cs-games-2.jpg", alt: "CS Games delegation", ar: 1.5 },
+      { src: "/img/cs-games-3.jpg", alt: "Competing at CS Games", ar: 1.5 },
+    ],
+    [
+      { src: "/img/sayspark-vision.jpg", alt: "Kids and robots — the SaySpark vision", ar: 1.89 },
+      { src: "/img/sayspark-simulator.png", alt: "The SaySpark simulator", ar: 1.86 },
     ],
   ] },
   { year: "NOW", caption: "SaySpark — the next chapter", splash: { src: "/img/sayspark-robot.png", alt: "Spark and Spark Mini robots", ar: 0.99 } },
