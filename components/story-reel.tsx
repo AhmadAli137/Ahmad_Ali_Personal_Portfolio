@@ -126,6 +126,18 @@ const PAGES: Page[] = [
       { src: "/img/wrstef-fair.jpg", alt: "The fair", ar: 0.75 },
     ],
   ] },
+  { year: "2026", caption: "Genius Cup ×300 — RoboFest Windsor takes the gym", rows: [
+    [
+      { src: "/img/genius-cup-2026-arena.jpg", alt: "The Genius Cup arena, a gym full of young builders", ar: 1.5 },
+      { src: "/img/genius-cup-2026-mentoring.jpg", alt: "Mentoring kids at the competition table", ar: 1.5 },
+      { src: "/img/genius-cup-2026-robots.jpg", alt: "Robot lineup ready to compete", ar: 1.5 },
+    ],
+    [
+      { src: "/img/genius-cup-2026-battle.jpg", alt: "Crowd around the robot battle platform", ar: 1.5 },
+      { src: "/img/genius-cup-2026-bot.jpg", alt: "A competitor's robot up close", ar: 1.5 },
+      { src: "/img/genius-cup-2026-judge-badge.jpg", alt: "The Genius Cup judge badge", ar: 1.32 },
+    ],
+  ] },
   { year: "2026", caption: "CS Games with the delegation — while building SaySpark", rows: [
     [
       { src: "/img/cs-games-1.jpg", alt: "CS Games", ar: 1.09 },

@@ -30,6 +30,8 @@ const SNAPS: Snap[] = [
   { src: "/img/charge-lab-ev-rnd.jpg", alt: "Working on an EV powertrain test rig at the CHARGE Lab", caption: "Late nights on the powertrain rig", note: "CHARGE Lab", tilt: 1.5 },
   { src: "/img/ieee-epec-poster.jpg", alt: "Presenting battery research at IEEE EPEC 2025", caption: "Presenting the dual-chemistry work", note: "IEEE EPEC · Waterloo 2025", tilt: -1.7 },
   { src: "/img/genius-cup-robot-battle.jpg", alt: "Refereeing a robot battle at the Genius Cup", caption: "Robot battles at the Genius Cup", note: "Windsor", tilt: 1.6 },
+  { src: "/img/genius-cup-2026-arena.jpg", alt: "A gym full of young builders at the Genius Cup", caption: "Three hundred young builders take the gym", note: "RoboFest Windsor · 2026", tilt: -1.5 },
+  { src: "/img/genius-cup-2026-judge-badge.jpg", alt: "The Genius Cup judge badge on its lanyard", caption: "The badge says it all", note: "Genius Cup · 2026", tilt: 1.8 },
   { src: "/img/wrstef-fair.jpg", alt: "At the Windsor Regional Science Fair as a judge", caption: "Back at the science fair — judging now, competing then", note: "WRSTEF · 2026", tilt: -1.3 },
   { src: "/img/cs-games-2.jpg", alt: "With the University of Windsor delegation at CS Games", caption: "CS Games with the Windsor delegation", note: "Montréal · 2026", tilt: 1.9 },
   { src: "/img/epicentre-award-stage.jpg", alt: "On stage receiving the EPICentre award", caption: "On stage — where the venture story started", note: "EPICentre · 2023", tilt: -2.1 },

@@ -484,8 +484,8 @@ export default function Home() {
           <div className="grid gap-x-9 gap-y-12 sm:grid-cols-2">
             {[
               {
-                img: "/img/genius-cup-main.jpg",
-                alt: "Ahmad mentoring young students with robots at the Genius Cup competition",
+                img: "/img/genius-cup-2026-arena.jpg",
+                alt: "The Genius Cup arena at RoboFest Windsor — a gym full of young builders",
                 title: "Genius Cup — Robotics Mentor & Judge",
                 org: "RobotFest × Geniotech Robotics, Windsor",
                 desc: "Mentoring and judging young builders at Windsor's Genius Cup robotics competition — watching kids light up when their robot moves for the first time never gets old.",
