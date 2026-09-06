@@ -5,139 +5,230 @@ import Image from "next/image";
 import { Play, RotateCcw, X } from "lucide-react";
 
 /**
- * The Reel — a comic-book riffle through the decade. Each beat is a comic
- * page (paper, ink-bordered panels, halftone, caption box, year burst);
- * pages turn around the spine like a thumbed book, easing in slow,
- * quickening through the middle, and settling on today.
+ * The Reel — a comic-book riffle through the decade, full-screen spreads.
+ *
+ * Layout engine: every image carries its true aspect ratio; each row of a
+ * spread gets its height from the sum of its images' aspects, and images
+ * share the row proportionally to their aspect — so panels match the photos
+ * almost exactly (no heavy crops, no blown-up small files). Square or
+ * low-res hero shots get "splash" pages: contained art on a comic burst.
  */
 
+interface Img { src: string; alt: string; ar: number }
 interface Page {
-  imgs: { src: string; alt: string }[];
-  caption: string;
   year: string;
+  caption: string;
+  splash?: Img;      // full-page contained art
+  rows?: Img[][];    // justified rows
 }
 
 const PAGES: Page[] = [
-  // full-page solo: where it started
-  { year: "2018", caption: "A science-fair kid gets a golden ticket", imgs: [{ src: "/img/stem-bootcamp-golden-ticket.jpg", alt: "Golden ticket at CWSF with the SignSmart glove" }] },
-  { year: "2018", caption: "First taste of entrepreneurship — People's Choice", imgs: [{ src: "/img/stem-bootcamp-lassonde.jpg", alt: "Bootcamp cohort at Lassonde" }, { src: "/img/stem-bootcamp-trophy.jpg", alt: "People's Choice trophy" }] },
-  { year: "2020–21", caption: "Hackathons through the strange years", imgs: [{ src: "/img/covid-a.png", alt: "Covid-19 Global desktop app" }, { src: "/img/gtc-play.png", alt: "Grand Theft Calculus gameplay" }, { src: "/img/winparks-a.jpg", alt: "WinParks app" }] },
-  { year: "2020–22", caption: "Programming titles, Formula SAE, EVs on the grid", imgs: [{ src: "/img/wec-1st-place.jpg", alt: "WEC 1st place" }, { src: "/img/formula-electric-team.jpg", alt: "Formula electric team" }, { src: "/img/wingrid-a.jpg", alt: "WinGrid app" }] },
-  { year: "2023", caption: "The capstone drone — Best Demo at IEEE PIMRC", imgs: [{ src: "/img/capstone-drone-team.jpg", alt: "Capstone drone team" }, { src: "/img/pimrc-best-demo-award.jpg", alt: "PIMRC Best Demo award" }] },
-  { year: "2023", caption: "The Innovation Mastery Award", imgs: [{ src: "/img/epicentre-award-stage.jpg", alt: "On stage at EPICentre" }, { src: "/img/epicentre-award-trophy.jpg", alt: "The trophy" }, { src: "/img/founder.jpg", alt: "Holding the award" }] },
-  { year: "2024", caption: "Second Life — 2nd overall at WinHacks", imgs: [{ src: "/img/secondlife-award.jpg", alt: "Second Life award" }, { src: "/img/secondlife-a.png", alt: "Second Life platform" }, { src: "/img/secondlife-b.png", alt: "Battery listings" }] },
-  { year: "2024", caption: "The Iron Ring, then the degree", imgs: [{ src: "/img/iron-ring-ceremony.jpg", alt: "Iron Ring ceremony" }, { src: "/img/iron-ring-classmates.jpg", alt: "With classmates" }, { src: "/img/undergrad-graduation.jpg", alt: "Graduation" }] },
-  { year: "2024", caption: "EV batteries at the CHARGE Lab", imgs: [{ src: "/img/charge-lab-ev-rnd.jpg", alt: "EV powertrain rig" }, { src: "/img/charge-lab-battery.jpg", alt: "Battery bench" }, { src: "/img/charge-lab-magna-team.jpg", alt: "Magna project team" }] },
-  { year: "2025", caption: "PresentPro — 2nd overall, 1st in category", imgs: [{ src: "/img/presentpro-award-1.jpg", alt: "PresentPro award" }, { src: "/img/presentpro-a.jpg", alt: "The wearable" }, { src: "/img/presentpro-award-3.jpg", alt: "The team" }] },
-  // full-page solo: the big one
-  { year: "2025", caption: "NASA Space Apps — 1st place + global nomination", imgs: [{ src: "/img/nasa-space-apps-1.jpg", alt: "NASA Space Apps win" }] },
-  { year: "2025", caption: "Meteor Madness — the team", imgs: [{ src: "/img/nasa-space-apps-2.jpg", alt: "Celebration" }, { src: "/img/nasa-space-apps-3.jpg", alt: "Team at work" }, { src: "/img/nasa-space-apps-4.jpg", alt: "Demo" }, { src: "/img/nasa-space-apps-5.jpg", alt: "The certificates" }] },
-  { year: "2024–25", caption: "Posters, delegations, and a JLR internship", imgs: [{ src: "/img/ieee-epec-poster.jpg", alt: "EPEC poster session" }, { src: "/img/jlr-team-1.jpg", alt: "JLR team" }, { src: "/img/jlr-team-2.jpg", alt: "JLR competition" }, { src: "/img/oec-2024-delegation.jpg", alt: "OEC delegation" }] },
-  { year: "2026", caption: "Hardware year — SketchBot ×2 & Edge Pong", imgs: [{ src: "/img/sketchbot-a.jpg", alt: "SketchBot" }, { src: "/img/winhacks26-sketchbot-award-1.jpg", alt: "WinHacks finalist" }, { src: "/img/clubhacks-sketchbot-v2-1.jpg", alt: "SketchBot V2" }, { src: "/img/edge-pong-video.jpg", alt: "Edge Pong demo" }] },
-  { year: "2026", caption: "Giving the spark away — Genius Cup", imgs: [{ src: "/img/genius-cup-main.jpg", alt: "Genius Cup mentoring" }, { src: "/img/genius-cup-robot-battle.jpg", alt: "Robot battle" }, { src: "/img/genius-cup-2.jpg", alt: "Students with robots" }, { src: "/img/genius-cup-3.jpg", alt: "Robotics activities" }] },
-  { year: "2026", caption: "Mentor and judge now — CS Games & the fair", imgs: [{ src: "/img/cs-games-1.jpg", alt: "CS Games" }, { src: "/img/cs-games-2.jpg", alt: "The delegation" }, { src: "/img/wrstef-judge-2026.jpg", alt: "Science fair judging" }, { src: "/img/wrstef-fair.jpg", alt: "The fair" }] },
-  { year: "NOW", caption: "SaySpark — the next chapter", imgs: [{ src: "/img/sayspark-robot.png", alt: "Spark robots" }, { src: "/img/sayspark-simulator.png", alt: "The simulator" }, { src: "/img/sayspark-vision.jpg", alt: "Kids and robots" }] },
+  { year: "2018", caption: "A science-fair kid gets a golden ticket", splash: { src: "/img/stem-bootcamp-golden-ticket.jpg", alt: "Golden ticket at CWSF with the SignSmart glove", ar: 1 } },
+  { year: "2018–22", caption: "Bootcamp cohorts & the first app wins", rows: [[
+    { src: "/img/stem-bootcamp-lassonde.jpg", alt: "Bootcamp cohort at Lassonde", ar: 1 },
+    { src: "/img/winparks-a.jpg", alt: "WinParks app", ar: 0.45 },
+    { src: "/img/wingrid-a.jpg", alt: "WinGrid app", ar: 0.45 },
+  ]] },
+  { year: "2020–22", caption: "Engineering circuits & pandemic-era builds", rows: [
+    [
+      { src: "/img/wec-1st-place.jpg", alt: "WEC 1st place", ar: 1.35 },
+      { src: "/img/formula-electric-team.jpg", alt: "Formula electric team", ar: 1.5 },
+      { src: "/img/oec-2024-delegation.jpg", alt: "OEC delegation", ar: 1.23 },
+    ],
+    [
+      { src: "/img/gtc-play.png", alt: "Grand Theft Calculus gameplay", ar: 1.78 },
+      { src: "/img/covid-a.png", alt: "Covid-19 Global desktop app", ar: 2.67 },
+    ],
+  ] },
+  { year: "2023", caption: "The capstone drone crew — and the founder award", rows: [[
+    { src: "/img/capstone-drone-team.jpg", alt: "Capstone drone team", ar: 1.33 },
+    { src: "/img/founder.jpg", alt: "Holding the EPICentre award", ar: 0.67 },
+  ]] },
+  { year: "2023", caption: "Best Demo & Innovation Mastery — the double", rows: [[
+    { src: "/img/pimrc-best-demo-award.jpg", alt: "PIMRC Best Demo award", ar: 1.28 },
+    { src: "/img/epicentre-award-trophy.jpg", alt: "The trophy", ar: 0.67 },
+  ]] },
+  { year: "2023–25", caption: "On stages — awards & posters", rows: [[
+    { src: "/img/epicentre-award-stage.jpg", alt: "On stage at EPICentre", ar: 1.5 },
+    { src: "/img/ieee-epec-poster.jpg", alt: "EPEC poster session", ar: 0.68 },
+  ]] },
+  { year: "2024", caption: "The Iron Ring — an engineer's promise", rows: [[
+    { src: "/img/iron-ring-ceremony.jpg", alt: "Iron Ring ceremony", ar: 1 },
+    { src: "/img/iron-ring-classmates.jpg", alt: "With classmates", ar: 0.75 },
+  ]] },
+  { year: "2024", caption: "BASc, done", rows: [[
+    { src: "/img/undergrad-graduation.jpg", alt: "Graduation", ar: 1.9 },
+  ]] },
+  { year: "2024", caption: "EV batteries at the CHARGE Lab", rows: [[
+    { src: "/img/charge-lab-ev-rnd.jpg", alt: "EV powertrain rig", ar: 1 },
+    { src: "/img/charge-lab-battery.jpg", alt: "Battery bench", ar: 1 },
+  ]] },
+  { year: "2024–25", caption: "Research on the road — Magna & IEEE EPEC", rows: [[
+    { src: "/img/charge-lab-magna-team.jpg", alt: "Magna project team", ar: 1.33 },
+    { src: "/img/secondlife-award.jpg", alt: "Second Life 2nd overall", ar: 1.5 },
+  ]] },
+  { year: "2025", caption: "PresentPro podiums & the JLR internship", rows: [
+    [
+      { src: "/img/presentpro-award-1.jpg", alt: "PresentPro award", ar: 1.5 },
+      { src: "/img/presentpro-a.jpg", alt: "The wearable", ar: 1.33 },
+      { src: "/img/presentpro-award-3.jpg", alt: "The team", ar: 1.63 },
+    ],
+    [
+      { src: "/img/jlr-team-1.jpg", alt: "JLR team", ar: 1 },
+      { src: "/img/jlr-team-2.jpg", alt: "JLR competition", ar: 2.16 },
+    ],
+  ] },
+  { year: "2025", caption: "NASA Space Apps — 1st place + global nomination", splash: { src: "/img/nasa-space-apps-1.jpg", alt: "NASA Space Apps win", ar: 1.33 } },
+  { year: "2025", caption: "Meteor Madness — the team", rows: [
+    [
+      { src: "/img/nasa-space-apps-2.jpg", alt: "Celebration", ar: 1 },
+      { src: "/img/nasa-space-apps-3.jpg", alt: "Team at work", ar: 1.98 },
+    ],
+    [
+      { src: "/img/nasa-space-apps-4.jpg", alt: "Demo", ar: 2.09 },
+      { src: "/img/nasa-space-apps-5.jpg", alt: "The certificates", ar: 2.16 },
+    ],
+  ] },
+  { year: "2026", caption: "Hardware year — SketchBot ×2, Edge Pong, robot battles", rows: [
+    [
+      { src: "/img/sketchbot-a.jpg", alt: "SketchBot", ar: 1.33 },
+      { src: "/img/winhacks26-sketchbot-award-1.jpg", alt: "WinHacks finalist", ar: 1.33 },
+      { src: "/img/edge-pong-video.jpg", alt: "Edge Pong demo", ar: 1.78 },
+    ],
+    [
+      { src: "/img/clubhacks-sketchbot-v2-1.jpg", alt: "SketchBot V2", ar: 2.17 },
+      { src: "/img/genius-cup-robot-battle.jpg", alt: "Robot battle", ar: 1.5 },
+    ],
+  ] },
+  { year: "2026", caption: "Giving the spark away — mentor & judge now", rows: [
+    [
+      { src: "/img/genius-cup-main.jpg", alt: "Genius Cup mentoring", ar: 1.5 },
+      { src: "/img/genius-cup-2.jpg", alt: "Students with robots", ar: 1.5 },
+      { src: "/img/wrstef-judge-2026.jpg", alt: "Science fair judging", ar: 1.33 },
+    ],
+    [
+      { src: "/img/cs-games-2.jpg", alt: "CS Games delegation", ar: 1.5 },
+      { src: "/img/cs-games-1.jpg", alt: "CS Games", ar: 1.09 },
+      { src: "/img/wrstef-fair.jpg", alt: "The fair", ar: 0.75 },
+    ],
+  ] },
+  { year: "NOW", caption: "SaySpark — the next chapter", splash: { src: "/img/sayspark-robot.png", alt: "Spark and Spark Mini robots", ar: 0.99 } },
 ];
 
-/* hold time before each page turns: a real read on every spread */
+/* pacing: a real read on every spread */
 function holdFor(i: number, n: number) {
   const edge = 3;
   if (i < edge) return 2700 - i * 300;
   if (i >= n - edge) return 2100 + (i - (n - edge)) * 300;
-  return 1750;
+  return 1800;
 }
 const FLIP_MS = 620;
 
-const HALFTONE =
-  "radial-gradient(circle, rgba(30,25,20,0.22) 1px, transparent 1.4px)";
+const HALFTONE = "radial-gradient(circle, rgba(30,25,20,0.22) 1px, transparent 1.4px)";
+const INK = "#2b2a24";
 
 type Phase = "title" | "film" | "end";
 
-/* Panel grid templates — a different composition per page shape, alternating
-   dominant sides so consecutive spreads never look the same. */
-function panelLayout(n: number, pageIdx: number): { grid: string; spans: string[] } {
-  const flip = pageIdx % 2 === 1;
-  if (n === 1) return { grid: "grid-cols-1", spans: [""] };
-  if (n === 2)
-    return flip
-      ? { grid: "grid-cols-[2fr_3fr]", spans: ["", ""] }
-      : { grid: "grid-cols-[3fr_2fr]", spans: ["", ""] };
-  if (n === 3)
-    return flip
-      ? { grid: "grid-cols-[2fr_3fr] grid-rows-2", spans: ["", "row-span-2 order-first", ""] }
-      : { grid: "grid-cols-[3fr_2fr] grid-rows-2", spans: ["row-span-2", "", ""] };
-  return flip
-    ? { grid: "grid-cols-3 grid-rows-2", spans: ["col-span-2", "", "", "row-span-1 col-span-2 order-first"], }
-    : { grid: "grid-cols-3 grid-rows-2", spans: ["row-span-2", "", "", "col-span-2"] };
+function Burst({ year }: { year: string }) {
+  return (
+    <div className="absolute right-[2%] top-[2.5%] grid h-[16%] min-h-[64px] place-items-center" style={{ aspectRatio: "1" }}>
+      <svg viewBox="-50 -50 100 100" className="absolute inset-0 h-full w-full">
+        <path
+          d={Array.from({ length: 24 }, (_, i) => {
+            const a = (i * Math.PI) / 12;
+            const r = i % 2 ? 32 : 46;
+            return `${i ? "L" : "M"}${(Math.cos(a) * r).toFixed(1)} ${(Math.sin(a) * r).toFixed(1)}`;
+          }).join(" ") + "Z"}
+          fill="#c9463a"
+          stroke={INK}
+          strokeWidth="2.5"
+        />
+      </svg>
+      <span className="relative text-white" style={{ fontFamily: "var(--font-bangers)", fontSize: "clamp(13px, 2.3vmin, 20px)" }}>
+        {year}
+      </span>
+    </div>
+  );
 }
 
-function ComicPage({ page, pageIdx }: { page: Page; pageIdx: number }) {
-  const n = page.imgs.length;
-  const { grid, spans } = panelLayout(n, pageIdx);
-  const captionLeft = pageIdx % 2 === 0;
+function Panel({ img, sizes }: { img: Img; sizes: string }) {
   return (
     <div
-      className="relative h-full w-full overflow-hidden rounded-[4px] p-[1.6%] pb-[5%]"
+      className="relative overflow-hidden border-[3px] bg-white"
+      style={{ flexGrow: img.ar, flexBasis: 0, borderColor: INK }}
+    >
+      <Image src={img.src} alt={img.alt} fill sizes={sizes} className="object-cover" style={{ filter: "contrast(1.14) saturate(1.25)" }} />
+      <div className="pointer-events-none absolute inset-0 mix-blend-multiply" style={{ backgroundImage: HALFTONE, backgroundSize: "5px 5px", opacity: 0.4 }} />
+    </div>
+  );
+}
+
+function ComicPage({ page, pageIdx, innerAr }: { page: Page; pageIdx: number; innerAr: number }) {
+  const captionLeft = pageIdx % 2 === 0;
+
+  /* justified rows: row height ∝ 1/Σar, then normalized */
+  let rowHeights: number[] = [];
+  if (page.rows) {
+    const raw = page.rows.map((r) => innerAr / r.reduce((s, im) => s + im.ar, 0));
+    const total = raw.reduce((s, h) => s + h, 0);
+    rowHeights = raw.map((h) => h / total);
+  }
+
+  return (
+    <div
+      className="relative h-full w-full overflow-hidden rounded-[4px] p-[1.6%] pb-[5.5%]"
       style={{
         backgroundColor: "#efe7d2",
         backgroundImage: "linear-gradient(160deg, rgba(255,255,255,0.6), rgba(140,115,70,0.12))",
         boxShadow: "inset 0 0 0 2px rgba(43,42,36,0.55), inset 0 0 80px rgba(90,70,40,0.15)",
       }}
     >
-      <div className={`grid h-full w-full gap-[1.4%] ${grid}`}>
-        {page.imgs.map((im, i) => (
+      {page.splash ? (
+        <div className="relative grid h-full w-full place-items-center">
+          {/* comic burst rays behind the splash art */}
           <div
-            key={im.src}
-            className={`relative overflow-hidden border-[3px] border-[#2b2a24] bg-white ${spans[i] ?? ""}`}
-            style={n >= 2 ? { transform: `rotate(${i % 2 ? 0.35 : -0.35}deg)` } : undefined}
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background: "repeating-conic-gradient(from 0deg at 50% 46%, rgba(201,70,58,0.13) 0deg 7deg, transparent 7deg 16deg)",
+            }}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 mix-blend-multiply"
+            style={{ backgroundImage: HALFTONE, backgroundSize: "6px 6px", opacity: 0.25 }}
+          />
+          <div
+            className="relative border-[4px] bg-white shadow-[10px_10px_0_rgba(43,42,36,0.5)]"
+            style={{ height: "88%", aspectRatio: `${page.splash.ar}`, maxWidth: "92%", borderColor: INK, transform: "rotate(-0.6deg)" }}
           >
-            <Image
-              src={im.src}
-              alt={im.alt}
-              fill
-              sizes="90vw"
-              className="object-cover"
-              style={{ filter: "contrast(1.16) saturate(1.3)" }}
-            />
-            <div
-              className="pointer-events-none absolute inset-0 mix-blend-multiply"
-              style={{ backgroundImage: HALFTONE, backgroundSize: "5px 5px", opacity: 0.45 }}
-            />
+            <Image src={page.splash.src} alt={page.splash.alt} fill sizes="80vh" className="object-cover" style={{ filter: "contrast(1.12) saturate(1.22)" }} />
+            <div className="pointer-events-none absolute inset-0 mix-blend-multiply" style={{ backgroundImage: HALFTONE, backgroundSize: "5px 5px", opacity: 0.35 }} />
           </div>
-        ))}
-      </div>
+        </div>
+      ) : (
+        <div className="flex h-full w-full flex-col gap-[1.4%]">
+          {page.rows!.map((row, r) => (
+            <div key={r} className="flex min-h-0 w-full gap-[1.4%]" style={{ flexGrow: rowHeights[r], flexBasis: 0 }}>
+              {row.map((im) => (
+                <Panel key={im.src} img={im} sizes={`${Math.round((im.ar / row.reduce((s, x) => s + x.ar, 0)) * 100)}vw`} />
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* caption box — alternates corners */}
       <div
-        className={`absolute bottom-[1.6%] max-w-[70%] border-[2.5px] border-[#2b2a24] bg-[#f5d94e] px-4 py-1.5 shadow-[3px_3px_0_rgba(43,42,36,0.8)] ${captionLeft ? "left-[2.5%]" : "right-[2.5%]"}`}
-        style={{ transform: `rotate(${captionLeft ? -0.8 : 0.8}deg)` }}
+        className={`absolute bottom-[1.6%] max-w-[70%] border-[2.5px] bg-[#f5d94e] px-4 py-1.5 shadow-[3px_3px_0_rgba(43,42,36,0.8)] ${captionLeft ? "left-[2.5%]" : "right-[2.5%]"}`}
+        style={{ transform: `rotate(${captionLeft ? -0.8 : 0.8}deg)`, borderColor: INK }}
       >
-        <span className="text-[#2b2a24]" style={{ fontFamily: "var(--font-bangers)", fontSize: "clamp(16px, 3vmin, 28px)", letterSpacing: "0.04em" }}>
+        <span style={{ color: INK, fontFamily: "var(--font-bangers)", fontSize: "clamp(16px, 3vmin, 28px)", letterSpacing: "0.04em" }}>
           {page.caption}
         </span>
       </div>
 
-      {/* year burst — opposite corner from the caption */}
-      <div
-        className={`absolute top-[2.5%] grid h-[16%] min-h-[64px] place-items-center ${captionLeft ? "right-[2%]" : "left-[2%]"}`}
-        style={{ aspectRatio: "1" }}
-      >
-        <svg viewBox="-50 -50 100 100" className="absolute inset-0 h-full w-full">
-          <path
-            d={Array.from({ length: 24 }, (_, i) => {
-              const a = (i * Math.PI) / 12;
-              const r = i % 2 ? 32 : 46;
-              return `${i ? "L" : "M"}${(Math.cos(a) * r).toFixed(1)} ${(Math.sin(a) * r).toFixed(1)}`;
-            }).join(" ") + "Z"}
-            fill="#c9463a"
-            stroke="#2b2a24"
-            strokeWidth="2.5"
-          />
-        </svg>
-        <span className="relative text-white" style={{ fontFamily: "var(--font-bangers)", fontSize: "clamp(13px, 2.3vmin, 20px)" }}>
-          {page.year}
-        </span>
-      </div>
+      <Burst year={page.year} />
     </div>
   );
 }
@@ -147,6 +238,7 @@ export function StoryReel() {
   const [phase, setPhase] = useState<Phase>("title");
   const [idx, setIdx] = useState(0);
   const [turning, setTurning] = useState(false);
+  const [innerAr, setInnerAr] = useState(1.9);
   const timer = useRef<number | null>(null);
   const clear = () => { if (timer.current) window.clearTimeout(timer.current); };
 
@@ -160,15 +252,17 @@ export function StoryReel() {
 
   useEffect(() => {
     if (!open) { clear(); return; }
+    const measure = () => setInnerAr((window.innerWidth * 0.94) / (window.innerHeight * 0.86));
+    measure();
+    window.addEventListener("resize", measure);
     start();
-    return clear;
+    return () => { clear(); window.removeEventListener("resize", measure); };
   }, [open, start]);
 
-  /* film loop: hold → turn → advance */
   useEffect(() => {
     if (phase !== "film" || turning) return;
     if (idx >= PAGES.length - 1) {
-      timer.current = window.setTimeout(() => setPhase("end"), 1500);
+      timer.current = window.setTimeout(() => setPhase("end"), 1800);
       return clear;
     }
     timer.current = window.setTimeout(() => setTurning(true), holdFor(idx, PAGES.length));
@@ -208,16 +302,10 @@ export function StoryReel() {
       {open && (
         <div className="fixed inset-0 z-[90] bg-[#101014]" role="dialog" aria-modal="true" aria-label="The story reel">
           <style>{`
-            @keyframes pageFlip {
-              0% { transform: rotateY(0deg); }
-              100% { transform: rotateY(-140deg); }
-            }
-            @keyframes pageShade {
-              0% { opacity: 0; } 45% { opacity: 0.35; } 100% { opacity: 0.6; }
-            }
-            @keyframes bookIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
-            @keyframes reelZoom { from { transform: scale(1); } to { transform: scale(1.045); } }
-            /* zoom paced to the longer film */
+            @keyframes pageFlip { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(-140deg); } }
+            @keyframes pageShade { 0% { opacity: 0; } 45% { opacity: 0.35; } 100% { opacity: 0.6; } }
+            @keyframes bookIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+            @keyframes reelZoom { from { transform: scale(1); } to { transform: scale(1.04); } }
             @keyframes reelTitle { 0% { opacity: 0; transform: scale(0.85); } 55% { opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
             @keyframes reelFade { from { opacity: 0; } to { opacity: 1; } }
             @media (prefers-reduced-motion: reduce) {
@@ -226,7 +314,6 @@ export function StoryReel() {
             }
           `}</style>
 
-          {/* spotlight vignette */}
           <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_55%_at_50%_46%,rgba(255,240,200,0.09),transparent)]" />
 
           <button
@@ -253,20 +340,18 @@ export function StoryReel() {
           )}
 
           {phase === "film" && (
-            <div className="reel-zoom h-full w-full" style={{ animation: "reelZoom 48s linear both" }}>
+            <div className="reel-zoom h-full w-full" style={{ animation: "reelZoom 52s linear both" }}>
               <div
                 className="absolute inset-3 [perspective:2400px] sm:inset-6 md:inset-x-10 md:inset-y-8"
                 style={{ animation: "bookIn 500ms ease-out both" }}
               >
-                {/* next pages waiting underneath (also preloads ahead) */}
                 {[idx + 2, idx + 1].map((i) =>
                   i < PAGES.length ? (
                     <div key={i} className="absolute inset-0" style={{ visibility: i === idx + 1 ? "visible" : "hidden" }}>
-                      <ComicPage page={PAGES[i]} pageIdx={i} />
+                      <ComicPage page={PAGES[i]} pageIdx={i} innerAr={innerAr} />
                     </div>
                   ) : null
                 )}
-                {/* top page — turns away around the spine */}
                 <div
                   className="reel-turn absolute inset-0"
                   style={{
@@ -276,8 +361,7 @@ export function StoryReel() {
                     boxShadow: "0 30px 80px rgba(0,0,0,0.6)",
                   }}
                 >
-                  <ComicPage page={PAGES[idx]} pageIdx={idx} />
-                  {/* shading as the page lifts */}
+                  <ComicPage page={PAGES[idx]} pageIdx={idx} innerAr={innerAr} />
                   <div
                     aria-hidden
                     className="pointer-events-none absolute inset-0"
