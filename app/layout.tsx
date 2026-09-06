@@ -12,6 +12,7 @@ import { SparkHunt } from "@/components/spark-hunt";
 import { Sparkbots } from "@/components/sparkbots";
 import { Terminal } from "@/components/terminal";
 import { BootScreen } from "@/components/boot-screen";
+import { CoffeeChatDialog } from "@/components/coffee-chat";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -58,6 +59,7 @@ export default function RootLayout({
         <Sparkbots />
         <Terminal />
         <BootScreen />
+        <CoffeeChatDialog />
         <Nav />
         {children}
         <SiteFooter />
