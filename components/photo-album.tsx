@@ -19,7 +19,9 @@ interface Snap {
 }
 
 const SNAPS: Snap[] = [
+  { src: "/img/cwsf-red-carpet.jpg", alt: "Team Windsor posed on the red carpet at the Canada-Wide Science Fair", caption: "Team Windsor on the red carpet", note: "CWSF · 2018", tilt: 1.4 },
   { src: "/img/stem-bootcamp-golden-ticket.jpg", alt: "Ahmad at the Canada-Wide Science Fair with the SignSmart glove, receiving a golden ticket to the STEM Entrepreneurship Bootcamp", caption: "The golden ticket — CWSF, the SignSmart glove, and an invitation", note: "CWSF · 2018", tilt: -1.6 },
+  { src: "/img/cwsf-2018-boa.jpg", alt: "Ahmad with a boa constrictor at a CWSF exhibitor booth", caption: "Made a friend at the fair", note: "CWSF · 2018", tilt: 1.9 },
   { src: "/img/stem-bootcamp-lassonde.jpg", alt: "The STEM Entrepreneurship Bootcamp cohort on the steps of York University's Lassonde building", caption: "The bootcamp cohort — first taste of entrepreneurship", note: "Lassonde × Youth Science Canada · 2018", tilt: 1.7 },
   { src: "/img/founder.jpg", alt: "Ahmad holding the EPICentre Innovation Mastery Award", caption: "The Innovation Mastery Award", note: "EPICentre · 2023", tilt: -1.6 },
   { src: "/img/capstone-drone-team.jpg", alt: "The capstone autonomous drone team", caption: "The capstone crew — best demo at IEEE PIMRC", note: "Toronto · 2023", tilt: 1.8 },

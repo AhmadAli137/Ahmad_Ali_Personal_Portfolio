@@ -23,7 +23,23 @@ interface Page {
 }
 
 const PAGES: Page[] = [
+  { year: "2016", caption: "First national finals — Team Windsor goes to McGill", rows: [
+    [
+      { src: "/img/cwsf-2016-departure.jpg", alt: "Team Windsor at the airport with the CWSF sign", ar: 1.78 },
+      { src: "/img/cwsf-2016-welcome.jpg", alt: "The team at the CWSF welcome banner", ar: 1.78 },
+    ],
+    [
+      { src: "/img/cwsf-2016-jackets.jpg", alt: "Team Ontario jackets at CWSF 2016", ar: 1.4 },
+      { src: "/img/cwsf-2016-board.jpg", alt: "Ahmad beside his plant microbial fuel cell project board", ar: 0.5625 },
+      { src: "/img/cwsf-medal-stage.jpg", alt: "Medals on the CWSF ceremony stage", ar: 1.23 },
+    ],
+  ] },
   { year: "2018", caption: "A science-fair kid gets a golden ticket", splash: { src: "/img/stem-bootcamp-golden-ticket.jpg", alt: "Golden ticket at CWSF with the SignSmart glove", ar: 1 } },
+  { year: "2018–19", caption: "SignSMART goes national — bronze at Fredericton", rows: [[
+    { src: "/img/cwsf-2018-minister.jpg", alt: "Demoing the SignSMART glove to the federal Science Minister", ar: 0.67 },
+    { src: "/img/cwsf-2019-glove-booth.jpg", alt: "The SignSMART V.2 booth with the glove on display", ar: 0.75 },
+    { src: "/img/cwsf-2019-booth.jpg", alt: "Ahmad at his CWSF 2019 booth wearing the glove", ar: 0.75 },
+  ]] },
   { year: "2018–22", caption: "People's Choice — then the first apps & games", rows: [
     [
       { src: "/img/stem-bootcamp-lassonde.jpg", alt: "Bootcamp cohort at Lassonde", ar: 1 },

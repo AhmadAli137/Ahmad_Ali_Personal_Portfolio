@@ -254,7 +254,7 @@ export default function Home() {
             <div className="grid gap-x-9 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
               {([
                 { img: "/img/pimrc-best-demo-award.jpg", award: "Best Demo Award", event: "IEEE PIMRC 2023 — Toronto", note: "Indoor autonomous drone navigation" },
-                { caption: "PHOTO: CWSF medals", award: "2× Bronze · Silver · $10k Scholarship", event: "Canada-Wide Science Fair", note: "Four national finals, 2015–2019" },
+                { img: "/img/cwsf-medals-2019.jpg", award: "2× Bronze · Silver · $10k Scholarship", event: "Canada-Wide Science Fair", note: "Four national finals, 2015–2019" },
                 { img: "/img/wec-1st-place.jpg", award: "4× 1st Place — Programming", event: "Windsor Engineering Competition", note: "Four straight years, 2020–2023" },
                 { img: "/img/jlr-team-1.jpg", award: "$600 + JLR Internship", event: "UWindsor × JLR AI Competition 2025", note: "Automotive AI memory optimization" },
               ] as { img?: string; caption?: string; award: string; event: string; note: string }[]).map((a, i) => (
