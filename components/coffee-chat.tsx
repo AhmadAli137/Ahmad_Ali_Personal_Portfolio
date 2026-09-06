@@ -44,79 +44,105 @@ export function CoffeeChatButton({
   );
 }
 
-/** The barista-bot: rolls in with a tray, the cups clink, repeat. */
-function BaristaBot() {
+/** The barista-bot: rolls in with a pot, pours both cups, they clink, repeat.
+    One 6s master timeline drives every part. */
+export function BaristaBot() {
   return (
     <div className="absolute inset-0 z-10 grid place-items-center rounded-xl bg-[#f4eedd]">
       <style>{`
-        @keyframes botRoll { 0% { transform: translateX(-160px); } 26% { transform: translateX(0); } 88% { transform: translateX(0); } 100% { transform: translateX(-160px); } }
-        @keyframes botBob { 0%, 26% { transform: translateY(0); } 8%, 18% { transform: translateY(-1.5px); } 40%, 100% { transform: translateY(0); } }
-        @keyframes cupL { 0%, 52% { transform: none; } 62%, 74% { transform: translate(4px, -3px) rotate(12deg); } 84%, 100% { transform: none; } }
-        @keyframes cupR { 0%, 52% { transform: none; } 62%, 74% { transform: translate(-4px, -3px) rotate(-12deg); } 84%, 100% { transform: none; } }
-        @keyframes clink { 0%, 60% { opacity: 0; transform: scale(0.2); } 67% { opacity: 1; transform: scale(1.15); } 78%, 100% { opacity: 0; transform: scale(1.35); } }
-        @keyframes steamUp { 0% { opacity: 0; transform: translateY(3px); } 40% { opacity: 0.5; } 100% { opacity: 0; transform: translateY(-8px); } }
+        @keyframes botRoll { 0% { transform: translateX(-175px); } 18% { transform: translateX(0); } 40% { transform: translateX(0); } 46% { transform: translateX(33px); } 84% { transform: translateX(33px); } 100% { transform: translateX(-175px); } }
+        @keyframes potTilt { 0%, 20% { transform: rotate(0); } 25%, 38% { transform: rotate(38deg); } 43%, 48% { transform: rotate(0); } 52%, 64% { transform: rotate(38deg); } 69%, 100% { transform: rotate(0); } }
+        @keyframes pour1 { 0%, 25% { opacity: 0; } 27%, 37% { opacity: 1; } 39%, 100% { opacity: 0; } }
+        @keyframes pour2 { 0%, 52% { opacity: 0; } 54%, 63% { opacity: 1; } 65%, 100% { opacity: 0; } }
+        @keyframes fill1 { 0%, 26% { transform: scaleY(0.04); } 38%, 99% { transform: scaleY(1); } 100% { transform: scaleY(0.04); } }
+        @keyframes fill2 { 0%, 53% { transform: scaleY(0.04); } 64%, 99% { transform: scaleY(1); } 100% { transform: scaleY(0.04); } }
+        @keyframes cupL2 { 0%, 70% { transform: none; } 76%, 84% { transform: translate(4px, -3px) rotate(11deg); } 92%, 100% { transform: none; } }
+        @keyframes cupR2 { 0%, 70% { transform: none; } 76%, 84% { transform: translate(-4px, -3px) rotate(-11deg); } 92%, 100% { transform: none; } }
+        @keyframes clink2 { 0%, 74% { opacity: 0; transform: scale(0.2); } 79% { opacity: 1; transform: scale(1.15); } 88%, 100% { opacity: 0; transform: scale(1.35); } }
+        @keyframes steamGate1 { 0%, 38% { opacity: 0; } 42%, 97% { opacity: 1; } 100% { opacity: 0; } }
+        @keyframes steamGate2 { 0%, 64% { opacity: 0; } 68%, 97% { opacity: 1; } 100% { opacity: 0; } }
+        @keyframes steamWaft { 0% { transform: translateY(2px); opacity: 0.15; } 50% { opacity: 0.55; } 100% { transform: translateY(-7px); opacity: 0; } }
         @keyframes eyeBlink { 0%, 42%, 46%, 100% { transform: scaleY(1); } 44% { transform: scaleY(0.1); } }
         @keyframes antennaGlow { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
       `}</style>
       <div className="text-center">
-        <svg width="250" height="150" viewBox="0 0 250 150" aria-hidden>
-          {/* floor */}
-          <line x1="20" y1="126" x2="230" y2="126" stroke={INK} strokeWidth="2" strokeLinecap="round" opacity="0.35" />
+        <svg width="260" height="152" viewBox="0 0 260 152" aria-hidden>
+          {/* floor + table */}
+          <line x1="14" y1="130" x2="246" y2="130" stroke={INK} strokeWidth="2" strokeLinecap="round" opacity="0.35" />
+          <g stroke={INK} strokeWidth="2.2" strokeLinecap="round">
+            <line x1="146" y1="102" x2="234" y2="102" strokeWidth="3" />
+            <line x1="154" y1="102" x2="150" y2="130" />
+            <line x1="226" y1="102" x2="230" y2="130" />
+          </g>
 
-          {/* the barista-bot, rolling in with the tray */}
-          <g style={{ animation: "botRoll 4.2s cubic-bezier(0.25,0.6,0.3,1) infinite" }}>
-            <g style={{ animation: "botBob 4.2s linear infinite" }}>
-              <g stroke={INK} strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round">
-                {/* body */}
-                <rect x="78" y="68" width="44" height="40" rx="9" fill="#cfd8dc" />
-                <rect x="86" y="78" width="28" height="12" rx="3" fill="#8a4d22" strokeWidth="1.8" />
-                {/* head */}
-                <rect x="82" y="38" width="36" height="26" rx="8" fill="#e3e8ea" />
-                <g style={{ animation: "eyeBlink 4.2s linear infinite", transformOrigin: "100px 51px" }}>
-                  <circle cx="92" cy="51" r="3.2" fill={INK} stroke="none" />
-                  <circle cx="108" cy="51" r="3.2" fill={INK} stroke="none" />
-                </g>
-                <path d="M96 58 q 4 2.5 8 0" fill="none" strokeWidth="1.8" />
-                {/* antenna */}
-                <line x1="100" y1="38" x2="100" y2="28" strokeWidth="2" />
-                <circle cx="100" cy="25" r="3.5" fill="#e0a33c" strokeWidth="1.6" style={{ animation: "antennaGlow 1.4s ease-in-out infinite" }} />
-                {/* serving arm + tray */}
-                <path d="M122 78 Q 136 74 142 82" fill="none" strokeWidth="3" />
-                <line x1="130" y1="88" x2="196" y2="88" strokeWidth="3.5" />
-                <line x1="138" y1="88" x2="134" y2="82" strokeWidth="2" />
-                {/* wheels */}
-                <circle cx="88" cy="114" r="10" fill="#9aa7ad" />
-                <circle cx="88" cy="114" r="3" fill={INK} stroke="none" />
-                <circle cx="112" cy="114" r="10" fill="#9aa7ad" />
-                <circle cx="112" cy="114" r="3" fill={INK} stroke="none" />
-              </g>
+          {/* cups on the table (fill first, clink later) */}
+          <g style={{ animation: "cupL2 6s ease-in-out infinite", transformOrigin: "172px 101px" }}>
+            <path d="M165 83 L181 83 L179 101 L167 101 Z" fill="#f7f2e4" stroke={INK} strokeWidth="2.2" strokeLinejoin="round" />
+            <path d="M165 86 C 158 86 158 96 166 96" fill="none" stroke={INK} strokeWidth="2.2" />
+            <path d="M167 86 L179 86 L177.6 99 L168.4 99 Z" fill="#6b3a17" style={{ animation: "fill1 6s linear infinite", transformOrigin: "173px 99px" }} />
+            <g style={{ animation: "steamGate1 6s linear infinite" }}>
+              <path d="M172 78 q 2.5 -5 0 -9" fill="none" stroke="#8a7a63" strokeWidth="1.8" style={{ animation: "steamWaft 1.6s ease-out infinite" }} />
+            </g>
+          </g>
+          <g style={{ animation: "cupR2 6s ease-in-out infinite", transformOrigin: "204px 101px" }}>
+            <path d="M197 83 L213 83 L211 101 L199 101 Z" fill="#f7f2e4" stroke={INK} strokeWidth="2.2" strokeLinejoin="round" />
+            <path d="M213 86 C 220 86 220 96 212 96" fill="none" stroke={INK} strokeWidth="2.2" />
+            <path d="M199 86 L211 86 L209.6 99 L200.4 99 Z" fill="#6b3a17" style={{ animation: "fill2 6s linear infinite", transformOrigin: "205px 99px" }} />
+            <g style={{ animation: "steamGate2 6s linear infinite" }}>
+              <path d="M204 78 q -2.5 -5 0 -9" fill="none" stroke="#8a7a63" strokeWidth="1.8" style={{ animation: "steamWaft 1.6s ease-out infinite", animationDelay: "0.5s" }} />
+            </g>
+          </g>
 
-              {/* cups on the tray */}
-              <g style={{ animation: "cupL 4.2s ease-in-out infinite", transformOrigin: "150px 87px" }}>
-                <g stroke={INK} strokeWidth="2.2" strokeLinejoin="round">
-                  <path d="M140 68 L162 68 L159 87 L143 87 Z" fill="#f7f2e4" />
-                  <path d="M140 71 C 133 71 133 81 141 81" fill="none" />
-                  <path d="M143 72 L159.5 72 L158 82 L144.5 82 Z" fill="#6b3a17" stroke="none" />
-                </g>
-                <path d="M148 62 q 2.5 -5 0 -9" fill="none" stroke="#8a7a63" strokeWidth="1.8" style={{ animation: "steamUp 1.7s ease-out infinite" }} />
-              </g>
-              <g style={{ animation: "cupR 4.2s ease-in-out infinite", transformOrigin: "176px 87px" }}>
-                <g stroke={INK} strokeWidth="2.2" strokeLinejoin="round">
-                  <path d="M166 68 L188 68 L185 87 L169 87 Z" fill="#f7f2e4" />
-                  <path d="M188 71 C 195 71 195 81 187 81" fill="none" />
-                  <path d="M169 72 L185.5 72 L184 82 L170.5 82 Z" fill="#6b3a17" stroke="none" />
-                </g>
-                <path d="M178 62 q -2.5 -5 0 -9" fill="none" stroke="#8a7a63" strokeWidth="1.8" style={{ animation: "steamUp 1.7s ease-out infinite", animationDelay: "0.6s" }} />
-              </g>
+          {/* clink spark */}
+          <g style={{ animation: "clink2 6s ease-out infinite", transformOrigin: "188px 72px" }} fill="#e0a33c" stroke={INK} strokeWidth="1.4">
+            <path d="M188 62 L191 69 L198 70 L192 74 L194 81 L188 77 L182 81 L184 74 L178 70 L185 69 Z" />
+          </g>
 
-              {/* clink spark */}
-              <g style={{ animation: "clink 4.2s ease-out infinite", transformOrigin: "164px 60px" }} fill="#e0a33c" stroke={INK} strokeWidth="1.4">
-                <path d="M164 50 L167 57 L174 58 L168 62 L170 69 L164 65 L158 69 L160 62 L154 58 L161 57 Z" />
+          {/* the barista-bot with its pot */}
+          <g style={{ animation: "botRoll 6s cubic-bezier(0.3,0.6,0.3,1) infinite" }}>
+            <g stroke={INK} strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round">
+              {/* body */}
+              <rect x="58" y="72" width="44" height="40" rx="9" fill="#cfd8dc" />
+              <rect x="66" y="82" width="28" height="12" rx="3" fill="#8a4d22" strokeWidth="1.8" />
+              {/* head */}
+              <rect x="62" y="42" width="36" height="26" rx="8" fill="#e3e8ea" />
+              <g style={{ animation: "eyeBlink 6s linear infinite", transformOrigin: "80px 55px" }}>
+                <circle cx="72" cy="55" r="3.2" fill={INK} stroke="none" />
+                <circle cx="88" cy="55" r="3.2" fill={INK} stroke="none" />
               </g>
+              <path d="M76 62 q 4 2.5 8 0" fill="none" strokeWidth="1.8" />
+              {/* antenna */}
+              <line x1="80" y1="42" x2="80" y2="32" strokeWidth="2" />
+              <circle cx="80" cy="29" r="3.5" fill="#e0a33c" strokeWidth="1.6" style={{ animation: "antennaGlow 1.4s ease-in-out infinite" }} />
+              {/* arm reaching to the pot */}
+              <path d="M102 82 Q 122 70 142 62" fill="none" strokeWidth="3" />
+              {/* wheels */}
+              <circle cx="68" cy="118" r="10" fill="#9aa7ad" />
+              <circle cx="68" cy="118" r="3" fill={INK} stroke="none" />
+              <circle cx="92" cy="118" r="10" fill="#9aa7ad" />
+              <circle cx="92" cy="118" r="3" fill={INK} stroke="none" />
+            </g>
+
+            {/* coffee pot, gripped at the handle; tilts to pour */}
+            <g style={{ animation: "potTilt 6s ease-in-out infinite", transformOrigin: "144px 60px" }}>
+              <g stroke={INK} strokeWidth="2.2" strokeLinejoin="round" strokeLinecap="round">
+                <rect x="140" y="48" width="26" height="20" rx="4" fill="#8a4d22" />
+                <path d="M166 52 L176 56 L166 62 Z" fill="#8a4d22" />
+                <path d="M144 48 L162 48" strokeWidth="2.6" />
+                <circle cx="153" cy="44" r="2.4" fill="#e0a33c" strokeWidth="1.4" />
+              </g>
+            </g>
+
+            {/* pouring streams (move with the robot; visible per pour phase) */}
+            <g style={{ animation: "pour1 6s linear infinite" }}>
+              <path d="M170 73 q 1.5 4 0 12" fill="none" stroke="#6b3a17" strokeWidth="3" strokeLinecap="round" />
+            </g>
+            <g style={{ animation: "pour2 6s linear infinite" }}>
+              <path d="M170 73 q 1.5 4 0 12" fill="none" stroke="#6b3a17" strokeWidth="3" strokeLinecap="round" />
             </g>
           </g>
         </svg>
-        <p className="font-hand mt-1 text-[20px] text-[#5a4a32]">your barista-bot is brewing the booking page…</p>
+        <p className="font-hand mt-1 text-[20px] text-[#5a4a32]">your barista-bot is pouring… booking page right up</p>
       </div>
     </div>
   );
@@ -142,7 +168,7 @@ export function CoffeeChatDialog() {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
-    const t = window.setTimeout(() => setBrewDone(true), 4300); // one full serve + clink
+    const t = window.setTimeout(() => setBrewDone(true), 6100); // one full pour + clink
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
