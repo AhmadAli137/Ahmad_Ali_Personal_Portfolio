@@ -11,13 +11,24 @@ import * as THREE from "three";
  * a 3/4 angle so the attitude reads in proper 3D.
  */
 
-const SPRING_K = 150;
-const SPRING_C = 19; // under-damped: it glides and settles like a machine with mass
-const AERO_DRAG = 0.00045; // v2 drag - coasting bleeds speed the way air does
-const TILT_GAIN = 0.0125;
-const TILT_MAX = 0.55; // rad
-const TILT_RATE = 18; // attitude responds faster than position - tilt visibly leads motion
+/* ---- proper quadrotor model ----
+   Two-loop control, like a real flight stack:
+   outer loop:  position error -> DESIRED acceleration (PD)
+   conversion:  desired accel -> desired tilt, theta = atan(a/g)
+   inner loop:  attitude chases desired tilt, slew-rate limited
+   dynamics:    ACTUAL acceleration comes only from current tilt: a = g*tan(theta)
+   So the drone can never out-accelerate its bank angle, tilt genuinely
+   precedes motion, and far targets produce the classic accelerate, flip,
+   brake profile of a real quad. */
+const G = 4500; // px/s^2 "gravity" at page scale (sets the whole energy scale)
+const KP = 14; // position loop stiffness (1/s^2)
+const KD = 6.6; // position loop damping (1/s)
+const K_ATT = 14; // attitude loop gain (1/s)
+const ATT_RATE = 7; // max attitude slew (rad/s, ~400 deg/s like a nimble quad)
+const TILT_MAX = 0.6; // rad (~34 deg bank limit)
+const AERO_DRAG = 0.0004; // v^2 drag
 const YAW_SPEED_MIN = 60;
+const YAW_RATE = 4.5; // rad/s max yaw slew
 const VIEW_TILT = -0.62; // camera-relative viewing angle
 
 const SHELL = { color: "#e9eff5", metalness: 0.25, roughness: 0.4 } as const;
@@ -177,31 +188,40 @@ function Drone() {
 
     g.visible = st.seen && st.visible;
 
-    const speed0 = Math.hypot(st.vel.x, st.vel.y);
-    const ax = SPRING_K * (st.target.x - st.pos.x) - SPRING_C * st.vel.x - AERO_DRAG * st.vel.x * speed0;
-    const ay = SPRING_K * (st.target.y - st.pos.y) - SPRING_C * st.vel.y - AERO_DRAG * st.vel.y * speed0;
-    st.vel.x += ax * dt;
-    st.vel.y += ay * dt;
-    st.pos.x += st.vel.x * dt;
-    st.pos.y += st.vel.y * dt;
+    /* outer loop: the acceleration the position controller WANTS */
+    const aDesX = KP * (st.target.x - st.pos.x) - KD * st.vel.x;
+    const aDesY = KP * (st.target.y - st.pos.y) - KD * st.vel.y;
 
+    /* yaw: nose slews toward the velocity vector at a bounded rate */
     const speed = Math.hypot(st.vel.x, st.vel.y);
     if (speed > YAW_SPEED_MIN) {
       const targetYaw = Math.atan2(st.vel.x, -st.vel.y);
       let d = targetYaw - st.yaw;
       while (d > Math.PI) d -= 2 * Math.PI;
       while (d < -Math.PI) d += 2 * Math.PI;
-      st.yaw += d * Math.min(1, dt * 7);
+      st.yaw += THREE.MathUtils.clamp(d * Math.min(1, dt * 6), -YAW_RATE * dt, YAW_RATE * dt);
     }
-
     const fwdX = Math.sin(st.yaw), fwdY = -Math.cos(st.yaw);
     const rightX = Math.cos(st.yaw), rightY = Math.sin(st.yaw);
-    const aFwd = (ax * fwdX + ay * fwdY) * TILT_GAIN * (Math.PI / 180);
-    const aRight = (ax * rightX + ay * rightY) * TILT_GAIN * (Math.PI / 180);
-    const tp = THREE.MathUtils.clamp(aFwd, -TILT_MAX, TILT_MAX);
-    const tr = THREE.MathUtils.clamp(aRight, -TILT_MAX, TILT_MAX);
-    st.pitch += (tp - st.pitch) * Math.min(1, dt * TILT_RATE);
-    st.roll += (tr - st.roll) * Math.min(1, dt * TILT_RATE);
+
+    /* desired accel -> commanded attitude: theta = atan(a/g), bank-limited */
+    const tiltFdes = THREE.MathUtils.clamp(Math.atan((aDesX * fwdX + aDesY * fwdY) / G), -TILT_MAX, TILT_MAX);
+    const tiltRdes = THREE.MathUtils.clamp(Math.atan((aDesX * rightX + aDesY * rightY) / G), -TILT_MAX, TILT_MAX);
+
+    /* inner loop: attitude chases the command, slew-rate limited */
+    st.pitch += THREE.MathUtils.clamp((tiltFdes - st.pitch) * Math.min(1, K_ATT * dt), -ATT_RATE * dt, ATT_RATE * dt);
+    st.roll += THREE.MathUtils.clamp((tiltRdes - st.roll) * Math.min(1, K_ATT * dt), -ATT_RATE * dt, ATT_RATE * dt);
+
+    /* dynamics: the ONLY lateral force is the tilted thrust vector, plus drag.
+       Acceleration is a consequence of attitude, never the other way round. */
+    const aF = G * Math.tan(st.pitch);
+    const aR = G * Math.tan(st.roll);
+    const ax = aF * fwdX + aR * rightX - AERO_DRAG * st.vel.x * speed;
+    const ay = aF * fwdY + aR * rightY - AERO_DRAG * st.vel.y * speed;
+    st.vel.x += ax * dt;
+    st.vel.y += ay * dt;
+    st.pos.x += st.vel.x * dt;
+    st.pos.y += st.vel.y * dt;
 
     /* hover turbulence: a quad is never perfectly still - layered sines give
        small non-repeating attitude and position flutter, growing with speed */
@@ -225,9 +245,10 @@ function Drone() {
     st.scrollLag += (st.scrollSm - st.scrollLag) * Math.min(1, dt * 7);
 
     const tiltMag = Math.hypot(st.pitch, st.roll);
-    const hoverNeed = 1 + tiltMag * 0.9;
+    /* holding altitude while tilted requires thrust/cos(theta) — the real relation */
+    const hoverNeed = 1 / Math.max(Math.cos(tiltMag), 0.55);
     const climbDemand = -st.vel.y * 0.0012 - st.scrollLag * 0.0009;
-    const throttleTarget = THREE.MathUtils.clamp(1 + climbDemand + tiltMag * 0.9, 0.2, 2.3);
+    const throttleTarget = THREE.MathUtils.clamp(hoverNeed + climbDemand, 0.2, 2.3);
     st.throttle += (throttleTarget - st.throttle) * Math.min(1, dt * 5); // motor spool lag
 
     st.altV += ((st.throttle - hoverNeed) * 700 - st.alt * 8 - st.altV * 4) * dt;
