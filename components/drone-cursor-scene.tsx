@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -11,10 +11,12 @@ import * as THREE from "three";
  * a 3/4 angle so the attitude reads in proper 3D.
  */
 
-const SPRING_K = 180;
-const SPRING_C = 24;
-const TILT_GAIN = 0.0115;
+const SPRING_K = 150;
+const SPRING_C = 19; // under-damped: it glides and settles like a machine with mass
+const AERO_DRAG = 0.00045; // v² drag — coasting bleeds speed the way air does
+const TILT_GAIN = 0.0125;
 const TILT_MAX = 0.55; // rad
+const TILT_RATE = 18; // attitude responds faster than position — tilt visibly leads motion
 const YAW_SPEED_MIN = 60;
 const VIEW_TILT = -0.62; // camera-relative viewing angle
 
@@ -22,11 +24,12 @@ const SHELL = { color: "#e9eff5", metalness: 0.25, roughness: 0.4 } as const;
 const CYAN_ANO = { color: "#19c8de", metalness: 0.85, roughness: 0.22 } as const;
 const AMBER_ANO = { color: "#f2a544", metalness: 0.8, roughness: 0.3 } as const;
 
-function Motor({ x, y, dir, refFn, discFn, ringFn }: {
+function Motor({ x, y, dir, refFn, discFn, ringFn, bladeMat }: {
   x: number; y: number; dir: number;
   refFn: (g: THREE.Group) => void;
   discFn: (m: THREE.MeshBasicMaterial) => void;
   ringFn: (m: THREE.MeshBasicMaterial) => void;
+  bladeMat: THREE.MeshStandardMaterial;
 }) {
   return (
     <group position={[x, y, 1.1]}>
@@ -54,13 +57,11 @@ function Motor({ x, y, dir, refFn, discFn, ringFn }: {
       </mesh>
       {/* two twisted blades */}
       <group ref={refFn} userData={{ dir }} position={[0, 0, 3.4]}>
-        <mesh position={[3.5, 0, 0]} rotation={[0.45 * dir, 0, 0]}>
+        <mesh position={[3.5, 0, 0]} rotation={[0.45 * dir, 0, 0]} material={bladeMat}>
           <boxGeometry args={[6.6, 1.5, 0.22]} />
-          <meshStandardMaterial color="#f4f8fb" metalness={0.3} roughness={0.45} />
         </mesh>
-        <mesh position={[-3.5, 0, 0]} rotation={[-0.45 * dir, 0, 0]}>
+        <mesh position={[-3.5, 0, 0]} rotation={[-0.45 * dir, 0, 0]} material={bladeMat}>
           <boxGeometry args={[6.6, 1.5, 0.22]} />
-          <meshStandardMaterial color="#f4f8fb" metalness={0.3} roughness={0.45} />
         </mesh>
         {/* cyan blade tips */}
         <mesh position={[6.5, 0, 0]} rotation={[0.45 * dir, 0, 0]}>
@@ -85,6 +86,10 @@ function Drone() {
   const washMat = useRef<THREE.MeshBasicMaterial>(null);
   const noseLed = useRef<THREE.MeshStandardMaterial>(null);
   const tailLed = useRef<THREE.MeshStandardMaterial>(null);
+  const bladeMat = useMemo(
+    () => new THREE.MeshStandardMaterial({ color: "#f4f8fb", metalness: 0.3, roughness: 0.45, transparent: true }),
+    []
+  );
 
   const s = useRef({
     target: { x: 0, y: 0 },
@@ -140,8 +145,9 @@ function Drone() {
 
     g.visible = st.seen && st.visible;
 
-    const ax = SPRING_K * (st.target.x - st.pos.x) - SPRING_C * st.vel.x;
-    const ay = SPRING_K * (st.target.y - st.pos.y) - SPRING_C * st.vel.y;
+    const speed0 = Math.hypot(st.vel.x, st.vel.y);
+    const ax = SPRING_K * (st.target.x - st.pos.x) - SPRING_C * st.vel.x - AERO_DRAG * st.vel.x * speed0;
+    const ay = SPRING_K * (st.target.y - st.pos.y) - SPRING_C * st.vel.y - AERO_DRAG * st.vel.y * speed0;
     st.vel.x += ax * dt;
     st.vel.y += ay * dt;
     st.pos.x += st.vel.x * dt;
@@ -153,7 +159,7 @@ function Drone() {
       let d = targetYaw - st.yaw;
       while (d > Math.PI) d -= 2 * Math.PI;
       while (d < -Math.PI) d += 2 * Math.PI;
-      st.yaw += d * Math.min(1, dt * 9);
+      st.yaw += d * Math.min(1, dt * 7);
     }
 
     const fwdX = Math.sin(st.yaw), fwdY = -Math.cos(st.yaw);
@@ -162,8 +168,17 @@ function Drone() {
     const aRight = (ax * rightX + ay * rightY) * TILT_GAIN * (Math.PI / 180);
     const tp = THREE.MathUtils.clamp(aFwd, -TILT_MAX, TILT_MAX);
     const tr = THREE.MathUtils.clamp(aRight, -TILT_MAX, TILT_MAX);
-    st.pitch += (tp - st.pitch) * Math.min(1, dt * 12);
-    st.roll += (tr - st.roll) * Math.min(1, dt * 12);
+    st.pitch += (tp - st.pitch) * Math.min(1, dt * TILT_RATE);
+    st.roll += (tr - st.roll) * Math.min(1, dt * TILT_RATE);
+
+    /* hover turbulence: a quad is never perfectly still — layered sines give
+       small non-repeating attitude and position flutter, growing with speed */
+    const t = state3.clock.elapsedTime;
+    const wob = 0.014 + speed * 0.000035;
+    const nPitch = (Math.sin(t * 7.3) * 0.5 + Math.sin(t * 13.7 + 1.7) * 0.3 + Math.sin(t * 23.1 + 4.1) * 0.2) * wob;
+    const nRoll = (Math.sin(t * 8.1 + 2.3) * 0.5 + Math.sin(t * 15.3 + 0.6) * 0.3 + Math.sin(t * 21.7 + 3.2) * 0.2) * wob;
+    const nX = (Math.sin(t * 5.7 + 1.1) + Math.sin(t * 11.3 + 3.7) * 0.5) * 0.55;
+    const nY = (Math.sin(t * 6.3 + 2.9) + Math.sin(t * 12.7 + 0.4) * 0.5) * 0.55;
 
     /* ---- vertical dynamics ----
        Throttle chases what flight demands: hover baseline, extra to hold
@@ -189,15 +204,15 @@ function Drone() {
     const bob = speed < 40 ? Math.sin(state3.clock.elapsedTime * 2.6) * 1.6 : 0;
 
     g.position.set(
-      st.pos.x - window.innerWidth / 2,
-      window.innerHeight / 2 - st.pos.y - bob + st.alt,
+      st.pos.x - window.innerWidth / 2 + nX,
+      window.innerHeight / 2 - st.pos.y - bob + st.alt + nY,
       0
     );
 
     a.rotation.order = "ZXY";
     a.rotation.z = -st.yaw;
-    a.rotation.x = st.pitch;
-    a.rotation.y = st.roll;
+    a.rotation.x = st.pitch + nPitch;
+    a.rotation.y = st.roll + nRoll;
 
     const targetScale = st.hover ? 1.2 : 1;
     st.scale += (targetScale - st.scale) * Math.min(1, dt * 10);
@@ -215,6 +230,8 @@ function Drone() {
       if (m) m.opacity = 0.08 + st.throttle * 0.09;
     }
     if (washMat.current) washMat.current.opacity = 0.03 + st.throttle * 0.055;
+    /* blades dissolve into the blur disc as the motors load up */
+    bladeMat.opacity = THREE.MathUtils.clamp(1.55 - st.throttle * 0.75, 0.1, 1);
 
     const pulse = (Math.sin(state3.clock.elapsedTime * 5.5) + 1) / 2;
     if (noseLed.current) noseLed.current.emissiveIntensity = 1.5 + pulse * 2.5;
@@ -281,10 +298,10 @@ function Drone() {
           ))}
 
           {/* motors + props */}
-          <Motor x={-13} y={-13} dir={1} refFn={(g) => (rotors.current[0] = g)} discFn={(m) => (discMats.current[0] = m)} ringFn={(m) => (ringMats.current[0] = m)} />
-          <Motor x={13} y={-13} dir={-1} refFn={(g) => (rotors.current[1] = g)} discFn={(m) => (discMats.current[1] = m)} ringFn={(m) => (ringMats.current[1] = m)} />
-          <Motor x={-13} y={13} dir={-1} refFn={(g) => (rotors.current[2] = g)} discFn={(m) => (discMats.current[2] = m)} ringFn={(m) => (ringMats.current[2] = m)} />
-          <Motor x={13} y={13} dir={1} refFn={(g) => (rotors.current[3] = g)} discFn={(m) => (discMats.current[3] = m)} ringFn={(m) => (ringMats.current[3] = m)} />
+          <Motor x={-13} y={-13} dir={1} bladeMat={bladeMat} refFn={(g) => (rotors.current[0] = g)} discFn={(m) => (discMats.current[0] = m)} ringFn={(m) => (ringMats.current[0] = m)} />
+          <Motor x={13} y={-13} dir={-1} bladeMat={bladeMat} refFn={(g) => (rotors.current[1] = g)} discFn={(m) => (discMats.current[1] = m)} ringFn={(m) => (ringMats.current[1] = m)} />
+          <Motor x={-13} y={13} dir={-1} bladeMat={bladeMat} refFn={(g) => (rotors.current[2] = g)} discFn={(m) => (discMats.current[2] = m)} ringFn={(m) => (ringMats.current[2] = m)} />
+          <Motor x={13} y={13} dir={1} bladeMat={bladeMat} refFn={(g) => (rotors.current[3] = g)} discFn={(m) => (discMats.current[3] = m)} ringFn={(m) => (ringMats.current[3] = m)} />
 
           {/* rear LED bar (amber) + whip antenna with mint tip */}
           <mesh position={[0, -8.9, 1.6]}>
