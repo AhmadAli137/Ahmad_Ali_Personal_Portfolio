@@ -97,6 +97,9 @@ function Drone() {
   const ringMats = useRef<THREE.MeshBasicMaterial[]>([]);
   const shadowRig = useRef<THREE.Group>(null);
   const shadowMat = useRef<THREE.MeshBasicMaterial>(null);
+  const reticle = useRef<THREE.Group>(null);
+  const reticleDot = useRef<THREE.MeshBasicMaterial>(null);
+  const reticleRing = useRef<THREE.MeshBasicMaterial>(null);
 
   /* on a dark page a cast shadow has nothing to darken — instead the drone's
      downwash and underglow light the surface beneath it (soft cyan pool) */
@@ -295,6 +298,18 @@ function Drone() {
       if (shadowMat.current) shadowMat.current.opacity = st.poolA;
     }
 
+    /* the reticle rides the raw pointer — exact, unfiltered */
+    const rt = reticle.current;
+    if (rt) {
+      rt.visible = g.visible;
+      rt.position.set(st.target.x - window.innerWidth / 2, window.innerHeight / 2 - st.target.y, 2);
+      const rs = st.hover ? 1.45 : 1;
+      rt.scale.setScalar(rt.scale.x + (rs - rt.scale.x) * Math.min(1, dt * 14));
+      const col = st.hover ? "#ffb454" : "#00e5ff";
+      if (reticleDot.current) reticleDot.current.color.set(col);
+      if (reticleRing.current) reticleRing.current.color.set(col);
+    }
+
     /* rotors spin with throttle; prop discs brighten under load */
     const spin = 40 + st.throttle * 65;
     for (const r of rotors.current) {
@@ -316,6 +331,18 @@ function Drone() {
 
   return (
     <>
+    {/* precise click reticle — sits at the TRUE pointer position, zero lag;
+        the drone escorts it. This is what you aim with. */}
+    <group ref={reticle} visible={false}>
+      <mesh position={[0, 0, 3]}>
+        <circleGeometry args={[2.2, 16]} />
+        <meshBasicMaterial ref={reticleDot} color="#00e5ff" transparent opacity={0.95} depthWrite={false} />
+      </mesh>
+      <mesh position={[0, 0, 3]}>
+        <ringGeometry args={[4.6, 5.6, 24]} />
+        <meshBasicMaterial ref={reticleRing} color="#00e5ff" transparent opacity={0.5} depthWrite={false} />
+      </mesh>
+    </group>
     {/* ground shadow on the page plane */}
     <group ref={shadowRig} visible={false}>
       <mesh>

@@ -430,6 +430,47 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "afterburn",
+    title: "Afterburn",
+    badge: "SIDE QUEST 2026 — PROCEDURAL 3D FLIGHT",
+    badgeTone: "cyan",
+    tagline:
+      "An endless flight through a dream that never quite resolves. Everything procedural, everything synthesized — no assets, just code. Playable right here.",
+    cardBlurb:
+      "Endless dream-flight in Three.js — thread neon gates, dodge crystal spires, chase the sky whales. Zero assets, all procedural.",
+    cardCaption: "Afterburn — click to fly",
+    cardSrc: "/img/afterburn-title.png",
+    chips: ["Three.js", "TypeScript", "Procedural Generation", "Game Dev"],
+    heroCaption: "Afterburn — an endless flight through a dream",
+    heroSrc: "/img/afterburn-flight.png",
+    problem:
+      "Sometimes you build robots and battery packs; sometimes you need to fly through a neon dream at 364 km/h. A weekend experiment in how much atmosphere pure code can conjure — no 3D models, no textures, no audio files.",
+    solution:
+      "A vanilla Three.js endless flyer where the entire world is procedural: low-poly terrain, crystal spires, drifting sky whales, and a palette that re-colours itself every ~26 seconds — violet dusk, abyssal teal, ember rose, mint hollow. Mouse steers, SPACE boosts, Q/E barrel-rolls grant brief invulnerability.",
+    demoUrl: "https://afterburn-game.vercel.app",
+    features: [
+      "Fully procedural world — no imported assets, audio synthesized in-code",
+      "Neon gates with streak multipliers; boost meter refilled by clean flying",
+      "Barrel rolls (Q/E) with brief invulnerability frames",
+      "Crystal spire obstacles and three shields",
+      "World re-colours itself every ~26 seconds across four dream palettes",
+      "Best score persists on-device",
+    ],
+    stack: ["Three.js", "TypeScript", "Vite", "Web Audio API"],
+    challenges: [
+      "Making an infinite world feel varied using only procedural generation",
+      "Tuning flight feel — boost, banking, and roll — until it reads as a dream, not a sim",
+    ],
+    lessons: ["Constraints breed atmosphere: zero assets forces every visual to earn its place in code"],
+    gallery: [
+      { caption: "Threading the gates at 364 km/h — streak building", src: "/img/afterburn-flight.png" },
+      { caption: "The title screen — click to fly", src: "/img/afterburn-title.png" },
+    ],
+    links: [
+      { label: "Play Live", href: "https://afterburn-game.vercel.app" },
+    ],
+  },
+  {
     slug: "winparks",
     title: "WinParks",
     badge: "BORDERHACKS 2021 — PEOPLE'S CHOICE + OPEN DATA WINNER",
@@ -685,6 +726,9 @@ export const featuredSlugs = [
   "drone",
   "sketchbot",
   "meteor-madness",
+  "presentpro",
+  "second-life",
   "edge-pong",
+  "afterburn",
   "grand-theft-calculus",
 ];
