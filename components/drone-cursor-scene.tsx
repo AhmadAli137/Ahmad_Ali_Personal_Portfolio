@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
 /**
@@ -13,10 +13,10 @@ import * as THREE from "three";
 
 const SPRING_K = 150;
 const SPRING_C = 19; // under-damped: it glides and settles like a machine with mass
-const AERO_DRAG = 0.00045; // v² drag — coasting bleeds speed the way air does
+const AERO_DRAG = 0.00045; // v2 drag - coasting bleeds speed the way air does
 const TILT_GAIN = 0.0125;
 const TILT_MAX = 0.55; // rad
-const TILT_RATE = 18; // attitude responds faster than position — tilt visibly leads motion
+const TILT_RATE = 18; // attitude responds faster than position - tilt visibly leads motion
 const YAW_SPEED_MIN = 60;
 const VIEW_TILT = -0.62; // camera-relative viewing angle
 
@@ -46,7 +46,7 @@ function Motor({ x, y, dir, refFn, discFn, ringFn, bladeMat }: {
         <cylinderGeometry args={[0.6, 0.6, 0.8, 8]} />
         <meshStandardMaterial {...AMBER_ANO} />
       </mesh>
-      {/* prop blur: disc + rim ring — brightness follows throttle */}
+      {/* prop blur: disc + rim ring - brightness follows throttle */}
       <mesh position={[0, 0, 3.5]}>
         <circleGeometry args={[7.4, 28]} />
         <meshBasicMaterial ref={discFn} color="#9fe8f2" transparent opacity={0.07} side={THREE.DoubleSide} depthWrite={false} />
@@ -84,8 +84,23 @@ function Drone() {
   const discMats = useRef<THREE.MeshBasicMaterial[]>([]);
   const ringMats = useRef<THREE.MeshBasicMaterial[]>([]);
   const washMat = useRef<THREE.MeshBasicMaterial>(null);
+  const shadowRig = useRef<THREE.Group>(null);
+  const shadowMats = useRef<THREE.MeshBasicMaterial[]>([]);
   const noseLed = useRef<THREE.MeshStandardMaterial>(null);
   const tailLed = useRef<THREE.MeshStandardMaterial>(null);
+
+  /* true perspective: the page is the ground plane at z=0; the camera sits
+     far enough back that one world unit equals one CSS pixel at that plane */
+  const { camera, size } = useThree();
+  useEffect(() => {
+    const cam = camera as THREE.PerspectiveCamera;
+    cam.fov = 35;
+    cam.position.set(0, 0, size.height / (2 * Math.tan(THREE.MathUtils.degToRad(17.5))));
+    cam.near = 50;
+    cam.far = cam.position.z * 3;
+    cam.updateProjectionMatrix();
+  }, [camera, size]);
+
   const bladeMat = useMemo(
     () => new THREE.MeshStandardMaterial({ color: "#f4f8fb", metalness: 0.3, roughness: 0.45, transparent: true }),
     []
@@ -171,7 +186,7 @@ function Drone() {
     st.pitch += (tp - st.pitch) * Math.min(1, dt * TILT_RATE);
     st.roll += (tr - st.roll) * Math.min(1, dt * TILT_RATE);
 
-    /* hover turbulence: a quad is never perfectly still — layered sines give
+    /* hover turbulence: a quad is never perfectly still - layered sines give
        small non-repeating attitude and position flutter, growing with speed */
     const t = state3.clock.elapsedTime;
     const wob = 0.014 + speed * 0.000035;
@@ -182,7 +197,7 @@ function Drone() {
 
     /* ---- vertical dynamics ----
        Throttle chases what flight demands: hover baseline, extra to hold
-       altitude while tilted, climb for upward cursor motion — and the page
+       altitude while tilted, climb for upward cursor motion - and the page
        scroll feeds in through two smoothing stages, so the drone hesitates
        a beat before dropping into a scroll-down or punching up a scroll-up.
        Motor lag means hard tilts sag, releases balloon: like a real quad. */
@@ -203,11 +218,12 @@ function Drone() {
 
     const bob = speed < 40 ? Math.sin(state3.clock.elapsedTime * 2.6) * 1.6 : 0;
 
-    g.position.set(
-      st.pos.x - window.innerWidth / 2 + nX,
-      window.innerHeight / 2 - st.pos.y - bob + st.alt + nY,
-      0
-    );
+    /* the drone flies ABOVE the page: altitude is true Z toward the viewer.
+       Perspective handles size and parallax honestly - no scale tricks. */
+    const wx = st.pos.x - window.innerWidth / 2 + nX;
+    const wy = window.innerHeight / 2 - st.pos.y - bob + nY;
+    const height = 55 + st.alt * 4.5;
+    g.position.set(wx, wy, height);
 
     a.rotation.order = "ZXY";
     a.rotation.z = -st.yaw;
@@ -216,7 +232,19 @@ function Drone() {
 
     const targetScale = st.hover ? 1.2 : 1;
     st.scale += (targetScale - st.scale) * Math.min(1, dt * 10);
-    g.scale.setScalar(st.scale * (1 + st.alt * 0.006)); // higher = nearer the camera
+    g.scale.setScalar(st.scale);
+
+    /* soft shadow on the page plane - the height cue. It marks the cursor's
+       ground point; the drone separates from it as it climbs. */
+    const sh = shadowRig.current;
+    if (sh) {
+      sh.visible = g.visible;
+      sh.position.set(wx + 4 + height * 0.07, wy - 4 - height * 0.07, 1);
+      const spread = 0.75 + height * 0.007;
+      sh.scale.set(spread, spread * 0.7, 1);
+      const dark = THREE.MathUtils.clamp(0.4 - height * 0.0028, 0.08, 0.4);
+      for (const m of shadowMats.current) if (m) m.opacity = dark;
+    }
 
     /* rotors spin with throttle; prop discs brighten under load */
     const spin = 40 + st.throttle * 65;
@@ -239,6 +267,18 @@ function Drone() {
   });
 
   return (
+    <>
+    {/* ground shadow on the page plane */}
+    <group ref={shadowRig} visible={false}>
+      <mesh>
+        <circleGeometry args={[13, 24]} />
+        <meshBasicMaterial ref={(m: THREE.MeshBasicMaterial) => (shadowMats.current[0] = m)} color="#020609" transparent opacity={0.12} depthWrite={false} />
+      </mesh>
+      <mesh>
+        <circleGeometry args={[8, 24]} />
+        <meshBasicMaterial ref={(m: THREE.MeshBasicMaterial) => (shadowMats.current[1] = m)} color="#020609" transparent opacity={0.16} depthWrite={false} />
+      </mesh>
+    </group>
     <group ref={rig} visible={false}>
       {/* constant 3/4 viewing angle; attitude applies inside it */}
       <group rotation={[VIEW_TILT, 0, 0]}>
@@ -319,6 +359,7 @@ function Drone() {
         </group>
       </group>
     </group>
+    </>
   );
 }
 
@@ -327,8 +368,7 @@ export default function DroneCursorScene() {
     <Canvas
       className="!fixed !inset-0 !z-[9999]"
       style={{ pointerEvents: "none", position: "fixed", inset: 0, zIndex: 9999 }}
-      orthographic
-      camera={{ position: [0, 0, 200], zoom: 1, near: 1, far: 500 }}
+      camera={{ fov: 35, position: [0, 0, 1400], near: 50, far: 5000 }}
       dpr={[1, 1.5]}
       gl={{ alpha: true, antialias: true }}
     >
