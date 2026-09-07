@@ -24,11 +24,11 @@ const G = 4500; // px/s^2 "gravity" at page scale (sets the whole energy scale)
 const KP = 14; // position loop stiffness (1/s^2)
 const KD = 6.6; // position loop damping (1/s)
 const K_ATT = 14; // attitude loop gain (1/s)
-const ATT_RATE = 7; // max attitude slew (rad/s, ~400 deg/s like a nimble quad)
+const ATT_RATE = 11; // max attitude slew (rad/s, ~630 deg/s - racing-quad body rates)
 const TILT_MAX = 0.6; // rad (~34 deg bank limit)
 const AERO_DRAG = 0.0004; // v^2 drag
 const YAW_SPEED_MIN = 60;
-const YAW_RATE = 4.5; // rad/s max yaw slew
+const YAW_RATE = 10; // rad/s max yaw slew (~570 deg/s)
 const VIEW_TILT = -0.62; // camera-relative viewing angle
 
 const SHELL = { color: "#e9eff5", metalness: 0.25, roughness: 0.4 } as const;
@@ -199,7 +199,7 @@ function Drone() {
       let d = targetYaw - st.yaw;
       while (d > Math.PI) d -= 2 * Math.PI;
       while (d < -Math.PI) d += 2 * Math.PI;
-      st.yaw += THREE.MathUtils.clamp(d * Math.min(1, dt * 6), -YAW_RATE * dt, YAW_RATE * dt);
+      st.yaw += THREE.MathUtils.clamp(d * Math.min(1, dt * 11), -YAW_RATE * dt, YAW_RATE * dt);
     }
     const fwdX = Math.sin(st.yaw), fwdY = -Math.cos(st.yaw);
     const rightX = Math.cos(st.yaw), rightY = Math.sin(st.yaw);
