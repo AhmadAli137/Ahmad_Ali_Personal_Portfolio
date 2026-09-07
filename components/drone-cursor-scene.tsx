@@ -83,19 +83,19 @@ function Drone() {
   const rotors = useRef<THREE.Group[]>([]);
   const discMats = useRef<THREE.MeshBasicMaterial[]>([]);
   const ringMats = useRef<THREE.MeshBasicMaterial[]>([]);
-  const washMat = useRef<THREE.MeshBasicMaterial>(null);
   const shadowRig = useRef<THREE.Group>(null);
   const shadowMat = useRef<THREE.MeshBasicMaterial>(null);
 
-  /* soft radial shadow texture — real shadows have no edges */
+  /* on a dark page a cast shadow has nothing to darken — instead the drone's
+     downwash and underglow light the surface beneath it (soft cyan pool) */
   const shadowTex = useMemo(() => {
     const cv = document.createElement("canvas");
     cv.width = cv.height = 128;
     const ctx = cv.getContext("2d")!;
-    const grad = ctx.createRadialGradient(64, 64, 6, 64, 64, 62);
-    grad.addColorStop(0, "rgba(2,6,9,0.9)");
-    grad.addColorStop(0.45, "rgba(2,6,9,0.42)");
-    grad.addColorStop(1, "rgba(2,6,9,0)");
+    const grad = ctx.createRadialGradient(64, 64, 4, 64, 64, 62);
+    grad.addColorStop(0, "rgba(120,240,255,0.55)");
+    grad.addColorStop(0.35, "rgba(0,229,255,0.20)");
+    grad.addColorStop(1, "rgba(0,229,255,0)");
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, 128, 128);
     return new THREE.CanvasTexture(cv);
@@ -236,7 +236,7 @@ function Drone() {
        Perspective handles size and parallax honestly - no scale tricks. */
     const wx = st.pos.x - window.innerWidth / 2 + nX;
     const wy = window.innerHeight / 2 - st.pos.y - bob + nY;
-    const height = 55 + st.alt * 4.5;
+    const height = Math.max(14, 55 + st.alt * 4.5);
     g.position.set(wx, wy, height);
 
     a.rotation.order = "ZXY";
@@ -253,11 +253,14 @@ function Drone() {
     const sh = shadowRig.current;
     if (sh) {
       sh.visible = g.visible;
-      sh.position.set(wx + 3 + height * 0.05, wy - 3 - height * 0.05, 1);
-      const spread = 0.7 + height * 0.007;
-      sh.scale.set(spread, spread * 0.72, 1);
+      /* the light pool sits directly beneath the drone: brighter and tighter
+         when it drops low or spools up, wider and fainter as it climbs */
+      sh.position.set(wx, wy, 1);
+      const spread = (0.55 + height * 0.009) * (0.85 + st.throttle * 0.15);
+      sh.scale.set(spread, spread * 0.85, 1);
       if (shadowMat.current) {
-        shadowMat.current.opacity = THREE.MathUtils.clamp(0.55 - height * 0.004, 0.1, 0.55);
+        const heightFade = THREE.MathUtils.clamp(0.85 - height * 0.007, 0.12, 0.85);
+        shadowMat.current.opacity = heightFade * (0.5 + st.throttle * 0.45);
       }
     }
 
@@ -272,7 +275,6 @@ function Drone() {
     for (const m of ringMats.current) {
       if (m) m.opacity = 0.08 + st.throttle * 0.09;
     }
-    if (washMat.current) washMat.current.opacity = 0.03 + st.throttle * 0.055;
     /* blades dissolve into the blur disc as the motors load up */
     bladeMat.opacity = THREE.MathUtils.clamp(1.55 - st.throttle * 0.75, 0.1, 1);
 
@@ -286,20 +288,14 @@ function Drone() {
     {/* ground shadow on the page plane */}
     <group ref={shadowRig} visible={false}>
       <mesh>
-        <planeGeometry args={[46, 46]} />
-        <meshBasicMaterial ref={shadowMat} map={shadowTex} transparent opacity={0.4} depthWrite={false} />
+        <planeGeometry args={[52, 52]} />
+        <meshBasicMaterial ref={shadowMat} map={shadowTex} transparent opacity={0.4} depthWrite={false} blending={THREE.AdditiveBlending} />
       </mesh>
     </group>
     <group ref={rig} visible={false}>
       {/* constant 3/4 viewing angle; attitude applies inside it */}
       <group rotation={[VIEW_TILT, 0, 0]}>
         <group ref={att}>
-          {/* faint downwash glow beneath the frame */}
-          <mesh position={[0, 0, -4.5]}>
-            <circleGeometry args={[11, 24]} />
-            <meshBasicMaterial ref={washMat} color="#00e5ff" transparent opacity={0.09} side={THREE.DoubleSide} depthWrite={false} />
-          </mesh>
-
           {/* carbon bottom + top plates with anodized standoffs (racing-quad stack) */}
           <mesh position={[0, 0, 0]}>
             <boxGeometry args={[11, 17, 1.2]} />
