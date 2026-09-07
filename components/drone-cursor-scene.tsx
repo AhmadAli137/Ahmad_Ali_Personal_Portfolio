@@ -90,14 +90,15 @@ function Drone() {
      downwash and underglow light the surface beneath it (soft cyan pool) */
   const shadowTex = useMemo(() => {
     const cv = document.createElement("canvas");
-    cv.width = cv.height = 128;
+    cv.width = cv.height = 256;
     const ctx = cv.getContext("2d")!;
-    const grad = ctx.createRadialGradient(64, 64, 4, 64, 64, 62);
-    grad.addColorStop(0, "rgba(120,240,255,0.55)");
-    grad.addColorStop(0.35, "rgba(0,229,255,0.20)");
+    const grad = ctx.createRadialGradient(128, 128, 6, 128, 128, 126);
+    grad.addColorStop(0, "rgba(170,248,255,0.8)");
+    grad.addColorStop(0.22, "rgba(40,235,255,0.38)");
+    grad.addColorStop(0.55, "rgba(0,229,255,0.13)");
     grad.addColorStop(1, "rgba(0,229,255,0)");
     ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 128, 128);
+    ctx.fillRect(0, 0, 256, 256);
     return new THREE.CanvasTexture(cv);
   }, []);
   const noseLed = useRef<THREE.MeshStandardMaterial>(null);
@@ -134,6 +135,8 @@ function Drone() {
     scrollSm: 0,
     scrollLag: 0,
     lastScrollY: 0,
+    poolA: 0.4,
+    poolS: 1,
     seen: false,
     visible: true,
     hover: false,
@@ -254,14 +257,17 @@ function Drone() {
     if (sh) {
       sh.visible = g.visible;
       /* the light pool sits directly beneath the drone: brighter and tighter
-         when it drops low or spools up, wider and fainter as it climbs */
+         when it drops low or spools up, wider and fainter as it climbs.
+         Its visuals chase their targets through a low-pass so the glow
+         breathes smoothly instead of tracking every physics jitter. */
       sh.position.set(wx, wy, 1);
-      const spread = (0.55 + height * 0.009) * (0.85 + st.throttle * 0.15);
-      sh.scale.set(spread, spread * 0.85, 1);
-      if (shadowMat.current) {
-        const heightFade = THREE.MathUtils.clamp(0.85 - height * 0.007, 0.12, 0.85);
-        shadowMat.current.opacity = heightFade * (0.5 + st.throttle * 0.45);
-      }
+      const spreadT = (0.55 + height * 0.009) * (0.85 + st.throttle * 0.15);
+      const heightFade = THREE.MathUtils.clamp(1.0 - height * 0.008, 0.15, 1);
+      const alphaT = heightFade * (0.45 + st.throttle * 0.5);
+      st.poolS += (spreadT - st.poolS) * Math.min(1, dt * 6);
+      st.poolA += (alphaT - st.poolA) * Math.min(1, dt * 6);
+      sh.scale.set(st.poolS, st.poolS * 0.85, 1);
+      if (shadowMat.current) shadowMat.current.opacity = st.poolA;
     }
 
     /* rotors spin with throttle; prop discs brighten under load */
@@ -379,8 +385,8 @@ export default function DroneCursorScene() {
       dpr={[1, 1.5]}
       gl={{ alpha: true, antialias: true }}
     >
-      <ambientLight intensity={0.95} />
-      <directionalLight position={[80, 120, 160]} intensity={1.9} />
+      <ambientLight intensity={0.75} />
+      <directionalLight position={[80, 120, 160]} intensity={2.4} />
       <directionalLight position={[-70, -50, 90]} intensity={0.6} color="#00e5ff" />
       <directionalLight position={[30, -90, 40]} intensity={0.35} color="#ffb454" />
       <Drone />
