@@ -85,7 +85,21 @@ function Drone() {
   const ringMats = useRef<THREE.MeshBasicMaterial[]>([]);
   const washMat = useRef<THREE.MeshBasicMaterial>(null);
   const shadowRig = useRef<THREE.Group>(null);
-  const shadowMats = useRef<THREE.MeshBasicMaterial[]>([]);
+  const shadowMat = useRef<THREE.MeshBasicMaterial>(null);
+
+  /* soft radial shadow texture — real shadows have no edges */
+  const shadowTex = useMemo(() => {
+    const cv = document.createElement("canvas");
+    cv.width = cv.height = 128;
+    const ctx = cv.getContext("2d")!;
+    const grad = ctx.createRadialGradient(64, 64, 6, 64, 64, 62);
+    grad.addColorStop(0, "rgba(2,6,9,0.9)");
+    grad.addColorStop(0.45, "rgba(2,6,9,0.42)");
+    grad.addColorStop(1, "rgba(2,6,9,0)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 128, 128);
+    return new THREE.CanvasTexture(cv);
+  }, []);
   const noseLed = useRef<THREE.MeshStandardMaterial>(null);
   const tailLed = useRef<THREE.MeshStandardMaterial>(null);
 
@@ -239,11 +253,12 @@ function Drone() {
     const sh = shadowRig.current;
     if (sh) {
       sh.visible = g.visible;
-      sh.position.set(wx + 4 + height * 0.07, wy - 4 - height * 0.07, 1);
-      const spread = 0.75 + height * 0.007;
-      sh.scale.set(spread, spread * 0.7, 1);
-      const dark = THREE.MathUtils.clamp(0.4 - height * 0.0028, 0.08, 0.4);
-      for (const m of shadowMats.current) if (m) m.opacity = dark;
+      sh.position.set(wx + 3 + height * 0.05, wy - 3 - height * 0.05, 1);
+      const spread = 0.7 + height * 0.007;
+      sh.scale.set(spread, spread * 0.72, 1);
+      if (shadowMat.current) {
+        shadowMat.current.opacity = THREE.MathUtils.clamp(0.55 - height * 0.004, 0.1, 0.55);
+      }
     }
 
     /* rotors spin with throttle; prop discs brighten under load */
@@ -271,12 +286,8 @@ function Drone() {
     {/* ground shadow on the page plane */}
     <group ref={shadowRig} visible={false}>
       <mesh>
-        <circleGeometry args={[13, 24]} />
-        <meshBasicMaterial ref={(m: THREE.MeshBasicMaterial) => (shadowMats.current[0] = m)} color="#020609" transparent opacity={0.12} depthWrite={false} />
-      </mesh>
-      <mesh>
-        <circleGeometry args={[8, 24]} />
-        <meshBasicMaterial ref={(m: THREE.MeshBasicMaterial) => (shadowMats.current[1] = m)} color="#020609" transparent opacity={0.16} depthWrite={false} />
+        <planeGeometry args={[46, 46]} />
+        <meshBasicMaterial ref={shadowMat} map={shadowTex} transparent opacity={0.4} depthWrite={false} />
       </mesh>
     </group>
     <group ref={rig} visible={false}>
