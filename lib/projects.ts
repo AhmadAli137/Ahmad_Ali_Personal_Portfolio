@@ -47,8 +47,8 @@ export const projects: Project[] = [
       "A drone that navigates autonomously where GPS can't reach — using optical flow, camera vision, and custom embedded firmware.",
     cardBlurb:
       "GPS-denied navigation using optical flow, camera vision, and custom embedded firmware.",
-    cardCaption: "Drone team at IEEE PIMRC, Toronto",
-    cardSrc: "/img/pimrc-best-demo-award.jpg",
+    cardCaption: "The autonomous drone on presentation day",
+    cardSrc: "/img/capstone-drone-team.jpg",
     chips: ["Optical Flow", "Computer Vision", "Embedded Firmware", "Sensor Fusion", "Control Systems"],
     heroCaption: "Capstone presentation day — the drone with our project poster",
     heroSrc: "/img/capstone-drone-team.jpg",
@@ -144,7 +144,8 @@ export const projects: Project[] = [
       "A projected arcade ping-pong game: swing a real paddle at virtual balls, and when you connect, a smart paddle buzzes right where the ball struck — all processed locally with edge AI.",
     cardBlurb:
       "Projected ping-pong with an edge-AI smart paddle — feel each hit through four-quadrant spatial haptics, all on-device.",
-    cardCaption: "PHOTO: Edge Pong smart paddle + projected arena",
+    cardCaption: "Edge Pong — projected arena and smart paddle",
+    cardSrc: "/img/edge-pong-video.jpg",
     chips: ["ESP32-C5", "Spatial Haptics", "Edge AI", "Three.js", "Python", "TypeScript"],
     heroCaption: "HERO PHOTO: smart paddle + projected game arena",
     problem:
@@ -346,8 +347,8 @@ export const projects: Project[] = [
       "An asteroid impact simulator built on NASA near-earth-object data — winner of NASA Space Apps Windsor with a global nomination. Try it live below.",
     demoUrl: "https://meteor-madness-six.vercel.app",
     cardBlurb: "NASA Space Apps winner: making near-Earth asteroid data tangible.",
-    cardCaption: "Team with 1st Place certificates",
-    cardSrc: "/img/nasa-space-apps-1.jpg",
+    cardCaption: "Meteor Madness — the live demo",
+    cardSrc: "/img/meteor-madness-demo.png",
     chips: ["NASA Data", "JavaScript", "Visualization"],
     heroCaption: "Galactic Problem Solvers — 1st Place, NASA Space Apps Windsor",
     heroSrc: "/img/nasa-space-apps-1.jpg",
