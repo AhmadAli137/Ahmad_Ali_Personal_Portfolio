@@ -27,8 +27,9 @@ const K_ATT = 14; // attitude loop gain (1/s)
 const ATT_RATE = 11; // max attitude slew (rad/s, ~630 deg/s - racing-quad body rates)
 const TILT_MAX = 0.6; // rad (~34 deg bank limit)
 const AERO_DRAG = 0.0004; // v^2 drag
-const YAW_SPEED_MIN = 60;
-const YAW_RATE = 10; // rad/s max yaw slew (~570 deg/s)
+const YAW_RAMP_LO = 160; // px/s: below this the nose holds steady
+const YAW_RAMP_HI = 580; // px/s: full yaw authority for committed travel
+const YAW_RATE = 7; // rad/s max yaw slew (~400 deg/s)
 const VIEW_TILT = -0.62; // camera-relative viewing angle
 
 const SHELL = { color: "#e9eff5", metalness: 0.25, roughness: 0.4 } as const;
@@ -192,14 +193,17 @@ function Drone() {
     const aDesX = KP * (st.target.x - st.pos.x) - KD * st.vel.x;
     const aDesY = KP * (st.target.y - st.pos.y) - KD * st.vel.y;
 
-    /* yaw: nose slews toward the velocity vector at a bounded rate */
+    /* yaw: the nose commits to a heading only for sustained travel — authority
+       ramps with airspeed, so hover corrections and brake overshoot don't
+       swing it around */
     const speed = Math.hypot(st.vel.x, st.vel.y);
-    if (speed > YAW_SPEED_MIN) {
+    const yawAuth = THREE.MathUtils.clamp((speed - YAW_RAMP_LO) / (YAW_RAMP_HI - YAW_RAMP_LO), 0, 1);
+    if (yawAuth > 0) {
       const targetYaw = Math.atan2(st.vel.x, -st.vel.y);
       let d = targetYaw - st.yaw;
       while (d > Math.PI) d -= 2 * Math.PI;
       while (d < -Math.PI) d += 2 * Math.PI;
-      st.yaw += THREE.MathUtils.clamp(d * Math.min(1, dt * 11), -YAW_RATE * dt, YAW_RATE * dt);
+      st.yaw += THREE.MathUtils.clamp(d * Math.min(1, dt * 11) * yawAuth, -YAW_RATE * dt, YAW_RATE * dt);
     }
     const fwdX = Math.sin(st.yaw), fwdY = -Math.cos(st.yaw);
     const rightX = Math.cos(st.yaw), rightY = Math.sin(st.yaw);
