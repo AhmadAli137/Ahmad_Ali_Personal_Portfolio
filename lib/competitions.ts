@@ -42,7 +42,7 @@ export const comps: Comp[] = [
   { cat: "eng", years: "2025", title: "UWindsor × Jaguar Land Rover Automotive AI Competition", result: "$600 + 1-week JLR internship", detail: "Automotive AI memory optimization.", location: "Windsor" },
   { cat: "hack", years: "2026", title: "WinHacks", result: "Finalist", detail: "SketchBot V1 — the drawing robot.", location: "Windsor" },
   { cat: "eng", years: "2026", title: "UWindsor Automotive UI/UX Challenge", result: "1st Place", detail: "RV interface challenge.", location: "Windsor" },
-  { cat: "hack", years: "2026", title: "ClubHacks", detail: "SketchBot V2 — AprilTag camera-vision tracking.", location: "Windsor" },
+  { cat: "hack", years: "2026", title: "ClubHacks", result: "Finalist", detail: "SketchBot V2 — AprilTag camera-vision tracking.", location: "Windsor" },
   { cat: "eng", years: "2026", title: "CS Games", detail: "Team mentor for the UWindsor delegation.", location: "Montreal" },
   { cat: "pitch", years: "2026", title: "Take Your Shot Pitch Competition", result: "4th Place — $2,500", location: "Leamington" },
   { cat: "hack", years: "2026", title: "Hack the 6ix", detail: "Edge Pong — spatial-haptics smart paddle.", location: "Toronto" },

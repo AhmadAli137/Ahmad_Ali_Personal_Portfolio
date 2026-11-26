@@ -1,55 +1,65 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
-import { Award, MapPin } from "lucide-react";
 import { wall } from "@/lib/competitions";
 
 /**
- * Sponsor-wall-style grid of every competition/hackathon attended.
- * Hovering a tile reveals a card with what was accomplished there, where, and when.
+ * Every organization on the record. Pick a logo and the panel beside the wall
+ * shows what happened there — works the same by hover, focus or tap.
  */
 export function LogoWall() {
-  return (
-    <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-6">
-      {wall.map((o) => (
-        <div
-          key={o.name}
-          className="group relative grid min-h-[110px] place-items-center rounded-xl bg-white/[0.02] p-4 transition-all hover:z-20 hover:-translate-y-1 hover:bg-white/[0.04] hover:shadow-[0_0_24px_rgba(0,229,255,0.15)]"
-        >
-          {o.logo ? (
-            <Image
-              src={o.logo}
-              alt={o.name}
-              width={120}
-              height={60}
-              className="max-h-[64px] w-auto rounded-md object-contain transition-transform duration-200 group-hover:scale-110"
-            />
-          ) : (
-            <div className="text-center">
-              <div className="font-mono text-xl font-bold text-muted transition-colors group-hover:text-cyan">
-                {o.short}
-              </div>
-              <div className="mt-1 text-[10px] leading-tight text-muted/70">{o.name}</div>
-            </div>
-          )}
+  const [active, setActive] = useState(0);
+  const org = wall[active];
 
-          {/* Hover card: what / where / when */}
-          <div className="pointer-events-none absolute bottom-[calc(100%+8px)] left-1/2 z-30 w-72 max-w-[80vw] -translate-x-1/2 translate-y-1 rounded-xl border border-line-strong bg-[linear-gradient(160deg,var(--color-panel2),var(--color-panel))] p-4 opacity-0 shadow-[0_16px_50px_rgba(0,0,0,0.6),0_0_30px_rgba(0,229,255,0.1)] transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
-            <div className="text-sm font-bold">{o.name}</div>
-            <div className="mb-2.5 flex items-center gap-1.5 font-mono text-[11px] text-muted">
-              <MapPin size={11} className="shrink-0" /> {o.meta}
-            </div>
-            <ul className="space-y-1.5">
-              {o.highlights.map((h) => (
-                <li key={h} className="flex items-start gap-1.5 text-xs text-muted">
-                  <Award size={12} className="mt-0.5 shrink-0 text-amber" />
-                  <span>{h}</span>
-                </li>
-              ))}
-            </ul>
-            {/* Arrow */}
-            <span className="absolute left-1/2 top-full h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rotate-45 border-b border-r border-line-strong bg-panel" />
-          </div>
+  return (
+    <div className="grid gap-8 lg:grid-cols-[1fr_300px] lg:gap-12">
+      <ul className="grid grid-cols-3 gap-2.5 sm:grid-cols-5 lg:grid-cols-6">
+        {wall.map((o, i) => {
+          const selected = i === active;
+          return (
+            <li key={o.name}>
+              <button
+                type="button"
+                aria-pressed={selected}
+                aria-label={o.name}
+                onClick={() => setActive(i)}
+                onMouseEnter={() => setActive(i)}
+                onFocus={() => setActive(i)}
+                className={`grid aspect-[4/3] w-full place-items-center rounded-lg border bg-white p-3 transition-all ${
+                  selected ? "border-accent opacity-100" : "border-line opacity-60 grayscale hover:opacity-100"
+                }`}
+              >
+                {o.logo ? (
+                  <Image
+                    src={o.logo}
+                    alt=""
+                    width={120}
+                    height={60}
+                    className="max-h-[48px] w-auto object-contain"
+                  />
+                ) : (
+                  <span className="text-center text-[11px] font-medium leading-tight text-neutral-700">{o.name}</span>
+                )}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+
+      <div aria-live="polite" className="lg:border-l lg:border-line lg:pl-10">
+        <div key={org.name} className="rise">
+          <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-faint">{org.meta}</p>
+          <h3 className="mt-2 text-xl font-medium tracking-tight">{org.name}</h3>
+          <ul className="mt-4 space-y-2.5">
+            {org.highlights.map((h) => (
+              <li key={h} className="text-sm leading-relaxed text-muted">
+                {h}
+              </li>
+            ))}
+          </ul>
         </div>
-      ))}
+      </div>
     </div>
   );
 }

@@ -1,19 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
-import { CoffeeChatButton } from "./coffee-chat";
-import { AnimatePresence, motion } from "motion/react";
+import { usePathname } from "next/navigation";
+import { Menu, Search, X } from "lucide-react";
+import { BookCallButton } from "./book-call";
+import { ThemeToggle } from "./theme-toggle";
 
-const links = [
-  { href: "/#work", label: "work" },
-  { href: "/#awards", label: "awards" },
-  { href: "/#experience", label: "experience" },
-  { href: "/#contact", label: "contact" },
+const items = [
+  { href: "/#venture", label: "Venture", match: null },
+  { href: "/work", label: "Work", match: ["/work", "/projects"] },
+  { href: "/competitions", label: "Record", match: ["/competitions"] },
+  { href: "/about", label: "About", match: ["/about"] },
 ];
 
 export function Nav() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -24,100 +26,83 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => setOpen(false), [pathname]);
+
+  const isActive = (match: string[] | null) =>
+    Boolean(match?.some((m) => pathname === m || pathname.startsWith(m + "/")));
+
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-md transition-colors ${
-        scrolled ? "border-line bg-bg/85" : "border-transparent bg-bg/50"
+      className={`sticky top-0 z-50 border-b transition-colors ${
+        scrolled || open ? "border-line bg-bg/85 backdrop-blur-md" : "border-transparent bg-bg"
       }`}
     >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
-        <Link
-          href="/"
-          className="flex items-center gap-2.5 font-mono text-sm font-bold"
-          onClick={() => setOpen(false)}
-        >
-          <span className="grid h-8 w-8 place-items-center rounded-md border border-cyan text-xs text-cyan shadow-[0_0_12px_rgba(0,229,255,0.35),inset_0_0_8px_rgba(0,229,255,0.12)]">
-            AA
-          </span>
-          ahmad.ali
+      <nav aria-label="Main" className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-6">
+        <Link href="/" className="whitespace-nowrap text-[15px] font-semibold tracking-tight">
+          Ahmad Ali
         </Link>
 
-        <div className="hidden items-center gap-6 md:flex">
-          {links.map((l) => (
-            <Link
-              key={l.label}
-              href={l.href}
-              className="font-mono text-[13px] text-muted transition-colors hover:text-cyan"
-            >
-              <span className="text-line-strong">/</span>
-              {l.label}
-            </Link>
-          ))}
-          <a
-            href="https://sayspark.ca"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="animate-pulse-glow rounded-full border border-mint/50 bg-mint/10 px-4 py-1.5 font-mono text-xs font-bold text-mint transition-all hover:-translate-y-0.5 hover:bg-mint/20"
-          >
-            sayspark.ca ↗
-          </a>
-          <CoffeeChatButton variant="pill" label="coffee chat" />
-          <button
-            type="button"
-            aria-label="Open command palette"
-            onClick={() => window.dispatchEvent(new Event("open-palette"))}
-            className="rounded-md border border-line px-2 py-1 font-mono text-[11px] text-muted transition-colors hover:border-cyan/50 hover:text-cyan"
-          >
-            ⌘K
-          </button>
+        <div className="hidden items-center gap-1 md:flex">
+          {items.map((l) => {
+            const active = isActive(l.match);
+            return (
+              <Link
+                key={l.label}
+                href={l.href}
+                aria-current={active ? "page" : undefined}
+                className={`rounded-full px-3.5 py-2 text-sm transition-colors hover:text-ink ${
+                  active ? "text-ink" : "text-muted"
+                }`}
+              >
+                {l.label}
+              </Link>
+            );
+          })}
         </div>
 
-        <button
-          type="button"
-          aria-label="Toggle menu"
-          className="text-muted md:hidden"
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            aria-label="Search the site"
+            title="Search (Ctrl K)"
+            onClick={() => window.dispatchEvent(new Event("open-palette"))}
+            className="grid h-10 w-10 place-items-center rounded-full text-muted transition-colors hover:bg-ink/5 hover:text-ink"
+          >
+            <Search size={17} aria-hidden />
+          </button>
+          <ThemeToggle />
+          <div className="ml-2 hidden sm:block">
+            <BookCallButton />
+          </div>
+          <button
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            className="grid h-10 w-10 place-items-center rounded-full text-ink md:hidden"
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </nav>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden border-t border-line bg-bg/95 md:hidden"
-          >
-            <div className="flex flex-col gap-1 px-6 py-4">
-              {links.map((l) => (
-                <Link
-                  key={l.label}
-                  href={l.href}
-                  className="py-2 font-mono text-sm text-muted hover:text-cyan"
-                  onClick={() => setOpen(false)}
-                >
-                  <span className="text-line-strong">/</span>
-                  {l.label}
-                </Link>
-              ))}
-              <a
-                href="https://sayspark.ca"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-2 rounded-full border border-mint/50 bg-mint/10 px-4 py-2 text-center font-mono text-sm font-bold text-mint"
+      {open && (
+        <div className="fade border-t border-line md:hidden">
+          <div className="mx-auto flex max-w-6xl flex-col px-6 py-4">
+            {items.map((l) => (
+              <Link
+                key={l.label}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="border-b border-line py-3.5 text-lg"
               >
-                sayspark.ca ↗
-              </a>
-              <div className="mt-2 flex justify-center">
-                <CoffeeChatButton variant="pill" label="book a coffee chat" />
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                {l.label}
+              </Link>
+            ))}
+            <BookCallButton className="mt-5 w-full" />
+          </div>
+        </div>
+      )}
     </header>
   );
 }

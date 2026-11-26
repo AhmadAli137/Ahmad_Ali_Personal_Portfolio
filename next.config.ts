@@ -14,6 +14,12 @@ const nextConfig: NextConfig = {
         destination: "https://sayspark.ca",
         permanent: false,
       },
+      // Hackathon projects now live in the work index
+      {
+        source: "/hackathons",
+        destination: "/work",
+        permanent: false,
+      },
       // Canonical host: bounce www to the apex domain
       {
         source: "/:path*",

@@ -2,72 +2,74 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { AnimatePresence, motion } from "motion/react";
-import { Award, Cpu, ExternalLink, Gamepad2, Hash, Search } from "lucide-react";
-import { projects } from "@/lib/projects";
+import { ArrowUpRight, Calendar, CornerDownLeft, FileText, Search, SunMoon } from "lucide-react";
+import { projectsByRecency } from "@/lib/projects";
+import { links } from "@/lib/profile";
 
 interface Item {
   title: string;
-  group: string;
-  href: string;
+  hint?: string;
+  /** searched but not shown */
+  keywords?: string;
+  group: "Pages" | "Projects" | "Actions" | "Links";
+  href?: string;
   external?: boolean;
-  icon: "hash" | "cpu" | "award" | "game" | "ext";
+  event?: string;
 }
 
-const ICONS = { hash: Hash, cpu: Cpu, award: Award, game: Gamepad2, ext: ExternalLink };
-
+/** Ctrl/⌘ K, or the search button in the nav: jump to any page, project or link. */
 export function CommandPalette() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
   const [sel, setSel] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
-  const items = useMemo<Item[]>(() => {
-    const sections: Item[] = [
-      { title: "Work / Projects", group: "Go to", href: "/#work", icon: "hash" },
-      { title: "Experience", group: "Go to", href: "/#experience", icon: "hash" },
-      { title: "Awards & The Wall", group: "Go to", href: "/#awards", icon: "award" },
-      { title: "Community & Mentorship", group: "Go to", href: "/#community", icon: "hash" },
-      { title: "Timeline", group: "Go to", href: "/#timeline", icon: "hash" },
-      { title: "Skills", group: "Go to", href: "/#skills", icon: "hash" },
-      { title: "Contact", group: "Go to", href: "/#contact", icon: "hash" },
-      { title: "Competitions — Full Record", group: "Go to", href: "/competitions", icon: "award" },
-      { title: "Hackathons", group: "Go to", href: "/hackathons", icon: "hash" },
-    ];
-    const projectItems: Item[] = projects.map((p) => ({
-      title: p.title,
-      group: "Projects",
-      href: `/projects/${p.slug}`,
-      icon: p.demoUrl ? "game" : "cpu",
-    }));
-    const external: Item[] = [
-      { title: ">_ Open the terminal", group: "Secret", href: "#terminal", icon: "game" },
-      { title: "sayspark.ca ↗", group: "Links", href: "https://sayspark.ca", external: true, icon: "ext" },
-      { title: "GitHub ↗", group: "Links", href: "https://github.com/AhmadAli137", external: true, icon: "ext" },
-      { title: "LinkedIn ↗", group: "Links", href: "https://www.linkedin.com/in/ahmad-a-658008170/", external: true, icon: "ext" },
-      { title: "Devpost ↗", group: "Links", href: "https://devpost.com/AhmadAli137", external: true, icon: "ext" },
-      { title: "Email Ahmad ↗", group: "Links", href: "mailto:ahmad100307@gmail.com", external: true, icon: "ext" },
-      { title: "Resume (PDF) ↗", group: "Links", href: "/AhmadAli_Resume.pdf", external: true, icon: "ext" },
-    ];
-    return [...sections, ...projectItems, ...external];
-  }, []);
+  const items = useMemo<Item[]>(
+    () => [
+      { title: "Home", group: "Pages", href: "/" },
+      { title: "SaySpark — the venture", group: "Pages", href: "/#venture" },
+      { title: "Work — all projects", group: "Pages", href: "/work" },
+      { title: "Record — competitions and awards", group: "Pages", href: "/competitions" },
+      { title: "About — the whole story", group: "Pages", href: "/about" },
+      { title: "Experience", group: "Pages", href: "/about#experience" },
+      { title: "Research", group: "Pages", href: "/about#research" },
+      { title: "Community and mentoring", group: "Pages", href: "/about#community" },
+      { title: "Timeline", group: "Pages", href: "/about#timeline" },
+      { title: "Photos", group: "Pages", href: "/about#photos" },
+      { title: "Contact", group: "Pages", href: "/#contact" },
+      { title: "Book a call", group: "Actions", event: "open-call" },
+      { title: "Switch light / dark theme", group: "Actions", event: "toggle-theme" },
+      ...projectsByRecency.map<Item>((p) => ({
+        title: p.title,
+        hint: p.result ?? String(p.year),
+        keywords: [p.cardBlurb, p.event, p.year, ...p.chips, ...p.stack].join(" "),
+        group: "Projects",
+        href: `/projects/${p.slug}`,
+      })),
+      { title: "sayspark.ca", group: "Links", href: links.sayspark, external: true },
+      { title: "LinkedIn", group: "Links", href: links.linkedin, external: true },
+      { title: "GitHub", group: "Links", href: links.github, external: true },
+      { title: "Devpost", group: "Links", href: links.devpost, external: true },
+      { title: "Email", group: "Links", href: links.email, external: true },
+      { title: "Résumé (PDF)", group: "Links", href: links.resume, external: true },
+    ],
+    []
+  );
 
   const filtered = useMemo(() => {
     const s = q.trim().toLowerCase();
     if (!s) return items;
-    return items.filter((i) => `${i.group} ${i.title}`.toLowerCase().includes(s));
+    return items.filter((i) => `${i.group} ${i.title} ${i.hint ?? ""} ${i.keywords ?? ""}`.toLowerCase().includes(s));
   }, [items, q]);
 
   const go = useCallback(
     (item: Item) => {
       setOpen(false);
-      if (item.href === "#terminal") {
-        window.dispatchEvent(new Event("open-terminal"));
-        return;
-      }
-      if (item.external) window.open(item.href, "_blank", "noopener");
-      else router.push(item.href);
+      if (item.event) window.dispatchEvent(new Event(item.event));
+      else if (item.external && item.href) window.open(item.href, "_blank", "noopener");
+      else if (item.href) router.push(item.href);
     },
     [router]
   );
@@ -77,9 +79,7 @@ export function CommandPalette() {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         setOpen((v) => !v);
-        return;
-      }
-      if (e.key === "Escape") setOpen(false);
+      } else if (e.key === "Escape") setOpen(false);
     };
     const onOpen = () => setOpen(true);
     window.addEventListener("keydown", onKey);
@@ -88,15 +88,23 @@ export function CommandPalette() {
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("open-palette", onOpen);
     };
-  }, [router]);
+  }, []);
 
   useEffect(() => {
-    if (open) {
-      setQ("");
-      setSel(0);
-      setTimeout(() => inputRef.current?.focus(), 30);
-    }
+    if (!open) return;
+    setQ("");
+    setSel(0);
+    const t = setTimeout(() => inputRef.current?.focus(), 20);
+    document.body.style.overflow = "hidden";
+    return () => {
+      clearTimeout(t);
+      document.body.style.overflow = "";
+    };
   }, [open]);
+
+  useEffect(() => {
+    listRef.current?.querySelector('[data-selected="true"]')?.scrollIntoView({ block: "nearest" });
+  }, [sel]);
 
   const onInputKey = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowDown") {
@@ -110,68 +118,73 @@ export function CommandPalette() {
     }
   };
 
+  if (!open) return null;
+
   return (
-    <AnimatePresence>
-      {open && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.15 }}
-          className="fixed inset-0 z-[90] grid place-items-start justify-center bg-bg/70 px-4 pt-[14vh] backdrop-blur-sm"
-          onClick={() => setOpen(false)}
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 12, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 8, scale: 0.98 }}
-            transition={{ duration: 0.18 }}
-            className="w-full max-w-xl overflow-hidden rounded-2xl border border-line-strong bg-[linear-gradient(160deg,var(--color-panel2),var(--color-panel))] shadow-[0_24px_80px_rgba(0,0,0,0.7),0_0_40px_rgba(0,229,255,0.1)]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center gap-3 border-b border-line px-4 py-3">
-              <Search size={16} className="text-muted" />
-              <input
-                ref={inputRef}
-                value={q}
-                onChange={(e) => {
-                  setQ(e.target.value);
-                  setSel(0);
-                }}
-                onKeyDown={onInputKey}
-                placeholder="Jump to a project, section, or link…"
-                className="w-full bg-transparent font-mono text-sm text-ink placeholder-muted outline-none"
-              />
-              <kbd className="rounded border border-line px-1.5 py-0.5 font-mono text-[10px] text-muted">esc</kbd>
-            </div>
-            <div className="max-h-[50vh] overflow-y-auto py-2">
-              {filtered.length === 0 && (
-                <p className="px-4 py-6 text-center font-mono text-xs text-muted">no matches — try “drone” or “sayspark”</p>
-              )}
-              {filtered.map((item, i) => {
-                const Icon = ICONS[item.icon];
-                return (
-                  <button
-                    key={item.group + item.title}
-                    onClick={() => go(item)}
-                    onMouseEnter={() => setSel(i)}
-                    className={`flex w-full items-center gap-3 px-4 py-2.5 text-left transition-colors ${
-                      i === sel ? "bg-cyan/10 text-ink" : "text-muted"
-                    }`}
-                  >
-                    <Icon size={14} className={i === sel ? "text-cyan" : "text-muted"} />
-                    <span className="flex-1 text-sm">{item.title}</span>
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-muted/70">{item.group}</span>
-                  </button>
-                );
-              })}
-            </div>
-            <div className="border-t border-line px-4 py-2 font-mono text-[10px] text-muted">
-              ↑↓ navigate · ↵ open · psst: press ` for the terminal
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <div
+      className="fade fixed inset-0 z-[90] flex items-start justify-center bg-black/45 px-4 pt-[12vh] backdrop-blur-sm"
+      onClick={() => setOpen(false)}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Search the site"
+    >
+      <div
+        className="w-full max-w-xl overflow-hidden rounded-2xl border border-line bg-surface text-ink shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center gap-3 border-b border-line px-4">
+          <Search size={17} className="shrink-0 text-faint" aria-hidden />
+          <input
+            ref={inputRef}
+            value={q}
+            onChange={(e) => {
+              setQ(e.target.value);
+              setSel(0);
+            }}
+            onKeyDown={onInputKey}
+            placeholder="Search projects, pages and links"
+            aria-label="Search"
+            className="h-14 w-full bg-transparent text-[15px] placeholder:text-faint focus:outline-none"
+          />
+          <kbd className="rounded border border-line px-1.5 py-0.5 font-mono text-[10px] text-faint">esc</kbd>
+        </div>
+
+        <div ref={listRef} className="max-h-[52vh] overflow-y-auto py-2">
+          {filtered.length === 0 && (
+            <p className="px-4 py-8 text-center text-sm text-muted">
+              Nothing matches “{q}”. Try “drone”, “battery” or “NASA”.
+            </p>
+          )}
+          {filtered.map((item, i) => {
+            const selected = i === sel;
+            const firstOfGroup = i === 0 || filtered[i - 1].group !== item.group;
+            const Icon = item.event === "open-call" ? Calendar : item.event ? SunMoon : item.external ? ArrowUpRight : FileText;
+            return (
+              <div key={item.group + item.title}>
+                {firstOfGroup && (
+                  <p className="px-4 pb-1.5 pt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-faint">
+                    {item.group}
+                  </p>
+                )}
+                <button
+                  type="button"
+                  data-selected={selected}
+                  onClick={() => go(item)}
+                  onMouseMove={() => setSel(i)}
+                  className={`flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm ${
+                    selected ? "bg-ink/[0.06]" : ""
+                  }`}
+                >
+                  <Icon size={15} className="shrink-0 text-faint" aria-hidden />
+                  <span className="min-w-0 flex-1 truncate">{item.title}</span>
+                  {item.hint && <span className="shrink-0 text-xs text-faint">{item.hint}</span>}
+                  {selected && <CornerDownLeft size={13} className="shrink-0 text-faint" aria-hidden />}
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
   );
 }

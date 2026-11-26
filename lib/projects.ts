@@ -8,11 +8,25 @@ export interface GalleryItem {
   src?: string;
 }
 
+export type Domain = "robotics" | "software" | "energy" | "games";
+
+export const DOMAIN_LABELS: Record<Domain, string> = {
+  robotics: "Robotics & hardware",
+  software: "AI & software",
+  energy: "Energy & mobility",
+  games: "Games & experiments",
+};
+
 export interface Project {
   slug: string;
   title: string;
-  badge: string;
-  badgeTone: "cyan" | "mint" | "amber";
+  /** Year the build shipped (or was last rebuilt) */
+  year: number;
+  domain: Domain;
+  /** Where it was built or shown */
+  event: string;
+  /** Award or placement, when there was one */
+  result?: string;
   tagline: string;
   cardBlurb: string;
   cardCaption: string;
@@ -41,8 +55,10 @@ export const projects: Project[] = [
   {
     slug: "drone",
     title: "Indoor Autonomous Drone",
-    badge: "IEEE BEST DEMO AWARD",
-    badgeTone: "amber",
+    year: 2023,
+    domain: "robotics",
+    event: "UWindsor capstone · IEEE PIMRC 2023",
+    result: "Best Demo Award",
     tagline:
       "A drone that navigates autonomously where GPS can't reach — using optical flow, camera vision, and custom embedded firmware.",
     cardBlurb:
@@ -85,8 +101,10 @@ export const projects: Project[] = [
   {
     slug: "sketchbot",
     title: "SketchBot",
-    badge: "WINHACKS 2026 — FINALIST",
-    badgeTone: "amber",
+    year: 2026,
+    domain: "robotics",
+    event: "WinHacks 2026 · ClubHacks 2026",
+    result: "Finalist at both",
     tagline:
       "Design in pixels, then a robot draws it on paper for real. A camera-vision robot that renders your sketches — and AI-generated art — with a marker on a blank canvas.",
     cardBlurb:
@@ -138,8 +156,9 @@ export const projects: Project[] = [
   {
     slug: "edge-pong",
     title: "Edge Pong",
-    badge: "HACK THE 6IX 2026 — SOLO BUILD",
-    badgeTone: "cyan",
+    year: 2026,
+    domain: "robotics",
+    event: "Hack the 6ix 2026 · solo build",
     tagline:
       "A projected arcade ping-pong game: swing a real paddle at virtual balls, and when you connect, a smart paddle buzzes right where the ball struck — all processed locally with edge AI.",
     cardBlurb:
@@ -147,7 +166,8 @@ export const projects: Project[] = [
     cardCaption: "Edge Pong — projected arena and smart paddle",
     cardSrc: "/img/edge-pong-video.jpg",
     chips: ["ESP32-C5", "Spatial Haptics", "Edge AI", "Three.js", "Python", "TypeScript"],
-    heroCaption: "HERO PHOTO: smart paddle + projected game arena",
+    heroCaption: "Edge Pong — the projected arena and the smart paddle, opened up",
+    heroSrc: "/img/edge-pong-video.jpg",
     problem:
       "Gaming keeps retreating behind screens and headsets. I wanted a tangible gaming experience — swinging a real paddle at virtual balls and actually feeling the impact in your hand, no VR headset required.",
     solution:
@@ -183,15 +203,18 @@ export const projects: Project[] = [
   {
     slug: "asl-glove",
     title: "ASL Translation Glove",
-    badge: "ACCESSIBILITY — WEARABLE TECH",
-    badgeTone: "cyan",
+    year: 2019,
+    domain: "robotics",
+    event: "SignSMART · Canada-Wide Science Fair 2018–19",
     tagline:
       "A sensor-instrumented glove that recognizes American Sign Language gestures and translates them in real time — technology in service of communication.",
     cardBlurb:
       "A sensor-instrumented glove that translates American Sign Language gestures in real time.",
-    cardCaption: "PHOTO: ASL translation glove on hand",
+    cardCaption: "The glove at the Canada-Wide Science Fair, 2019",
+    cardSrc: "/img/cwsf-2019-booth.jpg",
     chips: ["Flex Sensors", "IMU", "Machine Learning", "Embedded", "Wearables"],
-    heroCaption: "HERO PHOTO: glove on hand mid-gesture (very visual — use your best shot)",
+    heroCaption: "Wearing the glove at the Canada-Wide Science Fair booth, 2019",
+    heroSrc: "/img/cwsf-2019-booth.jpg",
     problem:
       "Millions of people communicate through sign language, yet most of the hearing world can't understand it. That communication gap creates daily friction in classrooms, workplaces, and public life.",
     solution:
@@ -210,17 +233,18 @@ export const projects: Project[] = [
     ],
     lessons: ["Sensor preprocessing quality mattered more than model complexity"],
     gallery: [
-      { caption: "PHOTO: glove build / wiring" },
-      { caption: "PHOTO: sensor close-up" },
-      { caption: "SCREENSHOT: classification output" },
+      { caption: "The glove on its display stand, LEDs on — Canada-Wide Science Fair 2019", src: "/img/cwsf-2019-glove-booth.jpg" },
+      { caption: "Demoing the glove to the federal Science Minister — Canada-Wide Science Fair 2018", src: "/img/cwsf-2018-minister.jpg" },
     ],
     links: [],
   },
   {
     slug: "memory-optimizer",
     title: "Automotive AI Memory Optimizer",
-    badge: "UWINDSOR × JLR 2025 — $600 + INTERNSHIP PRIZE",
-    badgeTone: "cyan",
+    year: 2025,
+    domain: "software",
+    event: "UWindsor × Jaguar Land Rover AI Competition 2025",
+    result: "$600 + JLR internship",
     tagline:
       "Built for the University of Windsor × Jaguar Land Rover Automotive AI Competition: optimizing memory usage for AI workloads on resource-constrained automotive platforms.",
     cardBlurb:
@@ -254,8 +278,10 @@ export const projects: Project[] = [
   {
     slug: "presentpro",
     title: "PresentPro",
-    badge: "WINHACKS 2025 — 2ND OVERALL · 1ST IN CATEGORY",
-    badgeTone: "amber",
+    year: 2025,
+    domain: "software",
+    event: "WinHacks 2025",
+    result: "2nd overall · 1st in category",
     tagline:
       "Real-time presentation coaching: live speech analysis that helps students refine pacing and clarity — with a haptic wearable that nudges you when you speed past 160 words per minute.",
     cardBlurb: "AI presentation coach with real-time speech analysis and a haptic IoT wearable.",
@@ -298,8 +324,10 @@ export const projects: Project[] = [
   {
     slug: "second-life",
     title: "Second Life",
-    badge: "WINHACKS 2024 — 2ND PLACE OVERALL",
-    badgeTone: "amber",
+    year: 2024,
+    domain: "energy",
+    event: "WinHacks 2024",
+    result: "2nd place overall",
     tagline:
       "Give your EV battery a second life in a microgrid — a platform for collecting, testing, and repurposing end-of-life EV batteries into energy storage.",
     cardBlurb: "Platform for repurposing end-of-life EV batteries into microgrid energy storage.",
@@ -341,8 +369,10 @@ export const projects: Project[] = [
   {
     slug: "meteor-madness",
     title: "Meteor Madness",
-    badge: "NASA SPACE APPS 2025 — 1ST PLACE + GLOBAL NOMINATION",
-    badgeTone: "amber",
+    year: 2025,
+    domain: "software",
+    event: "NASA Space Apps 2025",
+    result: "1st place + global nomination",
     tagline:
       "An asteroid impact simulator built on NASA near-earth-object data — winner of NASA Space Apps Windsor with a global nomination. Try it live below.",
     demoUrl: "https://meteor-madness-six.vercel.app",
@@ -385,8 +415,9 @@ export const projects: Project[] = [
   {
     slug: "grand-theft-calculus",
     title: "Grand Theft Calculus",
-    badge: "UWINDSOR COURSE PROJECT 2020 — REBUILT 2026",
-    badgeTone: "mint",
+    year: 2026,
+    domain: "games",
+    event: "Course project 2020 · rebuilt 2026",
     tagline:
       "A comedic campus stealth game: collect the 8 scattered exam pages before Professor Sarker catches you. Playable right here in your browser.",
     cardBlurb:
@@ -432,8 +463,9 @@ export const projects: Project[] = [
   {
     slug: "afterburn",
     title: "Afterburn",
-    badge: "SIDE QUEST 2026 — PROCEDURAL 3D FLIGHT",
-    badgeTone: "cyan",
+    year: 2026,
+    domain: "games",
+    event: "Side project",
     tagline:
       "An endless flight through a dream that never quite resolves — and now there's a war in it. Two modes, eight sectors, zero assets, just code. Playable right here.",
     cardBlurb:
@@ -478,8 +510,10 @@ export const projects: Project[] = [
   {
     slug: "winparks",
     title: "WinParks",
-    badge: "BORDERHACKS 2021 — PEOPLE'S CHOICE + OPEN DATA WINNER",
-    badgeTone: "amber",
+    year: 2021,
+    domain: "software",
+    event: "BorderHacks 2021",
+    result: "People's Choice + Open Data winner",
     tagline:
       "A mobile app helping people explore the trails, parks, and heritage sites of Windsor — built from the city's open data.",
     cardBlurb: "Mobile app for exploring Windsor's parks and trails, built on open data.",
@@ -512,8 +546,9 @@ export const projects: Project[] = [
   {
     slug: "wingrid",
     title: "WinGrid",
-    badge: "WINHACKS 2022",
-    badgeTone: "cyan",
+    year: 2022,
+    domain: "energy",
+    event: "WinHacks 2022",
     tagline:
       "Keeping all the electric vehicles on the grid — algorithmic placement of EV charging infrastructure for city planners.",
     cardBlurb: "K-means-driven EV charger placement recommendations for city planners.",
@@ -547,8 +582,9 @@ export const projects: Project[] = [
   {
     slug: "covid-19-global",
     title: "Covid-19 Global",
-    badge: "HACK THE NORTHEAST 2020",
-    badgeTone: "cyan",
+    year: 2020,
+    domain: "software",
+    event: "Hack the Northeast 2020",
     tagline:
       "A desktop application providing trustworthy Covid-19 statistics from countries around the world — built to fight misinformation with data.",
     cardBlurb: "Desktop app for trustworthy global Covid-19 statistics.",
@@ -582,8 +618,10 @@ export const projects: Project[] = [
   {
     slug: "rv-challenge",
     title: "RV Interface Challenge",
-    badge: "AUTOMOTIVE UI/UX CHALLENGE 2026 — 1ST PLACE",
-    badgeTone: "amber",
+    year: 2026,
+    domain: "software",
+    event: "UWindsor Automotive UI/UX Challenge 2026",
+    result: "1st place",
     tagline:
       "Winning entry in the UWindsor Automotive UI/UX Challenge — designing and building a recreational-vehicle interface.",
     cardBlurb: "1st place automotive UI/UX build: a recreational-vehicle interface in C#.",
@@ -591,30 +629,32 @@ export const projects: Project[] = [
     chips: ["C#", "UI/UX", "Automotive"],
     heroCaption: "SCREENSHOT: RV interface (add when available)",
     problem:
-      "Automotive interfaces have to be glanceable, safe, and intuitive — the UI/UX challenge asked teams to design and build an interface for a recreational vehicle. {/* TODO: refine */}",
-    solution: "A C#-built RV interface that took 1st place. {/* TODO: describe the design */}",
-    features: ["TODO: key screens and interactions"],
+      "Automotive interfaces have to be glanceable, safe, and intuitive — the UI/UX challenge asked teams to design and build an interface for a recreational vehicle.",
+    solution: "A C#-built RV interface that took 1st place.",
+    features: [],
     stack: ["C#"],
-    challenges: ["TODO"],
-    lessons: ["TODO"],
+    challenges: [],
+    lessons: [],
     gallery: [],
     links: [{ label: "GitHub", href: "https://github.com/AhmadAli137/UWindsor_RV_UI_UIX_Challenge" }],
   },
   {
     slug: "weatherpy",
     title: "WeatherPy",
-    badge: "BORDERCITY HACKATHON 2017 — 1ST PLACE",
-    badgeTone: "amber",
+    year: 2017,
+    domain: "software",
+    event: "Bordercity Hackathon 2017",
+    result: "1st place",
     tagline: "My first hackathon — and first win. A Python weather application built at Bordercity Hackathon 2017.",
     cardBlurb: "First hackathon, first win: a Python weather app.",
     cardCaption: "PHOTO: WeatherPy (2017)",
     chips: ["Python"],
     heroCaption: "PHOTO / SCREENSHOT: WeatherPy (add when available)",
-    problem: "TODO: the story of the first hackathon",
+    problem: "",
     solution: "A Python weather application that took 1st place at Bordercity Hackathon 2017 — the win that started a decade of hackathons.",
-    features: ["TODO"],
+    features: [],
     stack: ["Python"],
-    challenges: ["TODO"],
+    challenges: [],
     lessons: ["Hackathons are the fastest way to learn — I never stopped going"],
     gallery: [],
     links: [],
@@ -622,46 +662,49 @@ export const projects: Project[] = [
   {
     slug: "connect4",
     title: "Virtual Connect 4",
-    badge: "BORDERCITY HACKATHON 2018",
-    badgeTone: "cyan",
+    year: 2018,
+    domain: "games",
+    event: "Bordercity Hackathon 2018",
     tagline: "A virtual Connect 4 app built at Bordercity Hackathon 2018.",
     cardBlurb: "Virtual Connect 4 game app.",
     cardCaption: "SCREENSHOT: Connect 4 app",
     chips: ["Game Dev"],
     heroCaption: "SCREENSHOT: Connect 4 app (add when available)",
-    problem: "TODO",
-    solution: "A virtual Connect 4 application. {/* TODO: details */}",
-    features: ["TODO"],
-    stack: ["TODO"],
-    challenges: ["TODO"],
-    lessons: ["TODO"],
+    problem: "",
+    solution: "A virtual Connect 4 application.",
+    features: [],
+    stack: [],
+    challenges: [],
+    lessons: [],
     gallery: [],
     links: [],
   },
   {
     slug: "zombie-fps",
     title: "Hand-Motion Zombie FPS",
-    badge: "MASSEYHACKS 2018",
-    badgeTone: "cyan",
+    year: 2018,
+    domain: "games",
+    event: "MasseyHacks 2018",
     tagline: "A first-person zombie shooter controlled entirely by hand motion — built at MasseyHacks 2018.",
     cardBlurb: "FPS zombie game controlled by hand motion.",
     cardCaption: "PHOTO: hand-motion FPS demo",
     chips: ["Game Dev", "Motion Control"],
     heroCaption: "PHOTO / CLIP: hand-motion controlled gameplay (add when available)",
-    problem: "TODO",
-    solution: "A zombie FPS you play with hand gestures instead of a keyboard. {/* TODO: details */}",
-    features: ["TODO"],
-    stack: ["TODO"],
-    challenges: ["TODO"],
-    lessons: ["TODO"],
+    problem: "",
+    solution: "A zombie FPS you play with hand gestures instead of a keyboard.",
+    features: [],
+    stack: [],
+    challenges: [],
+    lessons: [],
     gallery: [],
     links: [],
   },
   {
     slug: "exponent-calculator",
     title: "Exponent Base e Calculator",
-    badge: "BORDERHACKS 2020 — SOLO",
-    badgeTone: "cyan",
+    year: 2020,
+    domain: "software",
+    event: "BorderHacks 2020 · solo build",
     tagline:
       "Numerical methods meets hackathon: computing e^x to any required number of correct significant digits.",
     cardBlurb: "Numerical calculator for e^x with controlled significant-digit precision.",
@@ -685,38 +728,40 @@ export const projects: Project[] = [
   {
     slug: "ecoroute",
     title: "EcoRoute",
-    badge: "HACKATHON PROJECT — 2024",
-    badgeTone: "cyan",
+    year: 2024,
+    domain: "software",
+    event: "Hackathon project",
     tagline: "Route optimization with an environmental lens.",
     cardBlurb: "Route optimization with an environmental lens.",
     cardCaption: "SCREENSHOT: EcoRoute",
     chips: ["TypeScript"],
     heroCaption: "SCREENSHOT: EcoRoute (add when available)",
-    problem: "TODO",
-    solution: "TODO: describe EcoRoute",
-    features: ["TODO"],
+    problem: "",
+    solution: "",
+    features: [],
     stack: ["TypeScript"],
-    challenges: ["TODO"],
-    lessons: ["TODO"],
+    challenges: [],
+    lessons: [],
     gallery: [],
     links: [{ label: "GitHub", href: "https://github.com/AhmadAli137/EcoRoute" }],
   },
   {
     slug: "wordconquer",
     title: "wordConquer",
-    badge: "HACKATHON PROJECT — 2024",
-    badgeTone: "cyan",
+    year: 2024,
+    domain: "games",
+    event: "Hackathon project",
     tagline: "A word game built fast.",
     cardBlurb: "A word game built fast.",
     cardCaption: "SCREENSHOT: wordConquer",
     chips: ["TypeScript"],
     heroCaption: "SCREENSHOT: wordConquer (add when available)",
-    problem: "TODO",
-    solution: "TODO: describe wordConquer",
-    features: ["TODO"],
+    problem: "",
+    solution: "",
+    features: [],
     stack: ["TypeScript"],
-    challenges: ["TODO"],
-    lessons: ["TODO"],
+    challenges: [],
+    lessons: [],
     gallery: [],
     links: [{ label: "GitHub", href: "https://github.com/AhmadAli137/wordConquer" }],
   },
@@ -726,14 +771,17 @@ export function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
 }
 
-/* Homepage shows a curated five; everything else lives on /hackathons and /projects/[slug] */
+/* Homepage shows a curated six; the full index lives on /work */
 export const featuredSlugs = [
   "drone",
-  "sketchbot",
   "meteor-madness",
-  "presentpro",
-  "second-life",
+  "sketchbot",
   "edge-pong",
-  "afterburn",
-  "grand-theft-calculus",
+  "second-life",
+  "memory-optimizer",
 ];
+
+/** Newest first; within a year, awarded work leads. */
+export const projectsByRecency = [...projects].sort(
+  (a, b) => b.year - a.year || Number(Boolean(b.result)) - Number(Boolean(a.result))
+);

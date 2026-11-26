@@ -1,6 +1,6 @@
 # ahmadali.ca
 
-Personal engineering portfolio — robotics, AI, embedded systems, and the ventures built on them.
+Personal site of Ahmad Ali — founder of SaySpark, and an engineer across robotics, AI and EV battery systems.
 
 Live at **[ahmadali.ca](https://ahmadali.ca)**.
 
@@ -8,7 +8,6 @@ Live at **[ahmadali.ca](https://ahmadali.ca)**.
 
 - [Next.js](https://nextjs.org) (App Router) + TypeScript
 - [Tailwind CSS v4](https://tailwindcss.com)
-- [Motion](https://motion.dev) for animations
 - [lucide-react](https://lucide.dev) icons
 - Deployed on [Vercel](https://vercel.com)
 
@@ -20,5 +19,6 @@ npm run dev     # http://localhost:3000
 npm run build   # production build
 ```
 
-Project content is data-driven: each project page under `/projects/[slug]` is generated
-from a single typed entry in `lib/projects.ts`.
+Content is data-driven. Projects live in `lib/projects.ts` (one typed entry per page under
+`/projects/[slug]`), the competition record in `lib/competitions.ts`, photos in `lib/photos.ts`,
+and everything said about Ahmad in more than one place in `lib/profile.ts`.

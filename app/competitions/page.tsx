@@ -1,91 +1,61 @@
 import type { Metadata } from "next";
-import { Award, MapPin } from "lucide-react";
-import { Reveal } from "@/components/reveal";
 import { LogoWall } from "@/components/logo-wall";
-import { Btn, Chip } from "@/components/ui";
-import { CATEGORY_LABELS, comps, locations, type CompCategory } from "@/lib/competitions";
+import { RecordTable } from "@/components/record-table";
+import { Eyebrow, SectionHead, TextLink } from "@/components/ui";
+import { comps } from "@/lib/competitions";
 
 export const metadata: Metadata = {
-  title: "Competitions",
+  title: "Record",
   description:
-    "44 competitions across a decade — science fairs, hackathons, engineering challenges, conferences, and pitch competitions.",
+    "44 competitions and conferences since 2014: science fairs, hackathons, engineering challenges, research conferences and pitch competitions.",
 };
 
-/* Wall, record, and locations all live in lib/competitions.ts (shared with the homepage) */
+const summary = [
+  { value: "44", label: "competitions and conferences since 2014" },
+  { value: String(comps.filter((c) => c.result).length), label: "record entries with an award or placement" },
+  { value: "14", label: "hackathons, the first in 2017" },
+  { value: "10", label: "locations, across three provinces and Michigan" },
+];
 
-export default function CompetitionsPage() {
+export default function RecordPage() {
   return (
-    <main className="px-6 pb-10 pt-36">
-      <div className="mx-auto max-w-6xl">
-        <p className="mb-4 font-mono text-[13px] text-muted">home / competitions</p>
-        <div className="mb-4"><Chip>44 COMPETITIONS — 2014 → NOW</Chip></div>
-        <h1 className="mb-3.5 text-4xl font-extrabold tracking-tight sm:text-5xl">
-          A Decade of Showing Up
-        </h1>
-        <p className="mb-8 max-w-2xl text-lg text-muted">
-          Science fairs, hackathons, engineering challenges, conferences, and pitch competitions —
-          44 events and counting. Wins are great; the reps are the real prize.
-        </p>
+    <main className="mx-auto max-w-6xl px-6 pb-24 pt-12 sm:pt-20">
+      <Eyebrow className="mb-5">Record</Eyebrow>
+      <h1 className="max-w-3xl text-[clamp(2.4rem,5.4vw,4rem)] font-medium leading-[1.03] tracking-[-0.035em]">
+        Twelve years of{" "}
+        <span className="font-serif italic tracking-[-0.015em]">showing up.</span>
+      </h1>
+      <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+        Science fairs, hackathons, engineering challenges, research conferences and pitch
+        competitions. Everything is listed, including the ones that ended without a prize. A series
+        entered in several years appears as one entry.
+      </p>
 
-        {/* Locations unlocked */}
-        <div className="mb-14">
-          <h2 className="mb-3.5 font-mono text-sm text-cyan">
-            <span className="text-muted">[ </span>locations unlocked<span className="text-muted"> ]</span>
-          </h2>
-          <div className="flex flex-wrap gap-2.5">
-            {locations.map((l) => (
-              <span key={l} className="flex items-center gap-1.5 rounded-full border border-line-strong bg-cyan/5 px-3.5 py-1.5 font-mono text-xs text-cyan">
-                <MapPin size={12} /> {l}
-              </span>
-            ))}
+      <dl className="mt-14 grid gap-x-10 gap-y-8 border-t border-line pt-8 sm:grid-cols-2 lg:grid-cols-4">
+        {summary.map((s) => (
+          <div key={s.label} className="flex flex-col-reverse">
+            <dt className="mt-2 text-sm leading-relaxed text-muted">{s.label}</dt>
+            <dd className="text-3xl font-medium tracking-[-0.03em]">{s.value}</dd>
           </div>
-        </div>
-
-        {/* Competition wall */}
-        <Reveal className="mb-16">
-          <h2 className="mb-5 font-mono text-lg text-mint"><span className="text-muted">## </span>The Wall</h2>
-          <LogoWall />
-        </Reveal>
-
-        {/* Full record, by category */}
-        {(["eng", "hack", "pitch"] as CompCategory[]).map((cat) => (
-          <Reveal key={cat} className="mb-12">
-            <h2 className="mb-6 font-mono text-lg text-mint">
-              <span className="text-muted">## </span>
-              {CATEGORY_LABELS[cat]}
-              <span className="ml-3 font-mono text-xs text-muted">
-                {comps.filter((c) => c.cat === cat).length} entries
-              </span>
-            </h2>
-            <div className="relative pl-9 before:absolute before:bottom-1.5 before:left-2 before:top-1.5 before:w-0.5 before:bg-gradient-to-b before:from-cyan before:to-mint before:opacity-35">
-              {comps
-                .filter((c) => c.cat === cat)
-                .map((c, i) => (
-                  <div key={c.title + c.years + i} className="relative pb-7 last:pb-0">
-                    <span className="absolute -left-[29px] top-1.5 h-3 w-3 rounded-full border-2 border-cyan bg-bg shadow-[0_0_12px_rgba(0,229,255,0.6)]" />
-                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                      <span className="font-mono text-[13px] text-cyan">{c.years}</span>
-                      <h3 className="text-base font-bold">{c.title}</h3>
-                      {c.location && (
-                        <span className="font-mono text-[11px] text-muted">// {c.location}</span>
-                      )}
-                    </div>
-                    {c.result && (
-                      <div className="mt-0.5 flex items-center gap-1.5 font-mono text-xs text-amber">
-                        <Award size={12} /> {c.result}
-                      </div>
-                    )}
-                    {c.detail && <p className="mt-0.5 max-w-xl text-sm text-muted">{c.detail}</p>}
-                  </div>
-                ))}
-            </div>
-          </Reveal>
         ))}
+      </dl>
 
-        <div className="flex flex-wrap gap-3.5 py-12">
-          <Btn href="/hackathons">Hackathon Projects →</Btn>
-          <Btn href="/#awards" variant="primary">← Back to Awards</Btn>
-        </div>
+      <section className="mt-20">
+        <RecordTable comps={comps} />
+      </section>
+
+      <section className="mt-24">
+        <SectionHead
+          eyebrow="Organizations"
+          title="Where it happened."
+          lede="Choose an organization to see what happened there."
+        />
+        <LogoWall />
+      </section>
+
+      <div className="mt-20 flex flex-wrap gap-x-8 gap-y-3 border-t border-line pt-8">
+        <TextLink href="/work">The projects behind the results</TextLink>
+        <TextLink href="/about#timeline">The timeline</TextLink>
       </div>
     </main>
   );

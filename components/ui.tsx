@@ -1,97 +1,133 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Tilt } from "./tilt";
-import { Magnetic } from "./magnetic";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
-export function SectionHeading({
-  tag,
+export function Eyebrow({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return (
+    <p className={`font-mono text-[11px] uppercase tracking-[0.16em] text-muted ${className}`}>
+      {children}
+    </p>
+  );
+}
+
+export function SectionHead({
+  eyebrow,
   title,
   lede,
+  action,
 }: {
-  tag: string;
-  title: string;
-  lede?: string;
+  eyebrow: string;
+  title: ReactNode;
+  lede?: ReactNode;
+  action?: { label: string; href: string };
 }) {
   return (
-    <div className="mb-7">
-      <span className="mb-2.5 block font-mono text-[13px] text-mint">
-        <span className="text-muted">{"// "}</span>
-        {tag}
-      </span>
-      <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">{title}</h2>
-      {lede && <p className="mt-3 max-w-2xl text-muted">{lede}</p>}
+    <div className="mb-10 flex flex-wrap items-end justify-between gap-x-10 gap-y-5 sm:mb-14">
+      <div className="max-w-2xl">
+        <Eyebrow className="mb-4">{eyebrow}</Eyebrow>
+        <h2 className="text-3xl font-medium leading-[1.08] tracking-[-0.025em] sm:text-[2.6rem]">
+          {title}
+        </h2>
+        {lede && <p className="mt-4 text-lg leading-relaxed text-muted">{lede}</p>}
+      </div>
+      {action && <TextLink href={action.href}>{action.label}</TextLink>}
     </div>
   );
 }
 
-type ChipTone = "cyan" | "mint" | "amber";
-const chipTones: Record<ChipTone, string> = {
-  cyan: "text-cyan border-line-strong bg-cyan/5",
-  mint: "text-mint border-mint/30 bg-mint/5",
-  amber: "text-amber border-amber/30 bg-amber/5",
-};
+const BUTTON_BASE =
+  "inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 text-sm font-medium transition-colors";
 
-export function Chip({ children, tone = "cyan" }: { children: ReactNode; tone?: ChipTone }) {
-  return (
-    <span className={`rounded-full border px-3.5 py-1.5 font-mono text-xs ${chipTones[tone]}`}>
-      {children}
-    </span>
-  );
-}
+export const buttonStyles = {
+  solid: `${BUTTON_BASE} bg-ink text-bg hover:bg-ink/85`,
+  outline: `${BUTTON_BASE} border border-line-strong text-ink hover:border-ink`,
+  /* for use on the dark venture band */
+  stageSolid: `${BUTTON_BASE} bg-stage-ink text-stage hover:bg-white`,
+  stageOutline: `${BUTTON_BASE} border border-stage-line text-stage-ink hover:border-stage-ink`,
+} as const;
 
-export function Chips({ items, tone = "cyan" }: { items: string[]; tone?: ChipTone }) {
-  return (
-    <div className="flex flex-wrap gap-2.5">
-      {items.map((i) => (
-        <Chip key={i} tone={tone}>
-          {i}
-        </Chip>
-      ))}
-    </div>
-  );
-}
-
-export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return (
-    <Tilt
-      className={`rounded-2xl border border-line bg-[linear-gradient(160deg,var(--color-panel2),var(--color-panel))] p-7 transition-[border-color,box-shadow] duration-300 hover:border-line-strong hover:shadow-[0_12px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(0,229,255,0.08)] ${className}`}
-    >
-      {children}
-    </Tilt>
-  );
-}
-
-export function Btn({
+export function ButtonLink({
   href,
   children,
-  variant = "ghost",
+  variant = "solid",
   external = false,
 }: {
   href: string;
   children: ReactNode;
-  variant?: "primary" | "ghost";
+  variant?: keyof typeof buttonStyles;
   external?: boolean;
 }) {
-  const base =
-    "inline-block rounded-lg px-6 py-3 font-mono text-sm transition-all duration-200 hover:-translate-y-0.5";
-  const styles =
-    variant === "primary"
-      ? "btn-shine bg-cyan font-bold text-[#04252b] shadow-[0_0_24px_rgba(0,229,255,0.35)] hover:shadow-[0_0_36px_rgba(0,229,255,0.55)]"
-      : "btn-shine border border-line-strong bg-cyan/5 text-ink hover:border-cyan";
   if (external) {
     return (
-      <Magnetic>
-        <a href={href} target="_blank" rel="noopener noreferrer" className={`${base} ${styles}`}>
-          {children}
-        </a>
-      </Magnetic>
+      <a href={href} target="_blank" rel="noopener noreferrer" className={buttonStyles[variant]}>
+        {children}
+        <ArrowUpRight size={15} aria-hidden />
+      </a>
     );
   }
   return (
-    <Magnetic>
-      <Link href={href} className={`${base} ${styles}`}>
+    <Link href={href} className={buttonStyles[variant]}>
+      {children}
+    </Link>
+  );
+}
+
+/** An inline link that reads as a link: underlined, with an arrow that moves on hover. */
+export function TextLink({
+  href,
+  children,
+  external = false,
+  className = "",
+}: {
+  href: string;
+  children: ReactNode;
+  external?: boolean;
+  className?: string;
+}) {
+  const cls = `group inline-flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-line-strong underline-offset-[5px] transition-colors hover:decoration-ink ${className}`;
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>
         {children}
-      </Link>
-    </Magnetic>
+        <ArrowUpRight size={15} aria-hidden className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={cls}>
+      {children}
+      <ArrowRight size={15} aria-hidden className="transition-transform group-hover:translate-x-1" />
+    </Link>
+  );
+}
+
+/** Filter pill used by the work index, the record and the gallery. */
+export function FilterPill({
+  active,
+  onClick,
+  children,
+  count,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: ReactNode;
+  count?: number;
+}) {
+  return (
+    <button
+      type="button"
+      aria-pressed={active}
+      onClick={onClick}
+      className={`inline-flex h-9 items-center gap-2 whitespace-nowrap rounded-full border px-4 text-sm transition-colors ${
+        active
+          ? "border-ink bg-ink text-bg"
+          : "border-line-strong text-muted hover:border-ink hover:text-ink"
+      }`}
+    >
+      {children}
+      {count !== undefined && (
+        <span className={`font-mono text-[11px] ${active ? "text-bg/70" : "text-faint"}`}>{count}</span>
+      )}
+    </button>
   );
 }
